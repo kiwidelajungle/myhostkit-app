@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyHostKit — Conciergerie IA & Kits Superhôte Airbnb N°1 France</title>
+<meta name="description" content="Conciergerie IA pour hôtes Airbnb. Réponses automatiques, coordination ménage, kits superhôte. 30 jours gratuits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{--bl:#1B5E7B;--bc:#2E7FA0;--bp:#EBF4F8;--bf:#0D3A50;--cr:#F8F5EF;--w:#fff;--n:#1A1A1A;--g:#6B6B6B;--gc:#E8E4DC;--vt:#2D7A5E;--or:#C4922A;--rg:#E74C3C}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--w);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.07);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.nav-logo img{height:34px;width:auto}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{font-size:.82rem;font-weight:500;color:var(--g);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--bl)}
+.nav-cta{background:var(--bl)!important;color:#fff!important;padding:9px 20px;border-radius:7px;font-weight:700!important;font-size:.83rem!important}
+.nav-cta:hover{background:var(--bc)!important}
+.nav-cart{display:flex;align-items:center;gap:7px;background:var(--bp);border:1.5px solid rgba(27,94,123,.2);border-radius:8px;padding:8px 16px;font-size:.82rem;font-weight:700;color:var(--bl);cursor:pointer;font-family:inherit;transition:all .2s;position:relative;border:none}
+.nav-cart:hover{background:var(--bl);color:#fff}
+.cart-count{background:var(--bl);color:#fff;font-size:.6rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center}
+.nav-cart:hover .cart-count{background:#fff;color:var(--bl)}
+@media(max-width:960px){.nav-links{display:none}nav{padding:0 20px}}
+
+/* TOPBAR */
+.top-bar{background:var(--bf);color:rgba(255,255,255,.75);text-align:center;padding:9px 20px;font-size:.78rem;font-weight:500}
+.top-bar strong{color:#fff}.top-bar a{color:#A8D8EA;font-weight:700;text-decoration:none}
+
+/* HERO */
+.hero{margin-top:64px;background:var(--bf);padding:80px 80px 70px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(46,127,160,.15),transparent 60%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 15px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:22px}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#fff;line-height:1.08;margin-bottom:18px;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:#A8D8EA}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.52);line-height:1.85;margin-bottom:32px;max-width:480px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--bl);color:#fff;padding:13px 28px;border-radius:7px;font-size:.88rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary:hover{background:var(--bc);transform:translateY(-1px)}
+.btn-outline-dark{background:transparent;color:rgba(255,255,255,.65);padding:13px 24px;border-radius:7px;font-size:.88rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(255,255,255,.18);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-outline-dark:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.hero-stats{display:flex;gap:36px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.09);flex-wrap:wrap}
+.hs-num{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:#fff;line-height:1}
+.hs-lbl{font-size:.7rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);border-radius:100px;padding:7px 16px;font-size:.77rem;font-weight:600;color:#4ade80;margin-bottom:28px}
+.hero-right{position:relative}
+.hero-img{width:100%;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:60px 20px}.hero-right{display:none}}
+
+/* MARQUEE */
+.marquee-wrap{border-top:1px solid rgba(0,0,0,.07);border-bottom:1px solid rgba(0,0,0,.07);padding:13px 0;overflow:hidden;background:rgba(0,0,0,.02)}
+.marquee{display:flex;gap:44px;animation:marquee 24s linear infinite;white-space:nowrap}
+.marquee-item{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--g);display:flex;align-items:center;gap:14px}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--or);flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION LABEL */
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--bl);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-title{font-family:'Fraunces',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:300;line-height:1.1;letter-spacing:-.01em}
+.sec-title em{font-style:italic;color:var(--bl)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+
+/* CONCIERGERIE */
+#conciergerie{padding:80px;background:var(--cr);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.conc-feats{display:flex;flex-direction:column;gap:16px;margin:28px 0 32px}
+.conc-feat{display:flex;gap:13px;align-items:flex-start}
+.conc-feat-icon{width:38px;height:38px;border-radius:9px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;border:1px solid rgba(27,94,123,.12)}
+.conc-feat-title{font-size:.88rem;font-weight:700;color:var(--n);margin-bottom:3px}
+.conc-feat-desc{font-size:.79rem;color:var(--g);line-height:1.6}
+.conc-visual{background:var(--bf);border-radius:14px;padding:22px;box-shadow:0 32px 64px rgba(13,58,80,.2)}
+.cv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.cv-stat{background:rgba(255,255,255,.06);border-radius:7px;padding:10px 8px;text-align:center;border:1px solid rgba(255,255,255,.05)}
+.cv-stat-val{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:#fff;line-height:1}
+.cv-stat-lbl{font-size:.59rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.cv-chat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:12px}
+.cv-msg{padding:7px 11px;border-radius:9px;font-size:.75rem;margin-bottom:5px;max-width:84%;line-height:1.5}
+.cv-msg.v{background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)}
+.cv-msg.ai{background:rgba(27,94,123,.55);border:1px solid rgba(27,94,123,.35);color:#fff;margin-left:auto;text-align:right}
+@media(max-width:900px){#conciergerie{grid-template-columns:1fr;padding:50px 20px}}
+
+/* KITS */
+#kits{padding:80px;background:var(--w)}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.prod-card{background:var(--w);border-radius:14px;border:1px solid rgba(0,0,0,.07);overflow:hidden;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column}
+.prod-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.1);transform:translateY(-4px)}
+.prod-img{position:relative;aspect-ratio:1;overflow:hidden;background:var(--cr);flex-shrink:0}
+.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-badge{position:absolute;top:10px;left:10px;background:var(--bl);color:#fff;font-size:.63rem;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em}
+.prod-badge.gold{background:var(--or)}
+.prod-body{padding:16px;display:flex;flex-direction:column;flex:1}
+.prod-name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;color:var(--n);margin-bottom:5px}
+.prod-desc{font-size:.78rem;color:var(--g);line-height:1.6;margin-bottom:13px;flex:1}
+.price-tiers{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+.price-tier{padding:8px 12px;border:1.5px solid rgba(0,0,0,.1);border-radius:7px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center}
+.price-tier:hover{border-color:var(--bl);background:var(--bp)}
+.price-tier.selected{border-color:var(--bl);background:var(--bp)}
+.pt-name{font-size:.79rem;font-weight:600;color:var(--n)}
+.pt-price{font-size:.83rem;font-weight:700;color:var(--bl)}
+.pt-old{font-size:.71rem;color:var(--g);text-decoration:line-through}
+.prod-cta{width:100%;padding:12px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.prod-cta:hover{background:var(--bc);transform:translateY(-1px)}
+.prod-urgency{font-size:.7rem;color:var(--or);font-weight:600;text-align:center;margin-top:7px}
+@media(max-width:1100px){.products-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.products-grid{grid-template-columns:1fr}#kits{padding:50px 20px}}
+
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(90deg,var(--or),#E8B84B,var(--or));background-size:200%;animation:shimmer 3s linear infinite;text-align:center;padding:12px 20px;font-size:.79rem;font-weight:700;color:#0A0A0A;letter-spacing:.04em}
+@keyframes shimmer{0%{background-position:0}100%{background-position:200%}}
+
+/* PRICING */
+#pricing{background:linear-gradient(180deg,var(--bf) 0%,#071824 100%);padding:72px 80px}
+.pricing-header{text-align:center;margin-bottom:48px}
+.pricing-header .sec-title{color:#fff}.pricing-header .sec-title em{color:#A8D8EA}
+.pricing-header p{color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px;line-height:1.8}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1040px;margin:0 auto}
+.pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:38px 28px;position:relative;transition:background .3s}
+.pc:hover{background:rgba(255,255,255,.07)}
+.pc.feat{background:rgba(27,94,123,.18);border-color:rgba(46,127,160,.45)}
+.pc-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--bc);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;white-space:nowrap}
+.pc-name{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:12px}
+.pc-price{font-family:'Fraunces',serif;font-size:3rem;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
+.pc-price sup{font-size:1.1rem;vertical-align:super;font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;color:rgba(255,255,255,.45)}
+.pc-price span{font-size:.88rem;color:rgba(255,255,255,.32);font-family:'Plus Jakarta Sans',sans-serif}
+.pc-period{font-size:.75rem;color:rgba(255,255,255,.26);margin-bottom:22px}
+.pc-hr{height:1px;background:rgba(255,255,255,.07);margin-bottom:20px}
+.pc-feat{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;color:rgba(255,255,255,.52);margin-bottom:11px;line-height:1.5}
+.pc-feat::before{content:"✓";color:var(--or);font-weight:800;flex-shrink:0}
+.pc-feat.no{opacity:.25}.pc-feat.no::before{content:"✕";color:rgba(255,255,255,.3)}
+.pc-btn{width:100%;padding:14px;border:none;border-radius:5px;font-size:.84rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;margin-top:6px;letter-spacing:.03em}
+.pc-btn.gold{background:var(--or);color:#0A0A0A}.pc-btn.gold:hover{background:#d4a030;transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,146,42,.4)}
+.pc-btn.ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18)}.pc-btn.ghost:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.pricing-guarantees{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:32px;font-size:.75rem;color:rgba(255,255,255,.28)}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr}#pricing{padding:50px 20px}}
+
+/* SCARCITY BANNER */
+.scarcity-banner{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2);border-radius:8px;padding:14px 20px;text-align:center;margin:28px auto 0;max-width:600px;font-size:.82rem;color:#ff7b6b;font-weight:600}
+
+/* CONCOURS PS5 */
+#concours{background:#0A0A0A;padding:80px;text-align:center;position:relative;overflow:hidden}
+#concours::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(27,94,123,.12),transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(196,146,42,.08),transparent 50%);pointer-events:none}
+.concours-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}
+.concours-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#C4922A,#E8B96A);color:#000;font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border-radius:100px;margin-bottom:22px;box-shadow:0 8px 28px rgba(196,146,42,.28)}
+#concours h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:#fff;line-height:1.1;margin-bottom:14px}
+#concours h2 em{font-style:italic;color:#E8B96A}
+#concours h2 strong{font-weight:700;display:block}
+.concours-sub{font-size:.93rem;color:rgba(255,255,255,.44);line-height:1.8;max-width:500px;margin:0 auto 36px}
+.concours-box{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:36px;margin:0 auto 36px;max-width:640px;position:relative;overflow:hidden}
+.concours-box::before{content:"🎮";position:absolute;font-size:9rem;opacity:.04;top:-10px;right:-10px;line-height:1}
+.ps5-title{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:400;color:#fff;margin-bottom:4px}
+.ps5-value{font-size:.77rem;color:rgba(255,255,255,.35);margin-bottom:24px}
+.ps5-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.ps5-step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px 10px;text-align:center}
+.ps5-snum{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:300;color:#E8B96A;line-height:1;margin-bottom:6px}
+.ps5-stitle{font-size:.77rem;font-weight:700;color:#fff;margin-bottom:3px}
+.ps5-sdesc{font-size:.67rem;color:rgba(255,255,255,.36);line-height:1.5}
+.ps5-timer{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;font-size:.73rem;color:rgba(255,255,255,.36)}
+.ps5-cd{display:flex;gap:4px}
+.ps5-block{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:5px;padding:5px 9px;font-family:monospace;font-size:.95rem;font-weight:700;color:#E8B96A;min-width:34px;text-align:center}
+.ps5-sep{color:#E8B96A;font-weight:700}
+.concours-form{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:440px;margin:0 auto 14px}
+.concours-input{padding:13px 16px;border:1.5px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(255,255,255,.06);color:#fff;font-size:.88rem;font-family:inherit;outline:none;transition:border-color .2s}
+.concours-input::placeholder{color:rgba(255,255,255,.26)}
+.concours-input:focus{border-color:#E8B96A}
+.concours-btn{background:linear-gradient(135deg,#C4922A,#E8B96A);color:#000;border:none;padding:13px 22px;border-radius:7px;font-weight:800;font-size:.84rem;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .2s}
+.concours-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(196,146,42,.38)}
+.concours-mention{font-size:.67rem;color:rgba(255,255,255,.2);margin-bottom:20px}
+.concours-parts{display:flex;align-items:center;justify-content:center;gap:9px;font-size:.74rem;color:rgba(255,255,255,.3)}
+.part-avs{display:flex}
+.part-av{width:28px;height:28px;border-radius:50%;background:var(--bl);border:2px solid #0A0A0A;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;margin-left:-7px}
+.part-av:first-child{margin-left:0}
+@media(max-width:640px){.ps5-steps{grid-template-columns:1fr}.concours-form{grid-template-columns:1fr}.concours-btn{width:100%}#concours{padding:50px 20px}}
+
+/* MARQUE BLANCHE */
+#marque-blanche{background:linear-gradient(160deg,#030C14,#071828);padding:80px;position:relative;overflow:hidden}
+#marque-blanche::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(196,146,42,.05),transparent 50%);pointer-events:none}
+.mb-hero{text-align:center;margin-bottom:44px}
+.mb-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(196,146,42,.1);border:1px solid rgba(196,146,42,.25);border-radius:100px;padding:6px 18px;font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:18px}
+.mb-hero h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:#fff;line-height:1.1;margin-bottom:13px}
+.mb-hero h2 em{font-style:italic;color:var(--or)}
+.mb-hero p{font-size:.93rem;color:rgba(255,255,255,.45);max-width:520px;margin:0 auto;line-height:1.8}
+.mb-plans{display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;margin:0 auto 40px;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden}
+.mb-plan{padding:26px 20px;text-align:center;cursor:pointer;transition:background .25s;border-right:1px solid rgba(255,255,255,.06);position:relative}
+.mb-plan:last-child{border-right:none}
+.mb-plan:hover{background:rgba(255,255,255,.04)}
+.mb-plan.sel{background:rgba(27,94,123,.18);border-right-color:rgba(27,94,123,.2)}
+.mb-plan.sel::after{content:'✓';position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;background:var(--or);color:#000;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:18px}
+.mb-plan-name{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:7px}
+.mb-plan-price{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:#fff;line-height:1}
+.mb-plan-price span{font-size:.82rem;color:rgba(255,255,255,.32);font-family:'Plus Jakarta Sans',sans-serif}
+.mb-plan-logs{font-size:.72rem;color:rgba(255,255,255,.32);margin:5px 0 8px}
+.mb-plan-marge{font-size:.76rem;font-weight:700;color:#4ade80}
+.mb-plan-btn{margin-top:13px;width:100%;padding:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:rgba(255,255,255,.55);font-size:.78rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s}
+.mb-plan.sel .mb-plan-btn{background:var(--bl);border-color:var(--bc);color:#fff}
+.mb-progress{height:2px;background:rgba(255,255,255,.05)}
+.mb-progress-fill{height:100%;background:linear-gradient(90deg,var(--bl),var(--or));transition:width .4s;width:20%}
+.mb-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto}
+.mb-tab{flex:1;padding:13px 8px;text-align:center;font-size:.75rem;font-weight:500;color:rgba(255,255,255,.28);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;min-width:90px}
+.mb-tab.active{color:#fff;border-bottom-color:var(--or)}
+.mb-tab.done{color:#4ade80}
+.mb-step-num{display:block;font-size:.57rem;opacity:.6;margin-bottom:2px}
+.mb-body{max-width:1100px;margin:0 auto;padding:40px 80px}
+.mb-panel{display:none}
+.mb-panel.on{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.mb-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.mb-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:22px}
+.mb-card-title{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px}
+.mb-field{margin-bottom:13px}
+.mb-lbl{display:block;font-size:.7rem;color:rgba(255,255,255,.38);margin-bottom:4px;font-weight:500}
+.mb-lbl .req{color:var(--or)}
+.mb-input,.mb-select{width:100%;padding:10px 13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;font-size:.87rem;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color .2s;box-sizing:border-box}
+.mb-input:focus,.mb-select:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(196,146,42,.1)}
+.mb-input::placeholder{color:rgba(255,255,255,.2)}
+.mb-select{background:#071828;appearance:none}
+.mb-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mb-notice{background:rgba(196,146,42,.08);border:1px solid rgba(196,146,42,.2);border-radius:7px;padding:10px 14px;font-size:.78rem;color:#fbbf24;margin-bottom:14px;line-height:1.5}
+.mb-notice.ok{background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.18);color:#86efac}
+.mb-notice.info{background:rgba(27,94,123,.1);border-color:rgba(27,94,123,.25);color:#A8D8EA}
+.mb-preview{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin-top:12px}
+.mb-prev-bar{padding:10px 14px;display:flex;align-items:center;gap:9px;transition:background .3s}
+.mb-prev-logo-wrap{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;transition:background .3s}
+.mb-prev-name{font-size:.88rem;font-weight:600;color:#fff}
+.mb-prev-sub{font-size:.67rem;color:rgba(255,255,255,.45)}
+.mb-prev-body{padding:12px 14px}
+.mb-prev-msg{padding:6px 10px;border-radius:8px;font-size:.74rem;margin-bottom:5px;max-width:82%;line-height:1.5}
+.mb-prev-msg.v{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+.mb-prev-msg.ai{margin-left:auto;text-align:right;color:#fff;transition:background .3s}
+.mb-logo-upload{border:1.5px dashed rgba(255,255,255,.12);border-radius:8px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px}
+.mb-logo-upload:hover{border-color:rgba(196,146,42,.4);background:rgba(196,146,42,.04)}
+.mb-logo-upload input{display:none}
+.mb-logo-preview{max-height:52px;max-width:180px;object-fit:contain;display:none;margin:8px auto 0}
+.mb-logo-wrapper{display:none;margin-top:8px;text-align:center}
+.mb-colors{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.mb-colors div{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s}
+.mb-colors div:hover{transform:scale(1.15)}
+.mb-plan-display{text-align:center;padding:8px 0}
+.mb-disp-price{font-family:'Fraunces',serif;font-size:2rem;font-weight:300;color:#fff;line-height:1}
+.mb-disp-name{font-size:.75rem;color:rgba(255,255,255,.36);margin-top:4px}
+.mb-disp-marge{font-size:.78rem;font-weight:700;color:#4ade80;margin-top:6px}
+.mb-contract{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:18px;height:260px;overflow-y:auto;font-size:.79rem;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:14px;scroll-behavior:smooth}
+.mb-contract h4{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.85);margin:14px 0 5px;text-transform:uppercase;letter-spacing:.06em;font-size:.74rem}
+.mb-contract h4:first-child{margin-top:0}
+.mb-contract p{margin-bottom:8px}
+.mb-ck-row{display:flex;align-items:flex-start;gap:10px;padding:11px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px;margin-bottom:7px;cursor:pointer;opacity:.35;pointer-events:none;transition:all .2s}
+.mb-ck-row.on{opacity:1;pointer-events:all}
+.mb-ck-row input[type=checkbox]{width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--or);cursor:pointer}
+.mb-ck-text{font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.5}
+.mb-ck-sub{font-size:.69rem;color:rgba(255,255,255,.3);margin-top:2px}
+.mb-sig-area{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:11px;margin-top:12px}
+.mb-sig-lbl{font-size:.7rem;color:rgba(255,255,255,.35);margin-bottom:6px}
+.mb-sig-canvas{width:100%;height:80px;border-bottom:1px solid rgba(255,255,255,.1);cursor:crosshair;display:block;touch-action:none;background:transparent}
+.mb-sig-clear{font-size:.7rem;color:var(--or);cursor:pointer;background:none;border:none;padding:0;margin-top:5px;font-family:inherit}
+.mb-pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.mb-pay-opt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s}
+.mb-pay-opt:hover{border-color:rgba(196,146,42,.4)}
+.mb-pay-opt.sel{border-color:var(--or);background:rgba(196,146,42,.08)}
+.mb-pay-icon{font-size:1.3rem}
+.mb-pay-name{font-size:.83rem;font-weight:600;color:#fff}
+.mb-pay-sub{font-size:.7rem;color:rgba(255,255,255,.36)}
+.mb-recap{background:rgba(196,146,42,.07);border:1px solid rgba(196,146,42,.18);border-radius:8px;padding:16px;margin-bottom:14px}
+.mb-recap-row{display:flex;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.48);padding:4px 0}
+.mb-recap-total{font-size:1rem;font-weight:700;color:var(--or);padding:8px 0 2px;border-top:1px solid rgba(255,255,255,.08);margin-top:6px}
+.mb-cgv-lbl{display:flex;align-items:flex-start;gap:8px;font-size:.77rem;color:rgba(255,255,255,.42);cursor:pointer;line-height:1.5;margin-bottom:13px}
+.mb-cgv-lbl input{accent-color:var(--or);margin-top:2px;flex-shrink:0;cursor:pointer}
+.mb-cgv-lbl a{color:var(--or);text-decoration:underline}
+.mb-actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+.mb-btn-back{padding:10px 22px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:7px;color:rgba(255,255,255,.45);font-size:.84rem;font-family:inherit;cursor:pointer;transition:all .2s}
+.mb-btn-back:hover{border-color:rgba(255,255,255,.32);color:#fff}
+.mb-btn-next{padding:12px 28px;background:var(--or);border:none;border-radius:7px;color:#0A0A0A;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s}
+.mb-btn-next:hover{background:#d4a030;transform:translateY(-1px)}
+.mb-btn-next:disabled{background:rgba(255,255,255,.08);cursor:not-allowed;transform:none;color:rgba(255,255,255,.25)}
+.mb-access{background:linear-gradient(135deg,rgba(27,94,123,.2),rgba(13,58,80,.4));border:1px solid rgba(46,127,160,.25);border-radius:14px;padding:36px;text-align:center;max-width:560px;margin:0 auto}
+.mb-access-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.mb-access-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:12px;text-align:left}
+.mb-access-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.28);margin-bottom:4px}
+.mb-access-val{font-size:.83rem;font-weight:600;color:#fff;word-break:break-all}
+@media(max-width:900px){.mb-body{padding:30px 20px}.mb-grid{grid-template-columns:1fr}.mb-row2{grid-template-columns:1fr}.mb-pay-opts{grid-template-columns:1fr}.mb-access-grid{grid-template-columns:1fr}#marque-blanche{padding:50px 20px}.mb-plans{grid-template-columns:1fr}}
+
+/* AVIS */
+#avis{padding:80px;background:var(--cr)}
+#avis h2{text-align:center;margin-bottom:48px}
+.avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.avis-card{background:var(--w);border-radius:14px;padding:26px;border:1px solid rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
+.avis-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.09)}
+.avis-card.dark{background:var(--bf)}
+.avis-quote{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--or);line-height:1;margin-bottom:11px}
+.avis-text{font-size:.86rem;color:var(--g);line-height:1.8;margin-bottom:16px;font-style:italic}
+.avis-card.dark .avis-text{color:rgba(255,255,255,.58)}
+.avis-author{display:flex;align-items:center;gap:9px;padding-top:12px;border-top:1px solid rgba(0,0,0,.06)}
+.avis-card.dark .avis-author{border-color:rgba(255,255,255,.07)}
+.avis-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0}
+.avis-name{font-size:.82rem;font-weight:600;color:var(--n)}
+.avis-card.dark .avis-name{color:#fff}
+.avis-role{font-size:.7rem;color:var(--or);font-weight:600}
+.avis-stars{color:var(--or);font-size:.8rem;margin-left:auto}
+@media(max-width:900px){.avis-grid{grid-template-columns:1fr}#avis{padding:50px 20px}}
+
+/* PARTENAIRE */
+#partenaire{padding:80px;background:var(--w);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.partner-form{background:var(--w);border-radius:16px;padding:36px;box-shadow:0 24px 60px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.06)}
+.partner-form h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:400;color:var(--n);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--g);margin-bottom:6px}
+.form-input{width:100%;padding:11px 13px;border:1.5px solid rgba(0,0,0,.09);border-radius:7px;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--w);outline:none;transition:border-color .2s;box-sizing:border-box}
+.form-input:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(27,94,123,.08)}
+.form-submit{width:100%;padding:13px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.form-submit:hover{background:var(--bc);transform:translateY(-1px)}
+@media(max-width:900px){#partenaire{grid-template-columns:1fr;padding:50px 20px}}
+
+/* CONTACT */
+#contact{padding:80px;background:var(--cr)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:20px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.contact-icon{width:42px;height:42px;border-radius:10px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid rgba(27,94,123,.12)}
+.contact-item-title{font-size:.84rem;font-weight:700;color:var(--n);margin-bottom:3px}
+.contact-item-val{font-size:.84rem;color:var(--g)}
+.contact-item-val a{color:var(--bl);text-decoration:none}
+.contact-item-val a:hover{text-decoration:underline}
+.contact-map{background:var(--bl);border-radius:14px;padding:24px;color:#fff;font-size:.85rem;line-height:1.8}
+.contact-map strong{color:#A8D8EA}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}#contact{padding:50px 20px}}
+
+/* FAQ */
+#faq{padding:80px;background:var(--w)}
+.faq-wrap{max-width:660px;margin:40px auto 0}
+.faq-item{border-bottom:1px solid rgba(0,0,0,.08)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--n);gap:16px;transition:color .2s;user-select:none}
+.faq-q:hover{color:var(--bl)}
+.faq-q svg{width:16px;height:16px;color:var(--bl);flex-shrink:0;transition:transform .3s}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{font-size:.84rem;color:var(--g);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:20px}
+@media(max-width:900px){#faq{padding:50px 20px}}
+
+/* FINAL CTA */
+.final-cta{background:var(--bf);padding:100px 80px;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(46,127,160,.22),transparent 70%);pointer-events:none}
+.final-cta .sec-title{color:#fff;position:relative}
+.final-cta p{color:rgba(255,255,255,.48);font-size:.94rem;max-width:460px;margin:14px auto 36px;line-height:1.8;position:relative}
+.final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+@media(max-width:900px){.final-cta{padding:60px 20px}}
+
+/* FOOTER */
+footer{background:#0A0A0A;padding:56px 80px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px}
+.footer-logo{height:28px;filter:brightness(0) invert(1);margin-bottom:12px;display:block}
+.footer-tagline{font-size:.79rem;color:rgba(255,255,255,.32);line-height:1.75;max-width:240px}
+.footer-col h5{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
+.footer-col a,.footer-col span{display:block;font-size:.79rem;color:rgba(255,255,255,.42);text-decoration:none;margin-bottom:8px;transition:color .2s;cursor:pointer}
+.footer-col a:hover,.footer-col span:hover{color:#A8D8EA}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.71rem;color:rgba(255,255,255,.18)}
+.footer-legal-links{display:flex;gap:16px}
+.footer-legal-links span{cursor:pointer;transition:color .2s}.footer-legal-links span:hover{color:#A8D8EA}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}footer{padding:40px 20px 24px}}
+
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:400;display:none;cursor:pointer}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;background:var(--w);z-index:401;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.15)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{padding:22px 24px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cart-head h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:400;color:var(--n)}
+.cart-close-btn{background:rgba(0,0,0,.06);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.cart-close-btn:hover{background:rgba(0,0,0,.12)}
+.cart-body-wrap{flex:1;overflow-y:auto;padding:18px 24px}
+.cart-foot{padding:16px 24px;border-top:1px solid rgba(0,0,0,.07);flex-shrink:0}
+
+/* STRIPE MODAL */
+.stripe-modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+.stripe-box{background:#0D1824;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:36px;max-width:480px;width:100%;position:relative;animation:fadeUp .3s ease;max-height:90vh;overflow-y:auto}
+.stripe-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.45);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.82rem;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1}
+.stripe-close:hover{background:rgba(255,255,255,.14);color:#fff}
+.stripe-plan-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.stripe-plan-name{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:300;color:#fff}
+.stripe-plan-name em{font-style:italic;color:var(--or)}
+.stripe-plan-price{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;color:var(--or)}
+.stripe-features{background:rgba(255,255,255,.04);border-radius:7px;padding:12px;margin-bottom:16px}
+.stripe-form{display:flex;flex-direction:column;gap:10px}
+.s-input{width:100%;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-size:.87rem;font-family:'Plus Jakarta Sans',sans-serif;color:#fff;outline:none;transition:border-color .2s;box-sizing:border-box}
+.s-input:focus{border-color:rgba(196,146,42,.5)}
+.s-input::placeholder{color:rgba(255,255,255,.2)}
+.s-select{background:#0D1824}
+.s-2col{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.s-cgv{display:flex;align-items:flex-start;gap:8px;font-size:.76rem;color:rgba(255,255,255,.4);cursor:pointer;line-height:1.5;padding:4px 0}
+.s-cgv input{accent-color:var(--or);margin-top:2px;flex-shrink:0;cursor:pointer;width:15px;height:15px}
+.s-cgv a{color:var(--or);text-decoration:underline}
+.s-submit{background:var(--or);color:#0A0A0A;border:none;border-radius:6px;padding:14px;font-size:.9rem;font-weight:800;font-family:inherit;cursor:pointer;transition:all .2s;width:100%;margin-top:4px}
+.s-submit:hover{background:#d4a030;transform:translateY(-1px)}
+.s-submit:disabled{background:rgba(255,255,255,.08);cursor:not-allowed;transform:none;color:rgba(255,255,255,.3)}
+.s-note{font-size:.7rem;color:rgba(255,255,255,.2);text-align:center;margin-top:7px;line-height:1.6}
+.dv-progress{height:2px;background:rgba(255,255,255,.06);border-radius:1px;margin-bottom:14px}
+.dv-prog-fill{height:100%;background:var(--or);border-radius:1px;transition:width .3s}
+.dv-step{display:none}
+.dv-step.on{display:block}
+.dv-question{font-size:1rem;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.4}
+.dv-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.dv-option{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:12px 14px;cursor:pointer;font-size:.85rem;color:rgba(255,255,255,.65);transition:all .2s;display:flex;align-items:center;gap:10px}
+.dv-option:hover{border-color:rgba(196,146,42,.4);background:rgba(196,146,42,.07);color:#fff}
+.dv-option.sel{border-color:var(--or);background:rgba(196,146,42,.12);color:#fff}
+.dv-option-icon{font-size:1.1rem;flex-shrink:0}
+.dv-nav{display:flex;gap:10px;margin-top:4px}
+.dv-btn-back{padding:10px 20px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:6px;color:rgba(255,255,255,.45);font-size:.84rem;font-family:inherit;cursor:pointer;transition:all .2s}
+.dv-btn-back:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+.dv-btn-next{flex:1;padding:12px;background:var(--or);border:none;border-radius:6px;color:#0A0A0A;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s}
+.dv-btn-next:hover{background:#d4a030}
+
+/* DEMO DASHBOARD */
+.demo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:none;align-items:flex-start;justify-content:center;backdrop-filter:blur(12px);padding:16px 12px;overflow-y:auto}
+.demo-modal{background:#0D1824;border:1px solid rgba(255,255,255,.1);border-radius:20px;width:100%;max-width:1080px;margin:auto;position:relative;overflow:hidden;animation:fadeUp .3s ease}
+.demo-modal-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.5);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.9rem;z-index:20;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.demo-modal-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.dm-topnav{background:#071828;border-bottom:1px solid rgba(255,255,255,.07);padding:0 18px;height:50px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.dm-logo{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.dm-logo-mark{width:24px;height:24px;background:#0F6E56;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.dm-logo-name{font-size:13px;font-weight:700;color:#fff}
+.dm-logo-tag{font-size:10px;background:#E1F5EE;color:#085041;padding:2px 8px;border-radius:20px;font-weight:700}
+.dm-nav-tabs{display:flex;gap:2px;overflow-x:auto}
+.dm-tab{padding:6px 12px;font-size:11px;border:none;background:transparent;cursor:pointer;color:rgba(255,255,255,.4);border-radius:6px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.dm-tab:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75)}
+.dm-tab.dm-on{background:#E1F5EE;color:#085041;font-weight:700}
+.dm-cta-top{font-size:11px;padding:7px 16px;border-radius:6px;background:#0F6E56;color:#E1F5EE;border:none;cursor:pointer;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0}
+.dm-cta-top:hover{background:#085041}
+.dm-shell{display:flex;height:510px}
+.dm-sidebar{width:185px;background:#060f1a;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;flex-shrink:0}
+.dm-sb-logo{padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:7px}
+.dm-sb-lm{width:20px;height:20px;background:#0F6E56;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dm-sb-name{font-size:12px;font-weight:700;color:#fff}
+.dm-sb-nav{padding:8px 6px;flex:1;overflow-y:auto}
+.dm-sb-sec{font-size:9px;color:rgba(255,255,255,.22);padding:8px 8px 3px;text-transform:uppercase;letter-spacing:.07em}
+.dm-sb-item{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:6px;cursor:pointer;font-size:11px;color:rgba(255,255,255,.42);margin-bottom:1px;transition:background .12s;border:none;background:transparent;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif}
+.dm-sb-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+.dm-sb-item.dm-act{background:#E1F5EE;color:#085041;font-weight:700}
+.dm-sb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dm-sb-badge{margin-left:auto;font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700}
+.dm-main{flex:1;overflow-y:auto;background:#090f19}
+.dm-mhd{background:#060f1a;border-bottom:1px solid rgba(255,255,255,.06);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.dm-mhd-title{font-size:12px;font-weight:700;color:#fff}
+.dm-mbody{padding:13px}
+.dm-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:11px}
+.dm-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:10px 12px;position:relative;overflow:hidden}
+.dm-kpi-lbl{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.dm-kpi-val{font-size:19px;font-weight:700;color:#fff}
+.dm-kpi-delta{font-size:9px;margin-top:2px;color:#1D9E75}
+.dm-kpi-delta.warn{color:#BA7517}
+.dm-row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
+.dm-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px;position:relative}
+.dm-card-hd{font-size:11px;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.dm-card-sub{font-size:9px;color:rgba(255,255,255,.28);font-weight:400}
+.dm-ai-dot{width:5px;height:5px;background:#1D9E75;border-radius:50%;display:inline-block;margin-right:3px}
+.dm-msg{display:flex;gap:7px;margin-bottom:6px;align-items:flex-start}
+.dm-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.dm-av.ai{background:#E1F5EE;color:#085041}
+.dm-av.gu{background:#EEEDFE;color:#3C3489}
+.dm-bub{background:rgba(255,255,255,.07);border-radius:7px;padding:5px 9px;font-size:10px;color:rgba(255,255,255,.7);line-height:1.5}
+.dm-bub.ai-bub{background:rgba(15,110,86,.3);border:1px solid rgba(15,110,86,.2);color:#d0f0e8}
+.dm-bt{font-size:9px;color:rgba(255,255,255,.22);margin-top:2px}
+.dm-prop{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:rgba(255,255,255,.04);border-radius:6px;margin-bottom:4px}
+.dm-pname{font-size:10px;font-weight:700;color:#fff}
+.dm-pmeta{font-size:9px;color:rgba(255,255,255,.32)}
+.dm-chip{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700}
+.dm-chip-g{background:#E1F5EE;color:#085041}
+.dm-chip-a{background:#FAEEDA;color:#633806}
+.dm-chip-b{background:#E6F1FB;color:#0C447C}
+.dm-bar-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.dm-bar-lbl{width:50px;font-size:9px;color:rgba(255,255,255,.32);text-align:right;flex-shrink:0}
+.dm-bar-track{flex:1;height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.dm-bar-fill{height:100%;border-radius:3px}
+.dm-bar-val{width:32px;font-size:9px;color:rgba(255,255,255,.32)}
+.dm-ai-panel{background:rgba(15,110,86,.1);border:1px solid rgba(15,110,86,.2);border-radius:9px;padding:10px;margin-bottom:10px}
+.dm-ai-panel-hd{font-size:10px;font-weight:700;color:#9FE1CB;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.dm-ai-sugg{background:rgba(255,255,255,.04);border:1px solid rgba(15,110,86,.18);border-radius:6px;padding:7px 10px;font-size:10px;color:rgba(255,255,255,.7);margin-bottom:5px;cursor:pointer;transition:border-color .15s;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.dm-ai-sugg:last-child{margin-bottom:0}
+.dm-ai-sugg:hover{border-color:#1D9E75}
+.dm-ai-sugg-action{font-size:9px;color:#1D9E75;margin-top:2px}
+.dm-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dm-cal-cell{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,.28)}
+.dm-cal-cell.taken{background:rgba(15,110,86,.25);color:#9FE1CB;font-weight:700}
+.dm-cal-cell.part{background:rgba(196,146,42,.2);color:#FAC775}
+.dm-cal-cell.today{background:#0F6E56;color:#E1F5EE;font-weight:700}
+/* FIX BUG "Nos offres" — dm-pc-btn reset alors que ghost a besoin du border */
+.dm-pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dm-pc{border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;background:rgba(255,255,255,.03)}
+.dm-pc.dm-pc-feat{border:2px solid #0F6E56;background:rgba(15,110,86,.06)}
+.dm-pc-pop{display:inline-block;font-size:9px;background:#E1F5EE;color:#085041;padding:2px 8px;border-radius:20px;margin-bottom:7px;font-weight:700}
+.dm-pc-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.dm-pc-price{font-size:22px;font-weight:700;color:#fff;margin-bottom:2px}
+.dm-pc-price span{font-size:11px;font-weight:400;color:rgba(255,255,255,.32)}
+.dm-pc-period{font-size:10px;color:rgba(255,255,255,.22);margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.dm-pc-feat{display:flex;align-items:flex-start;gap:5px;font-size:10px;color:rgba(255,255,255,.6);margin-bottom:4px;line-height:1.4}
+.dm-pc-feat-x{display:flex;align-items:flex-start;gap:5px;font-size:10px;color:rgba(255,255,255,.2);margin-bottom:4px}
+.dm-pc-check{color:#1D9E75;flex-shrink:0;font-weight:700}
+.dm-pc-cross{color:rgba(255,255,255,.18);flex-shrink:0}
+/* CORRECTION BUG : séparation .dm-pc-btn-main et .dm-pc-btn-ghost pour éviter que border:none écrase le ghost */
+.dm-pc-btn{width:100%;padding:9px;margin-top:12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s}
+.dm-pc-btn-main{background:#0F6E56;color:#E1F5EE;border:none}
+.dm-pc-btn-main:hover{background:#085041;transform:translateY(-1px)}
+.dm-pc-btn-ghost{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2)}
+.dm-pc-btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.45)}
+.dm-bottom-bar{background:#060f1a;border-top:1px solid rgba(255,255,255,.06);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.dm-plan-btns{display:flex;gap:5px}
+.dm-plan-btn{font-size:10px;padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.dm-plan-btn:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
+.dm-plan-btn.dm-plan-active{background:#E1F5EE;color:#085041;font-weight:700;border-color:#9FE1CB}
+@media(max-width:820px){.dm-shell{flex-direction:column;height:auto}.dm-sidebar{width:100%;max-height:120px;overflow-y:auto}.dm-kpi-row{grid-template-columns:1fr 1fr}.dm-row2{grid-template-columns:1fr}.dm-pricing-grid{grid-template-columns:1fr}.dm-nav-tabs{display:none}.dm-bottom-bar{flex-direction:column;align-items:flex-start}}
+
+/* MODALES LEGAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.modal-box{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-width:760px;max-height:88vh;overflow-y:auto;padding:44px}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.modal-header h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:400;color:var(--n)}
+.modal-close-btn{width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px}
+.modal-body h3{font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px}
+.modal-body p,.modal-body li{font-size:.84rem;color:var(--g);line-height:1.85;margin-bottom:8px}
+.modal-body ul{padding-left:18px;margin-bottom:10px}
+.modal-body strong{color:var(--n)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--n);color:#fff;padding:11px 22px;border-radius:100px;font-size:.81rem;font-weight:600;z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* NEUROMARKETING TIERS */
+.pt-tagline{font-size:.77rem;color:var(--bl);font-weight:700;margin-bottom:3px}
+.pt-desc{font-size:.73rem;color:var(--g);line-height:1.55;margin:4px 0 2px}
+.pt-for{font-size:.71rem;color:var(--vt);font-weight:600;font-style:italic}
+.pt-popular-tag{display:inline-block;background:var(--or);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-bottom:5px}
+.prod-social-proof{display:flex;flex-direction:column;gap:5px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(0,0,0,.07)}
+.psp-item{display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--g)}
+.psp-item span:first-child{font-size:.85rem}
+.prod-cta-wrap{display:flex;gap:8px;margin-bottom:0}
+.prod-cta-wrap .prod-cta{flex:1}
+.prod-btn-buynow{flex:1;padding:12px 8px;background:var(--or);color:#0A0A0A;border:none;border-radius:7px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px}
+.prod-btn-buynow:hover{background:#d4a030;transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<div class="top-bar">⚡ <strong>Offre limitée</strong> — 30 jours gratuits sur la Conciergerie IA · Il reste <span id="spots-left">47</span> places &nbsp;·&nbsp; <a href="#kits">Kits Superhôte livraison 48h →</a></div>
+
+<nav id="main-nav">
+  <a href="#" class="nav-logo"><img src="https://myhostkit.com/cdn/shop/files/MyHostKit_1.png?v=1769257971" alt="MyHostKit"></a>
+  <div class="nav-links">
+    <a href="#conciergerie">Conciergerie IA</a>
+    <a href="#pricing">Tarifs</a>
+    <a href="#marque-blanche">Marque blanche</a>
+    <a href="#kits">Kits</a>
+    <a href="#partenaire">Partenaire</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing" class="nav-cta">Essai 30j gratuit</a>
+    <button class="nav-cart" onclick="openCart()">
+      🛒 Panier <span id="cart-count" class="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div style="position:relative;z-index:1">
+    <div class="live-badge reveal"><div class="tag-dot"></div><span id="live-count">12</span> hôtes actifs en ce moment</div>
+    <div class="hero-tag reveal rd1"><div class="tag-dot"></div>Conciergerie IA · Marque Blanche · Kits Superhôte</div>
+    <h1 class="reveal rd1">L'IA qui gère vos<br>logements <em>à votre place.</em></h1>
+    <p class="hero-sub reveal rd2">Réponses voyageurs en &lt;2min, coordination ménage, réapprovisionnement automatique — 24h/24. La solution N°1 des hôtes Airbnb et conciergeries France.</p>
+    <div class="hero-actions reveal rd2">
+      <a href="#pricing" class="btn-primary">Essai gratuit 30 jours →</a>
+      <a href="#conciergerie" class="btn-outline-dark">Voir comment ça marche</a>
+    </div>
+    <div class="hero-stats reveal rd3">
+      <div><div class="hs-num">3 000+</div><div class="hs-lbl">Conciergeries actives</div></div>
+      <div><div class="hs-num">&lt;2min</div><div class="hs-lbl">Réponse IA</div></div>
+      <div><div class="hs-num">4,9★</div><div class="hs-lbl">Note moyenne clients</div></div>
+      <div><div class="hs-num">30j</div><div class="hs-lbl">Essai 100% gratuit</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://myhostkit.com/cdn/shop/files/IMG-0582.png?v=1770474176" alt="Kit MyHostKit" class="hero-img">
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee">
+    <div class="marquee-item"><div class="marquee-dot"></div>Réponses IA 24h/24</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Planning ménage automatisé</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Commandes automatiques MyHostKit</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Rapport hebdomadaire</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Compatible Airbnb & Booking</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Marque blanche B2B</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Support 7j/7 francophone</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Réponses IA 24h/24</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Planning ménage automatisé</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Commandes automatiques MyHostKit</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Rapport hebdomadaire</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Compatible Airbnb & Booking</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Marque blanche B2B</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Support 7j/7 francophone</div>
+  </div>
+</div>
+
+<section id="conciergerie">
+  <div class="reveal">
+    <div class="sec-label">Conciergerie intelligente</div>
+    <h2 class="sec-title">Votre IA répond,<br>coordonne, <em>commande.</em></h2>
+    <p style="font-size:.93rem;color:var(--g);line-height:1.85;max-width:460px;margin-top:12px">Donnez accès une fois. L'IA répond aux voyageurs en moins de 2 minutes avec les informations exactes du logement, envoie les emails aux prestataires et commande les consommables.</p>
+    <div class="conc-feats">
+      <div class="conc-feat"><div class="conc-feat-icon">🤖</div><div><div class="conc-feat-title">Réponses automatiques 24h/24</div><div class="conc-feat-desc">Claude AI analyse et répond en &lt;2 min avec les infos exactes du logement.</div></div></div>
+      <div class="conc-feat"><div class="conc-feat-icon">🧹</div><div><div class="conc-feat-title">Planning ménage automatisé</div><div class="conc-feat-desc">Email au prestataire dès le départ confirmé. Copie pour vous. Zéro appel.</div></div></div>
+      <div class="conc-feat"><div class="conc-feat-icon">📦</div><div><div class="conc-feat-title">Réapprovisionnement automatique</div><div class="conc-feat-desc">Stock détecté bas → commande MyHostKit → récapitulatif email immédiat.</div></div></div>
+      <div class="conc-feat"><div class="conc-feat-icon">📊</div><div><div class="conc-feat-title">Rapports hebdomadaires</div><div class="conc-feat-desc">Revenus, taux d'occupation, note, incidents — synthèse automatique chaque lundi.</div></div></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="#pricing" class="btn-primary" style="text-decoration:none">Démarrer l'essai gratuit 30j →</a>
+      <button onclick="openDemoGate()" class="btn-outline-dark" style="border:1.5px solid rgba(27,94,123,.3);color:var(--bl)">Voir la démo interactive</button>
+    </div>
+  </div>
+  <div class="conc-visual reveal">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px"><div class="tag-dot"></div><span style="font-size:.68rem;font-weight:700;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.1em">IA Active — En ligne</span></div>
+    <div class="cv-stats">
+      <div class="cv-stat"><div class="cv-stat-val">100%</div><div class="cv-stat-lbl">Taux réponse</div></div>
+      <div class="cv-stat"><div class="cv-stat-val" style="color:var(--or)">&lt;2min</div><div class="cv-stat-lbl">Délai moyen</div></div>
+      <div class="cv-stat"><div class="cv-stat-val" style="color:#22c55e">4,9★</div><div class="cv-stat-lbl">Note clients</div></div>
+    </div>
+    <div class="cv-chat" style="margin-bottom:10px">
+      <div style="font-size:.6rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Conversation en direct</div>
+      <div class="cv-msg v">À quelle heure puis-je arriver demain ?</div>
+      <div class="cv-msg ai">Arrivée dès 15h ! Code d'entrée : <strong>4821</strong>. Parking gratuit devant l'immeuble 🏠</div>
+      <div style="font-size:.58rem;color:rgba(255,255,255,.2);text-align:right;margin-top:3px">Réponse automatique · 11 secondes</div>
+    </div>
+    <div class="cv-chat">
+      <div style="font-size:.6rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Alerte automatique</div>
+      <div style="background:rgba(45,122,94,.2);border:1px solid rgba(45,122,94,.3);border-radius:7px;padding:9px 12px;font-size:.74rem;color:#6fcca0;line-height:1.5">✅ Ménage planifié le 15/01 · Marie D. notifiée par email · Vous en copie</div>
+    </div>
+  </div>
+</section>
+
+<section id="kits" style="padding:80px;background:var(--w)">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="sec-label" style="justify-content:center">Boutique Superhôte</div>
+    <h2 class="sec-title reveal">Les kits qui font<br>les <em>superhôtes.</em></h2>
+    <p style="font-size:.9rem;color:var(--g);margin-top:10px;line-height:1.8">Qualité hôtelière · Livraison 48h · Retours 14 jours gratuits</p>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#FEF3E2;border:1px solid #F59E0B;border-radius:100px;padding:7px 18px;font-size:.76rem;font-weight:700;color:#92400E;margin-top:14px">⏰ Commandé <span id="kit-orders">47</span>× cette semaine · Stock limité</div>
+  </div>
+  <div class="products-grid">
+    <div class="prod-card reveal" data-kit="kit-lancement">
+      <div class="prod-img"><img src="https://myhostkit.com/cdn/shop/files/IMG-0582.png?v=1770474176" alt="Kit Lancement Hôte MyHostKit" loading="lazy"><div class="prod-badge">⭐ Bestseller</div></div>
+      <div class="prod-body">
+        <div class="prod-name">Kit Lancement Hôte</div>
+        <div class="prod-desc">Tout pour vos premiers séjours 5 étoiles. Les 4 critères Airbnb couverts en un colis.</div>
+        <div class="price-tiers">
+          <div class="price-tier selected" data-tier-name="Essentiel" data-price="149" data-stripe="kit_essentiel" onclick="selectTier(this,'kit-lancement')">
+            <div><span class="pt-name">Essentiel</span><p class="pt-tagline">Rentabilisé dès votre 1ère nuit</p><p class="pt-desc">Linge hôtelier, kit accueil café/thé, guide voyageur — tout ce qu'Airbnb note en premier</p><p class="pt-for">💡 1 séjour à 149€ rembourse le kit · Note 4,8+ dès le départ</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">290€</span><span class="pt-price">149€</span></div>
+          </div>
+          <div class="price-tier" data-tier-name="Premium" data-price="249" data-stripe="kit_premium" onclick="selectTier(this,'kit-lancement')">
+            <div><div class="pt-popular-tag">Le plus choisi</div><span class="pt-name">Premium ⭐</span><p class="pt-tagline">+47€/nuit en moyenne après installation</p><p class="pt-desc">Literie percale 400 fils, diffuseur signature, sac cadeau voyageur — l'expérience qui justifie vos tarifs</p><p class="pt-for">📈 ROI moyen 3 semaines · Badge Superhôte en 60 jours</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">430€</span><span class="pt-price">249€</span></div>
+          </div>
+          <div class="price-tier" data-tier-name="Excellence" data-price="389" data-stripe="kit_excellence" onclick="selectTier(this,'kit-lancement')">
+            <div><span class="pt-name">Excellence ✦</span><p class="pt-tagline">Vos voyageurs parlent de vous à leurs amis</p><p class="pt-desc">Tout Premium + peignoirs spa, sélection vins locaux, bougie artisanale, note manuscrite personnalisée</p><p class="pt-for">🏆 Taux d'occupation +22% · Clients qui reviennent et recommandent</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">620€</span><span class="pt-price">389€</span></div>
+          </div>
+        </div>
+        <div class="prod-cta-wrap">
+          <button class="prod-cta" onclick="addToCart('kit-lancement')">🛒 Ajouter au panier</button>
+          <button class="prod-btn-buynow" onclick="buyNowKit('kit-lancement')">⚡ Acheter</button>
+        </div>
+        <div class="prod-social-proof">
+          <div class="psp-item"><span>💰</span><span>ROI moyen : remboursé en 1 séjour</span></div>
+          <div class="psp-item"><span>📦</span><span>Livraison 48h · Tout prêt à l'emploi, rien à assembler</span></div>
+          <div class="psp-item"><span>🏅</span><span>+1 200 hôtes ont décroché le badge Superhôte avec ce kit</span></div>
+        </div>
+        <div class="prod-urgency">🔥 Plus que 8 en stock</div>
+      </div>
+    </div>
+    <div class="prod-card reveal rd1" data-kit="literie">
+      <div class="prod-img"><img src="https://myhostkit.com/cdn/shop/files/IMG-0589.png?v=1770474429" alt="Kit Literie Premium MyHostKit" loading="lazy"><div class="prod-badge gold">Note ★★★★★</div></div>
+      <div class="prod-body">
+        <div class="prod-name">Kit Literie Hôtel</div>
+        <div class="prod-desc">Literie hôtelière pour une note propreté 4,9. Percale ou lin haut de gamme.</div>
+        <div class="price-tiers">
+          <div class="price-tier selected" data-tier-name="Confort" data-price="89" data-stripe="lit_confort" onclick="selectTier(this,'literie')">
+            <div><span class="pt-name">Confort</span><p class="pt-tagline">La literie que les voyageurs photographient</p><p class="pt-desc">Housse percale 200 fils, 2 oreillers ergonomiques, alèse imperméable silencieuse — qualité Ibis Budget</p><p class="pt-for">🛏 Note literie 4,8+ · Mentionnée dans 7 avis sur 10</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">160€</span><span class="pt-price">89€</span></div>
+          </div>
+          <div class="price-tier" data-tier-name="Premium" data-price="149" data-stripe="lit_premium" onclick="selectTier(this,'literie')">
+            <div><div class="pt-popular-tag">Le plus choisi</div><span class="pt-name">Premium ⭐</span><p class="pt-tagline">Le lit dont vos voyageurs parlent à leurs amis</p><p class="pt-desc">Lin lavé stonewashed, couette 450g duvet, serviettes 600g/m² — qualité hôtel 4 étoiles pour 149€</p><p class="pt-for">⭐ « Meilleur lit Airbnb que j'ai eu » — commentaire type · Note propreté 5/5</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">260€</span><span class="pt-price">149€</span></div>
+          </div>
+        </div>
+        <div class="prod-cta-wrap">
+          <button class="prod-cta" onclick="addToCart('literie')">🛒 Ajouter au panier</button>
+          <button class="prod-btn-buynow" onclick="buyNowKit('literie')">⚡ Acheter</button>
+        </div>
+        <div class="prod-social-proof">
+          <div class="psp-item"><span>💬</span><span>« Mentionné dans mes avis dès la 1ère semaine » — Thomas L., Lyon</span></div>
+          <div class="psp-item"><span>📐</span><span>Tailles universelles · S'adapte à tous vos logements</span></div>
+          <div class="psp-item"><span>♻️</span><span>Lavage machine 60° · Dure 3× plus longtemps que la grande surface</span></div>
+        </div>
+        <div class="prod-urgency">👀 23 personnes regardent ce produit</div>
+      </div>
+    </div>
+    <div class="prod-card reveal rd2" data-kit="acces">
+      <div class="prod-img"><img src="https://myhostkit.com/cdn/shop/files/IMG-0584.png?v=1770474222" alt="Kit Accès Sécurité MyHostKit" loading="lazy"><div class="prod-badge">Check-in autonome</div></div>
+      <div class="prod-body">
+        <div class="prod-name">Kit Accès & Sécurité</div>
+        <div class="prod-desc">Boîte à clé connectée + guide d'accueil premium. Check-in autonome 24h/24.</div>
+        <div class="price-tiers">
+          <div class="price-tier selected" data-tier-name="Essentiel" data-price="69" data-stripe="acc_essentiel" onclick="selectTier(this,'acces')">
+            <div><span class="pt-name">Essentiel</span><p class="pt-tagline">Récupérez vos soirées. Définitivement.</p><p class="pt-desc">Boîte à clé Master Lock acier + guide d'accueil A5 plastifié personnalisé avec vos infos</p><p class="pt-for">⏱ 0 déplacement · Installé en 15 min · Économise 3h dès la 1ère semaine</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">130€</span><span class="pt-price">69€</span></div>
+          </div>
+          <div class="price-tier" data-tier-name="Pro" data-price="129" data-stripe="acc_pro" onclick="selectTier(this,'acces')">
+            <div><div class="pt-popular-tag">Le plus choisi</div><span class="pt-name">Pro ⭐</span><p class="pt-tagline">Gérez 5 logements sans bouger de votre canapé</p><p class="pt-desc">Serrure connectée app + boîte à clé backup + guide premium + plaque bienvenue gravée</p><p class="pt-for">📱 Code unique par séjour · Accès révoqué automatiquement au départ · Zéro appel manqué</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">220€</span><span class="pt-price">129€</span></div>
+          </div>
+        </div>
+        <div class="prod-cta-wrap">
+          <button class="prod-cta" onclick="addToCart('acces')">🛒 Ajouter au panier</button>
+          <button class="prod-btn-buynow" onclick="buyNowKit('acces')">⚡ Acheter</button>
+        </div>
+        <div class="prod-social-proof">
+          <div class="psp-item"><span>⏱</span><span>5h/semaine récupérées en moyenne · Calculez votre gain</span></div>
+          <div class="psp-item"><span>🌙</span><span>Fonctionne à 3h du matin · Vos voyageurs entrent seuls</span></div>
+          <div class="psp-item"><span>🔧</span><span>Installation sans perçage · Aucun artisan, aucun frais</span></div>
+        </div>
+        <div class="prod-urgency">✈️ Livraison 48h en France</div>
+      </div>
+    </div>
+    <div class="prod-card reveal rd3" data-kit="entretien">
+      <div class="prod-img"><img src="https://myhostkit.com/cdn/shop/files/IMG-0587.png?v=1770474256" alt="Kit Entretien Pro MyHostKit" loading="lazy"><div class="prod-badge">Pro</div></div>
+      <div class="prod-body">
+        <div class="prod-name">Kit Entretien Pro</div>
+        <div class="prod-desc">Produits hôteliers pour un ménage 5 étoiles garanti à chaque séjour.</div>
+        <div class="price-tiers">
+          <div class="price-tier selected" data-tier-name="Starter" data-price="59" data-stripe="ent_starter" onclick="selectTier(this,'entretien')">
+            <div><span class="pt-name">Starter</span><p class="pt-tagline">La note propreté qui fait la différence dans les résultats Airbnb</p><p class="pt-desc">Produits concentrés certifiés hôtellerie, checklist ménage illustrée, fiches par pièce plastifiées</p><p class="pt-for">🧹 +0,3 pts de note propreté en 30j · Algorithme Airbnb favorise les notes &gt;4,8</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">110€</span><span class="pt-price">59€</span></div>
+          </div>
+          <div class="price-tier" data-tier-name="Pro" data-price="99" data-stripe="ent_pro" onclick="selectTier(this,'entretien')">
+            <div><div class="pt-popular-tag">Le plus choisi</div><span class="pt-name">Pro ⭐</span><p class="pt-tagline">Déléguez le ménage sans jamais repasser derrière</p><p class="pt-desc">Tout Starter ×2 · Guide formation ménagère illustré 20 pages · Spray textile signature hôtel · Spray anti-odeur · 10 sachets senteur armoire</p><p class="pt-for">✅ Votre prestataire suit le protocole · Vérifiez en 2 min sur photo · Zéro mauvaise surprise</p></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="pt-old">180€</span><span class="pt-price">99€</span></div>
+          </div>
+        </div>
+        <div class="prod-cta-wrap">
+          <button class="prod-cta" onclick="addToCart('entretien')">🛒 Ajouter au panier</button>
+          <button class="prod-btn-buynow" onclick="buyNowKit('entretien')">⚡ Acheter</button>
+        </div>
+        <div class="prod-social-proof">
+          <div class="psp-item"><span>📊</span><span>Note propreté &gt;4,8 = +18% de réservations selon Airbnb</span></div>
+          <div class="psp-item"><span>🧴</span><span>Concentré pro : 1 flacon = 12 ménages · Coût réel 4,90€/séjour</span></div>
+          <div class="psp-item"><span>🌿</span><span>Certifié Ecolabel · Sans allergènes · Sûr pour vos voyageurs</span></div>
+        </div>
+        <div class="prod-urgency">💳 Paiement 3× sans frais disponible</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="urgency-bar">🔥 OFFRE LANCEMENT — <span id="spots-left-2">47</span> places restantes au prix de lancement · Fin dans <span id="cd-h">47</span>h <span id="cd-m">00</span>m <span id="cd-s">00</span>s</div>
+
+<section id="pricing" style="padding:72px 80px;background:linear-gradient(180deg,var(--bf) 0%,#071824 100%)">
+  <div class="pricing-header reveal">
+    <div class="sec-label" style="justify-content:center;color:var(--or)">Conciergerie IA — Abonnement</div>
+    <h2 class="sec-title">Simple. <em>Transparent.</em><br>Rentable dès le premier mois.</h2>
+    <p>Sans engagement · 30 premiers jours offerts · Annulation en 1 clic</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pc">
+      <div class="pc-name">Starter</div>
+      <div class="pc-price"><sup>€</sup>49<span>/mois</span></div>
+      <div class="pc-period">1 logement · 30j gratuits</div>
+      <div class="pc-hr"></div>
+      <div class="pc-feat">Réponses IA 24h/24</div>
+      <div class="pc-feat">Alertes stock email</div>
+      <div class="pc-feat">Tableau de bord</div>
+      <div class="pc-feat">Rapport mensuel</div>
+      <div class="pc-feat no">Coordination ménage</div>
+      <div class="pc-feat no">Marque blanche</div>
+      <button class="pc-btn gold" onclick="openStripe('starter')">Démarrer 30j gratuits →</button>
+    </div>
+    <div class="pc feat">
+      <div class="pc-badge">⭐ Le plus populaire</div>
+      <div class="pc-name">Pro</div>
+      <div class="pc-price"><sup>€</sup>89<span>/mois</span></div>
+      <div class="pc-period">1 logement · 30j gratuits</div>
+      <div class="pc-hr"></div>
+      <div class="pc-feat">Tout Starter inclus</div>
+      <div class="pc-feat">Coordination ménage auto</div>
+      <div class="pc-feat">Email prestataire auto</div>
+      <div class="pc-feat">Rapport hebdomadaire</div>
+      <div class="pc-feat">Planning mensuel complet</div>
+      <div class="pc-feat no">Marque blanche</div>
+      <button class="pc-btn gold" onclick="openStripe('pro')">Démarrer 30j gratuits →</button>
+    </div>
+    <div class="pc">
+      <div class="pc-name">Conciergerie Pro</div>
+      <div class="pc-price" style="font-size:1.6rem;padding-top:8px">Sur devis</div>
+      <div class="pc-period">Multi-logements · Illimité</div>
+      <div class="pc-hr"></div>
+      <div class="pc-feat">Tout Pro inclus</div>
+      <div class="pc-feat">Logements illimités</div>
+      <div class="pc-feat">Dashboard marque blanche</div>
+      <div class="pc-feat">Account manager dédié</div>
+      <div class="pc-feat">Formation équipe</div>
+      <div class="pc-feat">API & intégrations</div>
+      <button class="pc-btn ghost" onclick="openStripe('concierge')">Obtenir mon devis gratuit →</button>
+    </div>
+  </div>
+  <div class="scarcity-banner reveal">🚨 Alerte stock — Seulement <strong id="spots-left-3">47</strong> accès disponibles au tarif de lancement. Prix augmente à 69€ et 129€ le 01/02/2026.</div>
+  <div class="pricing-guarantees reveal">
+    <span>🔒 Paiement SSL sécurisé</span>
+    <span>✓ 30j gratuits · aucune carte débitée avant</span>
+    <span>✓ Annulation en 1 clic</span>
+    <span>✓ Support francophone 7j/7</span>
+    <span>✓ Données hébergées en France</span>
+  </div>
+</section>
+
+<section id="concours">
+  <div class="concours-inner">
+    <div class="concours-badge">🎮 Jeu Concours Exclusif</div>
+    <h2>Gagnez une<br><em>PlayStation 5</em><br><strong>offerte par MyHostKit</strong></h2>
+    <p class="concours-sub">Pour chaque commande passée avant le 30/06/2026, vous participez automatiquement. Abonnez-vous aussi pour une chance supplémentaire.</p>
+    <div class="concours-box">
+      <div class="ps5-title">PlayStation 5 Console</div>
+      <div class="ps5-value">Valeur retail 549€ · Édition standard + 2 manettes</div>
+      <div class="ps5-steps">
+        <div class="ps5-step"><div class="ps5-snum">1</div><div class="ps5-stitle">Commandez</div><div class="ps5-sdesc">Achetez un kit ou souscrivez à la conciergerie</div></div>
+        <div class="ps5-step"><div class="ps5-snum">2</div><div class="ps5-stitle">Participez</div><div class="ps5-sdesc">Laissez votre email ci-dessous pour doubler vos chances</div></div>
+        <div class="ps5-step"><div class="ps5-snum">3</div><div class="ps5-stitle">Gagnez</div><div class="ps5-sdesc">Tirage au sort le 30/06/2026. Le gagnant contacté par email</div></div>
+      </div>
+      <div class="ps5-timer">
+        <span>Fermeture des inscriptions dans :</span>
+        <div class="ps5-cd">
+          <div class="ps5-block" id="ps5-h">89</div><span class="ps5-sep">j</span>
+          <div class="ps5-block" id="ps5-m">12</div><span class="ps5-sep">h</span>
+          <div class="ps5-block" id="ps5-s">34</div><span class="ps5-sep">m</span>
+        </div>
+      </div>
+      <div class="concours-form">
+        <input id="concours-email" class="concours-input" type="email" placeholder="votre@email.com">
+        <button class="concours-btn" onclick="participerConcours()">Je participe →</button>
+      </div>
+      <div class="concours-mention">Sans obligation d'achat · 1 participation / personne · Règlement disponible sur demande</div>
+      <div class="concours-parts">
+        <div class="part-avs">
+          <div class="part-av">SM</div><div class="part-av">TL</div><div class="part-av">AR</div><div class="part-av">JD</div><div class="part-av">MB</div>
+        </div>
+        <span>847 participants déjà inscrits</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="marque-blanche">
+  <div class="mb-hero reveal">
+    <div class="mb-badge">✦ Licence Marque Blanche · B2B</div>
+    <h2>Votre conciergerie.<br><em>Votre marque.</em> Notre IA.</h2>
+    <p>Déployez MyHostKit IA sous votre nom en 24h. Vos clients voient votre logo, votre couleur. Vous fixez vos tarifs et gardez 100% de la marge.</p>
+  </div>
+  <div class="mb-plans reveal">
+    <div class="mb-plan sel" data-plan="starter" data-price="199" onclick="mbSelectPlan(this)">
+      <div class="mb-plan-name">Starter</div>
+      <div class="mb-plan-price">199<span>€/mois</span></div>
+      <div class="mb-plan-logs">Jusqu'à 10 logements</div>
+      <div class="mb-plan-marge">Marge estimée ~390€/mois</div>
+      <button class="mb-plan-btn" onclick="event.stopPropagation();mbSelectPlan(this.closest('.mb-plan'));mbGoStep(1)">Choisir Starter →</button>
+    </div>
+    <div class="mb-plan" data-plan="pro" data-price="349" onclick="mbSelectPlan(this)">
+      <div class="mb-plan-name">Pro ⭐ Populaire</div>
+      <div class="mb-plan-price">349<span>€/mois</span></div>
+      <div class="mb-plan-logs">Jusqu'à 30 logements</div>
+      <div class="mb-plan-marge">Marge estimée ~2 221€/mois</div>
+      <button class="mb-plan-btn" onclick="event.stopPropagation();mbSelectPlan(this.closest('.mb-plan'));mbGoStep(1)">Choisir Pro →</button>
+    </div>
+    <div class="mb-plan" data-plan="enterprise" data-price="599" onclick="mbSelectPlan(this)">
+      <div class="mb-plan-name">Enterprise</div>
+      <div class="mb-plan-price">599<span>€/mois</span></div>
+      <div class="mb-plan-logs">Logements illimités</div>
+      <div class="mb-plan-marge">Marge libre · Support prioritaire</div>
+      <button class="mb-plan-btn" onclick="event.stopPropagation();mbSelectPlan(this.closest('.mb-plan'));mbGoStep(1)">Choisir Enterprise →</button>
+    </div>
+  </div>
+  <div class="mb-progress"><div class="mb-progress-fill" id="mb-prog"></div></div>
+  <div class="mb-tabs">
+    <div class="mb-tab active" id="mb-tab1" onclick="mbGoStep(1)"><span class="mb-step-num">Étape 1</span>Votre marque</div>
+    <div class="mb-tab" id="mb-tab2"><span class="mb-step-num">Étape 2</span>Informations</div>
+    <div class="mb-tab" id="mb-tab3"><span class="mb-step-num">Étape 3</span>Contrat</div>
+    <div class="mb-tab" id="mb-tab4"><span class="mb-step-num">Étape 4</span>Paiement</div>
+    <div class="mb-tab" id="mb-tab5"><span class="mb-step-num">Étape 5</span>Accès</div>
+  </div>
+  <div class="mb-body">
+    <div class="mb-panel on" id="mb-p1">
+      <div class="mb-grid">
+        <div>
+          <div class="mb-card">
+            <div class="mb-card-title">🏷️ Identité de votre marque</div>
+            <div class="mb-field"><label class="mb-lbl">Nom de votre marque <span class="req">*</span></label><input class="mb-input" id="mb-nommarque" placeholder="Conciergerie Riviera Pro" oninput="mbUpdatePreview()"></div>
+            <div class="mb-field"><label class="mb-lbl">Slogan / sous-titre</label><input class="mb-input" id="mb-slogan" placeholder="Gestion Airbnb premium" oninput="mbUpdatePreview()"></div>
+            <div class="mb-field">
+              <label class="mb-lbl">Couleur principale</label>
+              <div class="mb-colors" id="mb-colors">
+                <div style="background:#1B5E7B;outline:3px solid #fff" data-c="#1B5E7B" onclick="mbPickColor(this)" title="Bleu MyHostKit"></div>
+                <div style="background:#2D7A5E" data-c="#2D7A5E" onclick="mbPickColor(this)" title="Vert"></div>
+                <div style="background:#C4922A" data-c="#C4922A" onclick="mbPickColor(this)" title="Or"></div>
+                <div style="background:#7C3AED" data-c="#7C3AED" onclick="mbPickColor(this)" title="Violet"></div>
+                <div style="background:#E74C3C" data-c="#E74C3C" onclick="mbPickColor(this)" title="Rouge"></div>
+                <div style="background:#0F172A" data-c="#0F172A" onclick="mbPickColor(this)" title="Noir"></div>
+              </div>
+            </div>
+            <div class="mb-field">
+              <label class="mb-lbl">Logo (PNG/SVG, max 2Mo)</label>
+              <div class="mb-logo-upload" onclick="document.getElementById('mb-logo-file').click()">
+                <input type="file" id="mb-logo-file" accept="image/*" onchange="mbLoadLogo(this)">
+                <div id="mb-logo-placeholder" style="font-size:.84rem;color:rgba(255,255,255,.38)">📎 Cliquez pour uploader votre logo</div>
+                <div id="mb-logo-wrapper"><img id="mb-logo-preview" class="mb-logo-preview"><div style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:5px" id="mb-logo-name"></div></div>
+              </div>
+            </div>
+            <div class="mb-field"><label class="mb-lbl">Nombre de logements gérés <span class="req">*</span></label>
+              <select class="mb-select mb-input" id="mb-nblogs" onchange="mbUpdateReco()">
+                <option value="">— Sélectionner —</option>
+                <option value="1-5">1 à 5 logements</option>
+                <option value="6-20">6 à 20 logements</option>
+                <option value="21-50">21 à 50 logements</option>
+                <option value="50+">Plus de 50 logements</option>
+              </select>
+            </div>
+            <div id="mb-reco" style="display:none" class="mb-notice ok"></div>
+          </div>
+        </div>
+        <div>
+          <div class="mb-card">
+            <div class="mb-card-title">👁️ Aperçu de votre dashboard</div>
+            <div class="mb-preview">
+              <div class="mb-prev-bar" id="mb-prev-bar" style="background:#1B5E7B">
+                <div class="mb-prev-logo-wrap" id="mb-prev-logo" style="background:rgba(255,255,255,.15)">MB</div>
+                <div><div class="mb-prev-name" id="mb-prev-name">Votre marque</div><div class="mb-prev-sub" id="mb-prev-sub">Powered by MyHostKit IA</div></div>
+              </div>
+              <div class="mb-prev-body">
+                <div class="mb-prev-msg v">Bonjour, est-ce qu'il y a une place de parking ?</div>
+                <div class="mb-prev-msg ai" id="mb-prev-ai" style="background:#1B5E7B">Oui ! Place gratuite au sous-sol, badge dans l'enveloppe 🚗</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-card" style="margin-top:14px">
+            <div class="mb-card-title">✦ Plan sélectionné</div>
+            <div class="mb-plan-display">
+              <div class="mb-disp-price" id="mb-disp-price">199 €/mois</div>
+              <div class="mb-disp-name" id="mb-disp-name">Plan Starter · 10 logements</div>
+              <div class="mb-disp-marge" id="mb-disp-marge">Marge estimée ~390€/mois</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-actions"><div style="font-size:.76rem;color:rgba(255,255,255,.28)">Étape 1 / 4</div><button class="mb-btn-next" onclick="mbGoStep(2)">Informations entreprise →</button></div>
+    </div>
+    <div class="mb-panel" id="mb-p2">
+      <div class="mb-grid">
+        <div class="mb-card">
+          <div class="mb-card-title">👤 Vos coordonnées</div>
+          <div class="mb-row2">
+            <div class="mb-field"><label class="mb-lbl">Prénom <span class="req">*</span></label><input class="mb-input" id="mb-prenom" placeholder="Sophie"></div>
+            <div class="mb-field"><label class="mb-lbl">Nom <span class="req">*</span></label><input class="mb-input" id="mb-nom" placeholder="Martin"></div>
+          </div>
+          <div class="mb-field"><label class="mb-lbl">Email professionnel <span class="req">*</span></label><input class="mb-input" id="mb-email" type="email" placeholder="contact@votremarque.fr"></div>
+          <div class="mb-field"><label class="mb-lbl">Téléphone</label><input class="mb-input" id="mb-tel" placeholder="+33 6 12 34 56 78"></div>
+          <div class="mb-field"><label class="mb-lbl">Adresse de facturation <span class="req">*</span></label><input class="mb-input" id="mb-adresse" placeholder="12 rue de la Paix, 75001 Paris"></div>
+          <div id="mb-siret-block" style="display:none">
+            <div class="mb-notice info" style="margin-bottom:10px">ℹ️ Le plan Pro nécessite des informations entreprise pour la facturation B2B.</div>
+            <div class="mb-field"><label class="mb-lbl">Raison sociale <span class="req">*</span></label><input class="mb-input" id="mb-raison" placeholder="Conciergerie Riviera Pro SAS"></div>
+            <div class="mb-field"><label class="mb-lbl">SIRET <span class="req">*</span> <span style="font-size:.68rem;color:rgba(255,255,255,.3)">(14 chiffres exactement)</span></label><input class="mb-input" id="mb-siret" placeholder="123 456 789 00012" maxlength="17" oninput="this.value=this.value.replace(/[^0-9\s]/g,'').slice(0,17)"></div>
+            <div class="mb-field"><label class="mb-lbl">TVA intracommunautaire (si applicable)</label><input class="mb-input" id="mb-tva" placeholder="FR00123456789"></div>
+          </div>
+        </div>
+        <div class="mb-card">
+          <div class="mb-card-title">📋 Récapitulatif commande</div>
+          <div style="padding:4px 0">
+            <div style="display:flex;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.46);padding:5px 0"><span>Plan</span><span style="color:#fff;font-weight:600" id="mb-rec-plan">Starter</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.46);padding:5px 0"><span>Prix HT/mois</span><span id="mb-rec-ht">199 €</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.46);padding:5px 0"><span>TVA 20%</span><span id="mb-rec-tva">40 €</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:1rem;font-weight:700;color:var(--or);padding:10px 0 4px;border-top:1px solid rgba(255,255,255,.08);margin-top:6px"><span>Total TTC/mois</span><span id="mb-rec-ttc">239 €</span></div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.25);margin-top:4px">Premier mois offert · Prélèvement mensuel ensuite</div>
+          </div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;gap:9px;font-size:.8rem;color:rgba(255,255,255,.46)"><span style="color:#4ade80;font-weight:700">✓</span><span><strong style="color:#fff">1 mois offert</strong> — Aucun prélèvement le 1er mois</span></div>
+            <div style="display:flex;gap:9px;font-size:.8rem;color:rgba(255,255,255,.46)"><span style="color:#4ade80;font-weight:700">✓</span><span><strong style="color:#fff">Actif sous 24h</strong> — Configuration incluse</span></div>
+            <div style="display:flex;gap:9px;font-size:.8rem;color:rgba(255,255,255,.46)"><span style="color:#4ade80;font-weight:700">✓</span><span><strong style="color:#fff">Données France</strong> — RGPD · OVHcloud</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-actions"><button class="mb-btn-back" onclick="mbGoStep(1)">← Retour</button><button class="mb-btn-next" onclick="mbGoStep(3)">Lire et signer le contrat →</button></div>
+    </div>
+    <div class="mb-panel" id="mb-p3">
+      <div class="mb-notice info" id="mb-scroll-notice">📜 Lisez l'intégralité du contrat pour débloquer les cases à cocher.</div>
+      <div class="mb-card">
+        <div class="mb-card-title">📜 Contrat de Licence Marque Blanche</div>
+        <div class="mb-contract" id="mb-contract" onscroll="mbCheckScroll()"></div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:4px">
+          <label class="mb-ck-row" id="mb-ck1-row"><input type="checkbox" id="mb-ck1" onchange="mbCheckAll()"><div><div class="mb-ck-text">J'ai lu et j'accepte intégralement le Contrat de Licence Marque Blanche</div><div class="mb-ck-sub">Consentement électronique valide (Art. 1367 Code civil · Règlement eIDAS)</div></div></label>
+          <label class="mb-ck-row" id="mb-ck2-row"><input type="checkbox" id="mb-ck2" onchange="mbCheckAll()"><div><div class="mb-ck-text">J'accepte le traitement de mes données personnelles conformément au RGPD (Art. 28)</div></div></label>
+          <label class="mb-ck-row" id="mb-ck3-row"><input type="checkbox" id="mb-ck3" onchange="mbCheckAll()"><div><div class="mb-ck-text">Je confirme être habilité(e) à engager juridiquement ma société ou agir en mon nom propre</div></div></label>
+        </div>
+        <div style="margin-top:18px">
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:7px">✍️ Signature électronique obligatoire</div>
+          <div class="mb-sig-area">
+            <div class="mb-sig-lbl">Appuyez et dessinez votre signature ci-dessous</div>
+            <canvas id="mb-sig-canvas" class="mb-sig-canvas"></canvas>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px">
+              <button class="mb-sig-clear" onclick="mbClearSig()">🗑 Effacer la signature</button>
+              <span style="font-size:.67rem;color:rgba(255,255,255,.22)" id="mb-sig-date"></span>
+            </div>
+          </div>
+          <div id="mb-sig-notice" style="font-size:.72rem;color:var(--rg);margin-top:5px;display:none">⚠️ Signature électronique requise pour continuer</div>
+        </div>
+      </div>
+      <div class="mb-actions"><button class="mb-btn-back" onclick="mbGoStep(2)">← Retour</button><button class="mb-btn-next" id="mb-btn-s3" onclick="mbGoStep(4)" disabled>Procéder au paiement →</button></div>
+    </div>
+    <div class="mb-panel" id="mb-p4">
+      <div class="mb-grid">
+        <div class="mb-card">
+          <div class="mb-card-title">💳 Mode de paiement</div>
+          <div class="mb-pay-opts">
+            <div class="mb-pay-opt sel" id="mb-pm-card" onclick="mbSelPay('card')"><div class="mb-pay-icon">💳</div><div><div class="mb-pay-name">Carte bancaire</div><div class="mb-pay-sub">Visa, Mastercard, Amex</div></div></div>
+            <div class="mb-pay-opt" id="mb-pm-sepa" onclick="mbSelPay('sepa')"><div class="mb-pay-icon">🏦</div><div><div class="mb-pay-name">Prélèvement SEPA</div><div class="mb-pay-sub">Débit automatique mensuel</div></div></div>
+          </div>
+          <div id="mb-fields-card">
+            <div class="mb-field"><label class="mb-lbl">Nom du titulaire</label><input class="mb-input" id="mb-card-name" placeholder="SOPHIE MARTIN"></div>
+            <div class="mb-field"><label class="mb-lbl">Numéro de carte</label><input class="mb-input" id="mb-card-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="var v=this.value.replace(/\D/g,'').slice(0,16);this.value=v.replace(/(\d{4})/g,'$1 ').trim()"></div>
+            <div class="mb-row2">
+              <div class="mb-field"><label class="mb-lbl">Expiration</label><input class="mb-input" id="mb-card-exp" placeholder="MM/AA" maxlength="5" oninput="var v=this.value.replace(/\D/g,'').slice(0,4);if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);this.value=v"></div>
+              <div class="mb-field"><label class="mb-lbl">CVV</label><input class="mb-input" id="mb-card-cvv" placeholder="123" maxlength="4"></div>
+            </div>
+          </div>
+          <div id="mb-fields-sepa" style="display:none">
+            <div class="mb-field"><label class="mb-lbl">Titulaire du compte</label><input class="mb-input" id="mb-sepa-name" placeholder="Sophie Martin"></div>
+            <div class="mb-field"><label class="mb-lbl">IBAN</label><input class="mb-input" id="mb-iban" placeholder="FR76 3000 6000 01 0000 0000 000"></div>
+          </div>
+          <div class="mb-notice ok" style="margin-top:12px">🔒 Votre paiement sera traité par <strong>Stripe</strong> — aucune donnée carte stockée sur nos serveurs</div>
+        </div>
+        <div>
+          <div class="mb-recap">
+            <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.32);margin-bottom:10px">Récapitulatif final</div>
+            <div class="mb-recap-row"><span id="mb-pay-label">Plan Starter — Licence MB</span><span id="mb-pay-ht">199 €/mois</span></div>
+            <div class="mb-recap-row"><span>Premier mois</span><span style="color:#4ade80;font-weight:700">OFFERT</span></div>
+            <div class="mb-recap-row"><span>TVA 20%</span><span id="mb-pay-tva">40 €</span></div>
+            <div class="mb-recap-row mb-recap-total"><span>Total TTC</span><span id="mb-pay-ttc">239 €</span></div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.26);margin-top:6px">Prélèvement mensuel · Annulation sous 24h</div>
+          </div>
+          <label class="mb-cgv-lbl"><input type="checkbox" id="mb-ck-final" onchange="mbCheckFinal()">J'accepte les <a href="#" onclick="openModal('cgv');return false">CGV</a> et le contrat de licence signé. Droit de rétractation 14 jours (Art. L221-18 C.conso).</label>
+          <button class="mb-btn-next" id="mb-pay-btn" onclick="mbProcessPayment()" style="width:100%;opacity:.4" disabled>🔒 Activer ma licence — Redirection Stripe →</button>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.2);text-align:center;margin-top:8px;line-height:1.6">Vous serez redirigé vers la page de paiement sécurisée Stripe.<br>Vous n'avez pas à saisir votre carte deux fois.</div>
+        </div>
+      </div>
+      <div class="mb-actions"><button class="mb-btn-back" onclick="mbGoStep(3)">← Retour</button><div></div></div>
+    </div>
+    <div class="mb-panel" id="mb-p5">
+      <div class="mb-access reveal">
+        <div style="font-size:3rem;margin-bottom:16px">🎉</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;color:#fff;margin-bottom:10px">Licence activée !<br><em style="font-style:italic;color:var(--or)">Bienvenue dans MyHostKit.</em></h3>
+        <p style="font-size:.86rem;color:rgba(255,255,255,.46);line-height:1.8;margin-bottom:22px">Un email de confirmation a été envoyé. Notre équipe vous contacte sous 24h pour la configuration personnalisée.</p>
+        <div class="mb-access-grid">
+          <div class="mb-access-item"><div class="mb-access-lbl">URL Dashboard</div><div class="mb-access-val" id="mb-acc-url" style="color:var(--or)">—</div></div>
+          <div class="mb-access-item"><div class="mb-access-lbl">Email</div><div class="mb-access-val" id="mb-acc-email">—</div></div>
+          <div class="mb-access-item"><div class="mb-access-lbl">N° Contrat</div><div class="mb-access-val" id="mb-acc-contract">—</div></div>
+          <div class="mb-access-item"><div class="mb-access-lbl">Prochain prélèvement</div><div class="mb-access-val" id="mb-acc-next">—</div></div>
+        </div>
+        <div style="font-size:.71rem;color:rgba(255,255,255,.2);margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)">MyHostKit · 60 rue François 1er, 75008 Paris · 06 99 34 89 51 · contact@myhostkit.com · SIRET 10032406000019</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="avis">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="sec-label" style="justify-content:center">★★★★★ Témoignages vérifiés Airbnb</div>
+    <h2 class="sec-title reveal">Ce que disent<br>nos <em>hôtes</em></h2>
+  </div>
+  <div class="avis-grid">
+    <div class="avis-card reveal"><div class="avis-quote">"</div><p class="avis-text">Le kit lancement m'a permis d'obtenir le badge Superhôte en 3 mois. Note de 4,9 dès les premières semaines. Qualité hôtelière garantie.</p><div class="avis-author"><div class="avis-av" style="background:var(--bl)">SM</div><div><div class="avis-name">Sophie M.</div><div class="avis-role">🏅 Superhôte · Paris 75</div></div><div class="avis-stars">★★★★★</div></div></div>
+    <div class="avis-card dark reveal rd1"><div class="avis-quote" style="color:var(--or)">"</div><p class="avis-text">La conciergerie IA répond en moins de 2 minutes, même à 3h du matin. Ma note est passée de 4,6 à 4,9 en un mois. Zéro effort.</p><div class="avis-author"><div class="avis-av" style="background:var(--bc)">TL</div><div><div class="avis-name">Thomas L.</div><div class="avis-role">🏅 Superhôte · Lyon</div></div><div class="avis-stars">★★★★★</div></div></div>
+    <div class="avis-card reveal rd2"><div class="avis-quote">"</div><p class="avis-text">La marque blanche intégrée en 24h. Mes clients voient mon logo. Je facture 89€/logement/mois. La marge est excellente, je recommande.</p><div class="avis-author"><div class="avis-av" style="background:var(--vt)">SB</div><div><div class="avis-name">Sophie B.</div><div class="avis-role">🏢 Conciergerie Pro · Nice</div></div><div class="avis-stars">★★★★★</div></div></div>
+    <div class="avis-card reveal"><div class="avis-quote">"</div><p class="avis-text">La literie premium a tout changé. Les voyageurs mentionnent la qualité du linge dans leurs avis systématiquement. Note propreté : 5/5.</p><div class="avis-author"><div class="avis-av" style="background:var(--bl)">MC</div><div><div class="avis-name">Marie C.</div><div class="avis-role">🏅 Superhôte · Bordeaux</div></div><div class="avis-stars">★★★★★</div></div></div>
+    <div class="avis-card reveal rd1"><div class="avis-quote">"</div><p class="avis-text">La boîte à clé connectée est parfaite. Check-in autonome, plus besoin de me déplacer. J'ai récupéré 5h par semaine sur 4 logements.</p><div class="avis-author"><div class="avis-av" style="background:var(--bl)">AR</div><div><div class="avis-name">Alex R.</div><div class="avis-role">🏅 Superhôte · Marseille</div></div><div class="avis-stars">★★★★★</div></div></div>
+    <div class="avis-card dark reveal rd2"><div class="avis-quote" style="color:var(--or)">"</div><p class="avis-text">Le planning ménage automatisé m'a sauvé plusieurs fois. L'email part automatiquement, je suis en copie. Prochaine étape : marque blanche.</p><div class="avis-author"><div class="avis-av" style="background:var(--vt)">JM</div><div><div class="avis-name">Julie M.</div><div class="avis-role">🏅 Superhôte · Toulon</div></div><div class="avis-stars">★★★★★</div></div></div>
+  </div>
+</section>
+
+<section id="partenaire">
+  <div class="reveal">
+    <div class="sec-label">Programme partenaire</div>
+    <h2 class="sec-title">Devenez<br><em>partenaire</em> MyHostKit.</h2>
+    <p style="font-size:.92rem;color:var(--g);line-height:1.85;margin:14px 0 28px;max-width:460px">Rejoignez notre réseau de conciergeries partenaires et accédez à des tarifs préférentiels, des commissions sur les ventes et un support dédié.</p>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:36px;height:36px;border-radius:8px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">💰</div><div><div style="font-size:.86rem;font-weight:700;color:var(--n);margin-bottom:2px">Commission 15% récurrente</div><div style="font-size:.78rem;color:var(--g)">Sur chaque client que vous apportez, à vie</div></div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:36px;height:36px;border-radius:8px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">🎯</div><div><div style="font-size:.86rem;font-weight:700;color:var(--n);margin-bottom:2px">Tarifs partenaires exclusifs</div><div style="font-size:.78rem;color:var(--g)">-30% sur tous nos produits et abonnements</div></div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:36px;height:36px;border-radius:8px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0">🤝</div><div><div style="font-size:.86rem;font-weight:700;color:var(--n);margin-bottom:2px">Support dédié & formation</div><div style="font-size:.78rem;color:var(--g)">Accès prioritaire à notre équipe commerciale</div></div></div>
+    </div>
+  </div>
+  <div class="partner-form reveal">
+    <h3>Candidature partenaire</h3>
+    <div class="form-group"><label>Nom complet *</label><input class="form-input" id="partner-nom" placeholder="Sophie Martin"></div>
+    <div class="form-group"><label>Email professionnel *</label><input class="form-input" id="partner-email" type="email" placeholder="contact@votremarque.fr"></div>
+    <div class="form-group"><label>Téléphone</label><input class="form-input" id="partner-tel" placeholder="+33 6 12 34 56 78"></div>
+    <div class="form-group"><label>Nombre de logements gérés</label>
+      <select class="form-input" id="partner-logs" style="appearance:none">
+        <option value="">— Sélectionner —</option>
+        <option>1 à 5 logements</option><option>6 à 20 logements</option>
+        <option>21 à 50 logements</option><option>Plus de 50 logements</option>
+      </select>
+    </div>
+    <button class="form-submit" id="partner-btn" onclick="submitPartner()">Envoyer ma candidature →</button>
+    <div style="font-size:.72rem;color:var(--g);text-align:center;margin-top:10px">Réponse de notre équipe sous 48h ouvrées</div>
+  </div>
+</section>
+
+<section id="contact">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="sec-label" style="justify-content:center">Nous contacter</div>
+    <h2 class="sec-title reveal">Une question ?<br><em>On est là.</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-item-title">Email</div><div class="contact-item-val"><a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></div></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-item-title">Téléphone</div><div class="contact-item-val"><a href="tel:0699348951">06 99 34 89 51</a><br><span style="font-size:.78rem;color:var(--g)">Lun–Ven 9h–18h</span></div></div></div>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-item-title">Siège social</div><div class="contact-item-val">60 rue François 1er<br>75008 Paris, France</div></div></div>
+      <div class="contact-item"><div class="contact-icon">⏱️</div><div><div class="contact-item-title">Délai de réponse</div><div class="contact-item-val">Email : sous 4h ouvrées<br>Urgences : support dans la journée</div></div></div>
+      <div style="background:var(--bl);border-radius:12px;padding:18px 20px;color:#fff;margin-top:4px">
+        <div style="font-size:.8rem;font-weight:700;margin-bottom:6px">🚀 Support conciergerie IA</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.7">Pour toute question sur votre abonnement, dashboard ou configuration, notre équipe répond en moins de 2h ouvrées.</div>
+        <a href="mailto:contact@myhostkit.com" style="display:inline-block;margin-top:12px;background:#fff;color:var(--bl);padding:8px 18px;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none">Envoyer un email →</a>
+      </div>
+    </div>
+    <div class="contact-map reveal rd1">
+      <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px">Informations légales</div>
+      <div style="font-size:.88rem;line-height:2;color:rgba(255,255,255,.75)">
+        <div><strong>MyHostKit</strong></div>
+        <div>SAS · Capital 1 000€</div>
+        <div>SIRET : 10032406000019</div>
+        <div>60 rue François 1er, 75008 Paris</div>
+        <div>Tél : 06 99 34 89 51</div>
+        <div>Email : <a href="mailto:contact@myhostkit.com" style="color:#A8D8EA">contact@myhostkit.com</a></div>
+        <div style="margin-top:10px;font-size:.78rem;color:rgba(255,255,255,.42)">RCS Paris · APE 7021Z · TVA FR12100324060</div>
+      </div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)">
+        <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px">Horaires support</div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.9">Lundi – Vendredi : 9h00 – 19h00<br>Samedi : 10h00 – 16h00<br>Dimanche : Email uniquement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div style="text-align:center;margin-bottom:40px">
+    <div class="sec-label" style="justify-content:center">FAQ</div>
+    <h2 class="sec-title reveal">Questions <em>fréquentes</em></h2>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment fonctionne l'essai gratuit 30 jours ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Accès complet à toutes les fonctionnalités pendant 30 jours. Votre carte est enregistrée mais aucun prélèvement n'est effectué avant la fin de la période d'essai. Annulation en 1 clic depuis votre espace ou par email. 0€ débité pendant 30 jours garantis.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Puis-je annuler à tout moment ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Oui, sans engagement pour les plans Starter et Pro — annulation depuis votre tableau de bord ou par email à contact@myhostkit.com. Pour la licence marque blanche, un préavis de 90 jours est requis (voir contrat).</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Les kits sont-ils compatibles avec toutes les plateformes ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Les kits physiques sont universels. La conciergerie IA est optimisée pour Airbnb et Booking.com (intégration native). Livraison 48h France métropolitaine. Paiement en 3× sans frais disponible sur commande +100€.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment fonctionne la marque blanche ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Notre équipe configure votre espace sous 24h avec votre logo, couleurs et nom de domaine. Vos clients voient uniquement votre marque. Vous fixez vos propres tarifs et gardez 100% de la marge. Contrat légal protecteur signé électroniquement.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Mes données sont-elles sécurisées ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Données hébergées exclusivement en France (OVHcloud Roubaix). Chiffrement AES-256. Conformité RGPD totale. Paiements traités par Stripe — aucune donnée carte sur nos serveurs. Rapport de sécurité disponible sur demande.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quel est le délai de livraison des kits ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Livraison sous 48h ouvrées en France métropolitaine avec Colissimo suivi. Commandes passées avant 14h expédiées le jour même. Retours gratuits sous 14 jours si non satisfait (Article L221-18 Code de la consommation).</div></div>
+  </div>
+</section>
+
+<div class="final-cta">
+  <div class="sec-label" style="justify-content:center;color:var(--or);position:relative">Plus de 3 000 hôtes nous font confiance</div>
+  <h2 class="sec-title">Prêt à passer au<br><em>niveau supérieur ?</em></h2>
+  <p>Rejoignez les hôtes qui automatisent leur gestion et augmentent leur note Airbnb sans effort supplémentaire.</p>
+  <div class="final-btns">
+    <a href="#pricing" class="btn-primary" style="text-decoration:none;font-size:.95rem;padding:15px 36px">Démarrer l'essai gratuit 30j →</a>
+    <a href="#kits" class="btn-outline-dark" style="font-size:.9rem;padding:15px 28px">Découvrir les kits</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="https://myhostkit.com/cdn/shop/files/MyHostKit_1.png?v=1769257971" alt="MyHostKit" class="footer-logo">
+      <p class="footer-tagline">La solution N°1 pour hôtes Airbnb en France. Conciergerie IA, kits superhôte et licence marque blanche.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Boutique</h5>
+      <span onclick="document.getElementById('kits').scrollIntoView({behavior:'smooth'})">Kit Lancement Hôte</span>
+      <span onclick="document.getElementById('kits').scrollIntoView({behavior:'smooth'})">Kit Literie Premium</span>
+      <span onclick="document.getElementById('kits').scrollIntoView({behavior:'smooth'})">Kit Accès & Sécurité</span>
+      <span onclick="document.getElementById('kits').scrollIntoView({behavior:'smooth'})">Kit Entretien Pro</span>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <span onclick="document.getElementById('conciergerie').scrollIntoView({behavior:'smooth'})">Conciergerie IA</span>
+      <span onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Tarifs</span>
+      <span onclick="document.getElementById('marque-blanche').scrollIntoView({behavior:'smooth'})">Marque blanche</span>
+      <span onclick="document.getElementById('partenaire').scrollIntoView({behavior:'smooth'})">Devenir partenaire</span>
+      <span onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</span>
+    </div>
+    <div class="footer-col">
+      <h5>Aide & légal</h5>
+      <span onclick="openModal('cgv')">CGV</span>
+      <span onclick="openModal('mentions')">Mentions légales</span>
+      <span onclick="openModal('retours')">Retours 14 jours</span>
+      <a href="mailto:contact@myhostkit.com">Contacter le support</a>
+      <a href="https://af.uppromote.com/myhostkit/register" target="_blank" rel="noopener">Programme affilié</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MyHostKit · SIRET 10032406000019 · 60 rue François 1er, 75008 Paris · 06 99 34 89 51</span>
+    <div class="footer-legal-links">
+      <span onclick="openModal('cgv')">CGV</span>
+      <span onclick="openModal('mentions')">Mentions légales</span>
+      <span onclick="openModal('retours')">Retours</span>
+    </div>
+  </div>
+</footer>
+
+<div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer" class="cart-drawer">
+  <div class="cart-head">
+    <h3>🛒 Votre panier</h3>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-body" class="cart-body-wrap"></div>
+  <div id="cart-footer" class="cart-foot"></div>
+</div>
+
+<div id="stripe-modal" class="stripe-modal" onclick="if(event.target===this)closeStripe()">
+  <div class="stripe-box">
+    <button class="stripe-close" onclick="closeStripe()">✕</button>
+    <div id="stripe-form-wrap">
+      <div class="stripe-plan-header">
+        <div>
+          <div class="stripe-plan-name" id="s-plan-name">Plan <em>Pro</em></div>
+          <div style="font-size:.73rem;color:rgba(255,255,255,.3);margin-top:3px" id="s-plan-sub">30 jours gratuits · Sans engagement</div>
+        </div>
+        <div class="stripe-plan-price" id="s-plan-price">89€<span>/mois</span></div>
+      </div>
+      <div class="stripe-features" id="s-features"></div>
+      <div id="stripe-form-normal">
+        <div class="stripe-form">
+          <div class="s-2col">
+            <input class="s-input" id="s-prenom" type="text" placeholder="Prénom *" autocomplete="given-name">
+            <input class="s-input" id="s-nom" type="text" placeholder="Nom *" autocomplete="family-name">
+          </div>
+          <input class="s-input" id="s-email" type="email" placeholder="Email professionnel *" autocomplete="email">
+          <input class="s-input" id="s-tel" type="tel" placeholder="Téléphone" autocomplete="tel">
+          <select class="s-input s-select" id="s-logs">
+            <option value="" disabled selected>Nombre de logements</option>
+            <option>1 logement</option>
+            <option>2 à 5 logements</option>
+            <option>6 à 20 logements</option>
+            <option>Plus de 20 logements</option>
+          </select>
+          <label class="s-cgv"><input type="checkbox" id="s-cgv">J'accepte les <a href="#" onclick="closeStripe();openModal('cgv');return false">CGV</a> · Droit de rétractation 14 jours</label>
+          <button class="s-submit" id="s-submit" onclick="submitStripe()">Démarrer mon essai gratuit 30j →</button>
+          <div class="s-note" id="s-note">🔒 30j gratuits · Aucun débit avant · Stripe sécurisé · Annulation 1 clic</div>
+        </div>
+      </div>
+      <div id="stripe-form-devis" style="display:none">
+        <div class="dv-progress"><div class="dv-prog-fill" id="dv-prog" style="width:20%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.32);margin-bottom:16px"><span id="dv-step-lbl">Étape 1 / 5</span><span style="color:rgba(255,255,255,.22)">Estimation automatique</span></div>
+        <div class="dv-step on" id="dv-step-1">
+          <div class="dv-question">Combien de logements gérez-vous actuellement ?</div>
+          <div class="dv-options">
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-logs').value=this.dataset.v" data-v="3"><div class="dv-option-icon">🏠</div>1 à 5 logements</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-logs').value=this.dataset.v" data-v="12"><div class="dv-option-icon">🏘️</div>6 à 15 logements</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-logs').value=this.dataset.v" data-v="25"><div class="dv-option-icon">🏢</div>16 à 35 logements</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-logs').value=this.dataset.v" data-v="60"><div class="dv-option-icon">🌆</div>Plus de 35 logements</div>
+          </div>
+          <input type="hidden" id="dv-logs">
+          <div class="dv-nav"><button class="dv-btn-next" onclick="devisNext()">Suivant →</button></div>
+        </div>
+        <div class="dv-step" id="dv-step-2">
+          <div class="dv-question">Quel type de logements gérez-vous ?</div>
+          <div class="dv-options">
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-type').value=this.dataset.v" data-v="Appartements"><div class="dv-option-icon">🏠</div>Appartements</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-type').value=this.dataset.v" data-v="Maisons/Villas"><div class="dv-option-icon">🏡</div>Maisons / Villas</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-type').value=this.dataset.v" data-v="Mix appartements et maisons"><div class="dv-option-icon">🏘️</div>Mix appartements & maisons</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-type').value=this.dataset.v" data-v="Hôtel/Résidence"><div class="dv-option-icon">🏨</div>Hôtel / Résidence</div>
+          </div>
+          <input type="hidden" id="dv-type">
+          <div class="dv-nav"><button class="dv-btn-back" onclick="devisBack()">←</button><button class="dv-btn-next" onclick="devisNext()">Suivant →</button></div>
+        </div>
+        <div class="dv-step" id="dv-step-3">
+          <div class="dv-question">Dans quelle zone géographique êtes-vous ?</div>
+          <div class="dv-options">
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-zone').value=this.dataset.v" data-v="Paris IDF"><div class="dv-option-icon">🗼</div>Paris & Île-de-France</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-zone').value=this.dataset.v" data-v="Côte d'Azur PACA"><div class="dv-option-icon">🌊</div>Côte d'Azur / PACA</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-zone').value=this.dataset.v" data-v="Autre France"><div class="dv-option-icon">🗺️</div>Autre région France</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-zone').value=this.dataset.v" data-v="International"><div class="dv-option-icon">🌍</div>International</div>
+          </div>
+          <input type="hidden" id="dv-zone">
+          <div class="dv-nav"><button class="dv-btn-back" onclick="devisBack()">←</button><button class="dv-btn-next" onclick="devisNext()">Suivant →</button></div>
+        </div>
+        <div class="dv-step" id="dv-step-4">
+          <div class="dv-question">Quel est votre budget mensuel estimé pour la gestion ?</div>
+          <div class="dv-options">
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-budget').value=this.dataset.v" data-v="moins de 200EUR"><div class="dv-option-icon">💡</div>Moins de 200€/mois</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-budget').value=this.dataset.v" data-v="200-500EUR"><div class="dv-option-icon">💰</div>200€ – 500€/mois</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-budget').value=this.dataset.v" data-v="500-1000EUR"><div class="dv-option-icon">💼</div>500€ – 1 000€/mois</div>
+            <div class="dv-option" onclick="this.closest('.dv-step').querySelectorAll('.dv-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel');document.getElementById('dv-budget').value=this.dataset.v" data-v="plus de 1000EUR"><div class="dv-option-icon">🏦</div>Plus de 1 000€/mois</div>
+          </div>
+          <input type="hidden" id="dv-budget">
+          <div class="dv-nav"><button class="dv-btn-back" onclick="devisBack()">←</button><button class="dv-btn-next" onclick="devisNext()">Suivant →</button></div>
+        </div>
+        <div class="dv-step" id="dv-step-5">
+          <div class="dv-question">Dernière étape — pour recevoir votre estimation :</div>
+          <div class="stripe-form" style="margin-top:0">
+            <div class="s-2col">
+              <input class="s-input" id="dv-prenom" type="text" placeholder="Prénom *">
+              <input class="s-input" id="dv-email" type="email" placeholder="Email *">
+            </div>
+            <input class="s-input" id="dv-tel" type="tel" placeholder="Téléphone (optionnel)">
+            <button class="s-submit" onclick="devisNext()">Recevoir mon estimation gratuite →</button>
+            <div class="s-note">Estimation personnalisée · Réponse sous 24h · Sans engagement</div>
+          </div>
+          <div class="dv-nav" style="margin-top:4px"><button class="dv-btn-back" onclick="devisBack()">←</button><div></div></div>
+        </div>
+      </div>
+    </div>
+    <div id="stripe-success" style="display:none;text-align:center;padding:16px 0">
+      <div style="font-size:3rem;margin-bottom:14px">🎉</div>
+      <h4 style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:8px">Redirection en cours...</h4>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.75">Vous allez être redirigé vers la page de paiement sécurisée Stripe.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DEMO DASHBOARD INTERACTIF -->
+<div id="demo-overlay" class="demo-overlay" onclick="if(event.target===this)closeDemoGate()">
+  <div class="demo-modal">
+    <button class="demo-modal-close" onclick="closeDemoGate()" title="Fermer">✕</button>
+    <div class="dm-topnav">
+      <div class="dm-logo">
+        <div class="dm-logo-mark">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1.5 6.5h10M6.5 1.5v10" stroke="#9FE1CB" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <span class="dm-logo-name">MyHostKit Concierge</span>
+        <span class="dm-logo-tag">IA native</span>
+      </div>
+      <div class="dm-nav-tabs">
+        <button class="dm-tab dm-on" onclick="dmSetView('dashboard',this)">Tableau de bord</button>
+        <button class="dm-tab" onclick="dmSetView('messages',this)">IA Messages</button>
+        <button class="dm-tab" onclick="dmSetView('revenue',this)">Revenus</button>
+        <button class="dm-tab" onclick="dmSetView('calendar',this)">Calendrier</button>
+        <button class="dm-tab" onclick="dmSetView('plans',this)">Nos offres</button>
+      </div>
+      <button class="dm-cta-top" onclick="closeDemoGate();openStripe('pro')">Essai 30j gratuit →</button>
+    </div>
+    <div class="dm-shell">
+      <div class="dm-sidebar">
+        <div class="dm-sb-logo">
+          <div class="dm-sb-lm">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M5.5 1v9" stroke="#9FE1CB" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </div>
+          <span class="dm-sb-name">MyHostKit</span>
+        </div>
+        <div class="dm-sb-nav">
+          <div class="dm-sb-sec">Principal</div>
+          <button class="dm-sb-item dm-act" id="dm-sb-dashboard" onclick="dmSetView('dashboard',null)">
+            <div class="dm-sb-dot" style="background:#1D9E75"></div>Vue d'ensemble
+          </button>
+          <button class="dm-sb-item" id="dm-sb-messages" onclick="dmSetView('messages',null)">
+            <div class="dm-sb-dot" style="background:#378ADD"></div>IA Conciergerie
+            <span class="dm-sb-badge" style="background:#E1F5EE;color:#085041">12</span>
+          </button>
+          <button class="dm-sb-item" id="dm-sb-revenue" onclick="dmSetView('revenue',null)">
+            <div class="dm-sb-dot" style="background:#7F77DD"></div>Revenue Intel.
+          </button>
+          <button class="dm-sb-item" id="dm-sb-calendar" onclick="dmSetView('calendar',null)">
+            <div class="dm-sb-dot" style="background:#EF9F27"></div>Calendrier
+          </button>
+          <div class="dm-sb-sec">Gestion</div>
+          <button class="dm-sb-item"><div class="dm-sb-dot" style="background:#555"></div>Propriétés</button>
+          <button class="dm-sb-item"><div class="dm-sb-dot" style="background:#555"></div>Réservations</button>
+          <button class="dm-sb-item" id="dm-nav-auto"><div class="dm-sb-dot" style="background:#1D9E75"></div>Automatisations</button>
+          <div class="dm-sb-sec">Avancé</div>
+          <button class="dm-sb-item" id="dm-nav-api"><div class="dm-sb-dot" style="background:#378ADD"></div>API & PMS</button>
+          <button class="dm-sb-item" id="dm-nav-wb"><div class="dm-sb-dot" style="background:#7F77DD"></div>White-label</button>
+        </div>
+        <div style="padding:9px 12px;border-top:1px solid rgba(255,255,255,.06)">
+          <div style="font-size:10px;color:rgba(255,255,255,.28)" id="dm-plan-label">Pro · 89€/mois</div>
+          <div style="font-size:10px;color:#1D9E75;margin-top:2px">● IA active — en ligne</div>
+        </div>
+      </div>
+      <div class="dm-main">
+        <div class="dm-mhd">
+          <div class="dm-mhd-title" id="dm-main-title">Vue d'ensemble · Avril 2026</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:10px;color:#1D9E75"><span class="dm-ai-dot"></span>IA active</span>
+            <span style="font-size:10px;color:rgba(255,255,255,.28)" id="dm-plan-top">Plan Pro</span>
+          </div>
+        </div>
+        <div class="dm-mbody" id="dm-body"></div>
+      </div>
+    </div>
+    <div class="dm-bottom-bar">
+      <div style="font-size:10px;color:rgba(255,255,255,.3)">Simuler un plan :</div>
+      <div class="dm-plan-btns">
+        <button class="dm-plan-btn" id="dm-btn-starter" onclick="dmSetPlan('starter',this)">Starter 49€/mois</button>
+        <button class="dm-plan-btn dm-plan-active" id="dm-btn-pro" onclick="dmSetPlan('pro',this)">Pro 89€/mois</button>
+        <button class="dm-plan-btn" id="dm-btn-ent" onclick="dmSetPlan('enterprise',this)">Conciergerie Pro</button>
+      </div>
+      <button onclick="closeDemoGate();openStripe('pro')" style="font-size:12px;padding:9px 22px;background:#0F6E56;color:#E1F5EE;border:none;border-radius:7px;cursor:pointer;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif">
+        Commencer gratuitement — 30j offerts →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODALES LÉGALES -->
+<div id="modal-cgv" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Conditions Générales de Vente</h2><button class="modal-close-btn" onclick="closeModal('cgv')">✕</button></div>
+    <div class="modal-body">
+      <h3>1. Vendeur</h3><p><strong>MyHostKit</strong> — SAS au capital de 1 000€<br>SIRET : 10032406000019 · RCS Paris<br>60 rue François 1er, 75008 Paris<br>Tél : 06 99 34 89 51 · Email : contact@myhostkit.com</p>
+      <h3>2. Produits et commandes</h3><p>Les produits proposés sont les kits physiques (Kit Lancement Hôte, Kit Literie Hôtel, Kit Accès & Sécurité, Kit Entretien Pro) et les abonnements logiciels (Conciergerie IA Starter, Pro, Conciergerie Pro). Les prix sont indiqués TTC en euros. MyHostKit se réserve le droit de modifier ses prix à tout moment. Les commandes sont confirmées par email.</p>
+      <h3>3. Paiement</h3><p>Paiement sécurisé par Stripe (cartes Visa, Mastercard, Amex, prélèvement SEPA). Aucune donnée bancaire n'est stockée sur nos serveurs. Pour les abonnements, le premier prélèvement intervient après la période d'essai gratuite de 30 jours.</p>
+      <h3>4. Livraison (kits physiques)</h3><p>Livraison Colissimo avec suivi sous 48h ouvrées en France métropolitaine. Commandes passées avant 14h expédiées le jour même. Les risques sont transférés à l'acheteur dès la remise au transporteur.</p>
+      <h3>5. Droit de rétractation</h3><p>Conformément à l'article L221-18 du Code de la consommation, vous disposez d'un délai de 14 jours à compter de la réception pour exercer votre droit de rétractation sans justification. Pour les abonnements logiciels, ce droit ne s'applique pas une fois le service activé (art. L221-28 al. 13). Retours : contact@myhostkit.com</p>
+      <h3>6. Abonnements Conciergerie IA</h3><p>Plans Starter et Pro : sans engagement, résiliation à tout moment avec effet à la fin du mois en cours. Plan Conciergerie Pro : contrat spécifique avec préavis. Aucun prélèvement durant les 30 premiers jours (période d'essai). Tarifs révisables annuellement avec préavis de 60 jours.</p>
+      <h3>7. Garanties légales</h3><p>Garantie légale de conformité (Art. L217-4 à L217-14 C.conso) et garantie des vices cachés (Art. 1641 à 1648 CC) applicables aux produits physiques. Les logiciels bénéficient d'un SLA de 99,5% de disponibilité mensuelle.</p>
+      <h3>8. Données personnelles</h3><p>Données traitées conformément au RGPD. Responsable de traitement : MyHostKit. Hébergement : OVHcloud (France). Durée de conservation : 3 ans après la dernière commande. Droits : contact@myhostkit.com. Autorité de contrôle : CNIL (www.cnil.fr).</p>
+      <h3>9. Règlement des litiges</h3><p>Droit français applicable. Médiation consommateur : plateforme européenne http://ec.europa.eu/consumers/odr/. En dernier recours : Tribunal de Commerce de Paris.</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-mentions" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Mentions légales</h2><button class="modal-close-btn" onclick="closeModal('mentions')">✕</button></div>
+    <div class="modal-body">
+      <h3>Éditeur du site</h3><p><strong>MyHostKit</strong> — Société par actions simplifiée (SAS)<br>Capital : 1 000€ · RCS Paris<br>SIRET : 10032406000019 · APE : 7021Z<br>TVA intracommunautaire : FR12100324060<br>Siège social : 60 rue François 1er, 75008 Paris<br>Directeur de publication : Rayane (Gérant)<br>Tél : 06 99 34 89 51<br>Email : contact@myhostkit.com<br>Site : www.myhostkit.com</p>
+      <h3>Hébergement</h3><p>Site hébergé par <strong>Shopify Inc.</strong>, 150 Elgin Street, 8th Floor, Ottawa, ON K2P 1L4, Canada.<br>Application IA hébergée sur <strong>OVHcloud</strong>, 2 rue Kellermann, 59100 Roubaix, France.</p>
+      <h3>Propriété intellectuelle</h3><p>L'ensemble des contenus de ce site (textes, images, logos, graphismes, code source) sont la propriété exclusive de MyHostKit et protégés par le droit français et international de la propriété intellectuelle. Toute reproduction, représentation ou exploitation non autorisée est interdite et constitue une contrefaçon.</p>
+      <h3>Données personnelles & RGPD</h3><p>Responsable de traitement : MyHostKit, 60 rue François 1er, 75008 Paris. Les données collectées (nom, email, téléphone, données de facturation) sont traitées pour l'exécution des commandes et abonnements. Base légale : exécution du contrat. Durée : 3 ans après la dernière commande. Droits d'accès, rectification, effacement, portabilité : contact@myhostkit.com. Réclamation : CNIL, 3 place de Fontenoy, 75007 Paris (www.cnil.fr).</p>
+      <h3>Cookies</h3><p>Ce site utilise des cookies techniques nécessaires au fonctionnement (panier, session) et des cookies analytiques anonymisés. Aucun cookie publicitaire tiers sans consentement explicite.</p>
+      <h3>Médiation</h3><p>En cas de litige, vous pouvez recourir gratuitement au médiateur de la consommation : plateforme européenne ODR http://ec.europa.eu/consumers/odr/</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-retours" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Retours & Remboursements</h2><button class="modal-close-btn" onclick="closeModal('retours')">✕</button></div>
+    <div class="modal-body">
+      <h3>Délai de rétractation — 14 jours</h3><p>Conformément à l'article L221-18 du Code de la consommation, vous disposez de <strong>14 jours calendaires</strong> à compter de la réception de votre commande pour exercer votre droit de rétractation, sans avoir à justifier votre décision ni supporter de pénalités.</p>
+      <h3>Comment exercer ce droit ?</h3><p>Envoyez un email à <strong>contact@myhostkit.com</strong> avec votre numéro de commande et votre demande de rétractation. Vous recevrez les instructions de retour sous 24h. Les frais de retour sont à votre charge sauf en cas de produit défectueux ou non-conforme.</p>
+      <h3>Remboursement</h3><p>Le remboursement intégral est effectué sous <strong>14 jours</strong> à compter de la réception du colis retourné, par le même moyen de paiement que la commande initiale. Les produits doivent être retournés dans leur emballage d'origine, non utilisés et en parfait état.</p>
+      <h3>Produits défectueux</h3><p>En cas de produit défectueux ou non-conforme à la description, MyHostKit prend en charge intégralement les frais de retour et propose au choix : remplacement du produit ou remboursement complet. Contactez-nous à contact@myhostkit.com avec une photo du défaut.</p>
+      <h3>Abonnements logiciels</h3><p>Les abonnements Conciergerie IA (Starter et Pro) peuvent être résiliés à tout moment depuis votre tableau de bord, avec effet à la fin du mois en cours. La période d'essai de 30 jours est entièrement gratuite — aucun remboursement nécessaire car aucun débit n'est effectué avant la fin de l'essai.</p>
+      <h3>Contact retours</h3><p><strong>contact@myhostkit.com</strong> · 06 99 34 89 51<br>MyHostKit · 60 rue François 1er, 75008 Paris</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+var CFG = {
+  admin: 'myhostkit.contact@gmail.com',
+  stripe: {
+    starter:    'https://buy.stripe.com/6oU5kvh013qo9aD1vjfYY00',
+    pro:        'https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01',
+    mb_starter: 'https://buy.stripe.com/28EfZ9aBDd0YeuXei5fYY02',
+    mb_pro:     'https://buy.stripe.com/dRm6ozdNP1ig2Mffm9fYY03',
+    mb_ent:     'https://buy.stripe.com/cNi5kv1133qo1Ib7THfYY04',
+    kit_essentiel:  'https://buy.stripe.com/7sY8wH9xz0ec86zc9XfYY05',
+    kit_premium:    'https://buy.stripe.com/cNi3cndNP8KI2Mf0rffYY06',
+    kit_excellence: 'https://buy.stripe.com/8x25kvdNP9OMeuX3DrfYY08',
+    lit_confort:    'https://buy.stripe.com/dRmdR139b6CAeuXde1fYY09',
+    lit_premium:    'https://buy.stripe.com/7sY4grcJL9OMcmPb5TfYY0a',
+    acc_essentiel:  'https://buy.stripe.com/4gM28jaBD8KI0E7b5TfYY0b',
+    acc_pro:        'https://buy.stripe.com/6oU00b9xz9OMaeHa1PfYY0c',
+    ent_starter:    'https://buy.stripe.com/eVqaEPbFH3qocmP6PDfYY0d',
+    ent_pro:        'https://buy.stripe.com/fZudR11139OM0E7ei5fYY0e'
+  }
+};
+
+var SHOPIFY = {
+  'kit-lancement': { 'Essentiel': '56519825555842', 'Premium': '56519825555842', 'Excellence': '56519825555842', def: '56519825555842' },
+  'literie':       { 'Confort': '15248803365250', 'Premium': '15248803365250', def: '15248803365250' },
+  'acces':         { 'Essentiel': '56519836008834', 'Pro': '56519836008834', def: '56519836008834' },
+  'entretien':     { 'Starter': '15248809001346', 'Pro': '15248809001346', def: '15248809001346' }
+};
+
+var KIT_STRIPE = {
+  'kit-lancement_Essentiel': 'kit_essentiel', 'kit-lancement_Premium': 'kit_premium', 'kit-lancement_Excellence': 'kit_excellence',
+  'literie_Confort': 'lit_confort', 'literie_Premium': 'lit_premium',
+  'acces_Essentiel': 'acc_essentiel', 'acces_Pro': 'acc_pro',
+  'entretien_Starter': 'ent_starter', 'entretien_Pro': 'ent_pro'
+};
+
+function ge(id){ return document.getElementById(id); }
+function gv(id){ var e=ge(id); return e?e.value.trim():''; }
+
+function showToast(msg,dur){
+  var t=ge('toast');
+  t.textContent=msg; t.className='toast show';
+  setTimeout(function(){t.className='toast';},dur||3000);
+}
+
+async function sendEmail(to,subject,body){
+  if(!to||!subject) return;
+  if(typeof emailjs==='undefined'){console.log('[EMAIL]',subject);return{demo:true};}
+  var isConc=subject.indexOf('Conciergerie')>=0||subject.indexOf('Licence MB')>=0||subject.indexOf('Devis')>=0;
+  var serviceId=isConc?'service_np0j3xr':'service_j08tm6q';
+  var templateId=isConc?'template_gmhak5k':'template_57eix96';
+  return emailjs.send(serviceId,templateId,{nom:subject,email:to,telephone:'',type_demande:subject,message:body,sujet:subject});
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof emailjs!=='undefined') emailjs.init('kQSh-LeXQBMby2Ucw');
+  var els=document.querySelectorAll('.reveal');
+  if(typeof IntersectionObserver!=='undefined'){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+    els.forEach(function(el){obs.observe(el);});
+  } else { els.forEach(function(el){el.classList.add('visible');}); }
+  var spots=parseInt(localStorage.getItem('mhk-spots')||'47');
+  ['spots-left','spots-left-2','spots-left-3'].forEach(function(id){var el=ge(id);if(el)el.textContent=spots;});
+  var ko=ge('kit-orders'); if(ko) ko.textContent=Math.floor(40+Math.random()*20);
+  startCountdown();
+  renderCart();
+  startLiveCount();
+  updateSiretVisibility();
+  // PS5
+  var endPS5=new Date('2026-06-30').getTime();
+  function tickPS5(){
+    var diff=Math.max(0,endPS5-Date.now());
+    var days=Math.floor(diff/86400000);
+    var hours=Math.floor((diff%86400000)/3600000);
+    var mins=Math.floor((diff%3600000)/60000);
+    var h=ge('ps5-h');if(h)h.textContent=String(days).padStart(2,'0');
+    var m=ge('ps5-m');if(m)m.textContent=String(hours).padStart(2,'0');
+    var s=ge('ps5-s');if(s)s.textContent=String(mins).padStart(2,'0');
+  }
+  tickPS5(); setInterval(tickPS5,60000);
+  window.addEventListener('scroll',function(){
+    var nav=ge('main-nav');if(nav)nav.classList.toggle('scrolled',window.scrollY>60);
+  });
+  // Init démo avec plan Pro par défaut (débloqué)
+  dmPlan='pro';
+});
+
+function startLiveCount(){
+  var el=ge('live-count'); if(!el) return;
+  var n=12; el.textContent=n;
+  setInterval(function(){n=Math.max(8,Math.min(23,n+(Math.random()>.5?1:-1)));el.textContent=n;},7000);
+}
+
+function startCountdown(){
+  var h=ge('cd-h'),m=ge('cd-m'),s=ge('cd-s'); if(!h) return;
+  var end=parseInt(localStorage.getItem('mhk-cd')||'0');
+  if(!end||end<Date.now()){end=Date.now()+47*3600000;localStorage.setItem('mhk-cd',end);}
+  function tick(){
+    var diff=Math.max(0,end-Date.now());
+    var hh=Math.floor(diff/3600000),mm=Math.floor((diff%3600000)/60000),ss=Math.floor((diff%60000)/1000);
+    if(h)h.textContent=String(hh).padStart(2,'0');
+    if(m)m.textContent=String(mm).padStart(2,'0');
+    if(s)s.textContent=String(ss).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+}
+
+function toggleFaq(el){
+  var item=el.closest('.faq-item');
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!wasOpen) item.classList.add('open');
+}
+
+function openModal(id){var el=ge('modal-'+id);if(el)el.style.display='flex';document.body.style.overflow='hidden';}
+function closeModal(id){var el=ge('modal-'+id);if(el)el.style.display='none';document.body.style.overflow='';}
+
+function selectTier(el,kit){
+  var c=document.querySelector('[data-kit="'+kit+'"]');
+  if(!c) return;
+  c.querySelectorAll('.price-tier').forEach(function(t){t.classList.remove('selected');});
+  el.classList.add('selected');
+}
+
+// CART
+var cart=[];
+function addToCart(kitId){
+  var container=document.querySelector('[data-kit="'+kitId+'"]');
+  var tierEl=container?container.querySelector('.price-tier.selected'):null;
+  if(!tierEl&&container){var first=container.querySelector('.price-tier');if(first){first.classList.add('selected');tierEl=first;}}
+  var tierName='Standard',tierPrice=0;
+  if(tierEl){tierName=tierEl.getAttribute('data-tier-name')||'Standard';tierPrice=parseInt(tierEl.getAttribute('data-price'))||0;}
+  var names={'kit-lancement':'Kit Lancement Hôte','literie':'Kit Literie Premium','acces':'Kit Accès & Sécurité','entretien':'Kit Entretien Pro'};
+  if(window.location.hostname.indexOf('myhostkit.com')>=0){
+    var tk=tierName.replace(/[⭐✦]/g,'').trim();
+    var ids=SHOPIFY[kitId]||{};var vid=ids[tierName]||ids[tk]||ids.def;
+    if(!vid){showToast('Erreur produit');return;}
+    var btn=container?container.querySelector('.prod-cta'):null;
+    if(btn){btn.textContent='⏳ Ajout...';btn.disabled=true;}
+    fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})})
+      .then(function(r){return r.json();}).then(function(){if(btn){btn.innerHTML='✓ Ajouté !';setTimeout(function(){btn.innerHTML='🛒 Ajouter au panier';btn.disabled=false;},2000);}openCart();})
+      .catch(function(){window.location.href='/cart/'+vid+':1';});
+    return;
+  }
+  var found=false;
+  for(var i=0;i<cart.length;i++){if(cart[i].kitId===kitId&&cart[i].tier===tierName){cart[i].qty++;found=true;break;}}
+  if(!found) cart.push({id:Date.now(),kitId:kitId,name:names[kitId]||kitId,tier:tierName,price:tierPrice,qty:1});
+  updateCartCount();renderCart();openCart();
+  var btn2=container?container.querySelector('.prod-cta'):null;
+  if(btn2){var orig=btn2.innerHTML;btn2.innerHTML='✓ Ajouté !';setTimeout(function(){btn2.innerHTML=orig;},1500);}
+}
+
+function updateCartCount(){
+  var n=cart.reduce(function(s,i){return s+i.qty;},0);
+  var el=ge('cart-count');if(el){el.textContent=n;el.style.display=n>0?'flex':'none';}
+}
+
+function changeQty(id,delta){
+  for(var i=0;i<cart.length;i++){if(cart[i].id===id){cart[i].qty=Math.max(0,cart[i].qty+delta);if(cart[i].qty===0)cart.splice(i,1);break;}}
+  updateCartCount();renderCart();
+}
+
+function openCart(){var ov=ge('cart-overlay');if(ov)ov.style.display='block';var dr=ge('cart-drawer');if(dr)dr.classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){var ov=ge('cart-overlay');if(ov)ov.style.display='none';var dr=ge('cart-drawer');if(dr)dr.classList.remove('open');document.body.style.overflow='';}
+
+function renderCart(){
+  var body=ge('cart-body'),footer=ge('cart-footer');if(!body||!footer) return;
+  if(cart.length===0){body.innerHTML='<div style="text-align:center;padding:48px 20px"><div style="font-size:2.8rem;margin-bottom:12px">🛒</div><div style="font-weight:600;color:#1A1A1A;margin-bottom:6px">Votre panier est vide</div><div style="font-size:.83rem;color:#6B6B6B">Ajoutez des kits Superhôte pour continuer.</div></div>';footer.innerHTML='';return;}
+  var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);
+  var rows='';
+  for(var i=0;i<cart.length;i++){
+    var it=cart[i];
+    rows+='<div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #F0EDE7;align-items:flex-start"><div style="flex:1"><div style="font-size:.88rem;font-weight:600;color:#1A1A1A;margin-bottom:2px">'+it.name+'</div><div style="font-size:.75rem;color:#2E7FA0;font-weight:600;margin-bottom:9px">'+it.tier+'</div><div style="display:flex;align-items:center;gap:9px"><button onclick="changeQty('+it.id+',-1)" style="width:28px;height:28px;border:1.5px solid #E0DDD6;border-radius:6px;background:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;font-family:inherit">−</button><span style="font-size:.88rem;font-weight:700;min-width:18px;text-align:center">'+it.qty+'</span><button onclick="changeQty('+it.id+',+1)" style="width:28px;height:28px;border:1.5px solid #E0DDD6;border-radius:6px;background:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;font-family:inherit">+</button><button onclick="changeQty('+it.id+',-99)" style="margin-left:auto;font-size:.72rem;color:#9ca3af;background:none;border:none;cursor:pointer;font-family:inherit;padding:2px 6px">✕</button></div></div><div style="font-size:.95rem;font-weight:700;color:#1A1A1A;white-space:nowrap">'+(it.price*it.qty)+' €</div></div>';
+  }
+  body.innerHTML=rows;
+  footer.innerHTML='<div style="display:flex;justify-content:space-between;font-size:.84rem;color:#6B6B6B;margin-bottom:4px"><span>Sous-total</span><span>'+total+' €</span></div><div style="font-size:.72rem;color:#6B6B6B;margin-bottom:16px">Livraison gratuite · Calculée au checkout</div><div style="background:#FEF3E2;border:1px solid #F59E0B;border-radius:6px;padding:8px 12px;font-size:.76rem;color:#92400E;margin-bottom:12px;text-align:center">⏰ Stock limité — commandé '+(Math.floor(Math.random()*8)+3)+'x cette semaine</div><button onclick="checkoutCart()" style="width:100%;padding:15px;background:#1B5E7B;color:#fff;border:none;border-radius:8px;font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px">🔒 Commander — '+total+' € →</button><div style="text-align:center;font-size:.71rem;color:#9ca3af;margin-top:9px">Paiement sécurisé Stripe · Livraison 48h · Retours 14j</div>';
+}
+
+function checkoutCart(){
+  if(cart.length===0) return;
+  var item=cart[0];
+  var tierKey=item.tier.replace(/[⭐✦]/g,'').trim();
+  var ids=SHOPIFY[item.kitId]||{};
+  var vid=ids[item.tier]||ids[tierKey]||ids.def;
+  if(vid&&window.location.hostname.indexOf('myhostkit.com')>=0){window.location.href='/cart/'+vid+':'+item.qty;return;}
+  var stripeKey=KIT_STRIPE[item.kitId+'_'+tierKey]||KIT_STRIPE[item.kitId+'_'+item.tier];
+  if(stripeKey&&CFG.stripe[stripeKey]){closeCart();window.location.href=CFG.stripe[stripeKey];return;}
+  window.location.href='/checkout';
+}
+
+function buyNowKit(kitId){
+  var container=document.querySelector('[data-kit="'+kitId+'"]');
+  var tierEl=container?container.querySelector('.price-tier.selected'):null;
+  if(!tierEl&&container){var first=container.querySelector('.price-tier');if(first){first.classList.add('selected');tierEl=first;}}
+  if(!tierEl){showToast('Sélectionnez un tier');return;}
+  var stripeKey=tierEl.getAttribute('data-stripe');
+  if(stripeKey&&CFG.stripe[stripeKey]){window.location.href=CFG.stripe[stripeKey];return;}
+  addToCart(kitId);setTimeout(function(){checkoutCart();},300);
+}
+
+// STRIPE MODAL
+var currentPlan='pro';
+var CONC_PLANS={
+  starter:{name:'Starter',price:'49',stripeKey:'starter',feats:['Réponses IA voyageurs 24h/24','Alertes stock par email','Tableau de bord personnel','Rapport mensuel automatique']},
+  pro:{name:'Pro',price:'89',stripeKey:'pro',feats:['Tout Starter inclus','Coordination ménage automatique','Email prestataire automatique','Rapport hebdomadaire complet','Planning mensuel']},
+  concierge:{name:'Conciergerie Pro',price:null,stripeKey:null,feats:['Logements illimités','Dashboard marque blanche','Account manager dédié','Formation équipe incluse','API & intégrations custom']}
+};
+
+function openStripe(plan){
+  currentPlan=plan;
+  var p=CONC_PLANS[plan]||CONC_PLANS.pro;
+  var isDevis=plan==='concierge';
+  var pn=ge('s-plan-name');if(pn)pn.innerHTML='Plan <em>'+p.name+'</em>';
+  var pr=ge('s-plan-price');if(pr)pr.innerHTML=isDevis?'<span style="font-size:1.3rem">Sur devis</span>':p.price+'<span style="font-size:.85rem;color:rgba(255,255,255,.35)">€/mois</span>';
+  var ps=ge('s-plan-sub');if(ps)ps.textContent=isDevis?'Estimation automatique · Réponse sous 24h':'30 jours gratuits · Sans engagement';
+  var pf=ge('s-features');
+  if(pf){var fHTML='<div style="font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:8px">Inclus</div>';p.feats.forEach(function(f){fHTML+='<div style="font-size:.8rem;color:rgba(255,255,255,.58);margin-bottom:5px;display:flex;align-items:center;gap:7px"><span style="color:#C4922A;font-weight:800">✓</span>'+f+'</div>';});pf.innerHTML=fHTML;}
+  var fn=ge('stripe-form-normal'),fd=ge('stripe-form-devis');
+  if(fn)fn.style.display=isDevis?'none':'block';
+  if(fd)fd.style.display=isDevis?'block':'none';
+  var fw=ge('stripe-form-wrap');if(fw)fw.style.display='block';
+  var ss=ge('stripe-success');if(ss)ss.style.display='none';
+  ['s-prenom','s-email','s-nom'].forEach(function(id){var e=ge(id);if(e)e.style.borderColor='';});
+  var modal=ge('stripe-modal');if(modal)modal.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+
+function closeStripe(){var modal=ge('stripe-modal');if(modal)modal.style.display='none';document.body.style.overflow='';}
+
+async function submitStripe(){
+  if(currentPlan==='concierge'){await submitDevisConciergerie();return;}
+  var prenom=gv('s-prenom'),nom=gv('s-nom'),email=gv('s-email'),tel=gv('s-tel'),logs=gv('s-logs');
+  var cgv=ge('s-cgv')&&ge('s-cgv').checked;
+  if(!prenom){var e=ge('s-prenom');if(e){e.style.borderColor='#E74C3C';e.focus();}return;}
+  if(!email||!email.includes('@')){var e2=ge('s-email');if(e2){e2.style.borderColor='#E74C3C';e2.focus();}return;}
+  if(!cgv){showToast('Acceptez les CGV pour continuer');return;}
+  var btn=ge('s-submit');if(btn){btn.disabled=true;btn.innerHTML='⏳ Redirection...';}
+  var p=CONC_PLANS[currentPlan];
+  var body='Plan: '+p.name+' '+p.price+'EUR/mois | Prenom: '+prenom+' '+nom+' | Email: '+email+' | Tel: '+(tel||'N/A')+' | Logements: '+(logs||'N/A')+' | Date: '+new Date().toLocaleString('fr-FR');
+  try{await sendEmail(CFG.admin,'[MyHostKit] Inscription Conciergerie '+p.name+' - '+prenom+' '+nom,body);}catch(e){}
+  var fw=ge('stripe-form-wrap');if(fw)fw.style.display='none';
+  var ss=ge('stripe-success');if(ss)ss.style.display='block';
+  var url=CFG.stripe[p.stripeKey]+'?prefilled_email='+encodeURIComponent(email)+'&locale=fr';
+  setTimeout(function(){window.location.href=url;},1200);
+  var sp=Math.max(1,parseInt(localStorage.getItem('mhk-spots')||'47')-1);
+  localStorage.setItem('mhk-spots',sp);
+  var sel=ge('spots-left');if(sel)sel.textContent=sp;
+}
+
+// DEVIS
+var devisStep=1,devisData={};
+function devisNext(){
+  var step=devisStep;
+  if(step===1){if(!gv('dv-logs')){showToast('Indiquez le nombre de logements');return;}devisData.logs=gv('dv-logs');}
+  if(step===2){if(!gv('dv-type')){showToast('Sélectionnez le type de logements');return;}devisData.type=gv('dv-type');}
+  if(step===3){if(!gv('dv-zone')){showToast('Indiquez votre zone géographique');return;}devisData.zone=gv('dv-zone');}
+  if(step===4){if(!gv('dv-budget')){showToast('Sélectionnez votre budget');return;}devisData.budget=gv('dv-budget');}
+  if(step===5){
+    var prenom=gv('dv-prenom'),email=gv('dv-email');
+    if(!prenom){showToast('Prénom requis');return;}
+    if(!email||!email.includes('@')){showToast('Email valide requis');return;}
+    devisData.prenom=prenom;devisData.email=email;devisData.tel=gv('dv-tel');
+    submitDevisConciergerie();return;
+  }
+  devisStep++;showDevisStep(devisStep);
+}
+function devisBack(){if(devisStep>1){devisStep--;showDevisStep(devisStep);}}
+function showDevisStep(n){
+  for(var i=1;i<=5;i++){var el=ge('dv-step-'+i);if(el)el.style.display=i===n?'block':'none';}
+  var prog=ge('dv-prog');if(prog)prog.style.width=(n/5*100)+'%';
+  var lbl=ge('dv-step-lbl');if(lbl)lbl.textContent='Étape '+n+' / 5';
+}
+function calcEstimation(){
+  var logs=parseInt(devisData.logs)||5;
+  var pricePerLog=Math.max(29,89-(logs-1)*4);
+  var monthly=logs*pricePerLog;
+  var discount=logs>=20?15:logs>=10?10:logs>=5?5:0;
+  monthly=Math.round(monthly*(1-discount/100));
+  return{monthly:monthly,pricePerLog:pricePerLog,discount:discount,logs:logs};
+}
+async function submitDevisConciergerie(){
+  var est=calcEstimation();
+  var body='DEVIS CONCIERGERIE PRO\nLogements: '+devisData.logs+'\nType: '+(devisData.type||'N/A')+'\nZone: '+(devisData.zone||'N/A')+'\nBudget: '+(devisData.budget||'N/A')+'\nContact: '+devisData.prenom+' | Email: '+devisData.email+' | Tel: '+(devisData.tel||'N/A')+'\nEstimation: '+est.monthly+'EUR/mois | Date: '+new Date().toLocaleString('fr-FR');
+  try{await sendEmail(CFG.admin,'[MyHostKit] Devis Conciergerie Pro - '+devisData.prenom,body);}catch(ex){}
+  var fw=ge('stripe-form-wrap');if(fw)fw.style.display='none';
+  var sr=ge('stripe-success');
+  if(sr){
+    sr.innerHTML='<div style="font-size:2.5rem;margin-bottom:14px">📊</div><h4 style="font-family:Fraunces,serif;font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:14px">Votre estimation personnalisée</h4><div style="background:rgba(196,146,42,.12);border:1px solid rgba(196,146,42,.3);border-radius:10px;padding:18px;margin-bottom:16px;text-align:left"><div style="font-size:.72rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Estimation mensuelle</div><div style="font-family:Fraunces,serif;font-size:2.4rem;font-weight:300;color:#C4922A">'+est.monthly+'<span style="font-size:1rem;color:rgba(255,255,255,.4)">€/mois</span></div><div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-top:6px">'+est.logs+' logements × '+est.pricePerLog+'€'+(est.discount>0?' − '+est.discount+'% remise volume':'')+'</div></div><p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px">Notre équipe vous contacte sous <strong style="color:#fff">24h ouvrées</strong> pour affiner ce devis.</p><div style="font-size:.72rem;color:rgba(255,255,255,.3)">Email de confirmation envoyé à '+(devisData.email||'')+'</div>';
+    sr.style.display='block';
+  }
+}
+
+// ── DÉMO DASHBOARD — ENTIÈREMENT DÉBLOQUÉE ──
+var dmPlan='pro';
+var dmView='dashboard';
+
+function openDemoGate(){
+  var el=ge('demo-overlay');if(el)el.style.display='flex';
+  document.body.style.overflow='hidden';
+  setTimeout(function(){dmSetPlan('pro',ge('dm-btn-pro'));dmRenderView('dashboard');},50);
+}
+function closeDemoGate(){var el=ge('demo-overlay');if(el)el.style.display='none';document.body.style.overflow='';}
+
+function dmSetPlan(plan,btn){
+  dmPlan=plan;
+  document.querySelectorAll('.dm-plan-btn').forEach(function(b){b.classList.remove('dm-plan-active');});
+  if(btn)btn.classList.add('dm-plan-active');
+  var labels={starter:'Starter · 49€/mois',pro:'Pro · 89€/mois',enterprise:'Conciergerie Pro'};
+  var el1=ge('dm-plan-label');if(el1)el1.textContent=labels[plan]||labels.pro;
+  var el2=ge('dm-plan-top');if(el2)el2.textContent='Plan '+(plan==='enterprise'?'Conciergerie Pro':plan.charAt(0).toUpperCase()+plan.slice(1));
+  dmRenderView(dmView);
+}
+
+function dmSetView(v,btn){
+  dmView=v;
+  document.querySelectorAll('.dm-tab').forEach(function(t){t.classList.remove('dm-on');});
+  document.querySelectorAll('.dm-sb-item').forEach(function(t){t.classList.remove('dm-act');});
+  if(btn)btn.classList.add('dm-on');
+  var sb=ge('dm-sb-'+v);if(sb)sb.classList.add('dm-act');
+  var titles={dashboard:"Vue d'ensemble · Avril 2026",messages:"IA Conciergerie · Messages en cours",revenue:"Revenue Intelligence · Optimisation tarifaire",calendar:"Calendrier · Disponibilités & réservations",plans:"Nos offres · Choisissez votre plan"};
+  var el=ge('dm-main-title');if(el)el.textContent=titles[v]||v;
+  dmRenderView(v);
+}
+
+// FIX BUG "Nos offres" : le bouton ghost reçoit le bon style via classes CSS séparées
+function dmPlanCard(plan,price,name,period,feats,locked,featured,popBadge){
+  var isCurrent=(dmPlan===plan||(plan==='enterprise'&&dmPlan==='enterprise'));
+  var btnLabel=isCurrent?'Plan actuel ✓':plan==='enterprise'?'Obtenir un devis':'Choisir '+name.replace(' ⭐','').replace(' ✦','');
+  // FIX : on n'utilise plus de style inline qui écrase le CSS — on utilise uniquement les classes
+  var btnCls=featured?'dm-pc-btn dm-pc-btn-main':'dm-pc-btn dm-pc-btn-ghost';
+  var action=plan==='enterprise'?"closeDemoGate();openStripe('concierge')":'closeDemoGate();openStripe(\''+plan+'\')';
+  var priceHTML=price==='Devis'?'<span style="font-size:14px;font-weight:700">Sur devis</span>':price+'€<span>/mois</span>';
+  return '<div class="dm-pc'+(featured?' dm-pc-feat':'')+'">'
+    +(popBadge?'<div class="dm-pc-pop">'+popBadge+'</div>':'')
+    +'<div class="dm-pc-name">'+name+'</div>'
+    +'<div class="dm-pc-price">'+priceHTML+'</div>'
+    +'<div class="dm-pc-period">'+period+'</div>'
+    +feats.map(function(f){return '<div class="dm-pc-feat"><span class="dm-pc-check">✓</span>'+f+'</div>';}).join('')
+    +locked.map(function(f){return '<div class="dm-pc-feat-x"><span class="dm-pc-cross">✗</span>'+f+'</div>';}).join('')
+    +'<button class="'+btnCls+'" onclick="'+action+'">'+btnLabel+'</button>'
+    +'</div>';
+}
+
+function dmRenderView(v){
+  var body=ge('dm-body');if(!body) return;
+
+  if(v==='dashboard'){
+    // ENTIÈREMENT DÉBLOQUÉ — affiche toutes les données sans lock ni blur
+    body.innerHTML=
+      '<div class="dm-kpi-row">'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Revenus ce mois</div><div class="dm-kpi-val">9 840€</div><div class="dm-kpi-delta">▲ +22% vs mars</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Taux d\'occupation</div><div class="dm-kpi-val">87%</div><div class="dm-kpi-delta">▲ +8 pts</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Msgs IA traités</div><div class="dm-kpi-val">1 247</div><div class="dm-kpi-delta">0 escalade humaine</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Note moyenne</div><div class="dm-kpi-val">4.9★</div><div class="dm-kpi-delta">▲ +0.2 ce mois</div></div>'
+      +'</div>'
+      +'<div class="dm-ai-panel">'
+        +'<div class="dm-ai-panel-hd"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="#1D9E75" stroke-width="1.1"/><path d="M3.5 5.5h4M5.5 3.5v4" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round"/></svg>Suggestions IA du jour</div>'
+        +'<div class="dm-ai-sugg"><div><div>Augmenter le prix Villa Nice de +18€/nuit ce week-end (festival Cannes) — taux local à 94%.</div><div class="dm-ai-sugg-action">Appliquer automatiquement →</div></div></div>'
+        +'<div class="dm-ai-sugg"><div><div>Guest Apt. Lyon — check-out demain. Envoyer message de départ + demande d\'avis automatique.</div><div class="dm-ai-sugg-action">Planifier maintenant →</div></div></div>'
+      +'</div>'
+      +'<div class="dm-row2">'
+        +'<div class="dm-card"><div class="dm-card-hd">Derniers échanges <span class="dm-card-sub"><span class="dm-ai-dot"></span>En direct</span></div>'
+          +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">À quelle heure puis-je arriver ?</div><div class="dm-bt">Il y a 2 min</div></div></div>'
+          +'<div class="dm-msg"><div class="dm-av ai">IA</div><div><div class="dm-bub ai-bub">Dès 15h ! Code entrée : 4821. Parking gratuit en face 🏠</div><div class="dm-bt">Il y a 2 min · Répondu en 1.1s</div></div></div>'
+          +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">Possible à 12h ?</div><div class="dm-bt">Il y a 1 min</div></div></div>'
+          +'<div class="dm-msg"><div class="dm-av ai">IA</div><div><div class="dm-bub ai-bub">Je vérifie la disponibilité et vous confirme !</div><div class="dm-bt">À l\'instant · 0.9s</div></div></div>'
+        +'</div>'
+        +'<div class="dm-card"><div class="dm-card-hd">Revenus par propriété</div>'
+          +'<div class="dm-bar-row"><span class="dm-bar-lbl">Chalet</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:100%;background:#1D9E75"></div></div><span class="dm-bar-val">2 100€</span></div>'
+          +'<div class="dm-bar-row"><span class="dm-bar-lbl">Apt. Lyon</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:69%;background:#378ADD"></div></div><span class="dm-bar-val">1 450€</span></div>'
+          +'<div class="dm-bar-row"><span class="dm-bar-lbl">Studio</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:34%;background:#7F77DD"></div></div><span class="dm-bar-val">720€</span></div>'
+          +'<div class="dm-bar-row"><span class="dm-bar-lbl">Villa Nice</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:27%;background:#EF9F27"></div></div><span class="dm-bar-val">570€</span></div>'
+        +'</div>'
+      +'</div>';
+  }
+
+  else if(v==='messages'){
+    body.innerHTML=
+      '<div class="dm-ai-panel">'
+        +'<div class="dm-ai-panel-hd">Résumé IA · Ce mois</div>'
+        +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">'
+          +'<div style="background:rgba(255,255,255,.04);border-radius:7px;padding:9px;text-align:center"><div style="font-size:17px;font-weight:700;color:#1D9E75">1 247</div><div style="font-size:9px;color:rgba(255,255,255,.38);margin-top:2px">Messages traités</div></div>'
+          +'<div style="background:rgba(255,255,255,.04);border-radius:7px;padding:9px;text-align:center"><div style="font-size:17px;font-weight:700;color:#1D9E75">1.2s</div><div style="font-size:9px;color:rgba(255,255,255,.38);margin-top:2px">Temps moyen</div></div>'
+          +'<div style="background:rgba(255,255,255,.04);border-radius:7px;padding:9px;text-align:center"><div style="font-size:17px;font-weight:700;color:#1D9E75">0</div><div style="font-size:9px;color:rgba(255,255,255,.38);margin-top:2px">Escalades humaines</div></div>'
+        +'</div>'
+      +'</div>'
+      +'<div class="dm-card" style="margin-bottom:8px">'
+        +'<div class="dm-card-hd">Guest · Villa Nice · En cours <span class="dm-chip dm-chip-g">IA a répondu</span></div>'
+        +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">Le code de la boîte à clés ne fonctionne pas, on est devant la porte...</div><div class="dm-bt">20h43 · Villa Nice</div></div></div>'
+        +'<div class="dm-msg"><div class="dm-av ai">IA</div><div><div class="dm-bub ai-bub">Bonsoir ! Le code est 4821#. Si ça ne fonctionne pas, notre prestataire peut être là sous 15 min. Puis-je faire autre chose ?</div><div class="dm-bt">20h43 · Répondu en 1.1s</div></div></div>'
+        +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">Parfait ça marche ! Merci beaucoup</div><div class="dm-bt">20h45</div></div></div>'
+      +'</div>'
+      +'<div class="dm-card" style="margin-bottom:8px">'
+        +'<div class="dm-card-hd">Guest · Apt. Lyon · Hier <span class="dm-chip dm-chip-g">IA a répondu</span></div>'
+        +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">Kann ich früh auschecken? Wir müssen um 10 Uhr am Flughafen sein.</div><div class="dm-bt">07h12 · 🇩🇪 Allemand détecté automatiquement</div></div></div>'
+        +'<div class="dm-msg"><div class="dm-av ai">IA</div><div><div class="dm-bub ai-bub">Guten Morgen! Kein Problem — lassen Sie die Schlüssel einfach auf dem Tisch. Gute Reise! 🛫</div><div class="dm-bt">07h12 · Traduit automatiquement · 0.8s</div></div></div>'
+      +'</div>'
+      +'<div class="dm-card">'
+        +'<div class="dm-card-hd">Studio Bordeaux · Nouveau message <span class="dm-chip dm-chip-a">En attente</span></div>'
+        +'<div class="dm-msg"><div class="dm-av gu">G</div><div><div class="dm-bub">Y a-t-il du wifi ? Et quel est le mot de passe ?</div><div class="dm-bt">Il y a 30s</div></div></div>'
+        +'<div class="dm-msg"><div class="dm-av ai">IA</div><div><div class="dm-bub ai-bub">Oui ! WiFi : MaisonBordeaux · Mot de passe : soleil2024 📶 Bonne connexion !</div><div class="dm-bt">Il y a 31s · 1.0s</div></div></div>'
+      +'</div>';
+  }
+
+  else if(v==='revenue'){
+    body.innerHTML=
+      '<div class="dm-ai-panel">'
+        +'<div class="dm-ai-panel-hd"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 8l2.5-4 2 2 2.5-5 2 3" stroke="#1D9E75" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>Revenue Intelligence · Analyse temps réel</div>'
+        +'<div class="dm-ai-sugg"><div><div><strong style="color:#fff">Villa Nice :</strong> vos concurrents ont augmenté leurs prix de 22% ce week-end (festival de Cannes). Recommandation : passer de 185€ à 224€/nuit.</div><div class="dm-ai-sugg-action">Appliquer +39€/nuit → gain estimé +78€ ce week-end →</div></div></div>'
+        +'<div class="dm-ai-sugg"><div><div><strong style="color:#fff">Apt. Lyon :</strong> taux d\'occupation local à 45% cette semaine — nuits creuses détectées. Baisser temporairement de -10%.</div><div class="dm-ai-sugg-action">Ajuster -13€/nuit pour 3 nuits → +390€ vs inoccupé →</div></div></div>'
+      +'</div>'
+      +'<div class="dm-row2">'
+        +'<div class="dm-card"><div class="dm-card-hd">Tarifs · Villa Nice · Cette semaine</div>'
+          +[['Lun 7','185€','dm-chip-b'],['Mar 8','185€','dm-chip-b'],['Mer 9','185€','dm-chip-b'],['Ven 11','224€ ↑','dm-chip-g'],['Sam 12','224€ ↑','dm-chip-g'],['Dim 13','204€ ↑','dm-chip-g']].map(function(r){
+            return '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 7px;background:rgba(255,255,255,.04);border-radius:5px;margin-bottom:3px"><span style="font-size:10px;color:rgba(255,255,255,.4)">'+r[0]+'</span><span class="dm-chip '+r[2]+'">'+r[1]+'</span></div>';
+          }).join('')
+        +'</div>'
+        +'<div class="dm-card">'
+          +'<div style="text-align:center;padding:16px 0">'
+            +'<div style="font-size:.65rem;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Gain IA ce mois</div>'
+            +'<div style="font-family:Fraunces,serif;font-size:2rem;font-weight:300;color:#1D9E75">+1 240€</div>'
+            +'<div style="font-size:.72rem;color:rgba(255,255,255,.32);margin-top:4px">vs tarification statique</div>'
+          +'</div>'
+          +'<div style="margin-top:12px;display:flex;flex-direction:column;gap:5px">'
+            +'<div class="dm-bar-row"><span class="dm-bar-lbl">Villa Nice</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:100%;background:#1D9E75"></div></div><span class="dm-bar-val">+520€</span></div>'
+            +'<div class="dm-bar-row"><span class="dm-bar-lbl">Chalet</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:62%;background:#378ADD"></div></div><span class="dm-bar-val">+380€</span></div>'
+            +'<div class="dm-bar-row"><span class="dm-bar-lbl">Apt Lyon</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:38%;background:#EF9F27"></div></div><span class="dm-bar-val">+220€</span></div>'
+            +'<div class="dm-bar-row"><span class="dm-bar-lbl">Studio</span><div class="dm-bar-track"><div class="dm-bar-fill" style="width:20%;background:#7F77DD"></div></div><span class="dm-bar-val">+120€</span></div>'
+          +'</div>'
+        +'</div>'
+      +'</div>';
+  }
+
+  else if(v==='calendar'){
+    var days=['L','M','M','J','V','S','D'];
+    var header=days.map(function(d){return '<div class="dm-cal-cell" style="color:rgba(255,255,255,.22);font-weight:700">'+d+'</div>';}).join('');
+    var cells='';
+    var states=['','taken','taken','','part','taken','taken','taken','','taken','part','part','taken','today','taken','taken','','','taken','taken','taken','','part','taken','taken','taken','taken','taken','','',''];
+    for(var i=0;i<states.length;i++){
+      var num=i+1;
+      cells+='<div class="dm-cal-cell '+states[i]+'">'+(num<=30?num:'')+'</div>';
+    }
+    body.innerHTML=
+      '<div class="dm-kpi-row">'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Nuits réservées</div><div class="dm-kpi-val">21/30</div><div class="dm-kpi-delta">▲ 70% occupation</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Ménages planifiés</div><div class="dm-kpi-val">8</div><div class="dm-kpi-delta">Auto-coordonnés</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Revenus projetés</div><div class="dm-kpi-val">9 840€</div><div class="dm-kpi-delta">Avril 2026</div></div>'
+        +'<div class="dm-kpi"><div class="dm-kpi-lbl">Alertes stock</div><div class="dm-kpi-val">2</div><div class="dm-kpi-delta warn">À commander</div></div>'
+      +'</div>'
+      +'<div class="dm-row2">'
+        +'<div class="dm-card"><div class="dm-card-hd">Calendrier · Villa Nice · Avril</div>'
+          +'<div class="dm-cal-grid">'+header+cells+'</div>'
+          +'<div style="display:flex;gap:12px;margin-top:10px;font-size:9px;color:rgba(255,255,255,.35)">'
+            +'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:rgba(15,110,86,.25);margin-right:3px;vertical-align:middle"></span>Réservé</span>'
+            +'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#0F6E56;margin-right:3px;vertical-align:middle"></span>Aujourd\'hui</span>'
+            +'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:rgba(196,146,42,.2);margin-right:3px;vertical-align:middle"></span>Partiel</span>'
+          +'</div>'
+        +'</div>'
+        +'<div class="dm-card"><div class="dm-card-hd">Prochains check-ins</div>'
+          +[['Auj.','Villa Nice','Lucas M.','15h00','dm-chip-g'],['Dem.','Apt. Lyon','Chloé P.','14h00','dm-chip-b'],['07/04','Chalet','Famille R.','16h00','dm-chip-b'],['09/04','Studio','Marc D.','13h00','dm-chip-a']].map(function(r){
+            return '<div class="dm-prop"><div><div class="dm-pname">'+r[1]+'</div><div class="dm-pmeta">'+r[2]+' · '+r[3]+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px"><span class="dm-chip '+r[4]+'">'+r[0]+'</span></div></div>';
+          }).join('')
+          +'<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06);font-size:9px;color:rgba(255,255,255,.28)">✅ Emails ménage envoyés automatiquement · Hôte en copie</div>'
+        +'</div>'
+      +'</div>';
+  }
+
+  else if(v==='plans'){
+    body.innerHTML='<div class="dm-pricing-grid">'
+      +dmPlanCard('starter','49','Starter','1 logement · 30j gratuits',
+        ['Réponses IA 24h/24','Alertes stock email','Tableau de bord','Rapport mensuel'],
+        ['Coordination ménage','Marque blanche','Logements multiples'],
+        false,'')
+      +dmPlanCard('pro','89','Pro ⭐','1 logement · 30j gratuits',
+        ['Tout Starter inclus','Coordination ménage auto','Email prestataire auto','Rapport hebdo','Planning mensuel'],
+        ['Marque blanche','Logements illimités'],
+        true,'⭐ Populaire')
+      +dmPlanCard('enterprise','Devis','Concierge Pro','Multi-logements · Illimité',
+        ['Tout Pro inclus','Logements illimités','Dashboard marque blanche','Account manager','API & intégrations'],
+        [],
+        false,'')
+      +'</div>'
+      +'<div style="margin-top:14px;background:rgba(196,146,42,.07);border:1px solid rgba(196,146,42,.18);border-radius:8px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">'
+        +'<div style="font-size:10px;color:rgba(255,255,255,.45)">🔒 30j gratuits · Aucun débit avant · Stripe sécurisé · Annulation 1 clic · Données hébergées France</div>'
+        +'<button onclick="closeDemoGate();openStripe(\'pro\')" style="font-size:11px;padding:8px 18px;background:#C4922A;color:#000;border:none;border-radius:6px;cursor:pointer;font-weight:700;font-family:\'Plus Jakarta Sans\',sans-serif;white-space:nowrap">Commencer 30j gratuits →</button>'
+      +'</div>';
+  }
+}
+
+// ── MARQUE BLANCHE ──
+var mbColor='#1B5E7B';
+var mbSigDrawing=false;
+var mbSigCanvas,mbSigCtx;
+
+function mbSelectPlan(el){
+  document.querySelectorAll('.mb-plan').forEach(function(p){p.classList.remove('sel');});
+  el.classList.add('sel');
+  var plan=el.getAttribute('data-plan');
+  var price=el.getAttribute('data-price');
+  var names={starter:'Plan Starter · 10 logements',pro:'Plan Pro · 30 logements',enterprise:'Plan Enterprise · Illimité'};
+  var marges={starter:'~390€/mois',pro:'~2 221€/mois',enterprise:'Marge libre'};
+  var el1=ge('mb-disp-price');if(el1)el1.textContent=price+' €/mois';
+  var el2=ge('mb-disp-name');if(el2)el2.textContent=names[plan]||names.starter;
+  var el3=ge('mb-disp-marge');if(el3)el3.textContent='Marge estimée '+marges[plan];
+  var htVal=parseInt(price);
+  var tvaVal=Math.round(htVal*0.2);
+  var ttcVal=htVal+tvaVal;
+  ['mb-rec-plan','mb-rec-ht','mb-rec-tva','mb-rec-ttc','mb-pay-label','mb-pay-ht','mb-pay-tva','mb-pay-ttc'].forEach(function(id,i){
+    var vals={0:plan.charAt(0).toUpperCase()+plan.slice(1),1:htVal+'€',2:tvaVal+' €',3:ttcVal+' €',4:'Plan '+plan.charAt(0).toUpperCase()+plan.slice(1)+' — Licence MB',5:htVal+'€/mois',6:tvaVal+' €',7:ttcVal+' €'};
+    var e=ge(id);if(e)e.textContent=vals[i];
+  });
+  updateSiretVisibility();
+}
+
+function updateSiretVisibility(){
+  var planEl=document.querySelector('.mb-plan.sel');
+  var plan=planEl?planEl.getAttribute('data-plan'):'starter';
+  var block=ge('mb-siret-block');
+  if(block)block.style.display=(plan==='pro'||plan==='enterprise')?'block':'none';
+}
+
+function mbGoStep(n){
+  for(var i=1;i<=5;i++){
+    var p=ge('mb-p'+i);if(p)p.classList.toggle('on',i===n);
+    var t=ge('mb-tab'+i);
+    if(t){
+      t.classList.remove('active','done');
+      if(i===n)t.classList.add('active');
+      else if(i<n)t.classList.add('done');
+    }
+  }
+  var fills={1:20,2:40,3:60,4:80,5:100};
+  var pr=ge('mb-prog');if(pr)pr.style.width=(fills[n]||20)+'%';
+  if(n===3){mbInitContract();mbInitSig();}
+  if(n===4){mbCalcRecap();}
+  if(n===5){mbShowAccess();}
+}
+
+function mbUpdatePreview(){
+  var name=gv('mb-nommarque')||'Votre marque';
+  var slogan=gv('mb-slogan')||'Powered by MyHostKit IA';
+  var el1=ge('mb-prev-name');if(el1)el1.textContent=name;
+  var el2=ge('mb-prev-sub');if(el2)el2.textContent=slogan;
+  var el3=ge('mb-prev-logo');if(el3){el3.style.background='rgba(255,255,255,.15)';el3.textContent=name.substring(0,2).toUpperCase();}
+  var el4=ge('mb-prev-bar');if(el4)el4.style.background=mbColor;
+  var el5=ge('mb-prev-ai');if(el5)el5.style.background=mbColor;
+}
+
+function mbPickColor(el){
+  mbColor=el.getAttribute('data-c');
+  document.querySelectorAll('#mb-colors div').forEach(function(d){d.style.outline='none';});
+  el.style.outline='3px solid #fff';
+  mbUpdatePreview();
+}
+
+function mbLoadLogo(input){
+  var file=input.files[0];if(!file) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var prev=ge('mb-logo-preview');var wrap=ge('mb-logo-wrapper');var ph=ge('mb-logo-placeholder');
+    var nm=ge('mb-logo-name');
+    if(prev){prev.src=e.target.result;prev.style.display='block';}
+    if(wrap)wrap.style.display='block';
+    if(ph)ph.style.display='none';
+    if(nm)nm.textContent=file.name;
+    var bar=ge('mb-prev-bar');
+    if(bar){
+      var existing=bar.querySelector('img');if(existing)existing.remove();
+      var logo=ge('mb-prev-logo');
+      if(logo){var img=document.createElement('img');img.src=e.target.result;img.style.cssText='max-height:22px;max-width:80px;object-fit:contain';logo.innerHTML='';logo.appendChild(img);}
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function mbUpdateReco(){
+  var val=gv('mb-nblogs');var reco=ge('mb-reco');if(!reco) return;
+  var msgs={
+    '1-5':'✅ Le Plan Starter est parfait pour vous. Jusqu\'à 10 logements gérés.',
+    '6-20':'⭐ Le Plan Pro est recommandé pour votre volume. Marge ~2 221€/mois.',
+    '21-50':'🏆 Le Plan Enterprise est idéal. Marque blanche complète + support prioritaire.',
+    '50+':'🌐 Plan Enterprise requis. Notre équipe vous accompagne pour la configuration.'
+  };
+  reco.style.display=val?'block':'none';
+  reco.textContent=msgs[val]||'';
+}
+
+function mbInitContract(){
+  var c=ge('mb-contract');if(!c||c.dataset.loaded) return;
+  c.dataset.loaded='1';
+  var planEl=document.querySelector('.mb-plan.sel');
+  var planName=planEl?planEl.querySelector('.mb-plan-name').textContent:'Starter';
+  var price=planEl?planEl.getAttribute('data-price'):'199';
+  var today=new Date().toLocaleDateString('fr-FR');
+  c.innerHTML=
+    '<h4>CONTRAT DE LICENCE MARQUE BLANCHE — MyHostKit</h4>'
+    +'<p>Entre <strong>MyHostKit SAS</strong>, SIRET 10032406000019, 60 rue François 1er, 75008 Paris (ci-après « le Concédant ») et le souscripteur identifié lors de l\'inscription (ci-après « le Licencié »), il est convenu ce qui suit :</p>'
+    +'<h4>Article 1 — Objet</h4>'
+    +'<p>Le présent contrat définit les conditions d\'utilisation de la licence marque blanche MyHostKit accordée au Licencié pour déployer la plateforme de conciergerie IA sous sa propre identité visuelle. Plan souscrit : <strong>'+planName+' — '+price+'€ HT/mois</strong>. Date de souscription : '+today+'.</p>'
+    +'<h4>Article 2 — Droits accordés</h4>'
+    +'<p>Le Concédant accorde au Licencié un droit d\'usage non exclusif, non transférable et non sous-licenciable de la plateforme MyHostKit sous sa marque propre. Le Licencié peut commercialiser ce service auprès de ses propres clients, fixer librement ses tarifs et conserver 100% de la marge commerciale.</p>'
+    +'<h4>Article 3 — Obligations du Licencié</h4>'
+    +'<p>Le Licencié s\'engage à : (a) ne pas reproduire, modifier ou distribuer le code source de la plateforme ; (b) maintenir la mention discrète « Powered by MyHostKit » dans l\'interface ; (c) respecter les CGU applicables à ses propres clients ; (d) ne pas dénigrer MyHostKit ou ses services ; (e) assurer la conformité RGPD vis-à-vis de ses utilisateurs finaux.</p>'
+    +'<h4>Article 4 — Durée et résiliation</h4>'
+    +'<p>Le contrat est conclu pour une durée indéterminée à compter de la date d\'activation. Il peut être résilié par l\'une ou l\'autre des parties avec un préavis de <strong>90 jours</strong> par email recommandé à contact@myhostkit.com. En cas de manquement grave, résiliation immédiate sans préavis.</p>'
+    +'<h4>Article 5 — Confidentialité</h4>'
+    +'<p>Les parties s\'engagent à traiter comme confidentielles toutes informations échangées dans le cadre de ce contrat (données techniques, tarification, roadmap produit) pendant la durée du contrat et 3 ans après sa fin.</p>'
+    +'<h4>Article 6 — Propriété intellectuelle</h4>'
+    +'<p>MyHostKit conserve la pleine propriété de la plateforme, de ses algorithmes, de son code source et de sa documentation. Le présent contrat ne transfère aucun droit de propriété intellectuelle au Licencié.</p>'
+    +'<h4>Article 7 — Responsabilité</h4>'
+    +'<p>MyHostKit s\'engage à un SLA de 99,5% de disponibilité mensuelle. En cas d\'indisponibilité prolongée (>24h consécutives), une compensation d\'un mois de service sera appliquée. La responsabilité de MyHostKit est limitée au montant des sommes versées au cours des 3 derniers mois.</p>'
+    +'<h4>Article 8 — Droit applicable</h4>'
+    +'<p>Le présent contrat est soumis au droit français. En cas de litige, compétence exclusive du Tribunal de Commerce de Paris, sauf accord amiable préalable.</p>'
+    +'<p style="font-size:.72rem;opacity:.6">Signature électronique réalisée conformément à l\'article 1367 du Code civil et au Règlement européen eIDAS n°910/2014. La signature vaut acceptation irrévocable des présentes.</p>';
+  var notice=ge('mb-scroll-notice');
+  var ck1=ge('mb-ck1-row');var ck2=ge('mb-ck2-row');var ck3=ge('mb-ck3-row');
+  if(ck1)ck1.classList.remove('on');if(ck2)ck2.classList.remove('on');if(ck3)ck3.classList.remove('on');
+  c.addEventListener('scroll',function(){mbCheckScroll();});
+}
+
+function mbCheckScroll(){
+  var c=ge('mb-contract');if(!c) return;
+  var ratio=(c.scrollTop+c.clientHeight)/c.scrollHeight;
+  if(ratio>0.85){
+    var notice=ge('mb-scroll-notice');if(notice)notice.style.display='none';
+    ['mb-ck1-row','mb-ck2-row','mb-ck3-row'].forEach(function(id){var el=ge(id);if(el)el.classList.add('on');});
+  }
+}
+
+function mbInitSig(){
+  mbSigCanvas=ge('mb-sig-canvas');if(!mbSigCanvas) return;
+  mbSigCtx=mbSigCanvas.getContext('2d');
+  mbSigCanvas.width=mbSigCanvas.offsetWidth;
+  mbSigCanvas.height=80;
+  var today=new Date().toLocaleString('fr-FR');
+  var dateEl=ge('mb-sig-date');if(dateEl)dateEl.textContent='Signé le '+today;
+  function getPos(e){
+    var r=mbSigCanvas.getBoundingClientRect();
+    var src=e.touches?e.touches[0]:e;
+    return{x:src.clientX-r.left,y:src.clientY-r.top};
+  }
+  mbSigCanvas.addEventListener('mousedown',function(e){mbSigDrawing=true;var p=getPos(e);mbSigCtx.beginPath();mbSigCtx.moveTo(p.x,p.y);});
+  mbSigCanvas.addEventListener('mousemove',function(e){if(!mbSigDrawing)return;var p=getPos(e);mbSigCtx.lineTo(p.x,p.y);mbSigCtx.strokeStyle='#fff';mbSigCtx.lineWidth=1.8;mbSigCtx.lineCap='round';mbSigCtx.stroke();});
+  mbSigCanvas.addEventListener('mouseup',function(){mbSigDrawing=false;mbCheckAll();});
+  mbSigCanvas.addEventListener('mouseleave',function(){mbSigDrawing=false;});
+  mbSigCanvas.addEventListener('touchstart',function(e){e.preventDefault();mbSigDrawing=true;var p=getPos(e);mbSigCtx.beginPath();mbSigCtx.moveTo(p.x,p.y);},{passive:false});
+  mbSigCanvas.addEventListener('touchmove',function(e){e.preventDefault();if(!mbSigDrawing)return;var p=getPos(e);mbSigCtx.lineTo(p.x,p.y);mbSigCtx.strokeStyle='#fff';mbSigCtx.lineWidth=1.8;mbSigCtx.lineCap='round';mbSigCtx.stroke();},{passive:false});
+  mbSigCanvas.addEventListener('touchend',function(){mbSigDrawing=false;mbCheckAll();});
+}
+
+function mbClearSig(){
+  if(!mbSigCtx||!mbSigCanvas) return;
+  mbSigCtx.clearRect(0,0,mbSigCanvas.width,mbSigCanvas.height);
+  var btn=ge('mb-btn-s3');if(btn)btn.disabled=true;
+}
+
+function mbHasSig(){
+  if(!mbSigCanvas) return false;
+  var d=mbSigCtx.getImageData(0,0,mbSigCanvas.width,mbSigCanvas.height).data;
+  for(var i=3;i<d.length;i+=4){if(d[i]>10)return true;}
+  return false;
+}
+
+function mbCheckAll(){
+  var ck1=ge('mb-ck1');var ck2=ge('mb-ck2');var ck3=ge('mb-ck3');
+  var btn=ge('mb-btn-s3');
+  var sigOk=mbHasSig();
+  var sn=ge('mb-sig-notice');if(sn)sn.style.display=sigOk?'none':'none';
+  var ok=ck1&&ck1.checked&&ck2&&ck2.checked&&ck3&&ck3.checked&&sigOk;
+  if(btn)btn.disabled=!ok;
+}
+
+function mbCalcRecap(){
+  var planEl=document.querySelector('.mb-plan.sel');
+  var price=parseInt(planEl?planEl.getAttribute('data-price'):199);
+  var tva=Math.round(price*0.2);
+  var ttc=price+tva;
+  var el1=ge('mb-pay-ht');if(el1)el1.textContent=price+'€/mois';
+  var el2=ge('mb-pay-tva');if(el2)el2.textContent=tva+' €';
+  var el3=ge('mb-pay-ttc');if(el3)el3.textContent=ttc+' €';
+}
+
+function mbSelPay(mode){
+  var fc=ge('mb-fields-card');var fs=ge('mb-fields-sepa');
+  var oc=ge('mb-pm-card');var os=ge('mb-pm-sepa');
+  if(fc)fc.style.display=mode==='card'?'block':'none';
+  if(fs)fs.style.display=mode==='sepa'?'block':'none';
+  if(oc)oc.classList.toggle('sel',mode==='card');
+  if(os)os.classList.toggle('sel',mode==='sepa');
+}
+
+function mbCheckFinal(){
+  var ck=ge('mb-ck-final');var btn=ge('mb-pay-btn');
+  if(btn){btn.disabled=!(ck&&ck.checked);btn.style.opacity=(ck&&ck.checked)?'1':'0.4';}
+}
+
+async function mbProcessPayment(){
+  var planEl=document.querySelector('.mb-plan.sel');
+  var plan=planEl?planEl.getAttribute('data-plan'):'starter';
+  var price=planEl?planEl.getAttribute('data-price'):'199';
+  var btn=ge('mb-pay-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Redirection Stripe...';}
+  var nom=gv('mb-prenom')+' '+gv('mb-nom');
+  var email=gv('mb-email');
+  var body='LICENCE MB - Plan: '+plan+' '+price+'EUR/mois | Nom: '+nom+' | Email: '+email+' | Tel: '+(gv('mb-tel')||'N/A')+' | Adresse: '+(gv('mb-adresse')||'N/A')+' | Marque: '+(gv('mb-nommarque')||'N/A')+' | Date: '+new Date().toLocaleString('fr-FR');
+  try{await sendEmail(CFG.admin,'[MyHostKit] LICENCE MB '+plan.toUpperCase()+' - '+nom,body);}catch(ex){}
+  var keys={starter:'mb_starter',pro:'mb_pro',enterprise:'mb_ent'};
+  var url=CFG.stripe[keys[plan]||'mb_starter'];
+  if(email) url+='?prefilled_email='+encodeURIComponent(email);
+  setTimeout(function(){window.location.href=url;},800);
+}
+
+function mbShowAccess(){
+  var planEl=document.querySelector('.mb-plan.sel');
+  var plan=planEl?planEl.querySelector('.mb-plan-name').textContent:'Starter';
+  var email=gv('mb-email');
+  var slug=(gv('mb-nommarque')||'votre-marque').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  var contractNum='MB-'+plan.charAt(0).toUpperCase()+new Date().getFullYear()+'-'+Math.floor(1000+Math.random()*9000);
+  var next=new Date();next.setMonth(next.getMonth()+2);var nextStr=next.toLocaleDateString('fr-FR');
+  var e1=ge('mb-acc-url');if(e1)e1.textContent=slug+'.myhostkit.com';
+  var e2=ge('mb-acc-email');if(e2)e2.textContent=email||'—';
+  var e3=ge('mb-acc-contract');if(e3)e3.textContent=contractNum;
+  var e4=ge('mb-acc-next');if(e4)e4.textContent=nextStr;
+}
+
+// ── CONCOURS ──
+async function participerConcours(){
+  var email=gv('concours-email');
+  if(!email||!email.includes('@')){showToast('Entrez un email valide ✉️');return;}
+  var btn=document.querySelector('.concours-btn');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Inscription...';}
+  try{await sendEmail(CFG.admin,'[MyHostKit] Concours PS5 - '+email,'Email: '+email+' | Date: '+new Date().toLocaleString('fr-FR'));}catch(ex){}
+  var parts=document.querySelector('.concours-parts');
+  if(parts){var n=parseInt(parts.querySelector('span').textContent)||847;parts.querySelector('span').textContent=(n+1)+' participants déjà inscrits';}
+  if(btn){btn.textContent='✅ Inscrit !';setTimeout(function(){btn.disabled=false;btn.textContent='Je participe →';},3000);}
+  showToast('🎮 Vous participez ! Bonne chance !',3500);
+}
+
+// ── PARTENAIRE ──
+async function submitPartner(){
+  var nom=gv('partner-nom'),email=gv('partner-email'),tel=gv('partner-tel'),logs=gv('partner-logs');
+  if(!nom){showToast('Nom requis');return;}
+  if(!email||!email.includes('@')){showToast('Email valide requis');return;}
+  var btn=ge('partner-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Envoi...';}
+  var body='CANDIDATURE PARTENAIRE | Nom: '+nom+' | Email: '+email+' | Tel: '+(tel||'N/A')+' | Logements: '+(logs||'N/A')+' | Date: '+new Date().toLocaleString('fr-FR');
+  try{await sendEmail(CFG.admin,'[MyHostKit] Partenaire - '+nom,body);}catch(ex){}
+  if(btn){btn.innerHTML='✅ Candidature envoyée !';setTimeout(function(){btn.innerHTML='Envoyer ma candidature →';btn.disabled=false;},4000);}
+  showToast('✅ Candidature reçue ! Réponse sous 48h.',4000);
+}
+
+</script>
+</body>
+</html>

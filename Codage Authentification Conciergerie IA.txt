@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MyHostKit — Connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --bl:#1B5E7B;--bc:#2E7FA0;--bp:#EBF4F8;--bf:#0D3A50;
+  --w:#fff;--n:#1A1A1A;--g:#6B6B6B;--cr:#F8F5EF;
+  --or:#C4922A;--border:rgba(0,0,0,.09);--radius:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--cr)}
+body{display:flex;flex-direction:column}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh}
+.page.active{display:flex}
+
+/* ══════════════════════════════════════
+   AUTH PAGE
+══════════════════════════════════════ */
+#page-auth{align-items:stretch}
+
+.auth-left{
+  flex:0 0 420px;background:var(--bf);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:48px 40px;position:relative;overflow:hidden;
+}
+.auth-left::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 70%,rgba(46,127,160,.25),transparent 60%);
+  pointer-events:none;
+}
+.auth-left-logo{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.auth-left-logomark{width:34px;height:34px;background:#1D9E75;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.auth-left-name{font-size:18px;font-weight:600;color:#fff}
+.auth-left-tag{font-size:11px;color:rgba(255,255,255,.45);background:rgba(255,255,255,.08);padding:2px 9px;border-radius:20px}
+
+.auth-left-body{position:relative;z-index:1}
+.auth-left-body h2{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:#fff;line-height:1.15;margin-bottom:16px}
+.auth-left-body h2 em{font-style:italic;color:#A8D8EA}
+.auth-left-body p{font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.8}
+
+.auth-left-stats{display:flex;gap:28px;position:relative;z-index:1;padding-top:28px;border-top:1px solid rgba(255,255,255,.08)}
+.auth-stat-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:#fff;line-height:1}
+.auth-stat-lbl{font-size:.67rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+
+.auth-right{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  background:var(--w);padding:40px 20px;
+}
+.auth-box{width:100%;max-width:400px}
+.auth-box-title{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:300;color:var(--n);margin-bottom:6px}
+.auth-box-sub{font-size:.87rem;color:var(--g);margin-bottom:32px;line-height:1.6}
+
+/* Tabs */
+.auth-tabs{display:flex;background:#F3F1EB;border-radius:8px;padding:3px;margin-bottom:28px}
+.auth-tab{flex:1;padding:8px;text-align:center;border-radius:6px;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s;color:var(--g);border:none;background:transparent;font-family:inherit}
+.auth-tab.active{background:var(--w);color:var(--n);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+
+/* Form */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--g);margin-bottom:5px}
+.form-input{
+  width:100%;padding:11px 13px;
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--n);background:var(--w);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.form-input:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(27,94,123,.08)}
+.form-input::placeholder{color:#B4B2A9}
+.form-input.error{border-color:#E74C3C}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.btn-main{
+  width:100%;padding:13px;background:var(--bl);color:#fff;
+  border:none;border-radius:var(--radius);font-size:.9rem;font-weight:700;
+  font-family:inherit;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;
+}
+.btn-main:hover{background:var(--bc);transform:translateY(-1px)}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-main .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-main.loading .spinner{display:block}
+.btn-main.loading .btn-text{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.form-divider{display:flex;align-items:center;gap:10px;margin:20px 0;color:#B4B2A9;font-size:.8rem}
+.form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.btn-google{
+  width:100%;padding:11px;background:var(--w);color:var(--n);
+  border:1.5px solid var(--border);border-radius:var(--radius);
+  font-size:.86rem;font-weight:600;font-family:inherit;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-google:hover{border-color:var(--bl);background:var(--bp)}
+.btn-google svg{flex-shrink:0}
+
+.form-footer{text-align:center;font-size:.8rem;color:var(--g);margin-top:18px}
+.form-footer a{color:var(--bl);font-weight:600;cursor:pointer;text-decoration:none}
+.form-footer a:hover{text-decoration:underline}
+
+.alert{padding:11px 14px;border-radius:8px;font-size:.82rem;margin-bottom:14px;line-height:1.5;display:none}
+.alert.error{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;display:block}
+.alert.success{background:#F0FDF4;border:1px solid #BBF7D0;color:#14532D;display:block}
+
+.password-wrap{position:relative}
+.password-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--g);padding:2px;display:flex;align-items:center}
+.password-toggle:hover{color:var(--n)}
+
+.forgot-link{float:right;font-size:.75rem;color:var(--bl);font-weight:600;cursor:pointer;text-decoration:none;margin-top:-2px}
+.forgot-link:hover{text-decoration:underline}
+
+/* Reset panel */
+#reset-panel{display:none}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:.82rem;color:var(--g);cursor:pointer;margin-bottom:24px;transition:color .2s}
+.back-link:hover{color:var(--n)}
+
+/* ══════════════════════════════════════
+   DASHBOARD PAGE
+══════════════════════════════════════ */
+#page-dashboard{flex-direction:column;background:#F2F0EA}
+
+.dash-nav{
+  background:var(--w);border-bottom:1px solid var(--border);
+  padding:0 32px;height:58px;display:flex;align-items:center;
+  justify-content:space-between;flex-shrink:0;
+}
+.dash-nav-logo{display:flex;align-items:center;gap:8px}
+.dash-nav-logomark{width:28px;height:28px;background:#1D9E75;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.dash-nav-name{font-size:15px;font-weight:600;color:var(--n)}
+.dash-nav-tag{font-size:10px;color:#1D9E75;background:#E1F5EE;padding:2px 8px;border-radius:20px;font-weight:600}
+.dash-nav-right{display:flex;align-items:center;gap:12px}
+.dash-nav-user{font-size:.83rem;color:var(--g)}
+.dash-nav-user strong{color:var(--n);font-weight:600}
+.btn-logout{padding:7px 16px;background:transparent;border:1.5px solid var(--border);border-radius:7px;font-size:.82rem;font-weight:600;color:var(--g);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-logout:hover{border-color:#E74C3C;color:#E74C3C}
+
+.dash-body{flex:1;padding:32px;max-width:1100px;margin:0 auto;width:100%}
+.dash-welcome{margin-bottom:28px}
+.dash-welcome h1{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:var(--n);margin-bottom:4px}
+.dash-welcome h1 em{font-style:italic;color:var(--bl)}
+.dash-welcome p{font-size:.88rem;color:var(--g)}
+
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:var(--w);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.kpi-label{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g);margin-bottom:8px}
+.kpi-val{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:var(--n);line-height:1}
+.kpi-delta{font-size:.75rem;color:#1D9E75;font-weight:600;margin-top:4px}
+
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dash-card{background:var(--w);border:1px solid var(--border);border-radius:12px;padding:20px}
+.dash-card-title{font-size:.82rem;font-weight:700;color:var(--n);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.dash-card-badge{font-size:.7rem;background:var(--bp);color:var(--bl);padding:2px 8px;border-radius:20px;font-weight:600}
+
+.setup-step{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F3F1EB}
+.setup-step:last-child{border-bottom:none;padding-bottom:0}
+.step-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;color:var(--g)}
+.step-check.done{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.step-check.active{border-color:var(--bl);color:var(--bl)}
+.step-title{font-size:.85rem;font-weight:600;color:var(--n)}
+.step-sub{font-size:.75rem;color:var(--g);margin-top:1px}
+.step-action{margin-left:auto;font-size:.78rem;font-weight:700;color:var(--bl);cursor:pointer;white-space:nowrap}
+.step-action:hover{text-decoration:underline}
+
+.prop-empty{text-align:center;padding:32px 0;color:var(--g)}
+.prop-empty-icon{font-size:2rem;margin-bottom:8px}
+.prop-empty p{font-size:.84rem;line-height:1.7}
+.btn-add-prop{margin-top:14px;padding:9px 20px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:.83rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s}
+.btn-add-prop:hover{background:var(--bc)}
+
+.ai-status{display:flex;align-items:center;gap:8px;padding:12px 14px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;margin-bottom:12px}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:#1D9E75;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(29,158,117,.4)}50%{box-shadow:0 0 0 5px rgba(29,158,117,0)}}
+.ai-status-text{font-size:.82rem;font-weight:600;color:#14532D}
+.ai-status-sub{font-size:.75rem;color:#1D9E75;margin-left:auto}
+
+@media(max-width:900px){
+  .auth-left{display:none}
+  .dash-kpis{grid-template-columns:1fr 1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-body{padding:20px}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  .dash-kpis{grid-template-columns:1fr}
+  .dash-nav{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE AUTH ══ -->
+<div id="page-auth" class="page active">
+
+  <div class="auth-left">
+    <div class="auth-left-logo">
+      <div class="auth-left-logomark">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <span class="auth-left-name">MyHostKit</span>
+      <span class="auth-left-tag">IA native</span>
+    </div>
+
+    <div class="auth-left-body">
+      <h2>Gérez vos logements.<br><em>Sans effort.</em></h2>
+      <p>Conciergerie IA, channel manager, revenue intelligence — tout dans un seul tableau de bord. Vos guests ont une réponse en moins de 2 minutes, 24h/24.</p>
+    </div>
+
+    <div class="auth-left-stats">
+      <div>
+        <div class="auth-stat-num">3 000+</div>
+        <div class="auth-stat-lbl">Hôtes actifs</div>
+      </div>
+      <div>
+        <div class="auth-stat-num">4,9★</div>
+        <div class="auth-stat-lbl">Note moyenne</div>
+      </div>
+      <div>
+        <div class="auth-stat-num">30j</div>
+        <div class="auth-stat-lbl">Gratuit</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-box">
+
+      <!-- Alerte globale -->
+      <div id="auth-alert" class="alert"></div>
+
+      <!-- Tabs login/signup -->
+      <div id="main-panel">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Connexion</button>
+          <button class="auth-tab" id="tab-signup" onclick="switchTab('signup')">Créer un compte</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="form-login">
+          <div class="form-group">
+            <label class="form-label">Adresse email</label>
+            <input class="form-input" id="login-email" type="email" placeholder="vous@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              Mot de passe
+              <a class="forgot-link" onclick="showReset()">Mot de passe oublié ?</a>
+            </label>
+            <div class="password-wrap">
+              <input class="form-input" id="login-password" type="password" placeholder="••••••••" autocomplete="current-password">
+              <button class="password-toggle" onclick="togglePwd('login-password',this)" tabindex="-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <button class="btn-main" id="btn-login" onclick="handleLogin()">
+            <span class="btn-text">Se connecter →</span>
+            <div class="spinner"></div>
+          </button>
+          <div class="form-divider">ou</div>
+          <button class="btn-google" onclick="handleGoogle()">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continuer avec Google
+          </button>
+        </div>
+
+        <!-- SIGNUP -->
+        <div id="form-signup" style="display:none">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Prénom</label>
+              <input class="form-input" id="signup-prenom" type="text" placeholder="Sophie" autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom</label>
+              <input class="form-input" id="signup-nom" type="text" placeholder="Martin" autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Adresse email</label>
+            <input class="form-input" id="signup-email" type="email" placeholder="vous@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mot de passe</label>
+            <div class="password-wrap">
+              <input class="form-input" id="signup-password" type="password" placeholder="8 caractères minimum" autocomplete="new-password">
+              <button class="password-toggle" onclick="togglePwd('signup-password',this)" tabindex="-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre de logements</label>
+            <select class="form-input" id="signup-logs" style="appearance:none;cursor:pointer">
+              <option value="">— Sélectionner —</option>
+              <option value="1">1 logement</option>
+              <option value="2-5">2 à 5 logements</option>
+              <option value="6-20">6 à 20 logements</option>
+              <option value="20+">Plus de 20 logements</option>
+            </select>
+          </div>
+          <button class="btn-main" id="btn-signup" onclick="handleSignup()">
+            <span class="btn-text">Créer mon compte gratuit →</span>
+            <div class="spinner"></div>
+          </button>
+          <div class="form-divider">ou</div>
+          <button class="btn-google" onclick="handleGoogle()">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continuer avec Google
+          </button>
+          <div class="form-footer">30 jours gratuits · Aucune carte bancaire</div>
+        </div>
+      </div>
+
+      <!-- RESET PASSWORD -->
+      <div id="reset-panel">
+        <div class="back-link" onclick="hideReset()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Retour à la connexion
+        </div>
+        <div class="auth-box-title" style="font-size:1.3rem">Mot de passe oublié</div>
+        <p style="font-size:.85rem;color:var(--g);margin:8px 0 24px;line-height:1.6">Entrez votre email, on vous envoie un lien de réinitialisation.</p>
+        <div class="form-group">
+          <label class="form-label">Adresse email</label>
+          <input class="form-input" id="reset-email" type="email" placeholder="vous@email.com">
+        </div>
+        <button class="btn-main" id="btn-reset" onclick="handleReset()">
+          <span class="btn-text">Envoyer le lien →</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE DASHBOARD ══ -->
+<div id="page-dashboard" class="page">
+
+  <nav class="dash-nav">
+    <div class="dash-nav-logo">
+      <div class="dash-nav-logomark">
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <span class="dash-nav-name">MyHostKit</span>
+      <span class="dash-nav-tag">IA active</span>
+    </div>
+    <div class="dash-nav-right">
+      <div class="dash-nav-user">Bonjour, <strong id="user-name">—</strong></div>
+      <button class="btn-logout" onclick="handleLogout()">Déconnexion</button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+    <div class="dash-welcome">
+      <h1>Bienvenue sur <em>MyHostKit</em> 👋</h1>
+      <p>Votre espace de gestion est prêt. Commencez par connecter votre premier logement.</p>
+    </div>
+
+    <div class="dash-kpis">
+      <div class="kpi-card">
+        <div class="kpi-label">Logements connectés</div>
+        <div class="kpi-val">0</div>
+        <div class="kpi-delta" style="color:var(--g)">Connectez Airbnb →</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Réservations actives</div>
+        <div class="kpi-val">0</div>
+        <div class="kpi-delta" style="color:var(--g)">En attente de sync</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Messages IA traités</div>
+        <div class="kpi-val">0</div>
+        <div class="kpi-delta">Prêt à démarrer</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Jours d'essai restants</div>
+        <div class="kpi-val" id="trial-days">30</div>
+        <div class="kpi-delta">Gratuit · Sans carte</div>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-card-title">
+          Mise en service
+          <span class="dash-card-badge">Étape 1/4</span>
+        </div>
+
+        <div class="setup-step">
+          <div class="step-check done">✓</div>
+          <div>
+            <div class="step-title">Compte créé</div>
+            <div class="step-sub">Votre espace est prêt</div>
+          </div>
+        </div>
+        <div class="setup-step">
+          <div class="step-check active">2</div>
+          <div>
+            <div class="step-title">Connecter Airbnb</div>
+            <div class="step-sub">Sync automatique de vos réservations</div>
+          </div>
+          <div class="step-action">Connecter →</div>
+        </div>
+        <div class="setup-step">
+          <div class="step-check">3</div>
+          <div>
+            <div class="step-title">Configurer l'IA conciergerie</div>
+            <div class="step-sub">Personnaliser le ton et les réponses</div>
+          </div>
+          <div class="step-action" style="color:var(--g)">Bientôt</div>
+        </div>
+        <div class="setup-step">
+          <div class="step-check">4</div>
+          <div>
+            <div class="step-title">Inviter votre équipe</div>
+            <div class="step-sub">Prestataires, co-hôtes, assistants</div>
+          </div>
+          <div class="step-action" style="color:var(--g)">Bientôt</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-title">Statut IA</div>
+        <div class="ai-status">
+          <div class="ai-dot"></div>
+          <span class="ai-status-text">IA Conciergerie active</span>
+          <span class="ai-status-sub">Prête · 12 langues</span>
+        </div>
+        <div class="prop-empty">
+          <div class="prop-empty-icon">🏠</div>
+          <p>Aucun logement connecté.<br>Ajoutez votre premier logement pour<br>commencer à recevoir des réservations.</p>
+          <button class="btn-add-prop">+ Ajouter un logement</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG SUPABASE ──
+const SUPABASE_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_yXuE76Cwzcx7ETJhddg-1g_KsObOpdQ';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── UTILS ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+}
+function showAlert(msg, type) {
+  var el = document.getElementById('auth-alert');
+  el.className = 'alert ' + type;
+  el.textContent = msg;
+}
+function clearAlert() {
+  var el = document.getElementById('auth-alert');
+  el.className = 'alert';
+  el.textContent = '';
+}
+function setLoading(btnId, loading) {
+  var btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.classList.toggle('loading', loading);
+}
+function togglePwd(inputId, btn) {
+  var input = document.getElementById(inputId);
+  var isText = input.type === 'text';
+  input.type = isText ? 'password' : 'text';
+  btn.innerHTML = isText
+    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+}
+
+// ── TABS ──
+function switchTab(tab) {
+  clearAlert();
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+  document.getElementById('form-login').style.display = tab === 'login' ? '' : 'none';
+  document.getElementById('form-signup').style.display = tab === 'signup' ? '' : 'none';
+}
+
+// ── RESET PASSWORD ──
+function showReset() {
+  clearAlert();
+  document.getElementById('main-panel').style.display = 'none';
+  document.getElementById('reset-panel').style.display = 'block';
+}
+function hideReset() {
+  clearAlert();
+  document.getElementById('main-panel').style.display = '';
+  document.getElementById('reset-panel').style.display = 'none';
+}
+
+// ── DASHBOARD ──
+function loadDashboard(user) {
+  var meta = user.user_metadata || {};
+  var prenom = meta.prenom || meta.first_name || (user.email ? user.email.split('@')[0] : 'vous');
+  document.getElementById('user-name').textContent = prenom.charAt(0).toUpperCase() + prenom.slice(1);
+
+  // Calcul jours d'essai restants
+  var created = new Date(user.created_at);
+  var now = new Date();
+  var diff = 30 - Math.floor((now - created) / (1000 * 60 * 60 * 24));
+  document.getElementById('trial-days').textContent = Math.max(0, diff);
+
+  showPage('dashboard');
+}
+
+// ── LOGIN ──
+async function handleLogin() {
+  clearAlert();
+  var email = document.getElementById('login-email').value.trim();
+  var password = document.getElementById('login-password').value;
+  if (!email || !email.includes('@')) { showAlert('Entrez une adresse email valide.', 'error'); return; }
+  if (!password) { showAlert('Entrez votre mot de passe.', 'error'); return; }
+  setLoading('btn-login', true);
+  var { data, error } = await sb.auth.signInWithPassword({ email, password });
+  setLoading('btn-login', false);
+  if (error) {
+    var msg = error.message.includes('Invalid') ? 'Email ou mot de passe incorrect.' : error.message;
+    showAlert(msg, 'error');
+    return;
+  }
+  loadDashboard(data.user);
+}
+
+// ── SIGNUP ──
+async function handleSignup() {
+  clearAlert();
+  var prenom = document.getElementById('signup-prenom').value.trim();
+  var nom = document.getElementById('signup-nom').value.trim();
+  var email = document.getElementById('signup-email').value.trim();
+  var password = document.getElementById('signup-password').value;
+  var logs = document.getElementById('signup-logs').value;
+  if (!prenom) { showAlert('Entrez votre prénom.', 'error'); return; }
+  if (!email || !email.includes('@')) { showAlert('Entrez une adresse email valide.', 'error'); return; }
+  if (password.length < 8) { showAlert('Le mot de passe doit faire au moins 8 caractères.', 'error'); return; }
+  setLoading('btn-signup', true);
+  var { data, error } = await sb.auth.signUp({
+    email, password,
+    options: { data: { prenom, nom, logements: logs } }
+  });
+  setLoading('btn-signup', false);
+  if (error) { showAlert(error.message, 'error'); return; }
+  if (data.user && data.user.identities && data.user.identities.length === 0) {
+    showAlert('Un compte existe déjà avec cet email. Connectez-vous.', 'error');
+    return;
+  }
+  showAlert('✅ Compte créé ! Vérifiez votre email pour confirmer votre inscription.', 'success');
+}
+
+// ── GOOGLE ──
+async function handleGoogle() {
+  clearAlert();
+  var { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if (error) showAlert(error.message, 'error');
+}
+
+// ── RESET ──
+async function handleReset() {
+  clearAlert();
+  var email = document.getElementById('reset-email').value.trim();
+  if (!email || !email.includes('@')) { showAlert('Entrez une adresse email valide.', 'error'); return; }
+  setLoading('btn-reset', true);
+  var { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href
+  });
+  setLoading('btn-reset', false);
+  if (error) { showAlert(error.message, 'error'); return; }
+  showAlert('✅ Email envoyé ! Vérifiez votre boîte mail.', 'success');
+}
+
+// ── LOGOUT ──
+async function handleLogout() {
+  await sb.auth.signOut();
+  showPage('auth');
+  clearAlert();
+}
+
+// ── INIT : vérifier session existante ──
+(async function() {
+  var { data: { session } } = await sb.auth.getSession();
+  if (session && session.user) {
+    loadDashboard(session.user);
+    return;
+  }
+  // Écouter les changements d'état
+  sb.auth.onAuthStateChange(function(event, session) {
+    if (event === 'SIGNED_IN' && session) {
+      loadDashboard(session.user);
+    }
+    if (event === 'SIGNED_OUT') {
+      showPage('auth');
+    }
+  });
+  // Entrée clavier
+  ['login-email','login-password'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleLogin(); });
+  });
+  ['signup-prenom','signup-nom','signup-email','signup-password'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleSignup(); });
+  });
+  var re = document.getElementById('reset-email');
+  if (re) re.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleReset(); });
+})();
+</script>
+</body>
+</html>
