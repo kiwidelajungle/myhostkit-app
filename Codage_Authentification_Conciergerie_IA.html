@@ -673,9 +673,12 @@ body{display:flex;flex-direction:column}
         <div class="form-group"><textarea class="form-input" id="prop-welcome" rows="3" placeholder="Bonjour, bienvenue dans votre logement ! Vous trouverez les serviettes dans le placard..."></textarea></div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeModal('property')">Annuler</button>
-      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder la fiche</span><div class="spinner"></div></button>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-secondary" id="btn-delete-prop" style="color:#991B1B;border-color:#FECACA;display:none" onclick="deleteProperty()">Supprimer</button>
+      <div style="display:flex;gap:10px">
+        <button class="btn-secondary" onclick="closeModal('property')">Annuler</button>
+        <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder la fiche</span><div class="spinner"></div></button>
+      </div>
     </div>
   </div>
 </div>
@@ -968,6 +971,7 @@ function openAddProperty() {
   ['prop-name','prop-city','prop-type','prop-rooms','prop-capacity','prop-address','prop-checkin','prop-checkout','prop-code','prop-access','prop-rules','prop-amenities','prop-contacts','prop-welcome'].forEach(function(id) { var el = ge(id); if (el) el.value = ''; });
   ge('modal-prop-title').textContent = 'Ajouter une propriété';
   ge('modal-property').dataset.editing = '';
+  ge('btn-delete-prop').style.display = 'none';
   openModal('property');
 }
 
@@ -975,6 +979,7 @@ function editProperty(propId) {
   var prop = findProp(propId); if (!prop) return;
   ge('modal-prop-title').textContent = 'Modifier : ' + prop.name;
   ge('modal-property').dataset.editing = propId;
+  ge('btn-delete-prop').style.display = 'inline-flex';
   var fields = {
     'prop-name':prop.name, 'prop-city':prop.city, 'prop-type':prop.type,
     'prop-rooms':prop.rooms, 'prop-capacity':prop.capacity,
@@ -986,6 +991,30 @@ function editProperty(propId) {
   };
   Object.keys(fields).forEach(function(id) { var el = ge(id); if (el) el.value = fields[id] || ''; });
   openModal('property');
+}
+
+// ════ DELETE PROPERTY ════
+async function deleteProperty() {
+  var editingId = ge('modal-property').dataset.editing;
+  if (!editingId) return;
+  var prop = findProp(editingId);
+  var propName = prop ? prop.name : 'ce logement';
+  if (!confirm('Supprimer "' + propName + '" ? Cette action est irréversible.')) return;
+
+  if (IS_DEMO) {
+    propertiesList = propertiesList.filter(function(p) { return p.id !== editingId; });
+    renderProperties(); closeModal('property');
+    showToast('"' + propName + '" supprimé (démo)', 'green');
+    return;
+  }
+
+  try {
+    var { error } = await sb.from('properties').delete().eq('id', editingId).eq('user_id', currentUserId);
+    if (error) { showToast('Erreur : ' + error.message, 'orange'); return; }
+    await loadProperties();
+    closeModal('property');
+    showToast('"' + propName + '" supprimé ✓', 'green');
+  } catch(err) { showToast('Erreur réseau', 'orange'); console.error(err); }
 }
 
 // ════ LOAD APP ════
