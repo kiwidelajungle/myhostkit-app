@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>MyHostKit — Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bl:#1C5F8A;--bc:#2478A8;--bp:#E8F4FB;
+  --green:#0FB980;--green-d:#0A9468;--green-l:#E0F7F0;
+  --w:#fff;--n:#141414;--g:#6A6A72;--cr:#F7F4EE;
+  --border:rgba(0,0,0,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--cr)}
+body{display:flex;flex-direction:column}
+
+/* HEADER */
+.header{
+  background:var(--w);border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;align-items:center;gap:12px;
+  flex-shrink:0;position:sticky;top:0;z-index:10;
+  box-shadow:0 1px 8px rgba(0,0,0,.04);
+}
+.header-logo{
+  width:34px;height:34px;background:linear-gradient(135deg,#0FB980,#0A9468);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(15,185,128,.3);
+}
+.header-info{flex:1;min-width:0}
+.header-name{font-size:.92rem;font-weight:700;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-status{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--green-d);font-weight:600;margin-top:1px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(15,185,128,.4)}50%{box-shadow:0 0 0 4px rgba(15,185,128,0)}}
+
+/* LOADING STATE */
+.loading-screen{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 20px;text-align:center;
+}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:.88rem;color:var(--g)}
+
+/* ERROR STATE */
+.error-screen{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 20px;text-align:center;
+}
+.error-icon{font-size:2.5rem;margin-bottom:12px}
+.error-title{font-size:1rem;font-weight:700;color:var(--n);margin-bottom:6px}
+.error-sub{font-size:.84rem;color:var(--g);line-height:1.6}
+
+/* CHAT */
+.chat-container{
+  flex:1;display:flex;flex-direction:column;overflow:hidden;
+}
+.chat-messages{
+  flex:1;overflow-y:auto;padding:16px 16px 8px;
+  display:flex;flex-direction:column;gap:10px;
+  -webkit-overflow-scrolling:touch;
+}
+.msg-wrap{display:flex;flex-direction:column}
+.msg-wrap.user{align-items:flex-end}
+.msg-wrap.ai{align-items:flex-start}
+.msg-bubble{
+  max-width:82%;padding:11px 14px;border-radius:16px;
+  font-size:.88rem;line-height:1.6;word-wrap:break-word;
+}
+.msg-bubble.user{
+  background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;
+  border-bottom-right-radius:4px;
+  box-shadow:0 2px 8px rgba(28,95,138,.2);
+}
+.msg-bubble.ai{
+  background:var(--w);color:var(--n);border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+  box-shadow:0 1px 6px rgba(0,0,0,.04);
+}
+.msg-bubble.ai.typing{opacity:.6;font-style:italic;color:var(--g)}
+.msg-time{font-size:.64rem;color:#B8B5AE;margin-top:3px;padding:0 4px}
+.msg-wrap.user .msg-time{text-align:right}
+
+/* WELCOME */
+.welcome-card{
+  background:linear-gradient(135deg,#E8F8F2,#F0FAF6);
+  border:1px solid #B8EADA;border-radius:14px;
+  padding:16px;margin-bottom:6px;
+}
+.welcome-title{font-size:.82rem;font-weight:700;color:#085041;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.welcome-text{font-size:.82rem;color:#0A9468;line-height:1.6}
+.quick-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.quick-btn{
+  padding:7px 13px;background:var(--w);border:1px solid #C8EDE2;
+  border-radius:20px;font-size:.76rem;color:#085041;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:all .15s;
+  white-space:nowrap;
+}
+.quick-btn:hover{background:#E0F7F0;border-color:var(--green);transform:translateY(-1px)}
+.quick-btn:active{transform:scale(.97)}
+
+/* INPUT BAR */
+.input-bar{
+  padding:10px 12px;background:var(--w);
+  border-top:1px solid var(--border);flex-shrink:0;
+  display:flex;gap:8px;align-items:flex-end;
+  box-shadow:0 -2px 10px rgba(0,0,0,.03);
+}
+.input-field{
+  flex:1;padding:11px 14px;border:1.5px solid var(--border);
+  border-radius:22px;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--n);background:var(--cr);outline:none;resize:none;
+  max-height:100px;line-height:1.4;transition:border-color .2s;
+}
+.input-field:focus{border-color:var(--bl)}
+.input-field::placeholder{color:#B8B5AE}
+.send-btn{
+  width:42px;height:42px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,var(--green),var(--green-d));
+  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .2s;
+  box-shadow:0 2px 8px rgba(15,185,128,.3);
+}
+.send-btn:hover{transform:scale(1.05);box-shadow:0 4px 14px rgba(15,185,128,.4)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.send-btn svg{width:18px;height:18px}
+
+/* FOOTER */
+.footer{
+  padding:8px;text-align:center;font-size:.62rem;color:#C0BDB6;
+  background:var(--w);border-top:1px solid var(--border);flex-shrink:0;
+}
+.footer a{color:var(--bl);text-decoration:none;font-weight:600}
+
+/* HIDE STATES */
+.hidden{display:none !important}
+
+/* SAFE AREA for iOS */
+@supports(padding-bottom: env(safe-area-inset-bottom)){
+  .input-bar{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+  </div>
+  <div class="header-info">
+    <div class="header-name" id="prop-name">Chargement...</div>
+    <div class="header-status"><div class="status-dot"></div><span>Assistant en ligne</span></div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-screen" id="screen-loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Chargement de l'assistant...</div>
+</div>
+
+<!-- ERROR -->
+<div class="error-screen hidden" id="screen-error">
+  <div class="error-icon">🏠</div>
+  <div class="error-title">Logement introuvable</div>
+  <div class="error-sub">Ce lien ne semble plus valide.<br>Contactez votre hôte pour obtenir un nouveau lien.</div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-container hidden" id="screen-chat">
+  <div class="chat-messages" id="messages"></div>
+  <div class="input-bar">
+    <textarea class="input-field" id="input" rows="1" placeholder="Posez votre question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+    <button class="send-btn" id="send-btn" onclick="sendMsg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="footer">Propulsé par <a href="https://www.myhostkit.com" target="_blank">MyHostKit</a> · IA Conciergerie</div>
+</div>
+
+<script>
+var SUPA_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
+var EDGE_FN_URL = SUPA_URL + '/functions/v1';
+var propertyData = null;
+var chatMessages = [];
+
+function ge(id) { return document.getElementById(id); }
+
+function showScreen(id) {
+  ['screen-loading','screen-error','screen-chat'].forEach(function(s) {
+    ge(s).classList.toggle('hidden', s !== 'screen-' + id);
+  });
+}
+
+function addMessage(role, text) {
+  var container = ge('messages');
+  var wrap = document.createElement('div');
+  wrap.className = 'msg-wrap ' + role;
+  var time = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  wrap.innerHTML = '<div class="msg-bubble ' + role + '">' + escapeHtml(text) + '</div><div class="msg-time">' + time + '</div>';
+  container.appendChild(wrap);
+  container.scrollTop = container.scrollHeight;
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML.replace(/\n/g, '<br>');
+}
+
+function showWelcome() {
+  var container = ge('messages');
+  var p = propertyData;
+  var welcomeMsg = p.welcome || p.welcome_message || '';
+  var html = '<div class="welcome-card">';
+  html += '<div class="welcome-title"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#0A9468" stroke-width="2" stroke-linecap="round"/></svg> ' + (p.name || 'Votre logement') + '</div>';
+  html += '<div class="welcome-text">' + (welcomeMsg ? escapeHtml(welcomeMsg) + '<br><br>' : '') + 'Je suis votre assistant. Posez-moi vos questions sur le logement, les équipements, le check-in, ou les alentours !</div>';
+  html += '<div class="quick-btns">';
+  html += '<button class="quick-btn" onclick="askQuick(this)">Code WiFi ?</button>';
+  html += '<button class="quick-btn" onclick="askQuick(this)">Check-in / check-out ?</button>';
+  html += '<button class="quick-btn" onclick="askQuick(this)">Code d\'accès ?</button>';
+  html += '<button class="quick-btn" onclick="askQuick(this)">Équipements ?</button>';
+  html += '</div></div>';
+  container.innerHTML = html;
+}
+
+function askQuick(btn) {
+  var text = btn.textContent.trim();
+  ge('input').value = text;
+  sendMsg();
+}
+
+async function sendMsg() {
+  var input = ge('input');
+  var msg = input.value.trim();
+  if (!msg || !propertyData) return;
+  input.value = '';
+  input.style.height = 'auto';
+  addMessage('user', msg);
+  chatMessages.push({ role: 'user', content: msg });
+
+  // Show typing
+  var container = ge('messages');
+  var typingWrap = document.createElement('div');
+  typingWrap.className = 'msg-wrap ai';
+  typingWrap.id = 'typing';
+  typingWrap.innerHTML = '<div class="msg-bubble ai typing">En train d\'écrire...</div>';
+  container.appendChild(typingWrap);
+  container.scrollTop = container.scrollHeight;
+
+  var sendBtn = ge('send-btn');
+  sendBtn.disabled = true;
+
+  var p = propertyData;
+  try {
+    var response = await fetch(EDGE_FN_URL + '/ai-concierge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        property_id: p.id,
+        messages: chatMessages,
+        property: {
+          name: p.name, city: p.city, type: p.type,
+          address: p.address,
+          checkin: p.checkin || p.check_in_time,
+          checkout: p.checkout || p.check_out_time,
+          access_code: p.access_code,
+          access_info: p.access_info,
+          rules: p.rules, amenities: p.amenities,
+          contacts: p.contacts,
+          welcome: p.welcome || p.welcome_message
+        }
+      })
+    });
+
+    var data = await response.json();
+    var el = ge('typing'); if (el) el.remove();
+
+    if (data.error) {
+      addMessage('ai', 'Désolé, une erreur est survenue. Réessayez dans un instant.');
+    } else {
+      var reply = data.reply || 'Réponse reçue.';
+      chatMessages.push({ role: 'assistant', content: reply });
+      addMessage('ai', reply);
+    }
+  } catch(err) {
+    var el2 = ge('typing'); if (el2) el2.remove();
+    addMessage('ai', 'Impossible de joindre l\'assistant. Vérifiez votre connexion.');
+  }
+
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+// Auto-resize textarea
+ge('input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+
+// Load property from URL param
+(async function() {
+  var params = new URLSearchParams(window.location.search);
+  var propId = params.get('id');
+
+  if (!propId) {
+    showScreen('error');
+    return;
+  }
+
+  try {
+    // Fetch property directly via Supabase REST API (public read via anon key)
+    var response = await fetch(SUPA_URL + '/rest/v1/properties?id=eq.' + propId + '&select=*', {
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y'
+      }
+    });
+    var data = await response.json();
+
+    if (!data || data.length === 0) {
+      showScreen('error');
+      return;
+    }
+
+    propertyData = data[0];
+    ge('prop-name').textContent = propertyData.name || 'Votre logement';
+    showWelcome();
+    showScreen('chat');
+  } catch(err) {
+    showScreen('error');
+  }
+})();
+</script>
+</body>
+</html>
