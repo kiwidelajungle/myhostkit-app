@@ -1997,7 +1997,6 @@ function renderOrderHistory(){
   sb.auth.onAuthStateChange(function(event,session){
     if(event==='SIGNED_IN'&&session)loadApp(session.user);
     if(event==='SIGNED_OUT')showPage('auth');
-})();
 
 </script>
 <script>
