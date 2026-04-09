@@ -291,6 +291,115 @@ body{display:flex;flex-direction:column}
   .kpi-grid{grid-template-columns:1fr 1fr}
   .grid2,.grid3{grid-template-columns:1fr}
 }
+
+/* ADMIN PANEL */
+#page-admin{flex-direction:column;background:#0D1117;min-height:100vh}
+.admin-nav{background:#161B22;border-bottom:1px solid #30363D;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.admin-nav-logo{display:flex;align-items:center;gap:10px}
+.admin-nav-badge{font-size:.68rem;font-weight:800;background:#FF4444;color:#fff;padding:2px 9px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase}
+.admin-nav-title{font-size:.9rem;font-weight:700;color:#E6EDF3}
+.admin-nav-right{display:flex;align-items:center;gap:10px}
+.btn-admin-logout{padding:6px 14px;border:1px solid #30363D;border-radius:7px;background:transparent;color:#8B949E;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-admin-logout:hover{border-color:#FF4444;color:#FF4444}
+.admin-body{flex:1;padding:28px 32px;max-width:1200px;margin:0 auto;width:100%}
+.admin-title{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:#E6EDF3;margin-bottom:4px}
+.admin-sub{font-size:.83rem;color:#8B949E;margin-bottom:24px}
+.admin-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid #21262D;padding-bottom:0}
+.admin-tab{padding:9px 18px;font-size:.82rem;font-weight:600;color:#8B949E;border:none;background:transparent;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
+.admin-tab.active{color:#58A6FF;border-bottom-color:#58A6FF}
+.admin-tab:hover{color:#E6EDF3}
+.admin-section{display:none}.admin-section.active{display:block}
+.admin-card{background:#161B22;border:1px solid #21262D;border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.admin-card-title{font-size:.8rem;font-weight:700;color:#E6EDF3;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;text-transform:uppercase;letter-spacing:.06em}
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th{font-size:.68rem;font-weight:700;color:#8B949E;text-align:left;padding:8px 12px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #21262D}
+.admin-table td{font-size:.82rem;color:#E6EDF3;padding:10px 12px;border-bottom:1px solid #161B22;vertical-align:middle}
+.admin-table tr:hover td{background:#1C2128}
+.plan-badge-admin{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.plan-starter{background:#1F3A2A;color:#3FB950}
+.plan-pro{background:#1F2D4A;color:#58A6FF}
+.plan-concpro{background:#3D2B00;color:#E3B341}
+.plan-admin-badge{background:#3D0A0A;color:#FF4444}
+.plan-demo{background:#2D2D2D;color:#8B949E}
+.btn-admin-action{padding:5px 12px;border:1px solid #30363D;border-radius:6px;background:transparent;color:#58A6FF;font-size:.74rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-admin-action:hover{background:#58A6FF;color:#0D1117}
+.btn-admin-danger{color:#FF4444;border-color:#30363D}
+.btn-admin-danger:hover{background:#FF4444;color:#fff}
+.admin-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.admin-stat{background:#161B22;border:1px solid #21262D;border-radius:10px;padding:16px 18px}
+.admin-stat-val{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:300;color:#E6EDF3;line-height:1}
+.admin-stat-lbl{font-size:.68rem;color:#8B949E;margin-top:5px;text-transform:uppercase;letter-spacing:.06em}
+.admin-stat-delta{font-size:.72rem;color:#3FB950;margin-top:3px;font-weight:600}
+.admin-impersonate-bar{background:#2D1B00;border:1px solid #E3B341;border-radius:10px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;font-size:.83rem;color:#E3B341}
+.admin-impersonate-bar strong{color:#fff}
+.btn-stop-impersonate{margin-left:auto;padding:6px 14px;background:#E3B341;color:#0D1117;border:none;border-radius:7px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit}
+.admin-log-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #21262D;font-size:.8rem;color:#8B949E;align-items:flex-start}
+.admin-log-item:last-child{border-bottom:none}
+.admin-log-time{white-space:nowrap;font-family:monospace;font-size:.74rem;color:#484F58;flex-shrink:0;padding-top:1px}
+.admin-log-msg{color:#E6EDF3}
+.admin-log-type{font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.log-info{background:#1F2D4A;color:#58A6FF}
+.log-warn{background:#3D2B00;color:#E3B341}
+.log-err{background:#3D0A0A;color:#FF4444}
+.log-ok{background:#1F3A2A;color:#3FB950}
+.admin-search{width:100%;padding:10px 14px;background:#0D1117;border:1px solid #30363D;border-radius:9px;color:#E6EDF3;font-size:.85rem;font-family:inherit;outline:none;margin-bottom:14px;transition:border-color .2s}
+.admin-search:focus{border-color:#58A6FF}
+.admin-search::placeholder{color:#484F58}
+
+/* PLAN LOCK OVERLAY */
+.plan-lock-overlay{position:absolute;inset:0;background:rgba(13,17,23,.85);backdrop-filter:blur(4px);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:20px;text-align:center}
+.plan-lock-icon{font-size:1.8rem;margin-bottom:8px}
+.plan-lock-title{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:4px}
+.plan-lock-sub{font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:14px}
+.btn-plan-unlock{padding:9px 20px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-plan-unlock:hover{transform:translateY(-1px)}
+.inner-page{position:relative}
+
+/* ADMIN BUTTON IN SIDEBAR */
+.sb-item.admin-btn{color:#FF4444;background:rgba(255,68,68,.06)}
+.sb-item.admin-btn:hover{background:rgba(255,68,68,.15);color:#FF4444}
+.sb-item.admin-btn svg{opacity:1}
+
+/* STOCKS & COMMANDES */
+.stock-prop-selector{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.stock-prop-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--w);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--g);transition:all .2s}
+.stock-prop-btn.active{border-color:var(--bl);background:var(--bp);color:var(--bl)}
+.stock-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--w);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:all .2s;box-shadow:var(--shadow-sm)}
+.stock-item:hover{border-color:var(--bh)}
+.stock-item-icon{font-size:1.2rem;flex-shrink:0;width:32px;text-align:center}
+.stock-item-name{font-size:.85rem;font-weight:600;color:var(--n);flex:1}
+.stock-item-cat{font-size:.7rem;color:var(--g);margin-top:2px}
+.stock-qty-wrap{display:flex;align-items:center;gap:8px}
+.stock-qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:var(--w);font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--n);line-height:1}
+.stock-qty-btn:hover{border-color:var(--bl);color:var(--bl);background:var(--bp)}
+.stock-qty-val{font-size:.9rem;font-weight:700;color:var(--n);min-width:26px;text-align:center}
+.stock-status{font-size:.68rem;padding:3px 8px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.stock-ok{background:var(--green-l);color:#085041}
+.stock-low{background:var(--or-l);color:#7A4500}
+.stock-out{background:#FEF2F2;color:#991B1B}
+.stock-section-title{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.ia-analyse-box{background:linear-gradient(135deg,#F0F4FF,#EEF2FF);border:1px solid #C7D2FE;border-radius:12px;padding:14px 17px;margin-bottom:16px}
+.ia-analyse-title{font-size:.73rem;font-weight:800;color:#3C3489;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em}
+.ia-analyse-input{width:100%;padding:10px 13px;border:1.5px solid #C7D2FE;border-radius:9px;font-size:.85rem;font-family:inherit;background:#fff;outline:none;resize:none;transition:border-color .2s;margin-bottom:8px}
+.ia-analyse-input:focus{border-color:var(--purple)}
+.btn-ia-analyse{padding:9px 20px;background:linear-gradient(135deg,var(--purple),#7C6FE0);color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:7px}
+.btn-ia-analyse:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(91,79,207,.3)}
+.btn-ia-analyse:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.order-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#F9F7F3;border-radius:9px;margin-bottom:7px;transition:background .15s}
+.order-item:hover{background:#F0EDE8}
+.order-item-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--w);transition:all .2s}
+.order-item-check.checked{background:var(--green);border-color:var(--green-d)}
+.order-item-check.checked::after{content:'✓';color:#fff;font-size:.7rem;font-weight:800}
+.order-item-name{font-size:.83rem;font-weight:600;color:var(--n);flex:1}
+.order-item-qty{font-size:.75rem;color:var(--g);margin-right:8px}
+.order-item-link{font-size:.72rem;color:var(--bl);font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.order-item-link:hover{opacity:.75}
+.btn-order-all{padding:10px 22px;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:9px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 3px 12px rgba(15,185,128,.25);display:flex;align-items:center;gap:7px}
+.btn-order-all:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(15,185,128,.35)}
+.btn-order-all:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.order-history-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #F2EFE9;font-size:.8rem}
+.order-history-item:last-child{border-bottom:none}
+.add-stock-form{background:#F9F7F3;border-radius:11px;padding:14px 16px;margin-top:14px;border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -400,17 +509,19 @@ body{display:flex;flex-direction:column}
     </div>
     <nav class="sb-nav">
       <div class="sb-section">Principal</div>
-      <button class="sb-item active" onclick="showInner('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tableau de bord</button>
-      <button class="sb-item" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge">12</span></button>
-      <button class="sb-item" onclick="showInner('revenue')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Revenue Intel.<span class="sb-badge orange">+22%</span></button>
-      <button class="sb-item" onclick="showInner('calendar')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendrier</button>
+      <button class="sb-item active" data-nav="dashboard" onclick="showInner('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tableau de bord</button>
+      <button class="sb-item" data-nav="messages" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge">12</span></button>
+      <button class="sb-item" data-nav="revenue" onclick="showInner('revenue')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Revenue Intel.<span class="sb-badge orange">+22%</span></button>
+      <button class="sb-item" data-nav="calendar" onclick="showInner('calendar')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendrier</button>
       <div class="sb-section">Gestion</div>
-      <button class="sb-item" onclick="showInner('properties')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Propriétés</button>
-      <button class="sb-item" onclick="showInner('notifications')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications<span class="sb-badge">3</span></button>
+      <button class="sb-item" data-nav="properties" onclick="showInner('properties')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Propriétés</button>
+      <button class="sb-item" data-nav="notifications" onclick="showInner('notifications')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Notifications<span class="sb-badge">3</span></button>
+      <button class="sb-item" data-nav="stocks" onclick="showInner('stocks')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Stocks & Commandes<span class="sb-badge orange" id="sb-stocks-badge" style="display:none">!</span></button>
       <div class="sb-section">Compte</div>
-      <button class="sb-item" onclick="showInner('integrations')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Intégrations</button>
-      <button class="sb-item" onclick="showInner('offers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Nos offres</button>
-      <button class="sb-item" onclick="showInner('settings')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Paramètres</button>
+      <button class="sb-item" data-nav="integrations" onclick="showInner('integrations')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Intégrations</button>
+      <button class="sb-item" data-nav="offers" onclick="showInner('offers')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Nos offres</button>
+      <button class="sb-item" data-nav="settings" onclick="showInner('settings')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Paramètres</button>
+      <button class="sb-item admin-btn" id="sb-admin-btn" onclick="showAdminPanel()" style="display:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin Panel</button>
       <button class="sb-item" onclick="openIaTest()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Tester l'IA</button>
     </nav>
     <div class="sb-foot">
@@ -420,6 +531,10 @@ body{display:flex;flex-direction:column}
   </div>
 
   <div class="main-content">
+    <div id="impersonate-bar" class="admin-impersonate-bar" style="display:none;margin:12px 28px 0">
+      <span>👁 Mode <strong id="impersonate-name">—</strong> — Vous consultez ce compte en tant qu'admin</span>
+      <button class="btn-stop-impersonate" onclick="stopImpersonate()">✕ Quitter</button>
+    </div>
     <div class="topbar">
       <div class="topbar-title" id="topbar-title">Tableau de bord</div>
       <div class="topbar-right">
@@ -443,8 +558,11 @@ body{display:flex;flex-direction:column}
       </div>
       <div class="grid2">
         <div class="card">
-          <div class="card-title">Propriétés <span id="props-count-label">0</span></div>
-          <div id="dash-props-list"><div class="empty-state" style="padding:20px 0"><p style="font-size:.84rem;color:var(--g)">Chargement...</p></div></div>
+          <div class="card-title">Propriétés <span>4 actives</span></div>
+          <div class="prop-row" onclick="showInner('properties')"><div><div class="prop-name">🏠 Apt. Lyon 2e</div><div class="prop-meta">Occupé · check-out demain</div></div><span class="chip chip-green">1 450€</span></div>
+          <div class="prop-row" onclick="showInner('revenue')"><div><div class="prop-name">🌴 Villa Nice Promenade</div><div class="prop-meta">Libre · 3 jours</div></div><span class="chip chip-amber">Optimiser</span></div>
+          <div class="prop-row" onclick="showInner('properties')"><div><div class="prop-name">🏢 Studio Bordeaux</div><div class="prop-meta">Occupé · 5 jours</div></div><span class="chip chip-green">720€</span></div>
+          <div class="prop-row" onclick="showInner('properties')"><div><div class="prop-name">⛷ Chalet Alpe d'Huez</div><div class="prop-meta">Occupé · départ dim.</div></div><span class="chip chip-green">2 100€</span></div>
         </div>
         <div class="card">
           <div class="card-title">Revenus par propriété</div>
@@ -530,8 +648,11 @@ body{display:flex;flex-direction:column}
     <!-- PROPRIETES -->
     <div id="inner-properties" class="inner-page">
       <div class="card">
-        <div class="card-title">Mes propriétés <span id="props-count-label2">0</span></div>
-        <div id="props-page-list"><div class="empty-state" style="padding:20px 0"><p style="font-size:.84rem;color:var(--g)">Chargement...</p></div></div>
+        <div class="card-title">Mes propriétés <span>4 actives</span></div>
+        <div class="prop-row" onclick="editProperty('apt-lyon')"><div><div class="prop-name">🏠 Apt. Lyon 2e</div><div class="prop-meta">Airbnb · Booking · 2 chambres · 72m²</div></div><div style="display:flex;align-items:center;gap:8px"><span class="chip chip-green">Actif</span><span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>
+        <div class="prop-row" onclick="editProperty('villa-nice')"><div><div class="prop-name">🌴 Villa Nice Promenade</div><div class="prop-meta">Airbnb · 4 chambres · 180m²</div></div><div style="display:flex;align-items:center;gap:8px"><span class="chip chip-amber">Optimiser prix</span><span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>
+        <div class="prop-row" onclick="editProperty('studio-bordeaux')"><div><div class="prop-name">🏢 Studio Bordeaux</div><div class="prop-meta">Airbnb · Booking · Studio · 28m²</div></div><div style="display:flex;align-items:center;gap:8px"><span class="chip chip-green">Actif</span><span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>
+        <div class="prop-row" onclick="editProperty('chalet-huez')"><div><div class="prop-name">⛷ Chalet Alpe d'Huez</div><div class="prop-meta">Airbnb · VRBO · 5 chambres · 220m²</div></div><div style="display:flex;align-items:center;gap:8px"><span class="chip chip-green">Actif</span><span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>
         <div style="margin-top:16px">
           <button class="btn-outline" onclick="openAddProperty()" style="margin-right:10px">+ Ajouter une propriété</button>
           <button class="btn-outline" onclick="showInner('integrations');showToast('Connectez Airbnb dans Intégrations','blue')">Connecter Airbnb →</button>
@@ -618,8 +739,15 @@ body{display:flex;flex-direction:column}
         <div class="settings-row"><div><div class="settings-row-label">Demande d'avis automatique</div><div class="settings-row-sub">Envoyer une demande d'avis 24h après le départ</div></div><button class="toggle" onclick="toggleSetting(this,'Demande avis')"></button></div>
       </div>
       <div class="settings-section">
-        <div class="settings-title">IA Conciergerie — Statut</div>
-        <div class="settings-row"><div><div class="settings-row-label">IA Conciergerie</div><div class="settings-row-sub">L'IA est configurée côté serveur (Edge Function). Aucune clé API à gérer.</div></div><span class="chip chip-green">Active ✓</span></div>
+        <div class="settings-title">Clé API Anthropic (IA)</div>
+        <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:10px">
+          <div><div class="settings-row-label">Clé API Claude</div><div class="settings-row-sub">Nécessaire pour que l'IA réponde automatiquement à vos guests</div></div>
+          <div class="api-key-row" style="width:100%">
+            <input class="api-key-input" id="anthropic-key" type="password" placeholder="sk-ant-api03-...">
+            <button class="btn-save-key" onclick="saveApiKey()">Sauvegarder</button>
+          </div>
+          <div id="api-key-status" style="font-size:.75rem;color:var(--g)"></div>
+        </div>
       </div>
       <div class="settings-section">
         <div class="settings-title">Compte</div>
@@ -628,6 +756,117 @@ body{display:flex;flex-direction:column}
         <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="set-email" type="email" style="max-width:360px;opacity:.6" disabled></div>
         <button class="btn-main" style="max-width:210px" onclick="saveSettings()"><span class="btn-text">Sauvegarder</span><div class="spinner"></div></button>
       </div>
+    </div>
+
+    <!-- STOCKS & COMMANDES -->
+    <div id="inner-stocks" class="inner-page">
+      <div class="stock-prop-selector">
+        <span style="font-size:.78rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.06em">Logement :</span>
+        <button class="stock-prop-btn active" onclick="selectStockProp(this,'apt-lyon')">🏠 Apt. Lyon</button>
+        <button class="stock-prop-btn" onclick="selectStockProp(this,'villa-nice')">🌴 Villa Nice</button>
+        <button class="stock-prop-btn" onclick="selectStockProp(this,'studio-bordeaux')">🏢 Studio Bx</button>
+        <button class="stock-prop-btn" onclick="selectStockProp(this,'chalet-huez')">⛷ Chalet</button>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div>
+          <div class="ia-analyse-box">
+            <div class="ia-analyse-title">✦ Analyse IA des manques</div>
+            <textarea class="ia-analyse-input" id="stock-ia-input" rows="2" placeholder="Décrivez l'état du logement après le check-out : 'plus de café, 2 serviettes manquantes, savon presque vide, ampoule grillée dans la chambre...'" onkeydown="if(event.key==='Enter'&&event.ctrlKey)analyseStocksIA()"></textarea>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="btn-ia-analyse" id="btn-ia-analyse" onclick="analyseStocksIA()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Analyser avec l'IA →
+              </button>
+              <span style="font-size:.72rem;color:var(--g)">ou Ctrl+Entrée</span>
+            </div>
+            <div id="stock-ia-result" style="margin-top:10px;display:none"></div>
+          </div>
+          <div id="stocks-list"></div>
+          <button onclick="toggleAddStockForm()" style="font-size:.78rem;color:var(--bl);font-weight:600;background:none;border:none;cursor:pointer;padding:4px 0;display:flex;align-items:center;gap:5px;margin-top:6px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter un produit manuellement
+          </button>
+          <div id="add-stock-form" class="add-stock-form" style="display:none">
+            <div class="form-row" style="margin-bottom:10px">
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Nom du produit</label><input class="form-input" id="new-stock-name" placeholder="Ex: Café moulu"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Catégorie</label>
+                <select class="form-input" id="new-stock-cat" style="appearance:none;cursor:pointer">
+                  <option value="Consommables">Consommables</option>
+                  <option value="Linge">Linge</option>
+                  <option value="Équipements">Équipements</option>
+                  <option value="Entretien">Entretien</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" style="margin-bottom:10px">
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Quantité actuelle</label><input class="form-input" id="new-stock-qty" type="number" min="0" value="0" placeholder="0"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Seuil d'alerte</label><input class="form-input" id="new-stock-min" type="number" min="0" value="2" placeholder="2"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Lien Amazon (optionnel)</label><input class="form-input" id="new-stock-url" type="url" placeholder="https://amazon.fr/..."></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Emoji icône</label><input class="form-input" id="new-stock-icon" placeholder="☕" maxlength="4"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn-main" style="max-width:180px;padding:9px" onclick="addStockItem()"><span class="btn-text">Ajouter →</span><div class="spinner"></div></button>
+              <button class="btn-secondary" onclick="toggleAddStockForm()">Annuler</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:15px">
+            <div class="card-title">
+              Commandes suggérées
+              <span id="order-pending-count" class="chip chip-amber" style="display:none"></span>
+            </div>
+            <div id="order-list">
+              <div style="text-align:center;padding:24px 0;color:var(--g);font-size:.82rem">
+                Analysez les stocks pour générer des commandes IA, ou ajoutez manuellement des produits en rupture.
+              </div>
+            </div>
+            <div id="order-actions" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap">
+              <button class="btn-order-all" id="btn-order-all" onclick="confirmOrderAll()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Commander tout → Amazon
+              </button>
+              <button class="btn-secondary" onclick="clearOrderList()">Vider la liste</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Historique commandes <span id="order-history-count">0 commande</span></div>
+            <div id="order-history-list">
+              <div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL CONFIRMATION COMMANDE -->
+<div id="modal-order" class="modal-overlay" onclick="if(event.target===this)closeModal('order')">
+  <div class="modal-box" style="max-width:480px">
+    <div class="modal-head">
+      <div class="modal-title">Confirmer la commande</div>
+      <button class="modal-close" onclick="closeModal('order')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="ai-panel" style="margin-bottom:16px">
+        <div class="ai-panel-title">✦ Récapitulatif commande IA</div>
+        <div id="modal-order-summary" style="font-size:.84rem;color:var(--n);line-height:1.7"></div>
+      </div>
+      <div id="modal-order-items"></div>
+      <div style="background:#F9F7F3;border-radius:9px;padding:12px 14px;margin-top:10px">
+        <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--g);margin-bottom:6px">Note pour la commande</div>
+        <input class="form-input" id="order-note" type="text" placeholder="Ex: Livraison avant vendredi, préférer bio...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('order')">Annuler</button>
+      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="executeOrder()">
+        <span class="btn-text">✓ Valider & Commander →</span><div class="spinner"></div>
+      </button>
     </div>
   </div>
 </div>
@@ -673,12 +912,9 @@ body{display:flex;flex-direction:column}
         <div class="form-group"><textarea class="form-input" id="prop-welcome" rows="3" placeholder="Bonjour, bienvenue dans votre logement ! Vous trouverez les serviettes dans le placard..."></textarea></div>
       </div>
     </div>
-    <div class="modal-footer" style="justify-content:space-between">
-      <button class="btn-secondary" id="btn-delete-prop" style="color:#991B1B;border-color:#FECACA;display:none" onclick="deleteProperty()">Supprimer</button>
-      <div style="display:flex;gap:10px">
-        <button class="btn-secondary" onclick="closeModal('property')">Annuler</button>
-        <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder la fiche</span><div class="spinner"></div></button>
-      </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('property')">Annuler</button>
+      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder la fiche</span><div class="spinner"></div></button>
     </div>
   </div>
 </div>
@@ -717,55 +953,104 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
+<!-- PAGE ADMIN -->
+<div id="page-admin" class="page">
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">
+      <span class="admin-nav-badge">🛡 Admin</span>
+      <span class="admin-nav-title">MyHostKit — Panel Admin</span>
+    </div>
+    <div class="admin-nav-right">
+      <span id="admin-nav-user" style="font-size:.78rem;color:#8B949E"></span>
+      <button class="btn-admin-logout" onclick="exitAdmin()">← Retour app</button>
+    </div>
+  </nav>
+  <div class="admin-body">
+    <div class="admin-title">Panel Administration</div>
+    <div class="admin-sub">Gestion des comptes, plans et logs — accès restreint</div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('overview')">Vue d'ensemble</button>
+      <button class="admin-tab" onclick="switchAdminTab('users')">Utilisateurs</button>
+      <button class="admin-tab" onclick="switchAdminTab('logs')">Logs</button>
+    </div>
+    <div id="admin-overview" class="admin-section active">
+      <div class="admin-stat-grid">
+        <div class="admin-stat"><div class="admin-stat-val" id="stat-total-users">—</div><div class="admin-stat-lbl">Utilisateurs totaux</div><div class="admin-stat-delta">+3 cette semaine</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" id="stat-pro-users">—</div><div class="admin-stat-lbl">Comptes Pro</div><div class="admin-stat-delta">Actifs</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" id="stat-starter-users">—</div><div class="admin-stat-lbl">Comptes Starter</div><div class="admin-stat-delta">Actifs</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" id="stat-mrr">—€</div><div class="admin-stat-lbl">MRR estimé</div><div class="admin-stat-delta">+22% vs mois dernier</div></div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-title">Activité récente</div>
+        <div id="admin-recent-logs">
+          <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — demo@myhostkit.com</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">Il y a 18 min</span><span class="admin-log-type log-info">INFO</span><span class="admin-log-msg">Plan upgradé Starter → Pro — client@example.com</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">Il y a 1h</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">Tentative de connexion échouée × 3 — inconnu@test.com</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">Il y a 3h</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Nouveau compte créé — nouveau@airbnb.fr</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">Il y a 5h</span><span class="admin-log-type log-err">ERR</span><span class="admin-log-msg">Webhook Stripe échoué — payment_intent.failed</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="admin-users" class="admin-section">
+      <input class="admin-search" id="admin-user-search" type="text" placeholder="Rechercher par email, nom ou plan..." oninput="filterAdminUsers()">
+      <div class="admin-card">
+        <div class="admin-card-title">Comptes utilisateurs <span id="admin-users-count" style="font-weight:500;color:#8B949E;text-transform:none;letter-spacing:0;font-size:.78rem"></span></div>
+        <table class="admin-table">
+          <thead><tr><th>Utilisateur</th><th>Email</th><th>Plan</th><th>Inscrit</th><th>Statut</th><th>Actions</th></tr></thead>
+          <tbody id="admin-users-tbody">
+            <tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Chargement...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="admin-logs" class="admin-section">
+      <div class="admin-card">
+        <div class="admin-card-title">Journal système</div>
+        <div id="admin-logs-list">
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:41</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">SIGNED_IN — m.rayane8306@gmail.com (Admin)</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:38</span><span class="admin-log-type log-info">PLAN</span><span class="admin-log-msg">Starter → Pro upgrade initié — client@example.com</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:12</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">SIGNED_IN — user2@gmail.com</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 19:55</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">API Anthropic — Rate limit approché (80%)</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 19:30</span><span class="admin-log-type log-err">ERR</span><span class="admin-log-msg">Stripe webhook timeout — retry prévu dans 30min</span></div>
+          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 18:45</span><span class="admin-log-type log-ok">SIGNUP</span><span class="admin-log-msg">Nouveau compte — nouveau@airbnb.fr (Starter trial)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// ════ CONFIG SUPABASE ════
 var SUPA_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-var EDGE_FN_URL = SUPA_URL + '/functions/v1';
 var sb = null;
 var IS_DEMO = false;
-var currentUserId = null;
-var propertiesList = [];
-
-var DEMO_PROPERTIES = [
-  { id:'demo-1', name:'Apt. Lyon 2e', city:'Lyon', type:'Appartement', rooms:2, capacity:4, address:'12 rue de la République, 69002 Lyon', checkin:'15:00', checkout:'11:00', access_code:'3892#', access_info:'Entrée par le digicode 3892, appartement au 3e étage gauche', rules:'Pas de fêtes, pas de fumée.', amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver', contacts:'Ménage: Claire M. 06 45 12 78 90', welcome:'Bienvenue à Lyon !', status:'active' },
-  { id:'demo-2', name:'Villa Nice Promenade', city:'Nice', type:'Maison / Villa', rooms:4, capacity:8, address:'3 Promenade des Anglais, 06000 Nice', checkin:'16:00', checkout:'10:00', access_code:'4821#', access_info:'Portail vert, code 4821, villa au fond du jardin', rules:'Pas de fêtes, piscine privée.', amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine', contacts:'Ménage: Isabelle P. 06 78 23 45 67', welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h.', status:'active' },
-  { id:'demo-3', name:'Studio Bordeaux', city:'Bordeaux', type:'Studio', rooms:1, capacity:2, address:'8 rue Sainte-Catherine, 33000 Bordeaux', checkin:'14:00', checkout:'12:00', access_code:'Nuki code 5643', access_info:'Porte bleue au rez-de-chaussée, code Nuki 5643', rules:'Non-fumeur, pas de fêtes.', amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33', contacts:'Ménage: Sophie R. 06 12 34 56 78', welcome:'Bienvenue à Bordeaux !', status:'active' },
-  { id:'demo-4', name:"Chalet Alpe d'Huez", city:"Alpe d'Huez", type:'Chalet', rooms:5, capacity:10, address:"15 Route de la Poste, 38750 Alpe d'Huez", checkin:'17:00', checkout:'10:00', access_code:'1234#', access_info:'Clé sous le paillasson (boîte sécurisée, code 1234)', rules:'Pas de fêtes, respecter le voisinage.', amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna", contacts:"Ménage: Anna V. 06 90 12 34 56", welcome:"Bienvenue au chalet !", status:'active' }
-];
 
 function initSupabase() {
   try { sb = supabase.createClient(SUPA_URL, SUPA_KEY); return true; } catch(e) { return false; }
 }
-
 function ge(id) { return document.getElementById(id); }
-
 function showPage(id) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   ge('page-' + id).classList.add('active');
 }
-
 function showInner(id) {
   document.querySelectorAll('.inner-page').forEach(function(p) { p.classList.remove('active'); });
   ge('inner-' + id).classList.add('active');
   document.querySelectorAll('.sb-item').forEach(function(b) { b.classList.remove('active'); });
-  var btn = document.querySelector('.sb-item[onclick*="\'' + id + '\'"]');
+  var btn = document.querySelector('.sb-item[data-nav="' + id + '"]');
   if (btn) btn.classList.add('active');
-  var titles = { dashboard:'Tableau de bord', messages:'IA Messages', revenue:'Revenue Intelligence', calendar:'Calendrier', properties:'Propriétés', notifications:'Notifications', integrations:'Intégrations', offers:'Nos offres', settings:'Paramètres' };
+  var titles = { dashboard:'Tableau de bord', messages:'IA Messages', revenue:'Revenue Intelligence', calendar:'Calendrier', properties:'Propriétés', notifications:'Notifications', integrations:'Intégrations', offers:'Nos offres', settings:'Paramètres', stocks:'Stocks & Commandes' };
   ge('topbar-title').textContent = titles[id] || id;
 }
-
 var _toastTimer;
 function showToast(msg, type) {
   var t = ge('toast'); t.textContent = msg; t.className = 'show ' + (type || '');
   clearTimeout(_toastTimer); _toastTimer = setTimeout(function() { t.className = ''; }, 3200);
 }
-
 function showAlert(msg, type) { var el = ge('auth-alert'); el.className = 'auth-alert ' + type; el.textContent = msg; }
 function clearAlert() { var el = ge('auth-alert'); el.className = 'auth-alert'; el.textContent = ''; }
 function setLoading(btnId, on) { var b = ge(btnId); if (!b) return; b.disabled = on; b.classList.toggle('loading', on); }
 function togglePwd(id, btn) { var inp = ge(id); inp.type = inp.type === 'text' ? 'password' : 'text'; }
-
 function switchTab(tab) {
   clearAlert();
   document.querySelectorAll('.auth-tab').forEach(function(t, i) { t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='signup')); });
@@ -774,14 +1059,11 @@ function switchTab(tab) {
 }
 function showReset() { clearAlert(); ge('auth-main').style.display = 'none'; ge('auth-reset').style.display = 'block'; }
 function hideReset() { clearAlert(); ge('auth-main').style.display = ''; ge('auth-reset').style.display = 'none'; }
-
 function loadDemo() {
   IS_DEMO = true;
-  propertiesList = DEMO_PROPERTIES.slice();
   loadApp({ id: 'demo', email: 'demo@myhostkit.com', user_metadata: { prenom: 'Demo', nom: 'User' } });
   showToast('Mode démo — aucune donnée réelle', 'orange');
 }
-
 async function doLogin() {
   clearAlert();
   var email = ge('l-email').value.trim();
@@ -794,7 +1076,6 @@ async function doLogin() {
   if (result.error) { showAlert(result.error.message.includes('Invalid') ? 'Email ou mot de passe incorrect.' : result.error.message, 'err'); return; }
   loadApp(result.data.user);
 }
-
 async function doSignup() {
   clearAlert();
   var prenom = ge('s-prenom').value.trim();
@@ -809,13 +1090,11 @@ async function doSignup() {
   if (result.error) { showAlert(result.error.message, 'err'); return; }
   showAlert('Compte créé ! Vérifiez votre email pour confirmer.', 'ok');
 }
-
 async function doGoogle() {
   clearAlert();
   var result = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
   if (result.error) showAlert(result.error.message, 'err');
 }
-
 async function doReset() {
   clearAlert();
   var email = ge('r-email').value.trim();
@@ -826,200 +1105,13 @@ async function doReset() {
   if (result.error) { showAlert(result.error.message, 'err'); return; }
   showAlert('Email envoyé ! Vérifiez votre boîte mail.', 'ok');
 }
-
 async function doLogout() {
   if (sb && !IS_DEMO) await sb.auth.signOut();
   IS_DEMO = false;
-  currentUserId = null;
-  propertiesList = [];
   showToast('Déconnexion réussie', '');
   showPage('auth');
 }
-
-// ════ LOAD PROPERTIES FROM SUPABASE ════
-async function loadProperties() {
-  if (IS_DEMO) { renderProperties(); return; }
-  try {
-    var { data, error } = await sb.from('properties').select('*').eq('user_id', currentUserId).order('created_at', { ascending: false });
-    if (error) { console.error('loadProperties error:', error); showToast('Erreur chargement logements', 'orange'); return; }
-    propertiesList = (data || []).map(function(row) {
-      return {
-        id: row.id, name: row.name || '', city: row.city || '',
-        type: row.type || '', rooms: row.rooms || 1, capacity: row.capacity || 2,
-        address: row.address || '',
-        checkin: row.checkin || row.check_in_time || '15:00',
-        checkout: row.checkout || row.check_out_time || '11:00',
-        access_code: row.access_code || '',
-        access_info: row.access_info || '',
-        rules: row.rules || '', amenities: row.amenities || '',
-        contacts: row.contacts || '',
-        welcome: row.welcome || row.welcome_message || '',
-        status: row.status || 'active'
-      };
-    });
-    renderProperties();
-  } catch(err) { console.error('loadProperties catch:', err); }
-}
-
-// ════ RENDER PROPERTIES EVERYWHERE ════
-function renderProperties() {
-  var icons = ['🏠','🌴','🏢','⛷','🏡','🌊','🏰','🌲'];
-  var count = propertiesList.length;
-
-  // Dashboard property list
-  var dashList = ge('dash-props-list');
-  if (dashList) {
-    if (count === 0) {
-      dashList.innerHTML = '<div class="empty-state" style="padding:20px 0"><div style="font-size:2rem;margin-bottom:8px">🏠</div><p style="font-size:.84rem">Aucun logement enregistré.<br>Ajoutez votre premier bien !</p><button class="btn-outline" onclick="openAddProperty()" style="margin-top:10px">+ Ajouter un logement</button></div>';
-    } else {
-      dashList.innerHTML = propertiesList.map(function(p, i) {
-        return '<div class="prop-row" onclick="editProperty(\'' + p.id + '\')"><div><div class="prop-name">' + icons[i % icons.length] + ' ' + p.name + '</div><div class="prop-meta">' + (p.city || 'Non renseigné') + ' · ' + (p.type || '') + '</div></div><span class="chip chip-green">Actif</span></div>';
-      }).join('');
-    }
-  }
-
-  // Dashboard property count labels
-  var countLabel = ge('props-count-label');
-  if (countLabel) countLabel.textContent = count + ' actif' + (count > 1 ? 's' : '');
-  var countLabel2 = ge('props-count-label2');
-  if (countLabel2) countLabel2.textContent = count + ' actif' + (count > 1 ? 's' : '');
-
-  // Properties page list
-  var propsList = ge('props-page-list');
-  if (propsList) {
-    if (count === 0) {
-      propsList.innerHTML = '<div class="empty-state" style="padding:20px 0"><div style="font-size:2rem;margin-bottom:8px">🏠</div><p style="font-size:.84rem">Aucun logement enregistré.</p></div>';
-    } else {
-      propsList.innerHTML = propertiesList.map(function(p, i) {
-        return '<div class="prop-row" onclick="editProperty(\'' + p.id + '\')"><div><div class="prop-name">' + icons[i % icons.length] + ' ' + p.name + '</div><div class="prop-meta">' + (p.city||'') + ' · ' + (p.type||'') + ' · ' + (p.rooms||'?') + ' ch. · ' + (p.capacity||'?') + ' pers.</div></div><div style="display:flex;align-items:center;gap:8px"><span class="chip chip-green">Actif</span><span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>';
-      }).join('');
-    }
-  }
-
-  // IA property select
-  loadPropertiesIntoSelect();
-}
-
-function loadPropertiesIntoSelect() {
-  var sel = ge('ia-prop-select'); if (!sel) return;
-  sel.innerHTML = '<option value="">-- Choisir un logement --</option>';
-  propertiesList.forEach(function(p) {
-    var opt = document.createElement('option');
-    opt.value = p.id; opt.textContent = p.name;
-    sel.appendChild(opt);
-  });
-}
-
-function findProp(id) {
-  return propertiesList.find(function(p) { return p.id === id; });
-}
-
-// ════ SAVE PROPERTY ════
-async function saveProperty() {
-  var name = ge('prop-name').value.trim();
-  if (!name) { showToast('Entrez le nom du logement', 'orange'); return; }
-  var editingId = ge('modal-property').dataset.editing;
-
-  var propData = {
-    name: name,
-    city: ge('prop-city').value.trim(),
-    type: ge('prop-type').value,
-    rooms: parseInt(ge('prop-rooms').value) || 1,
-    capacity: parseInt(ge('prop-capacity').value) || 2,
-    address: ge('prop-address').value.trim(),
-    checkin: ge('prop-checkin').value || '15:00',
-    checkout: ge('prop-checkout').value || '11:00',
-    access_code: ge('prop-code').value.trim(),
-    access_info: ge('prop-access').value.trim(),
-    rules: ge('prop-rules').value.trim(),
-    amenities: ge('prop-amenities').value.trim(),
-    contacts: ge('prop-contacts').value.trim(),
-    welcome: ge('prop-welcome').value.trim(),
-    status: 'active',
-    updated_at: new Date().toISOString()
-  };
-
-  if (IS_DEMO) {
-    if (editingId) {
-      var idx = propertiesList.findIndex(function(p) { return p.id === editingId; });
-      if (idx >= 0) Object.assign(propertiesList[idx], propData);
-    } else {
-      propData.id = 'demo-' + Date.now();
-      propertiesList.push(propData);
-    }
-    renderProperties(); closeModal('property');
-    showToast('Fiche "' + name + '" sauvegardée (démo)', 'green');
-    return;
-  }
-
-  try {
-    var result;
-    if (editingId) {
-      result = await sb.from('properties').update(propData).eq('id', editingId).eq('user_id', currentUserId);
-    } else {
-      propData.user_id = currentUserId;
-      result = await sb.from('properties').insert(propData);
-    }
-    if (result.error) { showToast('Erreur : ' + result.error.message, 'orange'); return; }
-    await loadProperties();
-    closeModal('property');
-    showToast('Fiche "' + name + '" sauvegardée ✓', 'green');
-  } catch(err) { showToast('Erreur réseau', 'orange'); console.error(err); }
-}
-
-function openAddProperty() {
-  ['prop-name','prop-city','prop-type','prop-rooms','prop-capacity','prop-address','prop-checkin','prop-checkout','prop-code','prop-access','prop-rules','prop-amenities','prop-contacts','prop-welcome'].forEach(function(id) { var el = ge(id); if (el) el.value = ''; });
-  ge('modal-prop-title').textContent = 'Ajouter une propriété';
-  ge('modal-property').dataset.editing = '';
-  ge('btn-delete-prop').style.display = 'none';
-  openModal('property');
-}
-
-function editProperty(propId) {
-  var prop = findProp(propId); if (!prop) return;
-  ge('modal-prop-title').textContent = 'Modifier : ' + prop.name;
-  ge('modal-property').dataset.editing = propId;
-  ge('btn-delete-prop').style.display = 'inline-flex';
-  var fields = {
-    'prop-name':prop.name, 'prop-city':prop.city, 'prop-type':prop.type,
-    'prop-rooms':prop.rooms, 'prop-capacity':prop.capacity,
-    'prop-address':prop.address, 'prop-checkin':prop.checkin,
-    'prop-checkout':prop.checkout, 'prop-code':prop.access_code,
-    'prop-access':prop.access_info, 'prop-rules':prop.rules,
-    'prop-amenities':prop.amenities, 'prop-contacts':prop.contacts,
-    'prop-welcome':prop.welcome
-  };
-  Object.keys(fields).forEach(function(id) { var el = ge(id); if (el) el.value = fields[id] || ''; });
-  openModal('property');
-}
-
-// ════ DELETE PROPERTY ════
-async function deleteProperty() {
-  var editingId = ge('modal-property').dataset.editing;
-  if (!editingId) return;
-  var prop = findProp(editingId);
-  var propName = prop ? prop.name : 'ce logement';
-  if (!confirm('Supprimer "' + propName + '" ? Cette action est irréversible.')) return;
-
-  if (IS_DEMO) {
-    propertiesList = propertiesList.filter(function(p) { return p.id !== editingId; });
-    renderProperties(); closeModal('property');
-    showToast('"' + propName + '" supprimé (démo)', 'green');
-    return;
-  }
-
-  try {
-    var { error } = await sb.from('properties').delete().eq('id', editingId).eq('user_id', currentUserId);
-    if (error) { showToast('Erreur : ' + error.message, 'orange'); return; }
-    await loadProperties();
-    closeModal('property');
-    showToast('"' + propName + '" supprimé ✓', 'green');
-  } catch(err) { showToast('Erreur réseau', 'orange'); console.error(err); }
-}
-
-// ════ LOAD APP ════
-async function loadApp(user) {
-  currentUserId = user.id;
+function loadApp(user) {
   var meta = user.user_metadata || {};
   var prenom = meta.prenom || (user.email || '').split('@')[0];
   var nom = meta.nom || '';
@@ -1029,14 +1121,30 @@ async function loadApp(user) {
   if (ge('set-prenom')) ge('set-prenom').value = prenom;
   if (ge('set-nom')) ge('set-nom').value = nom;
   if (ge('set-email')) ge('set-email').value = user.email || '';
+  var savedKey = localStorage.getItem('mhk-anthropic-key');
+  if (savedKey && ge('anthropic-key')) {
+    ge('anthropic-key').value = savedKey;
+    ge('api-key-status').textContent = 'Clé API configurée ✓';
+    ge('api-key-status').style.color = 'var(--green-d)';
+  }
+  CURRENT_USER_EMAIL = user.email || '';
+  CURRENT_PLAN = getPlan(CURRENT_USER_EMAIL);
+  var adminBtn = ge('sb-admin-btn');
+  if (adminBtn) adminBtn.style.display = isAdmin(CURRENT_USER_EMAIL) ? '' : 'none';
   buildCalendar();
   buildPriceRows();
-  await loadProperties();
+  loadPropertiesIntoSelect();
+  initStocks();
   showPage('app');
   showInner('dashboard');
+  setTimeout(function() {
+    applyPlanLocks();
+    checkMessagesEmpty();
+    renderStocks();
+    renderOrderHistory();
+  }, 80);
   showToast('Bonjour ' + prenom + ' !', 'green');
 }
-
 async function saveSettings() {
   var prenom = ge('set-prenom').value.trim();
   var nom = ge('set-nom').value.trim();
@@ -1044,44 +1152,52 @@ async function saveSettings() {
   ge('sb-username').textContent = prenom + (nom ? ' ' + nom : '');
   showToast('Paramètres sauvegardés', 'green');
 }
-
+function saveApiKey() {
+  var key = ge('anthropic-key').value.trim();
+  if (!key || !key.startsWith('sk-ant')) { showToast('Clé invalide — doit commencer par sk-ant...', 'orange'); return; }
+  localStorage.setItem('mhk-anthropic-key', key);
+  ge('api-key-status').textContent = 'Clé API sauvegardée ✓';
+  ge('api-key-status').style.color = 'var(--green-d)';
+  showToast('Clé API Anthropic sauvegardée', 'green');
+}
 function connectPlatform(btn, name) {
   btn.textContent = 'Connexion...'; btn.disabled = true;
   setTimeout(function() {
     btn.textContent = 'Connecté ✓'; btn.className = 'btn-connect connected'; btn.disabled = false;
     btn.onclick = function() { showToast(name + ' déjà connecté', 'green'); };
+    var list = JSON.parse(localStorage.getItem('mhk-platforms-connected') || '[]');
+    if (list.indexOf(name) === -1) list.push(name);
+    localStorage.setItem('mhk-platforms-connected', JSON.stringify(list));
+    var empty = ge('messages-empty-state'); if (empty) empty.remove();
+    var msgInner = ge('inner-messages');
+    if (msgInner) msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display=''; });
     showToast(name + ' connecté avec succès', 'green');
   }, 1600);
 }
-
 function applySuggestion(el, msg) {
   el.style.opacity = '.5'; el.style.pointerEvents = 'none';
   el.querySelector('.ai-sugg-action').textContent = '✓ Appliqué';
   showToast(msg, 'green');
 }
-
 function toggleSetting(btn, name) {
   btn.classList.toggle('on');
   showToast(name + (btn.classList.contains('on') ? ' activé' : ' désactivé'), '');
 }
-
 function filterMessages(el, filter) {
   document.querySelectorAll('#inner-messages .chip[onclick]').forEach(function(c) { c.style.background = '#F4F2ED'; c.style.color = 'var(--g)'; });
   el.style.background = '#E6F1FB'; el.style.color = '#0C4478';
   showToast('Filtre : ' + el.textContent, 'blue');
 }
-
 var unreadCount = 3;
 function markRead(el) {
   var dot = el.querySelector('.notif-dot');
   if (dot && !dot.classList.contains('read')) {
     dot.classList.add('read'); unreadCount = Math.max(0, unreadCount - 1);
-    var badge = document.querySelector('.sb-item[onclick*="notifications"] .sb-badge');
+    var badge = document.querySelector('.sb-item[data-nav="notifications"] .sb-badge');
     if (badge) { badge.textContent = unreadCount; if (unreadCount === 0) badge.style.display = 'none'; }
     ge('notif-count').textContent = unreadCount + ' non lue' + (unreadCount > 1 ? 's' : '');
   }
 }
-
 function upgradePlan(btn) {
   btn.textContent = 'Traitement...'; btn.disabled = true;
   setTimeout(function() {
@@ -1090,128 +1206,609 @@ function upgradePlan(btn) {
     setTimeout(function() { window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01', '_blank'); }, 800);
   }, 1000);
 }
-
 function requestQuote(btn) { btn.textContent = 'Demande envoyée ✓'; btn.disabled = true; showToast('Devis envoyé. Réponse sous 24h.', 'green'); }
-
 function buildCalendar() {
   var grid = ge('cal-grid'); if (!grid) return;
   var days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
   var html = days.map(function(d) { return '<div class="cal-day-hdr">' + d + '</div>'; }).join('');
-  var taken = [3,4,5,12,13,20,21,22,23,24], partial = [8,9];
-  for (var i = 1; i <= 35; i++) {
-    var n = i - 2; var d = (i <= 2 || i > 32) ? '' : n;
-    var cls = 'cal-cell';
-    if (taken.includes(n)) cls += ' taken';
-    else if (partial.includes(n)) cls += ' partial';
-    else if (n === 1) cls += ' today';
-    html += '<div class="' + cls + '">' + (d || '') + '</div>';
+  var startOffset = 2;
+  var takenDays = [3,4,5,12,13,20,21,22,23,24];
+  var partialDays = [8,9];
+  var todayDay = 9;
+  for (var cell = 0; cell < 35; cell++) {
+    var day = cell - startOffset + 1;
+    if (day < 1 || day > 30) {
+      html += '<div class="cal-cell"></div>';
+    } else {
+      var cls = 'cal-cell';
+      if (day === todayDay) cls += ' today';
+      else if (takenDays.indexOf(day) !== -1) cls += ' taken';
+      else if (partialDays.indexOf(day) !== -1) cls += ' partial';
+      html += '<div class="' + cls + '">' + day + '</div>';
+    }
   }
   grid.innerHTML = html;
 }
-
 function buildPriceRows() {
   var el = ge('price-rows'); if (!el) return;
   var rows = [['Lun 7','185€','chip-blue'],['Mar 8','185€','chip-blue'],['Mer 9','185€','chip-blue'],['Jeu 10','185€','chip-blue'],['Ven 11','224€ +','chip-green'],['Sam 12','224€ +','chip-green'],['Dim 13','204€ +','chip-green']];
   el.innerHTML = rows.map(function(r) { return '<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">' + r[0] + '</span><span class="chip ' + r[2] + '">' + r[1] + '</span></div>'; }).join('');
 }
-
-// ════ IA CONCIERGERIE (via Edge Function) ════
+var propertiesDB = {
+  'apt-lyon': { name:'Apt. Lyon 2e', city:'Lyon', type:'Appartement', rooms:'2', capacity:'4', address:'12 rue de la République, 69002 Lyon', checkin:'15:00', checkout:'11:00', code:'3892#', access:'Entrée par le digicode 3892, appartement au 3e étage gauche', rules:'Pas de fêtes, pas de fumée.', amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver', contacts:'Ménage: Claire M. 06 45 12 78 90', welcome:'Bienvenue à Lyon !' },
+  'villa-nice': { name:'Villa Nice Promenade', city:'Nice', type:'Maison / Villa', rooms:'4', capacity:'8', address:'3 Promenade des Anglais, 06000 Nice', checkin:'16:00', checkout:'10:00', code:'4821#', access:'Portail vert, code 4821, villa au fond du jardin', rules:'Pas de fêtes, piscine privée.', amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine', contacts:'Ménage: Isabelle P. 06 78 23 45 67', welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h.' },
+  'studio-bordeaux': { name:'Studio Bordeaux', city:'Bordeaux', type:'Studio', rooms:'1', capacity:'2', address:'8 rue Sainte-Catherine, 33000 Bordeaux', checkin:'14:00', checkout:'12:00', code:'Nuki code 5643', access:'Porte bleue au rez-de-chaussée, code Nuki 5643', rules:'Non-fumeur, pas de fêtes.', amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33', contacts:'Ménage: Sophie R. 06 12 34 56 78', welcome:'Bienvenue à Bordeaux !' },
+  'chalet-huez': { name:"Chalet Alpe d'Huez", city:"Alpe d'Huez", type:'Chalet', rooms:'5', capacity:'10', address:"15 Route de la Poste, 38750 Alpe d'Huez", checkin:'17:00', checkout:'10:00', code:'1234#', access:'Clé sous le paillasson (boîte sécurisée, code 1234)', rules:'Pas de fêtes, respecter le voisinage.', amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna", contacts:"Ménage: Anna V. 06 90 12 34 56", welcome:"Bienvenue au chalet !" }
+};
+function openAddProperty() {
+  ['prop-name','prop-city','prop-type','prop-rooms','prop-capacity','prop-address','prop-checkin','prop-checkout','prop-code','prop-access','prop-rules','prop-amenities','prop-contacts','prop-welcome'].forEach(function(id) { var el = ge(id); if (el) el.value = ''; });
+  ge('modal-prop-title').textContent = 'Ajouter une propriété';
+  ge('modal-property').dataset.editing = '';
+  openModal('property');
+}
+function editProperty(propId) {
+  var prop = propertiesDB[propId]; if (!prop) return;
+  ge('modal-prop-title').textContent = 'Modifier : ' + prop.name;
+  ge('modal-property').dataset.editing = propId;
+  var fields = { 'prop-name':prop.name, 'prop-city':prop.city, 'prop-type':prop.type, 'prop-rooms':prop.rooms, 'prop-capacity':prop.capacity, 'prop-address':prop.address, 'prop-checkin':prop.checkin, 'prop-checkout':prop.checkout, 'prop-code':prop.code, 'prop-access':prop.access, 'prop-rules':prop.rules, 'prop-amenities':prop.amenities, 'prop-contacts':prop.contacts, 'prop-welcome':prop.welcome };
+  Object.keys(fields).forEach(function(id) { var el = ge(id); if (el) el.value = fields[id] || ''; });
+  openModal('property');
+}
+function saveProperty() {
+  var name = ge('prop-name').value.trim();
+  if (!name) { showToast('Entrez le nom du logement', 'orange'); return; }
+  var editingId = ge('modal-property').dataset.editing;
+  var propId = editingId || name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  propertiesDB[propId] = {
+    name: name, city: ge('prop-city').value.trim(), type: ge('prop-type').value,
+    rooms: ge('prop-rooms').value, capacity: ge('prop-capacity').value,
+    address: ge('prop-address').value.trim(), checkin: ge('prop-checkin').value,
+    checkout: ge('prop-checkout').value, code: ge('prop-code').value.trim(),
+    access: ge('prop-access').value.trim(), rules: ge('prop-rules').value.trim(),
+    amenities: ge('prop-amenities').value.trim(), contacts: ge('prop-contacts').value.trim(),
+    welcome: ge('prop-welcome').value.trim()
+  };
+  localStorage.setItem('mhk-properties', JSON.stringify(propertiesDB));
+  loadPropertiesIntoSelect();
+  closeModal('property');
+  showToast('Fiche "' + name + '" sauvegardée', 'green');
+}
+function loadPropertiesIntoSelect() {
+  var sel = ge('ia-prop-select'); if (!sel) return;
+  sel.innerHTML = '<option value="">-- Choisir un logement --</option>';
+  Object.keys(propertiesDB).forEach(function(id) {
+    var opt = document.createElement('option'); opt.value = id; opt.textContent = propertiesDB[id].name; sel.appendChild(opt);
+  });
+}
 var iaMessages = [], iaCurrentProp = null;
-
 function openIaTest() { loadPropertiesIntoSelect(); openModal('ia'); }
-
 function updateIaContext() {
   var propId = ge('ia-prop-select').value;
-  iaCurrentProp = propId ? findProp(propId) : null;
+  iaCurrentProp = propId ? propertiesDB[propId] : null;
   iaMessages = [];
   var container = ge('ia-messages');
   if (!iaCurrentProp) { container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question comme un guest ferait.</div>'; return; }
   container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:10px"><strong style="color:var(--n)">' + iaCurrentProp.name + '</strong> sélectionné</div>';
-  addIaMessage('ai', 'Bonjour ! Je suis l\'assistant de ' + iaCurrentProp.name + '. Comment puis-je vous aider ?');
+  addIaMessage('ai', "Bonjour ! Je suis l'assistant de " + iaCurrentProp.name + ". Comment puis-je vous aider ?");
 }
-
 function addIaMessage(role, text, time) {
   var container = ge('ia-messages');
   var div = document.createElement('div');
-  div.style.display = 'flex'; div.style.flexDirection = 'column';
-  div.style.alignItems = role === 'user' ? 'flex-end' : 'flex-start';
+  div.style.display = 'flex'; div.style.flexDirection = 'column'; div.style.alignItems = role === 'user' ? 'flex-end' : 'flex-start';
   var t = time || new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
   div.innerHTML = '<div class="chat-bubble ' + role + '">' + text + '</div><div class="chat-meta ' + (role==='user'?'':'left') + '">' + (role==='ai'?'IA · ':'Vous · ') + t + '</div>';
   container.appendChild(div); container.scrollTop = container.scrollHeight;
 }
-
 async function sendIaMessage() {
   var input = ge('ia-input'); var msg = input.value.trim();
   if (!msg) return;
-  if (!iaCurrentProp) { showToast('Sélectionnez d\'abord un logement', 'orange'); return; }
+  if (!iaCurrentProp) { showToast("Sélectionnez d'abord un logement", 'orange'); return; }
+  var apiKey = localStorage.getItem('mhk-anthropic-key');
+  if (!apiKey) { showToast('Configurez votre clé API Anthropic dans Paramètres', 'orange'); closeModal('ia'); showInner('settings'); return; }
   input.value = '';
   addIaMessage('user', msg);
   iaMessages.push({ role:'user', content:msg });
   var container = ge('ia-messages');
   var typingDiv = document.createElement('div');
-  typingDiv.id = 'ia-typing';
-  typingDiv.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start';
+  typingDiv.id = 'ia-typing'; typingDiv.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start';
   typingDiv.innerHTML = '<div class="chat-bubble ai typing">IA rédige une réponse...</div>';
   container.appendChild(typingDiv); container.scrollTop = container.scrollHeight;
   var sendBtn = ge('ia-send-btn'); sendBtn.disabled = true;
   var prop = iaCurrentProp;
-
+  var systemPrompt = "Tu es un assistant de conciergerie IA pour le logement suivant. Réponds toujours de manière chaleureuse, précise et professionnelle en français (ou dans la langue du guest).\n\n=== FICHE LOGEMENT ===\nNom: " + prop.name + "\nVille: " + (prop.city||'') + "\nType: " + (prop.type||'') + "\nAdresse: " + (prop.address||'') + "\nCheck-in: " + (prop.checkin||'') + " | Check-out: " + (prop.checkout||'') + "\nCode accès: " + (prop.code||'') + "\nInstructions accès: " + (prop.access||'') + "\nRèglement: " + (prop.rules||'') + "\nÉquipements / WiFi: " + (prop.amenities||'') + "\nContacts prestataires: " + (prop.contacts||'') + "\nMessage de bienvenue: " + (prop.welcome||'') + "\n=== FIN FICHE ===\n\nRéponds uniquement avec les informations présentes dans la fiche. Si tu n'as pas l'info, dis de contacter le propriétaire.";
   try {
-    var headers = { 'Content-Type':'application/json' };
-    if (!IS_DEMO) {
-      var session = (await sb.auth.getSession()).data.session;
-      if (session) headers['Authorization'] = 'Bearer ' + session.access_token;
-    }
-    var response = await fetch(EDGE_FN_URL + '/ai-concierge', {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
-      headers: headers,
-      body: JSON.stringify({
-        property_id: prop.id,
-        messages: iaMessages,
-        property: {
-          name: prop.name, city: prop.city, type: prop.type,
-          address: prop.address, checkin: prop.checkin, checkout: prop.checkout,
-          access_code: prop.access_code, access_info: prop.access_info,
-          rules: prop.rules, amenities: prop.amenities,
-          contacts: prop.contacts, welcome: prop.welcome
-        }
-      })
+      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+      body:JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:500, system:systemPrompt, messages:iaMessages })
     });
     var data = await response.json();
     var typingEl = ge('ia-typing'); if (typingEl) typingEl.remove();
-    if (data.error) {
-      addIaMessage('ai', 'Erreur : ' + (data.error.message || data.error));
-    } else {
-      var aiReply = data.reply || (data.content && data.content[0] && data.content[0].text) || 'Réponse reçue.';
-      iaMessages.push({ role:'assistant', content:aiReply });
-      addIaMessage('ai', aiReply, new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) + ' · Claude');
-    }
+    if (data.error) { addIaMessage('ai', 'Erreur API : ' + data.error.message); showToast('Erreur API : ' + data.error.message, 'orange'); }
+    else { var aiReply = data.content[0].text; iaMessages.push({ role:'assistant', content:aiReply }); addIaMessage('ai', aiReply, new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) + ' · Claude'); }
   } catch(err) {
     var typingEl2 = ge('ia-typing'); if (typingEl2) typingEl2.remove();
-    addIaMessage('ai', 'Impossible de joindre le serveur IA. Réessayez dans un instant.');
-    console.error('IA error:', err);
+    addIaMessage('ai', "Impossible de joindre l'API. Vérifiez votre clé API dans Paramètres.");
   }
   sendBtn.disabled = false; input.focus();
 }
-
 function clearIaChat() {
   iaMessages = []; var container = ge('ia-messages');
-  if (iaCurrentProp) { container.innerHTML = ''; addIaMessage('ai', 'Bonjour ! Je suis l\'assistant de ' + iaCurrentProp.name + '. Comment puis-je vous aider ?'); }
+  if (iaCurrentProp) { container.innerHTML = ''; addIaMessage('ai', "Bonjour ! Je suis l'assistant de " + iaCurrentProp.name + ". Comment puis-je vous aider ?"); }
   else { container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question.</div>'; }
 }
-
 function openModal(id) { var el = ge('modal-' + id); if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; } }
 function closeModal(id) { var el = ge('modal-' + id); if (el) { el.classList.remove('open'); document.body.style.overflow = ''; } }
-
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); document.body.style.overflow = ''; }); }
 });
 
+// ════ ADMIN + PLANS ════
+var ADMIN_EMAIL = 'm.rayane8306@gmail.com';
+var ADMIN_TEAM = [ADMIN_EMAIL];
+var ADMIN_PIN = '2727';
+var adminAuthenticated = false;
+function promptAdminPin(callback) {
+  if (adminAuthenticated) { callback(); return; }
+  var pin = window.prompt('🛡 Code PIN Admin requis :');
+  if (pin === ADMIN_PIN) { adminAuthenticated = true; callback(); }
+  else if (pin !== null) { showToast('PIN incorrect', 'orange'); }
+}
+var CURRENT_USER_EMAIL = '';
+var CURRENT_PLAN = 'starter';
+var IMPERSONATE_USER = null;
+var PLAN_CONFIG = {
+  starter: {
+    label: 'Starter 49€',
+    unlocked: ['dashboard', 'calendar', 'properties', 'notifications', 'integrations', 'offers', 'settings', 'stocks'],
+    locked: ['messages', 'revenue'],
+    lockMsg: {
+      messages: { icon:'💬', title:'Messages IA — Plan Pro requis', sub:"Passez en Pro (89€/mois) pour accéder aux messages de vos guests gérés automatiquement par l'IA." },
+      revenue: { icon:'📈', title:'Revenue Intelligence — Plan Pro requis', sub:'Optimisation tarifaire IA en temps réel. Disponible sur le plan Pro (89€/mois).' }
+    }
+  },
+  pro: { label: 'Pro 89€', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} },
+  concpro: { label: 'Conciergerie Pro', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} },
+  admin: { label: '🛡 Admin', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} }
+};
+function isAdmin(email) { return ADMIN_TEAM.indexOf(email) !== -1; }
+function getPlan(email) {
+  if (isAdmin(email)) return 'admin';
+  return localStorage.getItem('mhk-plan-' + email) || 'starter';
+}
+function applyPlanLocks() {
+  var plan = CURRENT_PLAN;
+  var config = PLAN_CONFIG[plan] || PLAN_CONFIG['starter'];
+  document.querySelectorAll('.plan-lock-overlay').forEach(function(o){ o.remove(); });
+  config.locked.forEach(function(id) {
+    var page = ge('inner-' + id);
+    if (!page || page.querySelector('.plan-lock-overlay')) return;
+    var msg = config.lockMsg[id] || {};
+    var overlay = document.createElement('div');
+    overlay.className = 'plan-lock-overlay';
+    var btn = document.createElement('button');
+    btn.className = 'btn-plan-unlock';
+    btn.textContent = 'Voir les offres →';
+    btn.onclick = function() { showInner('offers'); };
+    overlay.innerHTML = '<div class="plan-lock-icon">' + (msg.icon || '🔒') + '</div><div class="plan-lock-title">' + (msg.title || 'Accès restreint') + '</div><div class="plan-lock-sub">' + (msg.sub || "Cette fonctionnalité n'est pas disponible sur votre plan actuel.") + '</div>';
+    overlay.appendChild(btn);
+    page.appendChild(overlay);
+  });
+  var planBadge = ge('sb-plan-badge');
+  if (!planBadge) {
+    planBadge = document.createElement('div');
+    planBadge.id = 'sb-plan-badge';
+    planBadge.style.cssText = 'margin:0 18px 10px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center';
+    var foot = document.querySelector('.sb-foot');
+    if (foot) foot.insertBefore(planBadge, foot.firstChild);
+  }
+  planBadge.textContent = '● ' + config.label;
+  if (plan === 'admin') { planBadge.style.background='#3D0A0A'; planBadge.style.color='#FF4444'; }
+  else if (plan === 'pro' || plan === 'concpro') { planBadge.style.background='var(--bp)'; planBadge.style.color='var(--bl)'; }
+  else { planBadge.style.background='var(--green-l)'; planBadge.style.color='#085041'; }
+}
+function showAdminPanel() {
+  promptAdminPin(function() {
+    ge('admin-nav-user').textContent = CURRENT_USER_EMAIL;
+    loadAdminUsers();
+    showPage('admin');
+  });
+}
+function exitAdmin() { showPage('app'); showInner('dashboard'); }
+function switchAdminTab(tab) {
+  var tabs = ['overview','users','logs'];
+  document.querySelectorAll('.admin-tab').forEach(function(t, i) { t.classList.toggle('active', tabs[i] === tab); });
+  document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
+  var sec = ge('admin-' + tab); if (sec) sec.classList.add('active');
+}
+var adminUsersData = [
+  { email:'m.rayane8306@gmail.com', prenom:'Rayane', nom:'M.', plan:'admin', created:'2026-01-15', status:'active' },
+  { email:'client.pro@gmail.com', prenom:'Sophie', nom:'Martin', plan:'pro', created:'2026-02-03', status:'active' },
+  { email:'hote.starter@airbnb.fr', prenom:'Thomas', nom:'K.', plan:'starter', created:'2026-03-12', status:'active' },
+  { email:'conciergerie@nice.fr', prenom:'Marie', nom:'D.', plan:'concpro', created:'2026-01-28', status:'active' },
+  { email:'demo@myhostkit.com', prenom:'Demo', nom:'User', plan:'starter', created:'2026-04-01', status:'trial' },
+  { email:'nouveau@airbnb.fr', prenom:'Lucas', nom:'B.', plan:'starter', created:'2026-04-05', status:'trial' },
+];
+function loadAdminUsers() {
+  renderAdminUsers(adminUsersData);
+  var total = adminUsersData.length;
+  var pro = adminUsersData.filter(function(u){ return u.plan==='pro'||u.plan==='concpro'; }).length;
+  var starter = adminUsersData.filter(function(u){ return u.plan==='starter'; }).length;
+  var mrr = pro * 89 + starter * 49;
+  if(ge('stat-total-users')) ge('stat-total-users').textContent = total;
+  if(ge('stat-pro-users')) ge('stat-pro-users').textContent = pro;
+  if(ge('stat-starter-users')) ge('stat-starter-users').textContent = starter;
+  if(ge('stat-mrr')) ge('stat-mrr').textContent = mrr + '€';
+}
+function renderAdminUsers(users) {
+  var tbody = ge('admin-users-tbody');
+  var count = ge('admin-users-count');
+  if (count) count.textContent = '(' + users.length + ' comptes)';
+  if (!users.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Aucun résultat</td></tr>'; return; }
+  var planColors = { admin:'plan-admin-badge', pro:'plan-pro', concpro:'plan-concpro', starter:'plan-starter', demo:'plan-demo' };
+  var planLabels = { admin:'Admin', pro:'Pro', concpro:'Conciergerie Pro', starter:'Starter', demo:'Démo' };
+  tbody.innerHTML = '';
+  users.forEach(function(u) {
+    var isMe = u.email === ADMIN_EMAIL;
+    var tr = document.createElement('tr');
+    var statusHtml = u.status === 'trial' ? '<span style="font-size:.7rem;color:#E3B341">⏳ Essai</span>' : '<span style="font-size:.7rem;color:#3FB950">✓ Actif</span>';
+    tr.innerHTML = '<td><div style="font-weight:600;color:#E6EDF3">' + (u.prenom||'') + ' ' + (u.nom||'') + '</div></td><td style="font-family:monospace;font-size:.78rem;color:#8B949E">' + u.email + '</td><td><span class="plan-badge-admin ' + (planColors[u.plan]||'plan-starter') + '">' + (planLabels[u.plan]||u.plan) + '</span></td><td style="color:#484F58;font-size:.78rem">' + u.created + '</td><td>' + statusHtml + '</td><td style="display:flex;gap:6px;flex-wrap:wrap"></td>';
+    var actionsTd = tr.querySelector('td:last-child');
+    if (!isMe) {
+      var viewBtn = document.createElement('button');
+      viewBtn.className = 'btn-admin-action'; viewBtn.textContent = '👁 Voir';
+      (function(uu) { viewBtn.onclick = function() { impersonateUser(uu.email, uu.prenom, uu.plan); }; })(u);
+      actionsTd.appendChild(viewBtn);
+      var planBtn = document.createElement('button');
+      planBtn.className = 'btn-admin-action'; planBtn.textContent = 'Changer plan';
+      (function(uu) { planBtn.onclick = function() { changePlan(uu.email, uu.plan); }; })(u);
+      actionsTd.appendChild(planBtn);
+    } else {
+      actionsTd.innerHTML = '<span style="font-size:.72rem;color:#484F58">Vous</span>';
+    }
+    tbody.appendChild(tr);
+  });
+}
+function filterAdminUsers() {
+  var q = (ge('admin-user-search').value || '').toLowerCase();
+  var filtered = adminUsersData.filter(function(u) {
+    return (u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.nom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);
+  });
+  renderAdminUsers(filtered);
+}
+function changePlan(email, current) {
+  var plans = ['starter','pro','concpro'];
+  var next = plans[(plans.indexOf(current)+1)%plans.length];
+  var u = adminUsersData.find(function(x){ return x.email===email; });
+  if(u) u.plan = next;
+  localStorage.setItem('mhk-plan-' + email, next);
+  var labels = { starter:'Starter (49€)', pro:'Pro (89€)', concpro:'Conciergerie Pro' };
+  showToast('Plan ' + email.split('@')[0] + ' → ' + labels[next], 'blue');
+  renderAdminUsers(adminUsersData);
+}
+function impersonateUser(email, prenom, plan) {
+  IMPERSONATE_USER = { email: email, prenom: prenom, plan: plan };
+  CURRENT_PLAN = plan || 'starter';
+  ge('impersonate-bar').style.display = 'flex';
+  ge('impersonate-name').textContent = prenom + ' (' + email + ') — Plan ' + ((PLAN_CONFIG[plan]||{}).label||plan);
+  ge('sb-username').textContent = prenom + ' (admin view)';
+  ge('sb-email-display').textContent = email;
+  applyPlanLocks();
+  exitAdmin();
+  showToast('👁 Vous consultez le compte de ' + prenom, 'orange');
+}
+function stopImpersonate() {
+  IMPERSONATE_USER = null;
+  CURRENT_PLAN = 'admin';
+  ge('impersonate-bar').style.display = 'none';
+  ge('sb-username').textContent = 'Rayane M.';
+  ge('sb-email-display').textContent = ADMIN_EMAIL;
+  applyPlanLocks();
+  showToast('Retour à votre compte admin', 'green');
+}
+function checkMessagesEmpty() {
+  if (CURRENT_PLAN === 'admin') return;
+  var connected = localStorage.getItem('mhk-platforms-connected');
+  var msgInner = ge('inner-messages');
+  if (!msgInner) return;
+  if (!connected) {
+    msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display='none'; });
+    var empty = ge('messages-empty-state');
+    if (!empty) {
+      empty = document.createElement('div');
+      empty.id = 'messages-empty-state';
+      empty.style.cssText = 'text-align:center;padding:60px 20px;color:var(--g)';
+      var ctaBtn = document.createElement('button');
+      ctaBtn.className = 'btn-cta'; ctaBtn.textContent = 'Connecter une plateforme →';
+      ctaBtn.onclick = function() { showInner('integrations'); };
+      empty.innerHTML = '<div style="font-size:2.5rem;margin-bottom:14px">💬</div><div style="font-size:1rem;font-weight:600;color:var(--n);margin-bottom:8px">Aucun message pour l\'instant</div><div style="font-size:.84rem;line-height:1.7;max-width:340px;margin:0 auto 18px">Connectez Airbnb ou Booking.com dans Intégrations pour que l\'IA commence à gérer vos messages automatiquement.</div>';
+      empty.appendChild(ctaBtn);
+      msgInner.insertBefore(empty, msgInner.firstChild);
+    }
+  } else {
+    var existingEmpty = ge('messages-empty-state'); if (existingEmpty) existingEmpty.remove();
+    msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display=''; });
+  }
+}
+
+// ════ MODULE STOCKS & COMMANDES ════
+var STOCKS_DEFAULT = {
+  'apt-lyon': [
+    { id:'s1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=café+moulu+dosette' },
+    { id:'s2', name:'Capsules café', icon:'🫘', cat:'Consommables', qty:0, min:10, url:'https://www.amazon.fr/s?k=capsules+café+nespresso' },
+    { id:'s3', name:'Savon liquide', icon:'🧴', cat:'Consommables', qty:2, min:2, url:'https://www.amazon.fr/s?k=savon+liquide+mains' },
+    { id:'s4', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:4, min:6, url:'https://www.amazon.fr/s?k=papier+toilette' },
+    { id:'s5', name:'Gel douche', icon:'🚿', cat:'Consommables', qty:1, min:2, url:'https://www.amazon.fr/s?k=gel+douche' },
+    { id:'s6', name:'Serviettes de bain', icon:'🏊', cat:'Linge', qty:3, min:4, url:'https://www.amazon.fr/s?k=serviette+de+bain' },
+    { id:'s7', name:'Draps', icon:'🛏', cat:'Linge', qty:2, min:2, url:'https://www.amazon.fr/s?k=parure+de+lit' },
+    { id:'s8', name:'Ampoule E27', icon:'💡', cat:'Équipements', qty:0, min:2, url:'https://www.amazon.fr/s?k=ampoule+LED+E27' },
+    { id:'s9', name:'Liquide vaisselle', icon:'🍽', cat:'Entretien', qty:1, min:2, url:'https://www.amazon.fr/s?k=liquide+vaisselle' },
+    { id:'s10', name:'Pastilles lave-vaisselle', icon:'✨', cat:'Entretien', qty:8, min:15, url:'https://www.amazon.fr/s?k=pastilles+lave+vaisselle' }
+  ],
+  'villa-nice': [
+    { id:'v1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:2, min:4, url:'https://www.amazon.fr/s?k=café+moulu' },
+    { id:'v2', name:'Savon mains', icon:'🧴', cat:'Consommables', qty:0, min:3, url:'https://www.amazon.fr/s?k=savon+mains+premium' },
+    { id:'v3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:3, min:8, url:'https://www.amazon.fr/s?k=papier+toilette' },
+    { id:'v4', name:'Shampoing', icon:'🫧', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=shampoing+hotel' },
+    { id:'v5', name:'Serviettes de bain', icon:'🏊', cat:'Linge', qty:6, min:8, url:'https://www.amazon.fr/s?k=serviette+bain+coton' },
+    { id:'v6', name:'Serviettes plage', icon:'🌊', cat:'Linge', qty:4, min:6, url:'https://www.amazon.fr/s?k=serviette+plage' },
+    { id:'v7', name:'Produit piscine', icon:'🏊', cat:'Entretien', qty:1, min:1, url:'https://www.amazon.fr/s?k=produit+piscine+chlore' },
+    { id:'v8', name:'Ampoule LED', icon:'💡', cat:'Équipements', qty:1, min:3, url:'https://www.amazon.fr/s?k=ampoule+LED' }
+  ],
+  'studio-bordeaux': [
+    { id:'b1', name:'Café dosettes', icon:'☕', cat:'Consommables', qty:5, min:10, url:'https://www.amazon.fr/s?k=dosettes+café' },
+    { id:'b2', name:'Savon douche', icon:'🧴', cat:'Consommables', qty:1, min:2, url:'https://www.amazon.fr/s?k=savon+douche' },
+    { id:'b3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:2, min:4, url:'https://www.amazon.fr/s?k=papier+toilette' },
+    { id:'b4', name:'Serviette de bain', icon:'🏊', cat:'Linge', qty:2, min:2, url:'https://www.amazon.fr/s?k=serviette+bain' },
+    { id:'b5', name:'Capsules expresso', icon:'🫘', cat:'Consommables', qty:0, min:8, url:'https://www.amazon.fr/s?k=capsule+expresso' }
+  ],
+  'chalet-huez': [
+    { id:'c1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:3, min:5, url:'https://www.amazon.fr/s?k=café+moulu' },
+    { id:'c2', name:'Chocolat chaud', icon:'🍫', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=chocolat+chaud+poudre' },
+    { id:'c3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:6, min:10, url:'https://www.amazon.fr/s?k=papier+toilette' },
+    { id:'c4', name:'Serviettes bain', icon:'🏊', cat:'Linge', qty:8, min:10, url:'https://www.amazon.fr/s?k=serviette+bain' },
+    { id:'c5', name:'Produit sauna', icon:'🧖', cat:'Entretien', qty:0, min:1, url:'https://www.amazon.fr/s?k=huile+essentielle+sauna' },
+    { id:'c6', name:'Piles AA', icon:'🔋', cat:'Équipements', qty:2, min:6, url:'https://www.amazon.fr/s?k=piles+AA+rechargeables' },
+    { id:'c7', name:'Sel déneigement', icon:'❄', cat:'Entretien', qty:1, min:2, url:'https://www.amazon.fr/s?k=sel+déneigement' }
+  ]
+};
+var stocksDB = {};
+var currentStockProp = 'apt-lyon';
+var orderList = [];
+var orderHistory = [];
+
+function initStocks() {
+  var saved = localStorage.getItem('mhk-stocks');
+  if (saved) { try { stocksDB = JSON.parse(saved); } catch(e) {} }
+  Object.keys(STOCKS_DEFAULT).forEach(function(pid) {
+    if (!stocksDB[pid]) stocksDB[pid] = JSON.parse(JSON.stringify(STOCKS_DEFAULT[pid]));
+  });
+  var savedOrders = localStorage.getItem('mhk-order-history');
+  if (savedOrders) { try { orderHistory = JSON.parse(savedOrders); } catch(e) {} }
+  saveStocks();
+}
+function saveStocks() { localStorage.setItem('mhk-stocks', JSON.stringify(stocksDB)); }
+function selectStockProp(btn, propId) {
+  document.querySelectorAll('.stock-prop-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentStockProp = propId;
+  renderStocks();
+  ge('stock-ia-input').value = '';
+  ge('stock-ia-result').style.display = 'none';
+}
+function getStockStatus(item) {
+  if (item.qty === 0) return 'out';
+  if (item.qty < item.min) return 'low';
+  return 'ok';
+}
+function renderStocks() {
+  var container = ge('stocks-list');
+  if (!container) return;
+  var items = stocksDB[currentStockProp] || [];
+  var cats = {};
+  items.forEach(function(item) {
+    if (!cats[item.cat]) cats[item.cat] = [];
+    cats[item.cat].push(item);
+  });
+  var catOrder = ['Consommables', 'Linge', 'Équipements', 'Entretien'];
+  var html = '';
+  var lowCount = 0;
+  catOrder.forEach(function(cat) {
+    if (!cats[cat] || !cats[cat].length) return;
+    html += '<div class="stock-section-title">' + cat + '</div>';
+    cats[cat].forEach(function(item) {
+      var st = getStockStatus(item);
+      if (st !== 'ok') lowCount++;
+      var stLabel = st === 'ok' ? 'OK' : st === 'low' ? 'Stock bas' : 'Rupture';
+      var stCls = 'stock-' + st;
+      html += '<div class="stock-item" id="stock-item-' + item.id + '"><div class="stock-item-icon">' + (item.icon||'📦') + '</div><div style="flex:1"><div class="stock-item-name">' + item.name + '</div><div class="stock-item-cat">Seuil min : ' + item.min + ' unités</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\'' + item.id + '\',-1)">−</button><span class="stock-qty-val" id="qty-' + item.id + '">' + item.qty + '</span><button class="stock-qty-btn" onclick="changeQty(\'' + item.id + '\',1)">+</button></div><span class="stock-status ' + stCls + '">' + stLabel + '</span><button onclick="removeStockItem(\'' + item.id + '\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 4px;margin-left:4px" title="Supprimer">✕</button></div>';
+    });
+  });
+  container.innerHTML = html;
+  var badge = ge('sb-stocks-badge');
+  if (badge) { badge.style.display = lowCount > 0 ? '' : 'none'; badge.textContent = lowCount; }
+}
+function changeQty(itemId, delta) {
+  var items = stocksDB[currentStockProp] || [];
+  var item = items.find(function(i){ return i.id === itemId; });
+  if (!item) return;
+  item.qty = Math.max(0, item.qty + delta);
+  var el = ge('qty-' + itemId);
+  if (el) el.textContent = item.qty;
+  var row = ge('stock-item-' + itemId);
+  if (row) {
+    var chip = row.querySelector('.stock-status');
+    var st = getStockStatus(item);
+    chip.className = 'stock-status stock-' + st;
+    chip.textContent = st === 'ok' ? 'OK' : st === 'low' ? 'Stock bas' : 'Rupture';
+  }
+  saveStocks();
+  var lowCount = (stocksDB[currentStockProp]||[]).filter(function(i){ return getStockStatus(i) !== 'ok'; }).length;
+  var badge = ge('sb-stocks-badge');
+  if (badge) { badge.style.display = lowCount > 0 ? '' : 'none'; badge.textContent = lowCount; }
+}
+function removeStockItem(itemId) {
+  if (!stocksDB[currentStockProp]) return;
+  stocksDB[currentStockProp] = stocksDB[currentStockProp].filter(function(i){ return i.id !== itemId; });
+  saveStocks(); renderStocks();
+}
+function toggleAddStockForm() {
+  var f = ge('add-stock-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  if (f.style.display === 'block') ge('new-stock-name').focus();
+}
+function addStockItem() {
+  var name = ge('new-stock-name').value.trim();
+  if (!name) { showToast('Entrez un nom de produit', 'orange'); return; }
+  var newItem = {
+    id: 'u' + Date.now(), name: name, icon: ge('new-stock-icon').value || '📦',
+    cat: ge('new-stock-cat').value || 'Consommables',
+    qty: parseInt(ge('new-stock-qty').value) || 0,
+    min: parseInt(ge('new-stock-min').value) || 2,
+    url: ge('new-stock-url').value.trim() || 'https://www.amazon.fr/s?k=' + encodeURIComponent(name)
+  };
+  if (!stocksDB[currentStockProp]) stocksDB[currentStockProp] = [];
+  stocksDB[currentStockProp].push(newItem);
+  saveStocks(); renderStocks(); toggleAddStockForm();
+  ['new-stock-name','new-stock-qty','new-stock-min','new-stock-url','new-stock-icon'].forEach(function(id){ var el=ge(id); if(el){ el.value=id==='new-stock-qty'?'0':id==='new-stock-min'?'2':''; } });
+  showToast('"' + name + '" ajouté aux stocks', 'green');
+}
+
+async function analyseStocksIA() {
+  var description = ge('stock-ia-input').value.trim();
+  if (!description) { showToast("Décrivez l'état du logement d'abord", 'orange'); return; }
+  var apiKey = localStorage.getItem('mhk-anthropic-key');
+  if (!apiKey) { showToast('Clé API Anthropic manquante dans Paramètres', 'orange'); showInner('settings'); return; }
+  var btn = ge('btn-ia-analyse');
+  btn.disabled = true; btn.textContent = '⏳ Analyse en cours...';
+  ge('stock-ia-result').style.display = 'none';
+  var propName = (propertiesDB[currentStockProp] || {}).name || currentStockProp;
+  var currentStocksSummary = (stocksDB[currentStockProp] || []).map(function(i){ return i.name + ' (stock actuel: ' + i.qty + ', seuil: ' + i.min + ')'; }).join(', ');
+  var systemPrompt = "Tu es un assistant de gestion de logement Airbnb. Analyse l'état décrit par le propriétaire et génère une liste JSON de produits manquants ou en rupture à commander. Réponds UNIQUEMENT avec un JSON valide, sans texte avant ou après, sans backticks, au format:\n{\"manquants\":[{\"nom\":\"Café moulu\",\"quantite\":\"x2\",\"urgence\":\"haute|normale\",\"raison\":\"épuisé selon description\"}],\"resume\":\"Résumé en 1 phrase\"}\nSois précis, pratique, et base-toi sur les stocks actuels fournis.";
+  var userMsg = "Logement: " + propName + "\nStocks actuels: " + currentStocksSummary + "\n\nÉtat décrit par le propriétaire après check-out:\n" + description;
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+      body:JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:800, system:systemPrompt, messages:[{role:'user',content:userMsg}] })
+    });
+    var data = await response.json();
+    if (data.error) throw new Error(data.error.message);
+    var raw = data.content[0].text.replace(/```json|```/g,'').trim();
+    var parsed = JSON.parse(raw);
+    displayIaStockResult(parsed);
+  } catch(err) {
+    ge('stock-ia-result').style.display = 'block';
+    ge('stock-ia-result').innerHTML = '<div style="color:#991B1B;font-size:.8rem;background:#FEF2F2;border-radius:8px;padding:10px">Erreur IA : ' + err.message + '</div>';
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
+}
+function displayIaStockResult(parsed) {
+  var res = ge('stock-ia-result');
+  res.style.display = 'block';
+  if (!parsed.manquants || !parsed.manquants.length) {
+    res.innerHTML = '<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté — stocks suffisants selon la description.</div>';
+    return;
+  }
+  var html = '<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ ' + (parsed.resume || parsed.manquants.length + ' produit(s) à commander') + '</div>';
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
+  parsed.manquants.forEach(function(m) {
+    var urgCls = m.urgence === 'haute' ? 'chip-red' : 'chip-amber';
+    html += '<span class="chip ' + urgCls + '">' + m.nom + ' ×' + (m.quantite||'1') + '</span>';
+  });
+  html += '</div>';
+  res.innerHTML = html;
+  orderList = parsed.manquants.map(function(m, i) {
+    var items = stocksDB[currentStockProp] || [];
+    var match = items.find(function(s){ return s.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]); });
+    return { id:'o'+Date.now()+i, name:m.nom, qty:m.quantite||'1', urgence:m.urgence||'normale', raison:m.raison||'', url:match?match.url:'https://www.amazon.fr/s?k='+encodeURIComponent(m.nom), checked:true };
+  });
+  renderOrderList();
+  showToast('IA : ' + parsed.manquants.length + ' produit(s) identifié(s) !', 'green');
+}
+function renderOrderList() {
+  var container = ge('order-list');
+  var actions = ge('order-actions');
+  var countEl = ge('order-pending-count');
+  if (!orderList.length) {
+    container.innerHTML = '<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun produit à commander.</div>';
+    if (actions) actions.style.display = 'none';
+    if (countEl) countEl.style.display = 'none';
+    return;
+  }
+  if (actions) actions.style.display = 'flex';
+  if (countEl) { countEl.style.display = ''; countEl.textContent = orderList.length + ' article' + (orderList.length>1?'s':''); }
+  var html = '';
+  orderList.forEach(function(item) {
+    var urgCls = item.urgence === 'haute' ? 'chip-red' : 'chip-amber';
+    html += '<div class="order-item" id="oitem-' + item.id + '"><div class="order-item-check' + (item.checked?' checked':'') + '" onclick="toggleOrderCheck(\'' + item.id + '\')"></div><div class="order-item-name">' + item.name + '<span class="chip ' + urgCls + '" style="margin-left:7px;font-size:.62rem">' + (item.urgence==='haute'?'Urgent':'Normal') + '</span></div><span class="order-item-qty">×' + item.qty + '</span><a class="order-item-link" href="' + item.url + '" target="_blank">Amazon →</a><button onclick="removeOrderItem(\'' + item.id + '\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px" title="Retirer">✕</button></div>';
+  });
+  container.innerHTML = html;
+}
+function toggleOrderCheck(id) {
+  var item = orderList.find(function(i){ return i.id===id; });
+  if (item) item.checked = !item.checked;
+  var el = document.querySelector('#oitem-' + id + ' .order-item-check');
+  if (el) el.classList.toggle('checked', item.checked);
+}
+function removeOrderItem(id) { orderList = orderList.filter(function(i){ return i.id!==id; }); renderOrderList(); }
+function clearOrderList() { orderList = []; renderOrderList(); }
+function confirmOrderAll() {
+  var checked = orderList.filter(function(i){ return i.checked; });
+  if (!checked.length) { showToast('Sélectionnez au moins un article', 'orange'); return; }
+  var propName = (propertiesDB[currentStockProp]||{}).name || currentStockProp;
+  var summaryEl = ge('modal-order-summary');
+  summaryEl.textContent = checked.length + ' article(s) pour ' + propName + ' — liens Amazon prêts à commander.';
+  var itemsEl = ge('modal-order-items');
+  itemsEl.innerHTML = '';
+  checked.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'order-item'; row.style.marginBottom = '7px';
+    var urgCls = item.urgence === 'haute' ? 'chip-red' : 'chip-amber';
+    row.innerHTML = '<div class="order-item-name">' + item.name + '<span class="chip ' + urgCls + '" style="margin-left:7px;font-size:.62rem">' + (item.urgence==='haute'?'Urgent':'Normal') + '</span></div><span class="order-item-qty" style="margin-right:8px">×' + item.qty + '</span><a class="order-item-link" href="' + item.url + '" target="_blank">Voir Amazon →</a>';
+    itemsEl.appendChild(row);
+  });
+  ge('order-note').value = '';
+  openModal('order');
+}
+function executeOrder() {
+  var checked = orderList.filter(function(i){ return i.checked; });
+  var note = ge('order-note').value.trim();
+  var propName = (propertiesDB[currentStockProp]||{}).name || currentStockProp;
+  checked.forEach(function(item, idx) { setTimeout(function(){ window.open(item.url, '_blank'); }, idx * 300); });
+  var historyEntry = { id:'h'+Date.now(), date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}), prop:propName, items:checked.map(function(i){ return i.name+' ×'+i.qty; }), note:note, count:checked.length };
+  orderHistory.unshift(historyEntry);
+  localStorage.setItem('mhk-order-history', JSON.stringify(orderHistory));
+  var checkedIds = checked.map(function(i){ return i.id; });
+  orderList = orderList.filter(function(i){ return !checkedIds.includes(i.id); });
+  renderOrderList(); renderOrderHistory();
+  closeModal('order');
+  showToast(checked.length + ' article(s) commandés — Amazon ouvert', 'green');
+}
+function renderOrderHistory() {
+  var container = ge('order-history-list');
+  var countEl = ge('order-history-count');
+  if (!container) return;
+  if (countEl) countEl.textContent = orderHistory.length + ' commande' + (orderHistory.length>1?'s':'');
+  if (!orderHistory.length) { container.innerHTML = '<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>'; return; }
+  container.innerHTML = orderHistory.slice(0,8).map(function(h) {
+    return '<div class="order-history-item"><div style="width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div><div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:var(--n)">' + h.prop + ' · ' + h.count + ' article(s)</div><div style="font-size:.72rem;color:var(--g);margin-top:2px">' + h.items.slice(0,3).join(', ') + (h.items.length>3?' +' + (h.items.length-3) + ' autres':'') + '</div>' + (h.note?'<div style="font-size:.7rem;color:var(--bl);margin-top:2px">Note: '+h.note+'</div>':'') + '</div><div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">' + h.date + '</div></div>';
+  }).join('');
+}
+
 // ════ INIT ════
-(async function() {
+(async function init() {
+  var saved = localStorage.getItem('mhk-properties');
+  if (saved) { try { Object.assign(propertiesDB, JSON.parse(saved)); } catch(e) {} }
   initSupabase();
-  var result = await sb.auth.getSession();
-  if (result.data && result.data.session && result.data.session.user) { loadApp(result.data.session.user); return; }
+  try {
+    var result = await sb.auth.getSession();
+    if (result.data && result.data.session && result.data.session.user) {
+      loadApp(result.data.session.user);
+      return;
+    }
+  } catch(e) {}
   sb.auth.onAuthStateChange(function(event, session) {
     if (event === 'SIGNED_IN' && session) loadApp(session.user);
     if (event === 'SIGNED_OUT') showPage('auth');
