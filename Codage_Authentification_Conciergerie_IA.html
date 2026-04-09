@@ -74,14 +74,10 @@ body{display:flex;flex-direction:column}
 .auth-foot a{color:var(--bl);font-weight:600;cursor:pointer}
 .back-link{display:inline-flex;align-items:center;gap:5px;font-size:.82rem;color:var(--g);cursor:pointer;margin-bottom:22px;transition:color .2s}
 .back-link:hover{color:var(--n)}
-
-/* DEMO BANNER */
 .demo-banner{background:linear-gradient(135deg,var(--or-l),#FFF8E0);border:1.5px solid var(--or);border-radius:10px;padding:13px 16px;margin-bottom:20px;font-size:.8rem;color:var(--or-d);line-height:1.6}
 .demo-banner strong{color:var(--or-d);font-weight:700;display:block;margin-bottom:3px}
 .btn-demo{width:100%;padding:11px;background:linear-gradient(135deg,var(--or-d),var(--or));color:#fff;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;margin-bottom:10px;box-shadow:0 3px 12px rgba(200,146,26,.3)}
 .btn-demo:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(200,146,26,.4)}
-
-/* APP SHELL */
 #page-app{flex-direction:row;background:#EDEAE4}
 .sidebar{width:var(--sidebar);background:var(--w);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;box-shadow:1px 0 20px rgba(0,0,0,.04)}
 .sb-logo{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
@@ -116,8 +112,6 @@ body{display:flex;flex-direction:column}
 .inner-page.active{display:block;animation:fadeIn .25s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
 .kpi{background:var(--w);border:1px solid var(--border);border-radius:13px;padding:18px 20px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s;cursor:default}
 .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
@@ -125,15 +119,11 @@ body{display:flex;flex-direction:column}
 .kpi-val{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:var(--n);line-height:1}
 .kpi-delta{font-size:.72rem;margin-top:5px;font-weight:600}
 .kpi-delta.up{color:var(--green-d)}.kpi-delta.warn{color:var(--or)}.kpi-delta.muted{color:var(--g)}
-
-/* CARDS */
 .card{background:var(--w);border:1px solid var(--border);border-radius:13px;padding:20px 22px;margin-bottom:15px;box-shadow:var(--shadow-sm)}
 .card-title{font-size:.83rem;font-weight:700;color:var(--n);margin-bottom:15px;display:flex;align-items:center;justify-content:space-between}
 .card-title span{font-size:.7rem;font-weight:500;color:var(--g)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
-
-/* AI PANEL */
 .ai-panel{background:linear-gradient(135deg,#E8F8F2 0%,#F0FAF6 100%);border:1px solid #B8EADA;border-radius:12px;padding:15px 17px;margin-bottom:15px;box-shadow:0 2px 12px rgba(15,185,128,.08)}
 .ai-panel-title{font-size:.73rem;font-weight:800;color:#085041;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em}
 .ai-sugg{background:var(--w);border:1px solid #C8EDE2;border-radius:8px;padding:10px 13px;font-size:.82rem;color:var(--n);margin-bottom:7px;cursor:pointer;line-height:1.55;transition:all .2s;box-shadow:var(--shadow-sm)}
@@ -141,22 +131,17 @@ body{display:flex;flex-direction:column}
 .ai-sugg:last-child{margin-bottom:0}
 .ai-sugg-action{font-size:.72rem;color:var(--green-d);margin-top:5px;font-weight:700;display:flex;align-items:center;gap:4px}
 .ai-sugg-action::before{content:'→'}
-
-/* CHIPS */
 .chip{font-size:.68rem;padding:3px 9px;border-radius:20px;font-weight:700;white-space:nowrap}
 .chip-green{background:var(--green-l);color:#085041}
 .chip-amber{background:var(--or-l);color:#7A4500}
 .chip-blue{background:#E6F1FB;color:#0C4478}
 .chip-red{background:#FEF2F2;color:#991B1B}
 .chip-purple{background:var(--purple-l);color:#3C3489}
-
-/* PROPS */
+.chip-orange{background:var(--or-l);color:#7A4500}
 .prop-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#F9F7F3;border-radius:9px;margin-bottom:7px;transition:background .15s;cursor:pointer}
 .prop-row:hover{background:#F0EDE8}
 .prop-name{font-size:.83rem;font-weight:600;color:var(--n)}
 .prop-meta{font-size:.72rem;color:var(--g);margin-top:2px}
-
-/* MESSAGES */
 .msg-item{display:flex;gap:9px;margin-bottom:11px;align-items:flex-start}
 .msg-av{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
 .msg-av.ai{background:linear-gradient(135deg,var(--green-l),#C0EFE0);color:#085041}
@@ -164,28 +149,20 @@ body{display:flex;flex-direction:column}
 .msg-bub{background:#F4F2ED;border-radius:9px;padding:8px 11px;font-size:.82rem;color:var(--n);line-height:1.55;max-width:86%}
 .msg-av.ai + div .msg-bub{background:linear-gradient(135deg,#E8F8F2,#EFF9F5)}
 .msg-time{font-size:.66rem;color:#B8B5AE;margin-top:3px}
-
-/* REVIEWS */
 .rev-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .rev-lbl{width:65px;font-size:.72rem;color:var(--g);text-align:right;flex-shrink:0}
 .rev-track{flex:1;height:8px;background:#F0EDE8;border-radius:4px;overflow:hidden}
 .rev-fill{height:100%;border-radius:4px;transition:width .6s ease}
 .rev-num{width:48px;font-size:.72rem;color:var(--g);font-weight:600}
-
-/* CALENDAR */
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
 .cal-day-hdr{text-align:center;font-size:.62rem;color:var(--g);padding:5px;font-weight:700;text-transform:uppercase}
 .cal-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--g);transition:background .15s}
 .cal-cell.taken{background:var(--green-l);color:#085041;font-weight:600}
 .cal-cell.partial{background:var(--or-l);color:#7A4500}
 .cal-cell.today{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(15,185,128,.4)}
-
-/* MISC */
 .empty-state{text-align:center;padding:40px 20px;color:var(--g)}
 .btn-outline{padding:9px 22px;border:1.5px solid var(--border);border-radius:9px;background:transparent;color:var(--n);font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:14px}
 .btn-outline:hover{border-color:var(--bl);color:var(--bl);background:var(--bp)}
-
-/* PLANS */
 .plan-card{border:1.5px solid var(--border);border-radius:13px;padding:22px;position:relative;transition:all .25s;box-shadow:var(--shadow-sm)}
 .plan-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .plan-card.featured{border-color:var(--bl);background:linear-gradient(145deg,#EDF5FB,#F5FAFE)}
@@ -202,8 +179,6 @@ body{display:flex;flex-direction:column}
 .btn-plan-main:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(28,95,138,.4)}
 .btn-plan-ghost{background:transparent;color:var(--n);border:1.5px solid var(--border)}
 .btn-plan-ghost:hover{border-color:var(--bl);color:var(--bl);background:var(--bp)}
-
-/* SETTINGS */
 .settings-section{margin-bottom:30px}
 .settings-title{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:13px}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--w);border:1px solid var(--border);border-radius:11px;margin-bottom:8px;transition:border-color .2s;box-shadow:var(--shadow-sm)}
@@ -214,8 +189,6 @@ body{display:flex;flex-direction:column}
 .toggle.on{background:linear-gradient(135deg,var(--green),var(--green-d))}
 .toggle::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .toggle.on::after{transform:translateX(17px)}
-
-/* CONNECT */
 .connect-box{background:var(--w);border:1.5px solid var(--border);border-radius:13px;padding:18px 22px;display:flex;align-items:center;gap:15px;margin-bottom:10px;transition:all .2s;box-shadow:var(--shadow-sm)}
 .connect-box:hover{border-color:var(--bl);box-shadow:var(--shadow-md)}
 .connect-logo{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:#F4F2ED}
@@ -224,8 +197,6 @@ body{display:flex;flex-direction:column}
 .btn-connect{margin-left:auto;padding:8px 18px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;box-shadow:0 3px 10px rgba(28,95,138,.2)}
 .btn-connect:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(28,95,138,.35)}
 .btn-connect.connected{background:linear-gradient(135deg,var(--green-l),#C8F0E4);color:#085041;box-shadow:none;border:1px solid var(--green-b)}
-
-/* NOTIFS */
 .notif-item{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid #F2EFE9;align-items:flex-start;transition:background .15s;border-radius:6px;cursor:pointer}
 .notif-item:last-child{border-bottom:none}
 .notif-dot{width:8px;height:8px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:5px;box-shadow:0 0 0 3px rgba(28,95,138,.15)}
@@ -233,19 +204,13 @@ body{display:flex;flex-direction:column}
 .notif-title{font-size:.83rem;font-weight:600;color:var(--n)}
 .notif-sub{font-size:.74rem;color:var(--g);margin-top:3px;line-height:1.5}
 .notif-time{font-size:.68rem;color:#C0BDB6;margin-left:auto;white-space:nowrap}
-
-/* PRICE ROWS */
 .price-row-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:#F9F7F3;border-radius:7px;margin-bottom:5px;transition:background .15s}
 .price-row-item:hover{background:#F0EDE8}
-
-/* TOAST */
 #toast{position:fixed;bottom:28px;right:28px;z-index:1000;background:#1A1A1A;color:#fff;padding:12px 20px;border-radius:10px;font-size:.82rem;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.25);transform:translateY(80px);opacity:0;transition:all .3s ease;pointer-events:none;display:flex;align-items:center;gap:9px}
 #toast.show{transform:translateY(0);opacity:1}
 #toast.green{background:linear-gradient(135deg,#085041,#0A9468)}
 #toast.blue{background:linear-gradient(135deg,var(--bd),var(--bl))}
 #toast.orange{background:linear-gradient(135deg,#7A4500,var(--or))}
-
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
 .modal-box{background:var(--w);border-radius:16px;width:100%;max-width:620px;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:fadeIn .2s ease}
@@ -259,8 +224,6 @@ body{display:flex;flex-direction:column}
 .modal-footer{padding:16px 26px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:0;background:var(--w)}
 .btn-secondary{padding:10px 20px;border:1.5px solid var(--border);border-radius:9px;background:transparent;color:var(--n);font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-secondary:hover{border-color:var(--bl);color:var(--bl)}
-
-/* IA CHAT */
 .ia-chat-wrap{display:flex;flex-direction:column;height:360px;background:#F9F7F3;border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .ia-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
 .ia-chat-input-row{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--w)}
@@ -275,14 +238,11 @@ body{display:flex;flex-direction:column}
 .chat-bubble.ai.typing{opacity:.6}
 .chat-meta{font-size:.64rem;color:#B8B5AE;margin-top:3px;text-align:right}
 .chat-meta.left{text-align:left}
-
-/* API KEY */
 .api-key-row{display:flex;gap:8px;align-items:center}
 .api-key-input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:.84rem;font-family:monospace;outline:none;transition:border-color .2s}
 .api-key-input:focus{border-color:var(--bl)}
 .btn-save-key{padding:10px 18px;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
 .btn-save-key:hover{transform:translateY(-1px)}
-
 @media(max-width:900px){
   .auth-left{display:none}
   #page-app{flex-direction:column}
@@ -291,8 +251,6 @@ body{display:flex;flex-direction:column}
   .kpi-grid{grid-template-columns:1fr 1fr}
   .grid2,.grid3{grid-template-columns:1fr}
 }
-
-/* ADMIN PANEL */
 #page-admin{flex-direction:column;background:#0D1117;min-height:100vh}
 .admin-nav{background:#161B22;border-bottom:1px solid #30363D;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .admin-nav-logo{display:flex;align-items:center;gap:10px}
@@ -345,8 +303,6 @@ body{display:flex;flex-direction:column}
 .admin-search{width:100%;padding:10px 14px;background:#0D1117;border:1px solid #30363D;border-radius:9px;color:#E6EDF3;font-size:.85rem;font-family:inherit;outline:none;margin-bottom:14px;transition:border-color .2s}
 .admin-search:focus{border-color:#58A6FF}
 .admin-search::placeholder{color:#484F58}
-
-/* PLAN LOCK OVERLAY */
 .plan-lock-overlay{position:absolute;inset:0;background:rgba(13,17,23,.85);backdrop-filter:blur(4px);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:20px;text-align:center}
 .plan-lock-icon{font-size:1.8rem;margin-bottom:8px}
 .plan-lock-title{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:4px}
@@ -354,13 +310,9 @@ body{display:flex;flex-direction:column}
 .btn-plan-unlock{padding:9px 20px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-plan-unlock:hover{transform:translateY(-1px)}
 .inner-page{position:relative}
-
-/* ADMIN BUTTON IN SIDEBAR */
 .sb-item.admin-btn{color:#FF4444;background:rgba(255,68,68,.06)}
 .sb-item.admin-btn:hover{background:rgba(255,68,68,.15);color:#FF4444}
 .sb-item.admin-btn svg{opacity:1}
-
-/* STOCKS & COMMANDES */
 .stock-prop-selector{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
 .stock-prop-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--w);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--g);transition:all .2s}
 .stock-prop-btn.active{border-color:var(--bl);background:var(--bp);color:var(--bl)}
@@ -392,14 +344,18 @@ body{display:flex;flex-direction:column}
 .order-item-check.checked::after{content:'✓';color:#fff;font-size:.7rem;font-weight:800}
 .order-item-name{font-size:.83rem;font-weight:600;color:var(--n);flex:1}
 .order-item-qty{font-size:.75rem;color:var(--g);margin-right:8px}
-.order-item-link{font-size:.72rem;color:var(--bl);font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
-.order-item-link:hover{opacity:.75}
-.btn-order-all{padding:10px 22px;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:9px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 3px 12px rgba(15,185,128,.25);display:flex;align-items:center;gap:7px}
-.btn-order-all:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(15,185,128,.35)}
+/* ── MODIFICATION: suppression .order-item-link Amazon ── */
+.btn-order-all{padding:10px 22px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:9px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 3px 12px rgba(28,95,138,.25);display:flex;align-items:center;gap:7px}
+.btn-order-all:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(28,95,138,.35)}
 .btn-order-all:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 .order-history-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #F2EFE9;font-size:.8rem}
 .order-history-item:last-child{border-bottom:none}
 .add-stock-form{background:#F9F7F3;border-radius:11px;padding:14px 16px;margin-top:14px;border:1px solid var(--border)}
+/* ── BON DE COMMANDE STYLE ── */
+.bon-commande-box{background:linear-gradient(135deg,#FDF0D5,#FFF8E0);border:1.5px solid var(--or);border-radius:12px;padding:14px 17px;margin-bottom:16px}
+.bon-commande-title{font-size:.73rem;font-weight:800;color:#7A4500;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em}
+.bon-commande-info{font-size:.8rem;color:var(--or-d);line-height:1.65;margin-bottom:12px}
+.bon-commande-ref{font-family:monospace;font-size:.78rem;background:rgba(200,146,26,.12);padding:4px 10px;border-radius:6px;color:var(--or-d);font-weight:700;display:inline-block;margin-top:4px}
 </style>
 </head>
 <body>
@@ -438,10 +394,7 @@ body{display:flex;flex-direction:column}
           <button class="auth-tab" onclick="switchTab('signup')">Créer un compte</button>
         </div>
         <div id="form-login">
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-input" id="l-email" type="email" placeholder="vous@email.com" autocomplete="email">
-          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="l-email" type="email" placeholder="vous@email.com" autocomplete="email"></div>
           <div class="form-group">
             <label class="form-label">Mot de passe<span class="forgot" onclick="showReset()">Oublié ?</span></label>
             <div class="pwd-wrap">
@@ -749,6 +702,17 @@ body{display:flex;flex-direction:column}
           <div id="api-key-status" style="font-size:.75rem;color:var(--g)"></div>
         </div>
       </div>
+      <!-- ── MODIFICATION: email admin pour réception des bons de commande ── -->
+      <div class="settings-row">
+  <div>
+    <div class="settings-row-label">Bon de commande</div>
+    <div class="settings-row-sub">
+      Toute demande de réapprovisionnement est transmise automatiquement 
+      à MyHostKit qui vous prépare un devis sous 24h.
+    </div>
+  </div>
+  <span class="chip chip-green">Géré par MyHostKit</span>
+</div>
       <div class="settings-section">
         <div class="settings-title">Compte</div>
         <div class="form-group"><label class="form-label">Prénom</label><input class="form-input" id="set-prenom" type="text" style="max-width:360px"></div>
@@ -803,7 +767,7 @@ body{display:flex;flex-direction:column}
               <div class="form-group" style="margin-bottom:0"><label class="form-label">Seuil d'alerte</label><input class="form-input" id="new-stock-min" type="number" min="0" value="2" placeholder="2"></div>
             </div>
             <div class="form-row">
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Lien Amazon (optionnel)</label><input class="form-input" id="new-stock-url" type="url" placeholder="https://amazon.fr/..."></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Référence produit (optionnel)</label><input class="form-input" id="new-stock-url" type="text" placeholder="Ex: REF-CAFE-001 ou lien fournisseur"></div>
               <div class="form-group" style="margin-bottom:0"><label class="form-label">Emoji icône</label><input class="form-input" id="new-stock-icon" placeholder="☕" maxlength="4"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:12px">
@@ -820,13 +784,14 @@ body{display:flex;flex-direction:column}
             </div>
             <div id="order-list">
               <div style="text-align:center;padding:24px 0;color:var(--g);font-size:.82rem">
-                Analysez les stocks pour générer des commandes IA, ou ajoutez manuellement des produits en rupture.
+                Analysez les stocks pour générer des commandes IA.
               </div>
             </div>
+            <!-- ── MODIFICATION: bouton "Envoyer la commande" au lieu de "Commander → Amazon" ── -->
             <div id="order-actions" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap">
               <button class="btn-order-all" id="btn-order-all" onclick="confirmOrderAll()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                Commander tout → Amazon
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                Envoyer le bon de commande
               </button>
               <button class="btn-secondary" onclick="clearOrderList()">Vider la liste</button>
             </div>
@@ -844,19 +809,35 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<!-- MODAL CONFIRMATION COMMANDE -->
+<!-- ── MODAL BON DE COMMANDE (remplace modal-order) ── -->
 <div id="modal-order" class="modal-overlay" onclick="if(event.target===this)closeModal('order')">
-  <div class="modal-box" style="max-width:480px">
+  <div class="modal-box" style="max-width:520px">
     <div class="modal-head">
-      <div class="modal-title">Confirmer la commande</div>
+      <!-- MODIFICATION: titre changé -->
+      <div class="modal-title">📋 Bon de commande</div>
       <button class="modal-close" onclick="closeModal('order')">✕</button>
     </div>
     <div class="modal-body">
-      <div class="ai-panel" style="margin-bottom:16px">
-        <div class="ai-panel-title">✦ Récapitulatif commande IA</div>
-        <div id="modal-order-summary" style="font-size:.84rem;color:var(--n);line-height:1.7"></div>
+      <!-- MODIFICATION: bloc bon de commande au lieu du récap Amazon -->
+      <div class="bon-commande-box">
+        <div class="bon-commande-title">✦ Bon de commande MyHostKit</div>
+        <div class="bon-commande-info" id="modal-order-summary"></div>
+        <div id="modal-order-ref"></div>
+      </div>
+      <!-- MODIFICATION: info destinataire -->
+      <div style="background:#F0FAF6;border:1px solid #B8EADA;border-radius:9px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;color:#085041;line-height:1.6">
+        <strong>Envoyé à :</strong> <span id="modal-order-recipient">—</span><br>
+        <span style="font-size:.74rem;color:var(--green-d)">MyHostKit reçoit votre demande et vous envoie un devis sous 2h. Vous n'avez rien à faire.</span>
       </div>
       <div id="modal-order-items"></div>
+      <!-- MODIFICATION: affichage commission -->
+      <div id="modal-commission-row" style="background:var(--or-l);border:1px solid var(--or);border-radius:9px;padding:11px 14px;margin-top:10px;display:none">
+        <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#7A4500;margin-bottom:4px">Commission MyHostKit</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:.82rem;color:var(--or-d)" id="commission-label">15% de commission appliquée</span>
+          <span style="font-size:1rem;font-weight:700;color:var(--or-d)" id="commission-amount">—</span>
+        </div>
+      </div>
       <div style="background:#F9F7F3;border-radius:9px;padding:12px 14px;margin-top:10px">
         <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--g);margin-bottom:6px">Note pour la commande</div>
         <input class="form-input" id="order-note" type="text" placeholder="Ex: Livraison avant vendredi, préférer bio...">
@@ -864,8 +845,9 @@ body{display:flex;flex-direction:column}
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal('order')">Annuler</button>
-      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="executeOrder()">
-        <span class="btn-text">✓ Valider & Commander →</span><div class="spinner"></div>
+      <!-- MODIFICATION: bouton "Envoyer à moi" -->
+      <button class="btn-main" style="width:auto;padding:10px 24px;background:linear-gradient(135deg,var(--green-d),var(--green));box-shadow:0 4px 14px rgba(15,185,128,.3)" onclick="executeOrder()">
+        <span class="btn-text">✉ Envoyer la demande à MyHostKit →</span><div class="spinner"></div>
       </button>
     </div>
   </div>
@@ -997,9 +979,7 @@ body{display:flex;flex-direction:column}
         <div class="admin-card-title">Comptes utilisateurs <span id="admin-users-count" style="font-weight:500;color:#8B949E;text-transform:none;letter-spacing:0;font-size:.78rem"></span></div>
         <table class="admin-table">
           <thead><tr><th>Utilisateur</th><th>Email</th><th>Plan</th><th>Inscrit</th><th>Statut</th><th>Actions</th></tr></thead>
-          <tbody id="admin-users-tbody">
-            <tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Chargement...</td></tr>
-          </tbody>
+          <tbody id="admin-users-tbody"><tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Chargement...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -1009,10 +989,7 @@ body{display:flex;flex-direction:column}
         <div id="admin-logs-list">
           <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:41</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">SIGNED_IN — m.rayane8306@gmail.com (Admin)</span></div>
           <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:38</span><span class="admin-log-type log-info">PLAN</span><span class="admin-log-msg">Starter → Pro upgrade initié — client@example.com</span></div>
-          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 20:12</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">SIGNED_IN — user2@gmail.com</span></div>
           <div class="admin-log-item"><span class="admin-log-time">2026-04-06 19:55</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">API Anthropic — Rate limit approché (80%)</span></div>
-          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 19:30</span><span class="admin-log-type log-err">ERR</span><span class="admin-log-msg">Stripe webhook timeout — retry prévu dans 30min</span></div>
-          <div class="admin-log-item"><span class="admin-log-time">2026-04-06 18:45</span><span class="admin-log-type log-ok">SIGNUP</span><span class="admin-log-msg">Nouveau compte — nouveau@airbnb.fr (Starter trial)</span></div>
         </div>
       </div>
     </div>
@@ -1025,793 +1002,612 @@ var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 var sb = null;
 var IS_DEMO = false;
 
-function initSupabase() {
-  try { sb = supabase.createClient(SUPA_URL, SUPA_KEY); return true; } catch(e) { return false; }
-}
+// ── EMAIL ADMIN PAR DÉFAUT (à changer dans Paramètres) ──
+var ORDER_ADMIN_EMAIL = 'myhostkit.conciergerie@gmail.com';
+var COMMISSION_PCT = 15;
+
+function initSupabase() { try { sb = supabase.createClient(SUPA_URL, SUPA_KEY); return true; } catch(e) { return false; } }
 function ge(id) { return document.getElementById(id); }
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  ge('page-' + id).classList.add('active');
-}
+function showPage(id) { document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); }); ge('page-'+id).classList.add('active'); }
 function showInner(id) {
-  document.querySelectorAll('.inner-page').forEach(function(p) { p.classList.remove('active'); });
-  ge('inner-' + id).classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(function(b) { b.classList.remove('active'); });
-  var btn = document.querySelector('.sb-item[data-nav="' + id + '"]');
+  document.querySelectorAll('.inner-page').forEach(function(p){ p.classList.remove('active'); });
+  ge('inner-'+id).classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(function(b){ b.classList.remove('active'); });
+  var btn = document.querySelector('.sb-item[data-nav="'+id+'"]');
   if (btn) btn.classList.add('active');
   var titles = { dashboard:'Tableau de bord', messages:'IA Messages', revenue:'Revenue Intelligence', calendar:'Calendrier', properties:'Propriétés', notifications:'Notifications', integrations:'Intégrations', offers:'Nos offres', settings:'Paramètres', stocks:'Stocks & Commandes' };
   ge('topbar-title').textContent = titles[id] || id;
 }
 var _toastTimer;
 function showToast(msg, type) {
-  var t = ge('toast'); t.textContent = msg; t.className = 'show ' + (type || '');
-  clearTimeout(_toastTimer); _toastTimer = setTimeout(function() { t.className = ''; }, 3200);
+  var t = ge('toast'); t.textContent = msg; t.className = 'show '+(type||'');
+  clearTimeout(_toastTimer); _toastTimer = setTimeout(function(){ t.className=''; }, 3200);
 }
-function showAlert(msg, type) { var el = ge('auth-alert'); el.className = 'auth-alert ' + type; el.textContent = msg; }
-function clearAlert() { var el = ge('auth-alert'); el.className = 'auth-alert'; el.textContent = ''; }
-function setLoading(btnId, on) { var b = ge(btnId); if (!b) return; b.disabled = on; b.classList.toggle('loading', on); }
-function togglePwd(id, btn) { var inp = ge(id); inp.type = inp.type === 'text' ? 'password' : 'text'; }
+function showAlert(msg, type) { var el=ge('auth-alert'); el.className='auth-alert '+type; el.textContent=msg; }
+function clearAlert() { var el=ge('auth-alert'); el.className='auth-alert'; el.textContent=''; }
+function setLoading(btnId, on) { var b=ge(btnId); if(!b)return; b.disabled=on; b.classList.toggle('loading',on); }
+function togglePwd(id) { var inp=ge(id); inp.type=inp.type==='text'?'password':'text'; }
 function switchTab(tab) {
   clearAlert();
-  document.querySelectorAll('.auth-tab').forEach(function(t, i) { t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='signup')); });
-  ge('form-login').style.display = tab === 'login' ? '' : 'none';
-  ge('form-signup').style.display = tab === 'signup' ? '' : 'none';
+  document.querySelectorAll('.auth-tab').forEach(function(t,i){ t.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup')); });
+  ge('form-login').style.display=tab==='login'?'':'none';
+  ge('form-signup').style.display=tab==='signup'?'':'none';
 }
-function showReset() { clearAlert(); ge('auth-main').style.display = 'none'; ge('auth-reset').style.display = 'block'; }
-function hideReset() { clearAlert(); ge('auth-main').style.display = ''; ge('auth-reset').style.display = 'none'; }
-function loadDemo() {
-  IS_DEMO = true;
-  loadApp({ id: 'demo', email: 'demo@myhostkit.com', user_metadata: { prenom: 'Demo', nom: 'User' } });
-  showToast('Mode démo — aucune donnée réelle', 'orange');
-}
+function showReset(){ clearAlert(); ge('auth-main').style.display='none'; ge('auth-reset').style.display='block'; }
+function hideReset(){ clearAlert(); ge('auth-main').style.display=''; ge('auth-reset').style.display='none'; }
+function loadDemo() { IS_DEMO=true; loadApp({id:'demo',email:'demo@myhostkit.com',user_metadata:{prenom:'Demo',nom:'User'}}); showToast('Mode démo — aucune donnée réelle','orange'); }
 async function doLogin() {
   clearAlert();
-  var email = ge('l-email').value.trim();
-  var pass = ge('l-pass').value;
-  if (!email.includes('@')) { showAlert('Email invalide.', 'err'); return; }
-  if (!pass) { showAlert('Entrez votre mot de passe.', 'err'); return; }
-  setLoading('btn-login', true);
-  var result = await sb.auth.signInWithPassword({ email: email, password: pass });
-  setLoading('btn-login', false);
-  if (result.error) { showAlert(result.error.message.includes('Invalid') ? 'Email ou mot de passe incorrect.' : result.error.message, 'err'); return; }
+  var email=ge('l-email').value.trim(), pass=ge('l-pass').value;
+  if(!email.includes('@')){ showAlert('Email invalide.','err'); return; }
+  if(!pass){ showAlert('Entrez votre mot de passe.','err'); return; }
+  setLoading('btn-login',true);
+  var result=await sb.auth.signInWithPassword({email:email,password:pass});
+  setLoading('btn-login',false);
+  if(result.error){ showAlert(result.error.message.includes('Invalid')?'Email ou mot de passe incorrect.':result.error.message,'err'); return; }
   loadApp(result.data.user);
 }
 async function doSignup() {
   clearAlert();
-  var prenom = ge('s-prenom').value.trim();
-  var email = ge('s-email').value.trim();
-  var pass = ge('s-pass').value;
-  if (!prenom) { showAlert('Entrez votre prénom.', 'err'); return; }
-  if (!email.includes('@')) { showAlert('Email invalide.', 'err'); return; }
-  if (pass.length < 8) { showAlert('Mot de passe : 8 caractères minimum.', 'err'); return; }
-  setLoading('btn-signup', true);
-  var result = await sb.auth.signUp({ email: email, password: pass, options: { data: { prenom: prenom, nom: ge('s-nom').value.trim() } } });
-  setLoading('btn-signup', false);
-  if (result.error) { showAlert(result.error.message, 'err'); return; }
-  showAlert('Compte créé ! Vérifiez votre email pour confirmer.', 'ok');
+  var prenom=ge('s-prenom').value.trim(), email=ge('s-email').value.trim(), pass=ge('s-pass').value;
+  if(!prenom){ showAlert('Entrez votre prénom.','err'); return; }
+  if(!email.includes('@')){ showAlert('Email invalide.','err'); return; }
+  if(pass.length<8){ showAlert('Mot de passe : 8 caractères minimum.','err'); return; }
+  setLoading('btn-signup',true);
+  var result=await sb.auth.signUp({email:email,password:pass,options:{data:{prenom:prenom,nom:ge('s-nom').value.trim()}}});
+  setLoading('btn-signup',false);
+  if(result.error){ showAlert(result.error.message,'err'); return; }
+  showAlert('Compte créé ! Vérifiez votre email pour confirmer.','ok');
 }
-async function doGoogle() {
-  clearAlert();
-  var result = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
-  if (result.error) showAlert(result.error.message, 'err');
-}
+async function doGoogle() { clearAlert(); var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.href}}); if(r.error)showAlert(r.error.message,'err'); }
 async function doReset() {
   clearAlert();
-  var email = ge('r-email').value.trim();
-  if (!email.includes('@')) { showAlert('Email invalide.', 'err'); return; }
-  setLoading('btn-reset', true);
-  var result = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.href });
-  setLoading('btn-reset', false);
-  if (result.error) { showAlert(result.error.message, 'err'); return; }
-  showAlert('Email envoyé ! Vérifiez votre boîte mail.', 'ok');
+  var email=ge('r-email').value.trim();
+  if(!email.includes('@')){ showAlert('Email invalide.','err'); return; }
+  setLoading('btn-reset',true);
+  var r=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.href});
+  setLoading('btn-reset',false);
+  if(r.error){ showAlert(r.error.message,'err'); return; }
+  showAlert('Email envoyé ! Vérifiez votre boîte mail.','ok');
 }
 async function doLogout() {
-  if (sb && !IS_DEMO) await sb.auth.signOut();
-  IS_DEMO = false;
-  showToast('Déconnexion réussie', '');
-  showPage('auth');
+  if(sb&&!IS_DEMO) await sb.auth.signOut();
+  IS_DEMO=false; showToast('Déconnexion réussie',''); showPage('auth');
 }
 function loadApp(user) {
-  var meta = user.user_metadata || {};
-  var prenom = meta.prenom || (user.email || '').split('@')[0];
-  var nom = meta.nom || '';
-  prenom = prenom.charAt(0).toUpperCase() + prenom.slice(1);
-  ge('sb-username').textContent = prenom + (nom ? ' ' + nom : '');
-  ge('sb-email-display').textContent = user.email || '';
-  if (ge('set-prenom')) ge('set-prenom').value = prenom;
-  if (ge('set-nom')) ge('set-nom').value = nom;
-  if (ge('set-email')) ge('set-email').value = user.email || '';
-  var savedKey = localStorage.getItem('mhk-anthropic-key');
-  if (savedKey && ge('anthropic-key')) {
-    ge('anthropic-key').value = savedKey;
-    ge('api-key-status').textContent = 'Clé API configurée ✓';
-    ge('api-key-status').style.color = 'var(--green-d)';
-  }
-  CURRENT_USER_EMAIL = user.email || '';
-  CURRENT_PLAN = getPlan(CURRENT_USER_EMAIL);
-  var adminBtn = ge('sb-admin-btn');
-  if (adminBtn) adminBtn.style.display = isAdmin(CURRENT_USER_EMAIL) ? '' : 'none';
-  buildCalendar();
-  buildPriceRows();
-  loadPropertiesIntoSelect();
-  initStocks();
-  showPage('app');
-  showInner('dashboard');
-  setTimeout(function() {
-    applyPlanLocks();
-    checkMessagesEmpty();
-    renderStocks();
-    renderOrderHistory();
-  }, 80);
-  showToast('Bonjour ' + prenom + ' !', 'green');
+  var meta=user.user_metadata||{};
+  var prenom=meta.prenom||(user.email||'').split('@')[0];
+  var nom=meta.nom||'';
+  prenom=prenom.charAt(0).toUpperCase()+prenom.slice(1);
+  ge('sb-username').textContent=prenom+(nom?' '+nom:'');
+  ge('sb-email-display').textContent=user.email||'';
+  if(ge('set-prenom'))ge('set-prenom').value=prenom;
+  if(ge('set-nom'))ge('set-nom').value=nom;
+  if(ge('set-email'))ge('set-email').value=user.email||'';
+  var savedKey=localStorage.getItem('mhk-anthropic-key');
+  if(savedKey&&ge('anthropic-key')){ ge('anthropic-key').value=savedKey; ge('api-key-status').textContent='Clé API configurée ✓'; ge('api-key-status').style.color='var(--green-d)'; }
+  // Charger email commandes et commission
+  var savedOrderEmail=localStorage.getItem('mhk-order-email');
+  if(savedOrderEmail){ ORDER_ADMIN_EMAIL=savedOrderEmail; if(ge('order-admin-email'))ge('order-admin-email').value=savedOrderEmail; }
+  else { if(ge('order-admin-email'))ge('order-admin-email').value=ORDER_ADMIN_EMAIL; }
+  var savedCommission=localStorage.getItem('mhk-commission');
+  if(savedCommission){ COMMISSION_PCT=parseInt(savedCommission)||15; if(ge('commission-pct'))ge('commission-pct').value=COMMISSION_PCT; }
+  CURRENT_USER_EMAIL=user.email||'';
+  CURRENT_PLAN=getPlan(CURRENT_USER_EMAIL);
+  var adminBtn=ge('sb-admin-btn');
+  if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
+  buildCalendar(); buildPriceRows(); loadPropertiesIntoSelect(); initStocks();
+  showPage('app'); showInner('dashboard');
+  setTimeout(function(){ applyPlanLocks(); checkMessagesEmpty(); renderStocks(); renderOrderHistory(); },80);
+  showToast('Bonjour '+prenom+' !','green');
 }
 async function saveSettings() {
-  var prenom = ge('set-prenom').value.trim();
-  var nom = ge('set-nom').value.trim();
-  if (sb && !IS_DEMO) await sb.auth.updateUser({ data: { prenom: prenom, nom: nom } });
-  ge('sb-username').textContent = prenom + (nom ? ' ' + nom : '');
-  showToast('Paramètres sauvegardés', 'green');
+  var prenom=ge('set-prenom').value.trim(), nom=ge('set-nom').value.trim();
+  if(sb&&!IS_DEMO)await sb.auth.updateUser({data:{prenom:prenom,nom:nom}});
+  ge('sb-username').textContent=prenom+(nom?' '+nom:'');
+  showToast('Paramètres sauvegardés','green');
 }
 function saveApiKey() {
-  var key = ge('anthropic-key').value.trim();
-  if (!key || !key.startsWith('sk-ant')) { showToast('Clé invalide — doit commencer par sk-ant...', 'orange'); return; }
-  localStorage.setItem('mhk-anthropic-key', key);
-  ge('api-key-status').textContent = 'Clé API sauvegardée ✓';
-  ge('api-key-status').style.color = 'var(--green-d)';
-  showToast('Clé API Anthropic sauvegardée', 'green');
+  var key=ge('anthropic-key').value.trim();
+  if(!key||!key.startsWith('sk-ant')){ showToast('Clé invalide — doit commencer par sk-ant...','orange'); return; }
+  localStorage.setItem('mhk-anthropic-key',key);
+  ge('api-key-status').textContent='Clé API sauvegardée ✓'; ge('api-key-status').style.color='var(--green-d)';
+  showToast('Clé API Anthropic sauvegardée','green');
+}
+// ── MODIFICATION: sauvegarder email commandes ──
+function saveOrderEmail() {
+  // Email fixé côté MyHostKit — non modifiable par le client
+  return;
+}
+function saveCommission() {
+  var pct=parseInt(ge('commission-pct').value)||15;
+  COMMISSION_PCT=Math.max(0,Math.min(50,pct));
+  localStorage.setItem('mhk-commission',COMMISSION_PCT);
 }
 function connectPlatform(btn, name) {
-  btn.textContent = 'Connexion...'; btn.disabled = true;
-  setTimeout(function() {
-    btn.textContent = 'Connecté ✓'; btn.className = 'btn-connect connected'; btn.disabled = false;
-    btn.onclick = function() { showToast(name + ' déjà connecté', 'green'); };
-    var list = JSON.parse(localStorage.getItem('mhk-platforms-connected') || '[]');
-    if (list.indexOf(name) === -1) list.push(name);
-    localStorage.setItem('mhk-platforms-connected', JSON.stringify(list));
-    var empty = ge('messages-empty-state'); if (empty) empty.remove();
-    var msgInner = ge('inner-messages');
-    if (msgInner) msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display=''; });
-    showToast(name + ' connecté avec succès', 'green');
-  }, 1600);
+  btn.textContent='Connexion...'; btn.disabled=true;
+  setTimeout(function(){
+    btn.textContent='Connecté ✓'; btn.className='btn-connect connected'; btn.disabled=false;
+    btn.onclick=function(){ showToast(name+' déjà connecté','green'); };
+    var list=JSON.parse(localStorage.getItem('mhk-platforms-connected')||'[]');
+    if(list.indexOf(name)===-1)list.push(name);
+    localStorage.setItem('mhk-platforms-connected',JSON.stringify(list));
+    var empty=ge('messages-empty-state'); if(empty)empty.remove();
+    var msgInner=ge('inner-messages');
+    if(msgInner)msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){c.style.display='';});
+    showToast(name+' connecté avec succès','green');
+  },1600);
 }
-function applySuggestion(el, msg) {
-  el.style.opacity = '.5'; el.style.pointerEvents = 'none';
-  el.querySelector('.ai-sugg-action').textContent = '✓ Appliqué';
-  showToast(msg, 'green');
-}
-function toggleSetting(btn, name) {
-  btn.classList.toggle('on');
-  showToast(name + (btn.classList.contains('on') ? ' activé' : ' désactivé'), '');
-}
-function filterMessages(el, filter) {
-  document.querySelectorAll('#inner-messages .chip[onclick]').forEach(function(c) { c.style.background = '#F4F2ED'; c.style.color = 'var(--g)'; });
-  el.style.background = '#E6F1FB'; el.style.color = '#0C4478';
-  showToast('Filtre : ' + el.textContent, 'blue');
-}
-var unreadCount = 3;
+function applySuggestion(el, msg) { el.style.opacity='.5'; el.style.pointerEvents='none'; el.querySelector('.ai-sugg-action').textContent='✓ Appliqué'; showToast(msg,'green'); }
+function toggleSetting(btn, name) { btn.classList.toggle('on'); showToast(name+(btn.classList.contains('on')?' activé':' désactivé'),''); }
+function filterMessages(el, filter) { document.querySelectorAll('#inner-messages .chip[onclick]').forEach(function(c){c.style.background='#F4F2ED';c.style.color='var(--g)';}); el.style.background='#E6F1FB'; el.style.color='#0C4478'; showToast('Filtre : '+el.textContent,'blue'); }
+var unreadCount=3;
 function markRead(el) {
-  var dot = el.querySelector('.notif-dot');
-  if (dot && !dot.classList.contains('read')) {
-    dot.classList.add('read'); unreadCount = Math.max(0, unreadCount - 1);
-    var badge = document.querySelector('.sb-item[data-nav="notifications"] .sb-badge');
-    if (badge) { badge.textContent = unreadCount; if (unreadCount === 0) badge.style.display = 'none'; }
-    ge('notif-count').textContent = unreadCount + ' non lue' + (unreadCount > 1 ? 's' : '');
+  var dot=el.querySelector('.notif-dot');
+  if(dot&&!dot.classList.contains('read')){
+    dot.classList.add('read'); unreadCount=Math.max(0,unreadCount-1);
+    var badge=document.querySelector('.sb-item[data-nav="notifications"] .sb-badge');
+    if(badge){badge.textContent=unreadCount; if(unreadCount===0)badge.style.display='none';}
+    ge('notif-count').textContent=unreadCount+' non lue'+(unreadCount>1?'s':'');
   }
 }
 function upgradePlan(btn) {
-  btn.textContent = 'Traitement...'; btn.disabled = true;
-  setTimeout(function() {
-    btn.textContent = 'Passer en Pro →'; btn.disabled = false;
-    showToast('Redirection vers Stripe...', 'blue');
-    setTimeout(function() { window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01', '_blank'); }, 800);
-  }, 1000);
+  btn.textContent='Traitement...'; btn.disabled=true;
+  setTimeout(function(){ btn.textContent='Passer en Pro →'; btn.disabled=false; showToast('Redirection vers Stripe...','blue'); setTimeout(function(){window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01','_blank');},800); },1000);
 }
-function requestQuote(btn) { btn.textContent = 'Demande envoyée ✓'; btn.disabled = true; showToast('Devis envoyé. Réponse sous 24h.', 'green'); }
+function requestQuote(btn){ btn.textContent='Demande envoyée ✓'; btn.disabled=true; showToast('Devis envoyé. Réponse sous 24h.','green'); }
 function buildCalendar() {
-  var grid = ge('cal-grid'); if (!grid) return;
-  var days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
-  var html = days.map(function(d) { return '<div class="cal-day-hdr">' + d + '</div>'; }).join('');
-  var startOffset = 2;
-  var takenDays = [3,4,5,12,13,20,21,22,23,24];
-  var partialDays = [8,9];
-  var todayDay = 9;
-  for (var cell = 0; cell < 35; cell++) {
-    var day = cell - startOffset + 1;
-    if (day < 1 || day > 30) {
-      html += '<div class="cal-cell"></div>';
-    } else {
-      var cls = 'cal-cell';
-      if (day === todayDay) cls += ' today';
-      else if (takenDays.indexOf(day) !== -1) cls += ' taken';
-      else if (partialDays.indexOf(day) !== -1) cls += ' partial';
-      html += '<div class="' + cls + '">' + day + '</div>';
+  var grid=ge('cal-grid'); if(!grid)return;
+  var days=['L','M','M','J','V','S','D'];
+  var html=days.map(function(d){return '<div class="cal-day-hdr">'+d+'</div>';}).join('');
+  var startOffset=2, takenDays=[3,4,5,12,13,20,21,22,23,24], partialDays=[8,9], todayDay=9;
+  for(var cell=0;cell<35;cell++){
+    var day=cell-startOffset+1;
+    if(day<1||day>30){html+='<div class="cal-cell"></div>';}
+    else{
+      var cls='cal-cell';
+      if(day===todayDay)cls+=' today';
+      else if(takenDays.indexOf(day)!==-1)cls+=' taken';
+      else if(partialDays.indexOf(day)!==-1)cls+=' partial';
+      html+='<div class="'+cls+'">'+day+'</div>';
     }
   }
-  grid.innerHTML = html;
+  grid.innerHTML=html;
 }
 function buildPriceRows() {
-  var el = ge('price-rows'); if (!el) return;
-  var rows = [['Lun 7','185€','chip-blue'],['Mar 8','185€','chip-blue'],['Mer 9','185€','chip-blue'],['Jeu 10','185€','chip-blue'],['Ven 11','224€ +','chip-green'],['Sam 12','224€ +','chip-green'],['Dim 13','204€ +','chip-green']];
-  el.innerHTML = rows.map(function(r) { return '<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">' + r[0] + '</span><span class="chip ' + r[2] + '">' + r[1] + '</span></div>'; }).join('');
+  var el=ge('price-rows'); if(!el)return;
+  var rows=[['Lun 7','185€','chip-blue'],['Mar 8','185€','chip-blue'],['Mer 9','185€','chip-blue'],['Jeu 10','185€','chip-blue'],['Ven 11','224€ +','chip-green'],['Sam 12','224€ +','chip-green'],['Dim 13','204€ +','chip-green']];
+  el.innerHTML=rows.map(function(r){return '<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">'+r[0]+'</span><span class="chip '+r[2]+'">'+r[1]+'</span></div>';}).join('');
 }
 var propertiesDB = {
-  'apt-lyon': { name:'Apt. Lyon 2e', city:'Lyon', type:'Appartement', rooms:'2', capacity:'4', address:'12 rue de la République, 69002 Lyon', checkin:'15:00', checkout:'11:00', code:'3892#', access:'Entrée par le digicode 3892, appartement au 3e étage gauche', rules:'Pas de fêtes, pas de fumée.', amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver', contacts:'Ménage: Claire M. 06 45 12 78 90', welcome:'Bienvenue à Lyon !' },
-  'villa-nice': { name:'Villa Nice Promenade', city:'Nice', type:'Maison / Villa', rooms:'4', capacity:'8', address:'3 Promenade des Anglais, 06000 Nice', checkin:'16:00', checkout:'10:00', code:'4821#', access:'Portail vert, code 4821, villa au fond du jardin', rules:'Pas de fêtes, piscine privée.', amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine', contacts:'Ménage: Isabelle P. 06 78 23 45 67', welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h.' },
-  'studio-bordeaux': { name:'Studio Bordeaux', city:'Bordeaux', type:'Studio', rooms:'1', capacity:'2', address:'8 rue Sainte-Catherine, 33000 Bordeaux', checkin:'14:00', checkout:'12:00', code:'Nuki code 5643', access:'Porte bleue au rez-de-chaussée, code Nuki 5643', rules:'Non-fumeur, pas de fêtes.', amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33', contacts:'Ménage: Sophie R. 06 12 34 56 78', welcome:'Bienvenue à Bordeaux !' },
-  'chalet-huez': { name:"Chalet Alpe d'Huez", city:"Alpe d'Huez", type:'Chalet', rooms:'5', capacity:'10', address:"15 Route de la Poste, 38750 Alpe d'Huez", checkin:'17:00', checkout:'10:00', code:'1234#', access:'Clé sous le paillasson (boîte sécurisée, code 1234)', rules:'Pas de fêtes, respecter le voisinage.', amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna", contacts:"Ménage: Anna V. 06 90 12 34 56", welcome:"Bienvenue au chalet !" }
+  'apt-lyon':{name:'Apt. Lyon 2e',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'3892#',access:'Entrée par le digicode 3892, appartement au 3e étage gauche',rules:'Pas de fêtes, pas de fumée.',amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver',contacts:'Ménage: Claire M. 06 45 12 78 90',welcome:'Bienvenue à Lyon !'},
+  'villa-nice':{name:'Villa Nice Promenade',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'3 Promenade des Anglais, 06000 Nice',checkin:'16:00',checkout:'10:00',code:'4821#',access:'Portail vert, code 4821, villa au fond du jardin',rules:'Pas de fêtes, piscine privée.',amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine',contacts:'Ménage: Isabelle P. 06 78 23 45 67',welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h.'},
+  'studio-bordeaux':{name:'Studio Bordeaux',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 rue Sainte-Catherine, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'Nuki code 5643',access:'Porte bleue au rez-de-chaussée, code Nuki 5643',rules:'Non-fumeur, pas de fêtes.',amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33',contacts:'Ménage: Sophie R. 06 12 34 56 78',welcome:'Bienvenue à Bordeaux !'},
+  'chalet-huez':{name:"Chalet Alpe d'Huez",city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"15 Route de la Poste, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'1234#',access:'Clé sous le paillasson (boîte sécurisée, code 1234)',rules:'Pas de fêtes, respecter le voisinage.',amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna",contacts:"Ménage: Anna V. 06 90 12 34 56",welcome:"Bienvenue au chalet !"}
 };
 function openAddProperty() {
-  ['prop-name','prop-city','prop-type','prop-rooms','prop-capacity','prop-address','prop-checkin','prop-checkout','prop-code','prop-access','prop-rules','prop-amenities','prop-contacts','prop-welcome'].forEach(function(id) { var el = ge(id); if (el) el.value = ''; });
-  ge('modal-prop-title').textContent = 'Ajouter une propriété';
-  ge('modal-property').dataset.editing = '';
-  openModal('property');
+  ['prop-name','prop-city','prop-type','prop-rooms','prop-capacity','prop-address','prop-checkin','prop-checkout','prop-code','prop-access','prop-rules','prop-amenities','prop-contacts','prop-welcome'].forEach(function(id){var el=ge(id);if(el)el.value='';});
+  ge('modal-prop-title').textContent='Ajouter une propriété'; ge('modal-property').dataset.editing=''; openModal('property');
 }
 function editProperty(propId) {
-  var prop = propertiesDB[propId]; if (!prop) return;
-  ge('modal-prop-title').textContent = 'Modifier : ' + prop.name;
-  ge('modal-property').dataset.editing = propId;
-  var fields = { 'prop-name':prop.name, 'prop-city':prop.city, 'prop-type':prop.type, 'prop-rooms':prop.rooms, 'prop-capacity':prop.capacity, 'prop-address':prop.address, 'prop-checkin':prop.checkin, 'prop-checkout':prop.checkout, 'prop-code':prop.code, 'prop-access':prop.access, 'prop-rules':prop.rules, 'prop-amenities':prop.amenities, 'prop-contacts':prop.contacts, 'prop-welcome':prop.welcome };
-  Object.keys(fields).forEach(function(id) { var el = ge(id); if (el) el.value = fields[id] || ''; });
+  var prop=propertiesDB[propId]; if(!prop)return;
+  ge('modal-prop-title').textContent='Modifier : '+prop.name; ge('modal-property').dataset.editing=propId;
+  var fields={'prop-name':prop.name,'prop-city':prop.city,'prop-type':prop.type,'prop-rooms':prop.rooms,'prop-capacity':prop.capacity,'prop-address':prop.address,'prop-checkin':prop.checkin,'prop-checkout':prop.checkout,'prop-code':prop.code,'prop-access':prop.access,'prop-rules':prop.rules,'prop-amenities':prop.amenities,'prop-contacts':prop.contacts,'prop-welcome':prop.welcome};
+  Object.keys(fields).forEach(function(id){var el=ge(id);if(el)el.value=fields[id]||'';});
   openModal('property');
 }
 function saveProperty() {
-  var name = ge('prop-name').value.trim();
-  if (!name) { showToast('Entrez le nom du logement', 'orange'); return; }
-  var editingId = ge('modal-property').dataset.editing;
-  var propId = editingId || name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-  propertiesDB[propId] = {
-    name: name, city: ge('prop-city').value.trim(), type: ge('prop-type').value,
-    rooms: ge('prop-rooms').value, capacity: ge('prop-capacity').value,
-    address: ge('prop-address').value.trim(), checkin: ge('prop-checkin').value,
-    checkout: ge('prop-checkout').value, code: ge('prop-code').value.trim(),
-    access: ge('prop-access').value.trim(), rules: ge('prop-rules').value.trim(),
-    amenities: ge('prop-amenities').value.trim(), contacts: ge('prop-contacts').value.trim(),
-    welcome: ge('prop-welcome').value.trim()
-  };
-  localStorage.setItem('mhk-properties', JSON.stringify(propertiesDB));
-  loadPropertiesIntoSelect();
-  closeModal('property');
-  showToast('Fiche "' + name + '" sauvegardée', 'green');
+  var name=ge('prop-name').value.trim(); if(!name){showToast('Entrez le nom du logement','orange');return;}
+  var editingId=ge('modal-property').dataset.editing;
+  var propId=editingId||name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  propertiesDB[propId]={name:name,city:ge('prop-city').value.trim(),type:ge('prop-type').value,rooms:ge('prop-rooms').value,capacity:ge('prop-capacity').value,address:ge('prop-address').value.trim(),checkin:ge('prop-checkin').value,checkout:ge('prop-checkout').value,code:ge('prop-code').value.trim(),access:ge('prop-access').value.trim(),rules:ge('prop-rules').value.trim(),amenities:ge('prop-amenities').value.trim(),contacts:ge('prop-contacts').value.trim(),welcome:ge('prop-welcome').value.trim()};
+  localStorage.setItem('mhk-properties',JSON.stringify(propertiesDB));
+  loadPropertiesIntoSelect(); closeModal('property'); showToast('Fiche "'+name+'" sauvegardée','green');
 }
 function loadPropertiesIntoSelect() {
-  var sel = ge('ia-prop-select'); if (!sel) return;
-  sel.innerHTML = '<option value="">-- Choisir un logement --</option>';
-  Object.keys(propertiesDB).forEach(function(id) {
-    var opt = document.createElement('option'); opt.value = id; opt.textContent = propertiesDB[id].name; sel.appendChild(opt);
-  });
+  var sel=ge('ia-prop-select'); if(!sel)return;
+  sel.innerHTML='<option value="">-- Choisir un logement --</option>';
+  Object.keys(propertiesDB).forEach(function(id){var opt=document.createElement('option');opt.value=id;opt.textContent=propertiesDB[id].name;sel.appendChild(opt);});
 }
-var iaMessages = [], iaCurrentProp = null;
-function openIaTest() { loadPropertiesIntoSelect(); openModal('ia'); }
+var iaMessages=[],iaCurrentProp=null;
+function openIaTest(){ loadPropertiesIntoSelect(); openModal('ia'); }
 function updateIaContext() {
-  var propId = ge('ia-prop-select').value;
-  iaCurrentProp = propId ? propertiesDB[propId] : null;
-  iaMessages = [];
-  var container = ge('ia-messages');
-  if (!iaCurrentProp) { container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question comme un guest ferait.</div>'; return; }
-  container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:10px"><strong style="color:var(--n)">' + iaCurrentProp.name + '</strong> sélectionné</div>';
-  addIaMessage('ai', "Bonjour ! Je suis l'assistant de " + iaCurrentProp.name + ". Comment puis-je vous aider ?");
+  var propId=ge('ia-prop-select').value; iaCurrentProp=propId?propertiesDB[propId]:null; iaMessages=[];
+  var container=ge('ia-messages');
+  if(!iaCurrentProp){container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question comme un guest ferait.</div>';return;}
+  container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:10px"><strong style="color:var(--n)">'+iaCurrentProp.name+'</strong> sélectionné</div>';
+  addIaMessage('ai',"Bonjour ! Je suis l'assistant de "+iaCurrentProp.name+". Comment puis-je vous aider ?");
 }
 function addIaMessage(role, text, time) {
-  var container = ge('ia-messages');
-  var div = document.createElement('div');
-  div.style.display = 'flex'; div.style.flexDirection = 'column'; div.style.alignItems = role === 'user' ? 'flex-end' : 'flex-start';
-  var t = time || new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
-  div.innerHTML = '<div class="chat-bubble ' + role + '">' + text + '</div><div class="chat-meta ' + (role==='user'?'':'left') + '">' + (role==='ai'?'IA · ':'Vous · ') + t + '</div>';
-  container.appendChild(div); container.scrollTop = container.scrollHeight;
+  var container=ge('ia-messages');
+  var div=document.createElement('div'); div.style.display='flex'; div.style.flexDirection='column'; div.style.alignItems=role==='user'?'flex-end':'flex-start';
+  var t=time||new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  div.innerHTML='<div class="chat-bubble '+role+'">'+text+'</div><div class="chat-meta '+(role==='user'?'':'left')+'">'+(role==='ai'?'IA · ':'Vous · ')+t+'</div>';
+  container.appendChild(div); container.scrollTop=container.scrollHeight;
 }
 async function sendIaMessage() {
-  var input = ge('ia-input'); var msg = input.value.trim();
-  if (!msg) return;
-  if (!iaCurrentProp) { showToast("Sélectionnez d'abord un logement", 'orange'); return; }
-  var apiKey = localStorage.getItem('mhk-anthropic-key');
-  if (!apiKey) { showToast('Configurez votre clé API Anthropic dans Paramètres', 'orange'); closeModal('ia'); showInner('settings'); return; }
-  input.value = '';
-  addIaMessage('user', msg);
-  iaMessages.push({ role:'user', content:msg });
-  var container = ge('ia-messages');
-  var typingDiv = document.createElement('div');
-  typingDiv.id = 'ia-typing'; typingDiv.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start';
-  typingDiv.innerHTML = '<div class="chat-bubble ai typing">IA rédige une réponse...</div>';
-  container.appendChild(typingDiv); container.scrollTop = container.scrollHeight;
-  var sendBtn = ge('ia-send-btn'); sendBtn.disabled = true;
-  var prop = iaCurrentProp;
-  var systemPrompt = "Tu es un assistant de conciergerie IA pour le logement suivant. Réponds toujours de manière chaleureuse, précise et professionnelle en français (ou dans la langue du guest).\n\n=== FICHE LOGEMENT ===\nNom: " + prop.name + "\nVille: " + (prop.city||'') + "\nType: " + (prop.type||'') + "\nAdresse: " + (prop.address||'') + "\nCheck-in: " + (prop.checkin||'') + " | Check-out: " + (prop.checkout||'') + "\nCode accès: " + (prop.code||'') + "\nInstructions accès: " + (prop.access||'') + "\nRèglement: " + (prop.rules||'') + "\nÉquipements / WiFi: " + (prop.amenities||'') + "\nContacts prestataires: " + (prop.contacts||'') + "\nMessage de bienvenue: " + (prop.welcome||'') + "\n=== FIN FICHE ===\n\nRéponds uniquement avec les informations présentes dans la fiche. Si tu n'as pas l'info, dis de contacter le propriétaire.";
+  var input=ge('ia-input'); var msg=input.value.trim(); if(!msg)return;
+  if(!iaCurrentProp){showToast("Sélectionnez d'abord un logement",'orange');return;}
+  var apiKey=localStorage.getItem('mhk-anthropic-key');
+  if(!apiKey){showToast('Configurez votre clé API Anthropic dans Paramètres','orange');closeModal('ia');showInner('settings');return;}
+  input.value=''; addIaMessage('user',msg); iaMessages.push({role:'user',content:msg});
+  var container=ge('ia-messages');
+  var typingDiv=document.createElement('div'); typingDiv.id='ia-typing'; typingDiv.style.cssText='display:flex;flex-direction:column;align-items:flex-start';
+  typingDiv.innerHTML='<div class="chat-bubble ai typing">IA rédige une réponse...</div>';
+  container.appendChild(typingDiv); container.scrollTop=container.scrollHeight;
+  var sendBtn=ge('ia-send-btn'); sendBtn.disabled=true;
+  var prop=iaCurrentProp;
+  var systemPrompt="Tu es un assistant de conciergerie IA pour le logement suivant. Réponds toujours de manière chaleureuse, précise et professionnelle en français (ou dans la langue du guest).\n\n=== FICHE LOGEMENT ===\nNom: "+prop.name+"\nVille: "+(prop.city||'')+"\nType: "+(prop.type||'')+"\nAdresse: "+(prop.address||'')+"\nCheck-in: "+(prop.checkin||'')+" | Check-out: "+(prop.checkout||'')+"\nCode accès: "+(prop.code||'')+"\nInstructions accès: "+(prop.access||'')+"\nRèglement: "+(prop.rules||'')+"\nÉquipements / WiFi: "+(prop.amenities||'')+"\nContacts prestataires: "+(prop.contacts||'')+"\nMessage de bienvenue: "+(prop.welcome||'')+"\n=== FIN FICHE ===\n\nRéponds uniquement avec les informations présentes dans la fiche. Si tu n'as pas l'info, dis de contacter le propriétaire.";
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
-      body:JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:500, system:systemPrompt, messages:iaMessages })
-    });
-    var data = await response.json();
-    var typingEl = ge('ia-typing'); if (typingEl) typingEl.remove();
-    if (data.error) { addIaMessage('ai', 'Erreur API : ' + data.error.message); showToast('Erreur API : ' + data.error.message, 'orange'); }
-    else { var aiReply = data.content[0].text; iaMessages.push({ role:'assistant', content:aiReply }); addIaMessage('ai', aiReply, new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) + ' · Claude'); }
-  } catch(err) {
-    var typingEl2 = ge('ia-typing'); if (typingEl2) typingEl2.remove();
-    addIaMessage('ai', "Impossible de joindre l'API. Vérifiez votre clé API dans Paramètres.");
-  }
-  sendBtn.disabled = false; input.focus();
+    var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:500,system:systemPrompt,messages:iaMessages})});
+    var data=await response.json();
+    var typingEl=ge('ia-typing'); if(typingEl)typingEl.remove();
+    if(data.error){addIaMessage('ai','Erreur API : '+data.error.message);showToast('Erreur API : '+data.error.message,'orange');}
+    else{var aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});addIaMessage('ai',aiReply,new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+' · Claude');}
+  } catch(err){var te=ge('ia-typing');if(te)te.remove();addIaMessage('ai',"Impossible de joindre l'API. Vérifiez votre clé API dans Paramètres.");}
+  sendBtn.disabled=false; input.focus();
 }
 function clearIaChat() {
-  iaMessages = []; var container = ge('ia-messages');
-  if (iaCurrentProp) { container.innerHTML = ''; addIaMessage('ai', "Bonjour ! Je suis l'assistant de " + iaCurrentProp.name + ". Comment puis-je vous aider ?"); }
-  else { container.innerHTML = '<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question.</div>'; }
+  iaMessages=[]; var container=ge('ia-messages');
+  if(iaCurrentProp){container.innerHTML='';addIaMessage('ai',"Bonjour ! Je suis l'assistant de "+iaCurrentProp.name+". Comment puis-je vous aider ?");}
+  else{container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question.</div>';}
 }
-function openModal(id) { var el = ge('modal-' + id); if (el) { el.classList.add('open'); document.body.style.overflow = 'hidden'; } }
-function closeModal(id) { var el = ge('modal-' + id); if (el) { el.classList.remove('open'); document.body.style.overflow = ''; } }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); document.body.style.overflow = ''; }); }
-});
+function openModal(id){var el=ge('modal-'+id);if(el){el.classList.add('open');document.body.style.overflow='hidden';}}
+function closeModal(id){var el=ge('modal-'+id);if(el){el.classList.remove('open');document.body.style.overflow='';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(function(m){m.classList.remove('open');document.body.style.overflow='';});}});
 
 // ════ ADMIN + PLANS ════
-var ADMIN_EMAIL = 'm.rayane8306@gmail.com';
-var ADMIN_TEAM = [ADMIN_EMAIL];
-var ADMIN_PIN = '2727';
-var adminAuthenticated = false;
-function promptAdminPin(callback) {
-  if (adminAuthenticated) { callback(); return; }
-  var pin = window.prompt('🛡 Code PIN Admin requis :');
-  if (pin === ADMIN_PIN) { adminAuthenticated = true; callback(); }
-  else if (pin !== null) { showToast('PIN incorrect', 'orange'); }
-}
-var CURRENT_USER_EMAIL = '';
-var CURRENT_PLAN = 'starter';
-var IMPERSONATE_USER = null;
-var PLAN_CONFIG = {
-  starter: {
-    label: 'Starter 49€',
-    unlocked: ['dashboard', 'calendar', 'properties', 'notifications', 'integrations', 'offers', 'settings', 'stocks'],
-    locked: ['messages', 'revenue'],
-    lockMsg: {
-      messages: { icon:'💬', title:'Messages IA — Plan Pro requis', sub:"Passez en Pro (89€/mois) pour accéder aux messages de vos guests gérés automatiquement par l'IA." },
-      revenue: { icon:'📈', title:'Revenue Intelligence — Plan Pro requis', sub:'Optimisation tarifaire IA en temps réel. Disponible sur le plan Pro (89€/mois).' }
-    }
-  },
-  pro: { label: 'Pro 89€', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} },
-  concpro: { label: 'Conciergerie Pro', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} },
-  admin: { label: '🛡 Admin', unlocked: ['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'], locked: [], lockMsg: {} }
+var ADMIN_EMAIL='m.rayane8306@gmail.com', ADMIN_TEAM=[ADMIN_EMAIL], ADMIN_PIN='2727', adminAuthenticated=false;
+function promptAdminPin(callback){if(adminAuthenticated){callback();return;}var pin=window.prompt('🛡 Code PIN Admin requis :');if(pin===ADMIN_PIN){adminAuthenticated=true;callback();}else if(pin!==null){showToast('PIN incorrect','orange');}}
+var CURRENT_USER_EMAIL='', CURRENT_PLAN='starter', IMPERSONATE_USER=null;
+var PLAN_CONFIG={
+  starter:{label:'Starter 49€',unlocked:['dashboard','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:['messages','revenue'],lockMsg:{messages:{icon:'💬',title:'Messages IA — Plan Pro requis',sub:"Passez en Pro (89€/mois) pour accéder aux messages de vos guests gérés automatiquement par l'IA."},revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA en temps réel. Disponible sur le plan Pro (89€/mois).'}}},
+  pro:{label:'Pro 89€',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}},
+  concpro:{label:'Conciergerie Pro',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}},
+  admin:{label:'🛡 Admin',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}}
 };
-function isAdmin(email) { return ADMIN_TEAM.indexOf(email) !== -1; }
-function getPlan(email) {
-  if (isAdmin(email)) return 'admin';
-  return localStorage.getItem('mhk-plan-' + email) || 'starter';
-}
+function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
+function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks() {
-  var plan = CURRENT_PLAN;
-  var config = PLAN_CONFIG[plan] || PLAN_CONFIG['starter'];
-  document.querySelectorAll('.plan-lock-overlay').forEach(function(o){ o.remove(); });
-  config.locked.forEach(function(id) {
-    var page = ge('inner-' + id);
-    if (!page || page.querySelector('.plan-lock-overlay')) return;
-    var msg = config.lockMsg[id] || {};
-    var overlay = document.createElement('div');
-    overlay.className = 'plan-lock-overlay';
-    var btn = document.createElement('button');
-    btn.className = 'btn-plan-unlock';
-    btn.textContent = 'Voir les offres →';
-    btn.onclick = function() { showInner('offers'); };
-    overlay.innerHTML = '<div class="plan-lock-icon">' + (msg.icon || '🔒') + '</div><div class="plan-lock-title">' + (msg.title || 'Accès restreint') + '</div><div class="plan-lock-sub">' + (msg.sub || "Cette fonctionnalité n'est pas disponible sur votre plan actuel.") + '</div>';
-    overlay.appendChild(btn);
-    page.appendChild(overlay);
+  var plan=CURRENT_PLAN, config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
+  document.querySelectorAll('.plan-lock-overlay').forEach(function(o){o.remove();});
+  config.locked.forEach(function(id){
+    var page=ge('inner-'+id); if(!page||page.querySelector('.plan-lock-overlay'))return;
+    var msg=config.lockMsg[id]||{};
+    var overlay=document.createElement('div'); overlay.className='plan-lock-overlay';
+    var btn=document.createElement('button'); btn.className='btn-plan-unlock'; btn.textContent='Voir les offres →'; btn.onclick=function(){showInner('offers');};
+    overlay.innerHTML='<div class="plan-lock-icon">'+(msg.icon||'🔒')+'</div><div class="plan-lock-title">'+(msg.title||'Accès restreint')+'</div><div class="plan-lock-sub">'+(msg.sub||"Cette fonctionnalité n'est pas disponible sur votre plan actuel.")+'</div>';
+    overlay.appendChild(btn); page.appendChild(overlay);
   });
-  var planBadge = ge('sb-plan-badge');
-  if (!planBadge) {
-    planBadge = document.createElement('div');
-    planBadge.id = 'sb-plan-badge';
-    planBadge.style.cssText = 'margin:0 18px 10px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center';
-    var foot = document.querySelector('.sb-foot');
-    if (foot) foot.insertBefore(planBadge, foot.firstChild);
-  }
-  planBadge.textContent = '● ' + config.label;
-  if (plan === 'admin') { planBadge.style.background='#3D0A0A'; planBadge.style.color='#FF4444'; }
-  else if (plan === 'pro' || plan === 'concpro') { planBadge.style.background='var(--bp)'; planBadge.style.color='var(--bl)'; }
-  else { planBadge.style.background='var(--green-l)'; planBadge.style.color='#085041'; }
+  var planBadge=ge('sb-plan-badge');
+  if(!planBadge){planBadge=document.createElement('div');planBadge.id='sb-plan-badge';planBadge.style.cssText='margin:0 18px 10px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center';var foot=document.querySelector('.sb-foot');if(foot)foot.insertBefore(planBadge,foot.firstChild);}
+  planBadge.textContent='● '+config.label;
+  if(plan==='admin'){planBadge.style.background='#3D0A0A';planBadge.style.color='#FF4444';}
+  else if(plan==='pro'||plan==='concpro'){planBadge.style.background='var(--bp)';planBadge.style.color='var(--bl)';}
+  else{planBadge.style.background='var(--green-l)';planBadge.style.color='#085041';}
 }
-function showAdminPanel() {
-  promptAdminPin(function() {
-    ge('admin-nav-user').textContent = CURRENT_USER_EMAIL;
-    loadAdminUsers();
-    showPage('admin');
-  });
-}
-function exitAdmin() { showPage('app'); showInner('dashboard'); }
-function switchAdminTab(tab) {
-  var tabs = ['overview','users','logs'];
-  document.querySelectorAll('.admin-tab').forEach(function(t, i) { t.classList.toggle('active', tabs[i] === tab); });
-  document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
-  var sec = ge('admin-' + tab); if (sec) sec.classList.add('active');
-}
-var adminUsersData = [
-  { email:'m.rayane8306@gmail.com', prenom:'Rayane', nom:'M.', plan:'admin', created:'2026-01-15', status:'active' },
-  { email:'client.pro@gmail.com', prenom:'Sophie', nom:'Martin', plan:'pro', created:'2026-02-03', status:'active' },
-  { email:'hote.starter@airbnb.fr', prenom:'Thomas', nom:'K.', plan:'starter', created:'2026-03-12', status:'active' },
-  { email:'conciergerie@nice.fr', prenom:'Marie', nom:'D.', plan:'concpro', created:'2026-01-28', status:'active' },
-  { email:'demo@myhostkit.com', prenom:'Demo', nom:'User', plan:'starter', created:'2026-04-01', status:'trial' },
-  { email:'nouveau@airbnb.fr', prenom:'Lucas', nom:'B.', plan:'starter', created:'2026-04-05', status:'trial' },
+function showAdminPanel(){promptAdminPin(function(){ge('admin-nav-user').textContent=CURRENT_USER_EMAIL;loadAdminUsers();showPage('admin');});}
+function exitAdmin(){showPage('app');showInner('dashboard');}
+function switchAdminTab(tab){var tabs=['overview','users','logs'];document.querySelectorAll('.admin-tab').forEach(function(t,i){t.classList.toggle('active',tabs[i]===tab);});document.querySelectorAll('.admin-section').forEach(function(s){s.classList.remove('active');});var sec=ge('admin-'+tab);if(sec)sec.classList.add('active');}
+var adminUsersData=[
+  {email:'m.rayane8306@gmail.com',prenom:'Rayane',nom:'M.',plan:'admin',created:'2026-01-15',status:'active'},
+  {email:'client.pro@gmail.com',prenom:'Sophie',nom:'Martin',plan:'pro',created:'2026-02-03',status:'active'},
+  {email:'hote.starter@airbnb.fr',prenom:'Thomas',nom:'K.',plan:'starter',created:'2026-03-12',status:'active'},
+  {email:'conciergerie@nice.fr',prenom:'Marie',nom:'D.',plan:'concpro',created:'2026-01-28',status:'active'},
+  {email:'demo@myhostkit.com',prenom:'Demo',nom:'User',plan:'starter',created:'2026-04-01',status:'trial'},
+  {email:'nouveau@airbnb.fr',prenom:'Lucas',nom:'B.',plan:'starter',created:'2026-04-05',status:'trial'}
 ];
 function loadAdminUsers() {
   renderAdminUsers(adminUsersData);
-  var total = adminUsersData.length;
-  var pro = adminUsersData.filter(function(u){ return u.plan==='pro'||u.plan==='concpro'; }).length;
-  var starter = adminUsersData.filter(function(u){ return u.plan==='starter'; }).length;
-  var mrr = pro * 89 + starter * 49;
-  if(ge('stat-total-users')) ge('stat-total-users').textContent = total;
-  if(ge('stat-pro-users')) ge('stat-pro-users').textContent = pro;
-  if(ge('stat-starter-users')) ge('stat-starter-users').textContent = starter;
-  if(ge('stat-mrr')) ge('stat-mrr').textContent = mrr + '€';
+  var total=adminUsersData.length, pro=adminUsersData.filter(function(u){return u.plan==='pro'||u.plan==='concpro';}).length, starter=adminUsersData.filter(function(u){return u.plan==='starter';}).length, mrr=pro*89+starter*49;
+  if(ge('stat-total-users'))ge('stat-total-users').textContent=total;
+  if(ge('stat-pro-users'))ge('stat-pro-users').textContent=pro;
+  if(ge('stat-starter-users'))ge('stat-starter-users').textContent=starter;
+  if(ge('stat-mrr'))ge('stat-mrr').textContent=mrr+'€';
 }
 function renderAdminUsers(users) {
-  var tbody = ge('admin-users-tbody');
-  var count = ge('admin-users-count');
-  if (count) count.textContent = '(' + users.length + ' comptes)';
-  if (!users.length) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Aucun résultat</td></tr>'; return; }
-  var planColors = { admin:'plan-admin-badge', pro:'plan-pro', concpro:'plan-concpro', starter:'plan-starter', demo:'plan-demo' };
-  var planLabels = { admin:'Admin', pro:'Pro', concpro:'Conciergerie Pro', starter:'Starter', demo:'Démo' };
-  tbody.innerHTML = '';
-  users.forEach(function(u) {
-    var isMe = u.email === ADMIN_EMAIL;
-    var tr = document.createElement('tr');
-    var statusHtml = u.status === 'trial' ? '<span style="font-size:.7rem;color:#E3B341">⏳ Essai</span>' : '<span style="font-size:.7rem;color:#3FB950">✓ Actif</span>';
-    tr.innerHTML = '<td><div style="font-weight:600;color:#E6EDF3">' + (u.prenom||'') + ' ' + (u.nom||'') + '</div></td><td style="font-family:monospace;font-size:.78rem;color:#8B949E">' + u.email + '</td><td><span class="plan-badge-admin ' + (planColors[u.plan]||'plan-starter') + '">' + (planLabels[u.plan]||u.plan) + '</span></td><td style="color:#484F58;font-size:.78rem">' + u.created + '</td><td>' + statusHtml + '</td><td style="display:flex;gap:6px;flex-wrap:wrap"></td>';
-    var actionsTd = tr.querySelector('td:last-child');
-    if (!isMe) {
-      var viewBtn = document.createElement('button');
-      viewBtn.className = 'btn-admin-action'; viewBtn.textContent = '👁 Voir';
-      (function(uu) { viewBtn.onclick = function() { impersonateUser(uu.email, uu.prenom, uu.plan); }; })(u);
+  var tbody=ge('admin-users-tbody'), count=ge('admin-users-count');
+  if(count)count.textContent='('+users.length+' comptes)';
+  if(!users.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Aucun résultat</td></tr>';return;}
+  var planColors={admin:'plan-admin-badge',pro:'plan-pro',concpro:'plan-concpro',starter:'plan-starter',demo:'plan-demo'};
+  var planLabels={admin:'Admin',pro:'Pro',concpro:'Conciergerie Pro',starter:'Starter',demo:'Démo'};
+  tbody.innerHTML='';
+  users.forEach(function(u){
+    var isMe=u.email===ADMIN_EMAIL;
+    var tr=document.createElement('tr');
+    var statusHtml=u.status==='trial'?'<span style="font-size:.7rem;color:#E3B341">⏳ Essai</span>':'<span style="font-size:.7rem;color:#3FB950">✓ Actif</span>';
+    tr.innerHTML='<td><div style="font-weight:600;color:#E6EDF3">'+(u.prenom||'')+' '+(u.nom||'')+'</div></td><td style="font-family:monospace;font-size:.78rem;color:#8B949E">'+u.email+'</td><td><span class="plan-badge-admin '+(planColors[u.plan]||'plan-starter')+'">'+(planLabels[u.plan]||u.plan)+'</span></td><td style="color:#484F58;font-size:.78rem">'+u.created+'</td><td>'+statusHtml+'</td><td style="display:flex;gap:6px;flex-wrap:wrap"></td>';
+    var actionsTd=tr.querySelector('td:last-child');
+    if(!isMe){
+      var viewBtn=document.createElement('button'); viewBtn.className='btn-admin-action'; viewBtn.textContent='👁 Voir';
+      (function(uu){viewBtn.onclick=function(){impersonateUser(uu.email,uu.prenom,uu.plan);};})(u);
       actionsTd.appendChild(viewBtn);
-      var planBtn = document.createElement('button');
-      planBtn.className = 'btn-admin-action'; planBtn.textContent = 'Changer plan';
-      (function(uu) { planBtn.onclick = function() { changePlan(uu.email, uu.plan); }; })(u);
+      var planBtn=document.createElement('button'); planBtn.className='btn-admin-action'; planBtn.textContent='Changer plan';
+      (function(uu){planBtn.onclick=function(){changePlan(uu.email,uu.plan);};})(u);
       actionsTd.appendChild(planBtn);
-    } else {
-      actionsTd.innerHTML = '<span style="font-size:.72rem;color:#484F58">Vous</span>';
-    }
+    }else{actionsTd.innerHTML='<span style="font-size:.72rem;color:#484F58">Vous</span>';}
     tbody.appendChild(tr);
   });
 }
-function filterAdminUsers() {
-  var q = (ge('admin-user-search').value || '').toLowerCase();
-  var filtered = adminUsersData.filter(function(u) {
-    return (u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.nom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);
-  });
-  renderAdminUsers(filtered);
-}
-function changePlan(email, current) {
-  var plans = ['starter','pro','concpro'];
-  var next = plans[(plans.indexOf(current)+1)%plans.length];
-  var u = adminUsersData.find(function(x){ return x.email===email; });
-  if(u) u.plan = next;
-  localStorage.setItem('mhk-plan-' + email, next);
-  var labels = { starter:'Starter (49€)', pro:'Pro (89€)', concpro:'Conciergerie Pro' };
-  showToast('Plan ' + email.split('@')[0] + ' → ' + labels[next], 'blue');
-  renderAdminUsers(adminUsersData);
-}
-function impersonateUser(email, prenom, plan) {
-  IMPERSONATE_USER = { email: email, prenom: prenom, plan: plan };
-  CURRENT_PLAN = plan || 'starter';
-  ge('impersonate-bar').style.display = 'flex';
-  ge('impersonate-name').textContent = prenom + ' (' + email + ') — Plan ' + ((PLAN_CONFIG[plan]||{}).label||plan);
-  ge('sb-username').textContent = prenom + ' (admin view)';
-  ge('sb-email-display').textContent = email;
-  applyPlanLocks();
-  exitAdmin();
-  showToast('👁 Vous consultez le compte de ' + prenom, 'orange');
-}
-function stopImpersonate() {
-  IMPERSONATE_USER = null;
-  CURRENT_PLAN = 'admin';
-  ge('impersonate-bar').style.display = 'none';
-  ge('sb-username').textContent = 'Rayane M.';
-  ge('sb-email-display').textContent = ADMIN_EMAIL;
-  applyPlanLocks();
-  showToast('Retour à votre compte admin', 'green');
-}
-function checkMessagesEmpty() {
-  if (CURRENT_PLAN === 'admin') return;
-  var connected = localStorage.getItem('mhk-platforms-connected');
-  var msgInner = ge('inner-messages');
-  if (!msgInner) return;
-  if (!connected) {
-    msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display='none'; });
-    var empty = ge('messages-empty-state');
-    if (!empty) {
-      empty = document.createElement('div');
-      empty.id = 'messages-empty-state';
-      empty.style.cssText = 'text-align:center;padding:60px 20px;color:var(--g)';
-      var ctaBtn = document.createElement('button');
-      ctaBtn.className = 'btn-cta'; ctaBtn.textContent = 'Connecter une plateforme →';
-      ctaBtn.onclick = function() { showInner('integrations'); };
-      empty.innerHTML = '<div style="font-size:2.5rem;margin-bottom:14px">💬</div><div style="font-size:1rem;font-weight:600;color:var(--n);margin-bottom:8px">Aucun message pour l\'instant</div><div style="font-size:.84rem;line-height:1.7;max-width:340px;margin:0 auto 18px">Connectez Airbnb ou Booking.com dans Intégrations pour que l\'IA commence à gérer vos messages automatiquement.</div>';
-      empty.appendChild(ctaBtn);
-      msgInner.insertBefore(empty, msgInner.firstChild);
-    }
-  } else {
-    var existingEmpty = ge('messages-empty-state'); if (existingEmpty) existingEmpty.remove();
-    msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){ c.style.display=''; });
-  }
+function filterAdminUsers(){var q=(ge('admin-user-search').value||'').toLowerCase();var filtered=adminUsersData.filter(function(u){return(u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.nom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);});renderAdminUsers(filtered);}
+function changePlan(email,current){var plans=['starter','pro','concpro'];var next=plans[(plans.indexOf(current)+1)%plans.length];var u=adminUsersData.find(function(x){return x.email===email;});if(u)u.plan=next;localStorage.setItem('mhk-plan-'+email,next);var labels={starter:'Starter (49€)',pro:'Pro (89€)',concpro:'Conciergerie Pro'};showToast('Plan '+email.split('@')[0]+' → '+labels[next],'blue');renderAdminUsers(adminUsersData);}
+function impersonateUser(email,prenom,plan){IMPERSONATE_USER={email:email,prenom:prenom,plan:plan};CURRENT_PLAN=plan||'starter';ge('impersonate-bar').style.display='flex';ge('impersonate-name').textContent=prenom+' ('+email+') — Plan '+((PLAN_CONFIG[plan]||{}).label||plan);ge('sb-username').textContent=prenom+' (admin view)';ge('sb-email-display').textContent=email;applyPlanLocks();exitAdmin();showToast('👁 Vous consultez le compte de '+prenom,'orange');}
+function stopImpersonate(){IMPERSONATE_USER=null;CURRENT_PLAN='admin';ge('impersonate-bar').style.display='none';ge('sb-username').textContent='Rayane M.';ge('sb-email-display').textContent=ADMIN_EMAIL;applyPlanLocks();showToast('Retour à votre compte admin','green');}
+function checkMessagesEmpty(){
+  if(CURRENT_PLAN==='admin')return;
+  var connected=localStorage.getItem('mhk-platforms-connected'), msgInner=ge('inner-messages'); if(!msgInner)return;
+  if(!connected){
+    msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){c.style.display='none';});
+    var empty=ge('messages-empty-state');
+    if(!empty){empty=document.createElement('div');empty.id='messages-empty-state';empty.style.cssText='text-align:center;padding:60px 20px;color:var(--g)';var ctaBtn=document.createElement('button');ctaBtn.className='btn-cta';ctaBtn.textContent='Connecter une plateforme →';ctaBtn.onclick=function(){showInner('integrations');};empty.innerHTML='<div style="font-size:2.5rem;margin-bottom:14px">💬</div><div style="font-size:1rem;font-weight:600;color:var(--n);margin-bottom:8px">Aucun message pour l\'instant</div><div style="font-size:.84rem;line-height:1.7;max-width:340px;margin:0 auto 18px">Connectez Airbnb ou Booking.com dans Intégrations pour que l\'IA commence à gérer vos messages automatiquement.</div>';empty.appendChild(ctaBtn);msgInner.insertBefore(empty,msgInner.firstChild);}
+  }else{var existingEmpty=ge('messages-empty-state');if(existingEmpty)existingEmpty.remove();msgInner.querySelectorAll('.card,.ai-panel').forEach(function(c){c.style.display='';});}
 }
 
 // ════ MODULE STOCKS & COMMANDES ════
 var STOCKS_DEFAULT = {
-  'apt-lyon': [
-    { id:'s1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=café+moulu+dosette' },
-    { id:'s2', name:'Capsules café', icon:'🫘', cat:'Consommables', qty:0, min:10, url:'https://www.amazon.fr/s?k=capsules+café+nespresso' },
-    { id:'s3', name:'Savon liquide', icon:'🧴', cat:'Consommables', qty:2, min:2, url:'https://www.amazon.fr/s?k=savon+liquide+mains' },
-    { id:'s4', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:4, min:6, url:'https://www.amazon.fr/s?k=papier+toilette' },
-    { id:'s5', name:'Gel douche', icon:'🚿', cat:'Consommables', qty:1, min:2, url:'https://www.amazon.fr/s?k=gel+douche' },
-    { id:'s6', name:'Serviettes de bain', icon:'🏊', cat:'Linge', qty:3, min:4, url:'https://www.amazon.fr/s?k=serviette+de+bain' },
-    { id:'s7', name:'Draps', icon:'🛏', cat:'Linge', qty:2, min:2, url:'https://www.amazon.fr/s?k=parure+de+lit' },
-    { id:'s8', name:'Ampoule E27', icon:'💡', cat:'Équipements', qty:0, min:2, url:'https://www.amazon.fr/s?k=ampoule+LED+E27' },
-    { id:'s9', name:'Liquide vaisselle', icon:'🍽', cat:'Entretien', qty:1, min:2, url:'https://www.amazon.fr/s?k=liquide+vaisselle' },
-    { id:'s10', name:'Pastilles lave-vaisselle', icon:'✨', cat:'Entretien', qty:8, min:15, url:'https://www.amazon.fr/s?k=pastilles+lave+vaisselle' }
+  'apt-lyon':[
+    {id:'s1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:1,min:3,ref:'CAFE-001'},
+    {id:'s2',name:'Capsules café',icon:'🫘',cat:'Consommables',qty:0,min:10,ref:'CAFE-002'},
+    {id:'s3',name:'Savon liquide',icon:'🧴',cat:'Consommables',qty:2,min:2,ref:'HYG-001'},
+    {id:'s4',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:4,min:6,ref:'HYG-002'},
+    {id:'s5',name:'Gel douche',icon:'🚿',cat:'Consommables',qty:1,min:2,ref:'HYG-003'},
+    {id:'s6',name:'Serviettes de bain',icon:'🏊',cat:'Linge',qty:3,min:4,ref:'LIN-001'},
+    {id:'s7',name:'Draps',icon:'🛏',cat:'Linge',qty:2,min:2,ref:'LIN-002'},
+    {id:'s8',name:'Ampoule E27',icon:'💡',cat:'Équipements',qty:0,min:2,ref:'EQP-001'},
+    {id:'s9',name:'Liquide vaisselle',icon:'🍽',cat:'Entretien',qty:1,min:2,ref:'ENT-001'},
+    {id:'s10',name:'Pastilles lave-vaisselle',icon:'✨',cat:'Entretien',qty:8,min:15,ref:'ENT-002'}
   ],
-  'villa-nice': [
-    { id:'v1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:2, min:4, url:'https://www.amazon.fr/s?k=café+moulu' },
-    { id:'v2', name:'Savon mains', icon:'🧴', cat:'Consommables', qty:0, min:3, url:'https://www.amazon.fr/s?k=savon+mains+premium' },
-    { id:'v3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:3, min:8, url:'https://www.amazon.fr/s?k=papier+toilette' },
-    { id:'v4', name:'Shampoing', icon:'🫧', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=shampoing+hotel' },
-    { id:'v5', name:'Serviettes de bain', icon:'🏊', cat:'Linge', qty:6, min:8, url:'https://www.amazon.fr/s?k=serviette+bain+coton' },
-    { id:'v6', name:'Serviettes plage', icon:'🌊', cat:'Linge', qty:4, min:6, url:'https://www.amazon.fr/s?k=serviette+plage' },
-    { id:'v7', name:'Produit piscine', icon:'🏊', cat:'Entretien', qty:1, min:1, url:'https://www.amazon.fr/s?k=produit+piscine+chlore' },
-    { id:'v8', name:'Ampoule LED', icon:'💡', cat:'Équipements', qty:1, min:3, url:'https://www.amazon.fr/s?k=ampoule+LED' }
+  'villa-nice':[
+    {id:'v1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:2,min:4,ref:'CAFE-001'},
+    {id:'v2',name:'Savon mains',icon:'🧴',cat:'Consommables',qty:0,min:3,ref:'HYG-001'},
+    {id:'v3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:3,min:8,ref:'HYG-002'},
+    {id:'v4',name:'Shampoing',icon:'🫧',cat:'Consommables',qty:1,min:3,ref:'HYG-004'},
+    {id:'v5',name:'Serviettes de bain',icon:'🏊',cat:'Linge',qty:6,min:8,ref:'LIN-001'},
+    {id:'v6',name:'Serviettes plage',icon:'🌊',cat:'Linge',qty:4,min:6,ref:'LIN-003'},
+    {id:'v7',name:'Produit piscine',icon:'🏊',cat:'Entretien',qty:1,min:1,ref:'ENT-003'},
+    {id:'v8',name:'Ampoule LED',icon:'💡',cat:'Équipements',qty:1,min:3,ref:'EQP-001'}
   ],
-  'studio-bordeaux': [
-    { id:'b1', name:'Café dosettes', icon:'☕', cat:'Consommables', qty:5, min:10, url:'https://www.amazon.fr/s?k=dosettes+café' },
-    { id:'b2', name:'Savon douche', icon:'🧴', cat:'Consommables', qty:1, min:2, url:'https://www.amazon.fr/s?k=savon+douche' },
-    { id:'b3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:2, min:4, url:'https://www.amazon.fr/s?k=papier+toilette' },
-    { id:'b4', name:'Serviette de bain', icon:'🏊', cat:'Linge', qty:2, min:2, url:'https://www.amazon.fr/s?k=serviette+bain' },
-    { id:'b5', name:'Capsules expresso', icon:'🫘', cat:'Consommables', qty:0, min:8, url:'https://www.amazon.fr/s?k=capsule+expresso' }
+  'studio-bordeaux':[
+    {id:'b1',name:'Café dosettes',icon:'☕',cat:'Consommables',qty:5,min:10,ref:'CAFE-003'},
+    {id:'b2',name:'Savon douche',icon:'🧴',cat:'Consommables',qty:1,min:2,ref:'HYG-003'},
+    {id:'b3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:2,min:4,ref:'HYG-002'},
+    {id:'b4',name:'Serviette de bain',icon:'🏊',cat:'Linge',qty:2,min:2,ref:'LIN-001'},
+    {id:'b5',name:'Capsules expresso',icon:'🫘',cat:'Consommables',qty:0,min:8,ref:'CAFE-004'}
   ],
-  'chalet-huez': [
-    { id:'c1', name:'Café moulu', icon:'☕', cat:'Consommables', qty:3, min:5, url:'https://www.amazon.fr/s?k=café+moulu' },
-    { id:'c2', name:'Chocolat chaud', icon:'🍫', cat:'Consommables', qty:1, min:3, url:'https://www.amazon.fr/s?k=chocolat+chaud+poudre' },
-    { id:'c3', name:'Papier toilette', icon:'🧻', cat:'Consommables', qty:6, min:10, url:'https://www.amazon.fr/s?k=papier+toilette' },
-    { id:'c4', name:'Serviettes bain', icon:'🏊', cat:'Linge', qty:8, min:10, url:'https://www.amazon.fr/s?k=serviette+bain' },
-    { id:'c5', name:'Produit sauna', icon:'🧖', cat:'Entretien', qty:0, min:1, url:'https://www.amazon.fr/s?k=huile+essentielle+sauna' },
-    { id:'c6', name:'Piles AA', icon:'🔋', cat:'Équipements', qty:2, min:6, url:'https://www.amazon.fr/s?k=piles+AA+rechargeables' },
-    { id:'c7', name:'Sel déneigement', icon:'❄', cat:'Entretien', qty:1, min:2, url:'https://www.amazon.fr/s?k=sel+déneigement' }
+  'chalet-huez':[
+    {id:'c1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:3,min:5,ref:'CAFE-001'},
+    {id:'c2',name:'Chocolat chaud',icon:'🍫',cat:'Consommables',qty:1,min:3,ref:'CAFE-005'},
+    {id:'c3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:6,min:10,ref:'HYG-002'},
+    {id:'c4',name:'Serviettes bain',icon:'🏊',cat:'Linge',qty:8,min:10,ref:'LIN-001'},
+    {id:'c5',name:'Produit sauna',icon:'🧖',cat:'Entretien',qty:0,min:1,ref:'ENT-004'},
+    {id:'c6',name:'Piles AA',icon:'🔋',cat:'Équipements',qty:2,min:6,ref:'EQP-002'},
+    {id:'c7',name:'Sel déneigement',icon:'❄',cat:'Entretien',qty:1,min:2,ref:'ENT-005'}
   ]
 };
-var stocksDB = {};
-var currentStockProp = 'apt-lyon';
-var orderList = [];
-var orderHistory = [];
+var stocksDB={}, currentStockProp='apt-lyon', orderList=[], orderHistory=[];
 
-function initStocks() {
-  var saved = localStorage.getItem('mhk-stocks');
-  if (saved) { try { stocksDB = JSON.parse(saved); } catch(e) {} }
-  Object.keys(STOCKS_DEFAULT).forEach(function(pid) {
-    if (!stocksDB[pid]) stocksDB[pid] = JSON.parse(JSON.stringify(STOCKS_DEFAULT[pid]));
-  });
-  var savedOrders = localStorage.getItem('mhk-order-history');
-  if (savedOrders) { try { orderHistory = JSON.parse(savedOrders); } catch(e) {} }
+function initStocks(){
+  var saved=localStorage.getItem('mhk-stocks'); if(saved){try{stocksDB=JSON.parse(saved);}catch(e){}}
+  Object.keys(STOCKS_DEFAULT).forEach(function(pid){if(!stocksDB[pid])stocksDB[pid]=JSON.parse(JSON.stringify(STOCKS_DEFAULT[pid]));});
+  var savedOrders=localStorage.getItem('mhk-order-history'); if(savedOrders){try{orderHistory=JSON.parse(savedOrders);}catch(e){}}
   saveStocks();
 }
-function saveStocks() { localStorage.setItem('mhk-stocks', JSON.stringify(stocksDB)); }
-function selectStockProp(btn, propId) {
-  document.querySelectorAll('.stock-prop-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  currentStockProp = propId;
-  renderStocks();
-  ge('stock-ia-input').value = '';
-  ge('stock-ia-result').style.display = 'none';
+function saveStocks(){localStorage.setItem('mhk-stocks',JSON.stringify(stocksDB));}
+function selectStockProp(btn,propId){
+  document.querySelectorAll('.stock-prop-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active'); currentStockProp=propId; renderStocks();
+  ge('stock-ia-input').value=''; ge('stock-ia-result').style.display='none';
 }
-function getStockStatus(item) {
-  if (item.qty === 0) return 'out';
-  if (item.qty < item.min) return 'low';
-  return 'ok';
-}
-function renderStocks() {
-  var container = ge('stocks-list');
-  if (!container) return;
-  var items = stocksDB[currentStockProp] || [];
-  var cats = {};
-  items.forEach(function(item) {
-    if (!cats[item.cat]) cats[item.cat] = [];
-    cats[item.cat].push(item);
-  });
-  var catOrder = ['Consommables', 'Linge', 'Équipements', 'Entretien'];
-  var html = '';
-  var lowCount = 0;
-  catOrder.forEach(function(cat) {
-    if (!cats[cat] || !cats[cat].length) return;
-    html += '<div class="stock-section-title">' + cat + '</div>';
-    cats[cat].forEach(function(item) {
-      var st = getStockStatus(item);
-      if (st !== 'ok') lowCount++;
-      var stLabel = st === 'ok' ? 'OK' : st === 'low' ? 'Stock bas' : 'Rupture';
-      var stCls = 'stock-' + st;
-      html += '<div class="stock-item" id="stock-item-' + item.id + '"><div class="stock-item-icon">' + (item.icon||'📦') + '</div><div style="flex:1"><div class="stock-item-name">' + item.name + '</div><div class="stock-item-cat">Seuil min : ' + item.min + ' unités</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\'' + item.id + '\',-1)">−</button><span class="stock-qty-val" id="qty-' + item.id + '">' + item.qty + '</span><button class="stock-qty-btn" onclick="changeQty(\'' + item.id + '\',1)">+</button></div><span class="stock-status ' + stCls + '">' + stLabel + '</span><button onclick="removeStockItem(\'' + item.id + '\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 4px;margin-left:4px" title="Supprimer">✕</button></div>';
+function getStockStatus(item){if(item.qty===0)return'out';if(item.qty<item.min)return'low';return'ok';}
+function renderStocks(){
+  var container=ge('stocks-list'); if(!container)return;
+  var items=stocksDB[currentStockProp]||[], cats={};
+  items.forEach(function(item){if(!cats[item.cat])cats[item.cat]=[];cats[item.cat].push(item);});
+  var catOrder=['Consommables','Linge','Équipements','Entretien'], html='', lowCount=0;
+  catOrder.forEach(function(cat){
+    if(!cats[cat]||!cats[cat].length)return;
+    html+='<div class="stock-section-title">'+cat+'</div>';
+    cats[cat].forEach(function(item){
+      var st=getStockStatus(item); if(st!=='ok')lowCount++;
+      var stLabel=st==='ok'?'OK':st==='low'?'Stock bas':'Rupture', stCls='stock-'+st;
+      // ── MODIFICATION: suppression lien Amazon, ajout référence produit ──
+      html+='<div class="stock-item" id="stock-item-'+item.id+'"><div class="stock-item-icon">'+(item.icon||'📦')+'</div><div style="flex:1"><div class="stock-item-name">'+item.name+'</div><div class="stock-item-cat">Seuil : '+item.min+' · Réf: '+(item.ref||'—')+'</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',-1)">−</button><span class="stock-qty-val" id="qty-'+item.id+'">'+item.qty+'</span><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',1)">+</button></div><span class="stock-status '+stCls+'">'+stLabel+'</span><button onclick="removeStockItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 4px;margin-left:4px" title="Supprimer">✕</button></div>';
     });
   });
-  container.innerHTML = html;
-  var badge = ge('sb-stocks-badge');
-  if (badge) { badge.style.display = lowCount > 0 ? '' : 'none'; badge.textContent = lowCount; }
+  container.innerHTML=html;
+  var badge=ge('sb-stocks-badge'); if(badge){badge.style.display=lowCount>0?'':'none';badge.textContent=lowCount;}
 }
-function changeQty(itemId, delta) {
-  var items = stocksDB[currentStockProp] || [];
-  var item = items.find(function(i){ return i.id === itemId; });
-  if (!item) return;
-  item.qty = Math.max(0, item.qty + delta);
-  var el = ge('qty-' + itemId);
-  if (el) el.textContent = item.qty;
-  var row = ge('stock-item-' + itemId);
-  if (row) {
-    var chip = row.querySelector('.stock-status');
-    var st = getStockStatus(item);
-    chip.className = 'stock-status stock-' + st;
-    chip.textContent = st === 'ok' ? 'OK' : st === 'low' ? 'Stock bas' : 'Rupture';
-  }
+function changeQty(itemId,delta){
+  var items=stocksDB[currentStockProp]||[], item=items.find(function(i){return i.id===itemId;}); if(!item)return;
+  item.qty=Math.max(0,item.qty+delta);
+  var el=ge('qty-'+itemId); if(el)el.textContent=item.qty;
+  var row=ge('stock-item-'+itemId);
+  if(row){var chip=row.querySelector('.stock-status');var st=getStockStatus(item);chip.className='stock-status stock-'+st;chip.textContent=st==='ok'?'OK':st==='low'?'Stock bas':'Rupture';}
   saveStocks();
-  var lowCount = (stocksDB[currentStockProp]||[]).filter(function(i){ return getStockStatus(i) !== 'ok'; }).length;
-  var badge = ge('sb-stocks-badge');
-  if (badge) { badge.style.display = lowCount > 0 ? '' : 'none'; badge.textContent = lowCount; }
+  var lowCount=(stocksDB[currentStockProp]||[]).filter(function(i){return getStockStatus(i)!=='ok';}).length;
+  var badge=ge('sb-stocks-badge'); if(badge){badge.style.display=lowCount>0?'':'none';badge.textContent=lowCount;}
 }
-function removeStockItem(itemId) {
-  if (!stocksDB[currentStockProp]) return;
-  stocksDB[currentStockProp] = stocksDB[currentStockProp].filter(function(i){ return i.id !== itemId; });
-  saveStocks(); renderStocks();
-}
-function toggleAddStockForm() {
-  var f = ge('add-stock-form');
-  f.style.display = f.style.display === 'none' ? 'block' : 'none';
-  if (f.style.display === 'block') ge('new-stock-name').focus();
-}
-function addStockItem() {
-  var name = ge('new-stock-name').value.trim();
-  if (!name) { showToast('Entrez un nom de produit', 'orange'); return; }
-  var newItem = {
-    id: 'u' + Date.now(), name: name, icon: ge('new-stock-icon').value || '📦',
-    cat: ge('new-stock-cat').value || 'Consommables',
-    qty: parseInt(ge('new-stock-qty').value) || 0,
-    min: parseInt(ge('new-stock-min').value) || 2,
-    url: ge('new-stock-url').value.trim() || 'https://www.amazon.fr/s?k=' + encodeURIComponent(name)
-  };
-  if (!stocksDB[currentStockProp]) stocksDB[currentStockProp] = [];
-  stocksDB[currentStockProp].push(newItem);
-  saveStocks(); renderStocks(); toggleAddStockForm();
-  ['new-stock-name','new-stock-qty','new-stock-min','new-stock-url','new-stock-icon'].forEach(function(id){ var el=ge(id); if(el){ el.value=id==='new-stock-qty'?'0':id==='new-stock-min'?'2':''; } });
-  showToast('"' + name + '" ajouté aux stocks', 'green');
+function removeStockItem(itemId){if(!stocksDB[currentStockProp])return;stocksDB[currentStockProp]=stocksDB[currentStockProp].filter(function(i){return i.id!==itemId;});saveStocks();renderStocks();}
+function toggleAddStockForm(){var f=ge('add-stock-form');f.style.display=f.style.display==='none'?'block':'none';if(f.style.display==='block')ge('new-stock-name').focus();}
+function addStockItem(){
+  var name=ge('new-stock-name').value.trim(); if(!name){showToast('Entrez un nom de produit','orange');return;}
+  var newItem={id:'u'+Date.now(),name:name,icon:ge('new-stock-icon').value||'📦',cat:ge('new-stock-cat').value||'Consommables',qty:parseInt(ge('new-stock-qty').value)||0,min:parseInt(ge('new-stock-min').value)||2,ref:ge('new-stock-url').value.trim()||''};
+  if(!stocksDB[currentStockProp])stocksDB[currentStockProp]=[];
+  stocksDB[currentStockProp].push(newItem); saveStocks(); renderStocks(); toggleAddStockForm();
+  ['new-stock-name','new-stock-qty','new-stock-min','new-stock-url','new-stock-icon'].forEach(function(id){var el=ge(id);if(el){el.value=id==='new-stock-qty'?'0':id==='new-stock-min'?'2':'';}});
+  showToast('"'+name+'" ajouté aux stocks','green');
 }
 
-async function analyseStocksIA() {
-  var description = ge('stock-ia-input').value.trim();
-  if (!description) { showToast("Décrivez l'état du logement d'abord", 'orange'); return; }
-  var apiKey = localStorage.getItem('mhk-anthropic-key');
-  if (!apiKey) { showToast('Clé API Anthropic manquante dans Paramètres', 'orange'); showInner('settings'); return; }
-  var btn = ge('btn-ia-analyse');
-  btn.disabled = true; btn.textContent = '⏳ Analyse en cours...';
-  ge('stock-ia-result').style.display = 'none';
-  var propName = (propertiesDB[currentStockProp] || {}).name || currentStockProp;
-  var currentStocksSummary = (stocksDB[currentStockProp] || []).map(function(i){ return i.name + ' (stock actuel: ' + i.qty + ', seuil: ' + i.min + ')'; }).join(', ');
-  var systemPrompt = "Tu es un assistant de gestion de logement Airbnb. Analyse l'état décrit par le propriétaire et génère une liste JSON de produits manquants ou en rupture à commander. Réponds UNIQUEMENT avec un JSON valide, sans texte avant ou après, sans backticks, au format:\n{\"manquants\":[{\"nom\":\"Café moulu\",\"quantite\":\"x2\",\"urgence\":\"haute|normale\",\"raison\":\"épuisé selon description\"}],\"resume\":\"Résumé en 1 phrase\"}\nSois précis, pratique, et base-toi sur les stocks actuels fournis.";
-  var userMsg = "Logement: " + propName + "\nStocks actuels: " + currentStocksSummary + "\n\nÉtat décrit par le propriétaire après check-out:\n" + description;
-  try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{ 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
-      body:JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:800, system:systemPrompt, messages:[{role:'user',content:userMsg}] })
-    });
-    var data = await response.json();
-    if (data.error) throw new Error(data.error.message);
-    var raw = data.content[0].text.replace(/```json|```/g,'').trim();
-    var parsed = JSON.parse(raw);
+async function analyseStocksIA(){
+  var description=ge('stock-ia-input').value.trim(); if(!description){showToast("Décrivez l'état du logement d'abord",'orange');return;}
+  var apiKey=localStorage.getItem('mhk-anthropic-key'); if(!apiKey){showToast('Clé API Anthropic manquante dans Paramètres','orange');showInner('settings');return;}
+  var btn=ge('btn-ia-analyse'); btn.disabled=true; btn.textContent='⏳ Analyse en cours...';
+  ge('stock-ia-result').style.display='none';
+  var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
+  var currentStocksSummary=(stocksDB[currentStockProp]||[]).map(function(i){return i.name+' (stock: '+i.qty+', seuil: '+i.min+', réf: '+(i.ref||'—')+')';}).join(', ');
+  var systemPrompt="Tu es un assistant de gestion de logement Airbnb. Analyse l'état décrit par le propriétaire et génère une liste JSON de produits manquants ou en rupture à commander. Réponds UNIQUEMENT avec un JSON valide, sans texte avant ou après, sans backticks, au format:\n{\"manquants\":[{\"nom\":\"Café moulu\",\"quantite\":\"x2\",\"urgence\":\"haute|normale\",\"raison\":\"épuisé selon description\",\"ref\":\"CAFE-001\"}],\"resume\":\"Résumé en 1 phrase\"}\nSois précis, pratique, et base-toi sur les stocks actuels fournis.";
+  var userMsg="Logement: "+propName+"\nStocks actuels: "+currentStocksSummary+"\n\nÉtat décrit par le propriétaire après check-out:\n"+description;
+  try{
+    var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:systemPrompt,messages:[{role:'user',content:userMsg}]})});
+    var data=await response.json();
+    if(data.error)throw new Error(data.error.message);
+    var raw=data.content[0].text.replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(raw);
     displayIaStockResult(parsed);
-  } catch(err) {
-    ge('stock-ia-result').style.display = 'block';
-    ge('stock-ia-result').innerHTML = '<div style="color:#991B1B;font-size:.8rem;background:#FEF2F2;border-radius:8px;padding:10px">Erreur IA : ' + err.message + '</div>';
+  }catch(err){
+    ge('stock-ia-result').style.display='block';
+    ge('stock-ia-result').innerHTML='<div style="color:#991B1B;font-size:.8rem;background:#FEF2F2;border-radius:8px;padding:10px">Erreur IA : '+err.message+'</div>';
   }
-  btn.disabled = false;
-  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
+  btn.disabled=false;
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
 }
-function displayIaStockResult(parsed) {
-  var res = ge('stock-ia-result');
-  res.style.display = 'block';
-  if (!parsed.manquants || !parsed.manquants.length) {
-    res.innerHTML = '<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté — stocks suffisants selon la description.</div>';
-    return;
-  }
-  var html = '<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ ' + (parsed.resume || parsed.manquants.length + ' produit(s) à commander') + '</div>';
-  html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
-  parsed.manquants.forEach(function(m) {
-    var urgCls = m.urgence === 'haute' ? 'chip-red' : 'chip-amber';
-    html += '<span class="chip ' + urgCls + '">' + m.nom + ' ×' + (m.quantite||'1') + '</span>';
-  });
-  html += '</div>';
-  res.innerHTML = html;
-  orderList = parsed.manquants.map(function(m, i) {
-    var items = stocksDB[currentStockProp] || [];
-    var match = items.find(function(s){ return s.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]); });
-    return { id:'o'+Date.now()+i, name:m.nom, qty:m.quantite||'1', urgence:m.urgence||'normale', raison:m.raison||'', url:match?match.url:'https://www.amazon.fr/s?k='+encodeURIComponent(m.nom), checked:true };
+function displayIaStockResult(parsed){
+  var res=ge('stock-ia-result'); res.style.display='block';
+  if(!parsed.manquants||!parsed.manquants.length){res.innerHTML='<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté — stocks suffisants selon la description.</div>';return;}
+  var html='<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ '+(parsed.resume||parsed.manquants.length+' produit(s) à commander')+'</div>';
+  html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
+  parsed.manquants.forEach(function(m){var urgCls=m.urgence==='haute'?'chip-red':'chip-amber';html+='<span class="chip '+urgCls+'">'+m.nom+' ×'+(m.quantite||'1')+'</span>';});
+  html+='</div>'; res.innerHTML=html;
+  // ── MODIFICATION: construire orderList sans URL Amazon, avec référence produit ──
+  orderList=parsed.manquants.map(function(m,i){
+    var items=stocksDB[currentStockProp]||[];
+    var match=items.find(function(s){return s.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]);});
+    return{id:'o'+Date.now()+i,name:m.nom,qty:m.quantite||'1',urgence:m.urgence||'normale',raison:m.raison||'',ref:m.ref||(match?match.ref||'':''),checked:true};
   });
   renderOrderList();
-  showToast('IA : ' + parsed.manquants.length + ' produit(s) identifié(s) !', 'green');
+  showToast('IA : '+parsed.manquants.length+' produit(s) identifié(s) !','green');
 }
-function renderOrderList() {
-  var container = ge('order-list');
-  var actions = ge('order-actions');
-  var countEl = ge('order-pending-count');
-  if (!orderList.length) {
-    container.innerHTML = '<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun produit à commander.</div>';
-    if (actions) actions.style.display = 'none';
-    if (countEl) countEl.style.display = 'none';
-    return;
+
+// ── MODIFICATION: renderOrderList — plus de lien Amazon ──
+function renderOrderList(){
+  var container=ge('order-list'), actions=ge('order-actions'), countEl=ge('order-pending-count');
+  if(!orderList.length){
+    container.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun produit à commander.</div>';
+    if(actions)actions.style.display='none'; if(countEl)countEl.style.display='none'; return;
   }
-  if (actions) actions.style.display = 'flex';
-  if (countEl) { countEl.style.display = ''; countEl.textContent = orderList.length + ' article' + (orderList.length>1?'s':''); }
-  var html = '';
-  orderList.forEach(function(item) {
-    var urgCls = item.urgence === 'haute' ? 'chip-red' : 'chip-amber';
-    html += '<div class="order-item" id="oitem-' + item.id + '"><div class="order-item-check' + (item.checked?' checked':'') + '" onclick="toggleOrderCheck(\'' + item.id + '\')"></div><div class="order-item-name">' + item.name + '<span class="chip ' + urgCls + '" style="margin-left:7px;font-size:.62rem">' + (item.urgence==='haute'?'Urgent':'Normal') + '</span></div><span class="order-item-qty">×' + item.qty + '</span><a class="order-item-link" href="' + item.url + '" target="_blank">Amazon →</a><button onclick="removeOrderItem(\'' + item.id + '\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px" title="Retirer">✕</button></div>';
+  if(actions)actions.style.display='flex';
+  if(countEl){countEl.style.display='';countEl.textContent=orderList.length+' article'+(orderList.length>1?'s':'');}
+  var html='';
+  orderList.forEach(function(item){
+    var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
+    // ── PLUS DE LIEN AMAZON : juste badge "À transmettre" ──
+    html+='<div class="order-item" id="oitem-'+item.id+'">'
+      +'<div class="order-item-check'+(item.checked?' checked':'')+'" onclick="toggleOrderCheck(\''+item.id+'\')"></div>'
+      +'<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);font-weight:400;margin-left:6px">Réf: '+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div>'
+      +'<span class="order-item-qty" style="margin-right:8px">×'+item.qty+'</span>'
+      +'<span class="chip chip-blue" style="font-size:.62rem">À transmettre</span>'
+      +'<button onclick="removeOrderItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px" title="Retirer">✕</button>'
+      +'</div>';
   });
-  container.innerHTML = html;
+  container.innerHTML=html;
 }
-function toggleOrderCheck(id) {
-  var item = orderList.find(function(i){ return i.id===id; });
-  if (item) item.checked = !item.checked;
-  var el = document.querySelector('#oitem-' + id + ' .order-item-check');
-  if (el) el.classList.toggle('checked', item.checked);
-}
-function removeOrderItem(id) { orderList = orderList.filter(function(i){ return i.id!==id; }); renderOrderList(); }
-function clearOrderList() { orderList = []; renderOrderList(); }
-function confirmOrderAll() {
-  var checked = orderList.filter(function(i){ return i.checked; });
-  if (!checked.length) { showToast('Sélectionnez au moins un article', 'orange'); return; }
-  var propName = (propertiesDB[currentStockProp]||{}).name || currentStockProp;
-  var summaryEl = ge('modal-order-summary');
-  summaryEl.textContent = checked.length + ' article(s) pour ' + propName + ' — liens Amazon prêts à commander.';
-  var itemsEl = ge('modal-order-items');
-  itemsEl.innerHTML = '';
-  checked.forEach(function(item) {
-    var row = document.createElement('div');
-    row.className = 'order-item'; row.style.marginBottom = '7px';
-    var urgCls = item.urgence === 'haute' ? 'chip-red' : 'chip-amber';
-    row.innerHTML = '<div class="order-item-name">' + item.name + '<span class="chip ' + urgCls + '" style="margin-left:7px;font-size:.62rem">' + (item.urgence==='haute'?'Urgent':'Normal') + '</span></div><span class="order-item-qty" style="margin-right:8px">×' + item.qty + '</span><a class="order-item-link" href="' + item.url + '" target="_blank">Voir Amazon →</a>';
+function toggleOrderCheck(id){var item=orderList.find(function(i){return i.id===id;});if(item)item.checked=!item.checked;var el=document.querySelector('#oitem-'+id+' .order-item-check');if(el)el.classList.toggle('checked',item.checked);}
+function removeOrderItem(id){orderList=orderList.filter(function(i){return i.id!==id;});renderOrderList();}
+function clearOrderList(){orderList=[];renderOrderList();}
+
+// ── MODIFICATION: confirmOrderAll — afficher bon de commande avec destinataire ──
+function confirmOrderAll(){
+  var checked=orderList.filter(function(i){return i.checked;});
+  if(!checked.length){showToast('Sélectionnez au moins un article','orange');return;}
+  var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
+  var orderRef='BC-'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-'+Math.floor(Math.random()*9000+1000);
+  // Résumé bon de commande
+  var summaryEl=ge('modal-order-summary');
+  summaryEl.innerHTML='<strong>'+checked.length+' article(s)</strong> pour <strong>'+propName+'</strong><br>'
+    +'Date : '+new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  ge('modal-order-ref').innerHTML='<div class="bon-commande-ref">'+orderRef+'</div>';
+  ge('modal-order-recipient').textContent=ORDER_ADMIN_EMAIL;
+  // Items
+  var itemsEl=ge('modal-order-items'); itemsEl.innerHTML='';
+  checked.forEach(function(item){
+    var row=document.createElement('div'); row.className='order-item'; row.style.marginBottom='7px';
+    var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
+    row.innerHTML='<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);margin-left:6px">Réf: '+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div><span class="order-item-qty" style="margin-right:8px">×'+item.qty+'</span>';
     itemsEl.appendChild(row);
   });
-  ge('order-note').value = '';
+  // Commission
+  var commRow=ge('modal-commission-row');
+  if(COMMISSION_PCT>0){
+    commRow.style.display='block';
+    ge('commission-label').textContent=COMMISSION_PCT+'% de commission MyHostKit appliquée';
+    ge('commission-amount').textContent='Inclus dans devis';
+  }else{commRow.style.display='none';}
+  ge('order-note').value='';
+  ge('modal-order-ref').dataset.ref=orderRef;
   openModal('order');
 }
-function executeOrder() {
-  var checked = orderList.filter(function(i){ return i.checked; });
-  var note = ge('order-note').value.trim();
-  var propName = (propertiesDB[currentStockProp]||{}).name || currentStockProp;
-  checked.forEach(function(item, idx) { setTimeout(function(){ window.open(item.url, '_blank'); }, idx * 300); });
-  var historyEntry = { id:'h'+Date.now(), date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}), prop:propName, items:checked.map(function(i){ return i.name+' ×'+i.qty; }), note:note, count:checked.length };
+
+// ── MODIFICATION: executeOrder — email mailto vers admin, plus d'Amazon ──
+function executeOrder(){
+  var checked=orderList.filter(function(i){return i.checked;});
+  var note=ge('order-note').value.trim();
+  var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
+  var orderRef=ge('modal-order-ref').dataset.ref||('BC-'+Date.now());
+  var dateStr=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  // Construire le corps de l'email
+  var emailSubject='[MyHostKit] Bon de commande '+orderRef+' — '+propName;
+  var emailBody='BON DE COMMANDE MyHostKit\n';
+  emailBody+='Référence : '+orderRef+'\n';
+  emailBody+='Date : '+dateStr+'\n';
+  emailBody+='Logement : '+propName+'\n';
+  emailBody+='━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  emailBody+='ARTICLES À COMMANDER :\n\n';
+  checked.forEach(function(item,i){
+    emailBody+=(i+1)+'. '+item.name+'\n';
+    emailBody+='   Quantité : '+item.qty+'\n';
+    if(item.ref)emailBody+='   Référence : '+item.ref+'\n';
+    emailBody+='   Urgence : '+(item.urgence==='haute'?'URGENT':'Normale')+'\n';
+    if(item.raison)emailBody+='   Raison : '+item.raison+'\n';
+    emailBody+='\n';
+  });
+  if(COMMISSION_PCT>0)emailBody+='━━━━━━━━━━━━━━━━━━━━━━\nCommission MyHostKit : '+COMMISSION_PCT+'%\n\n';
+  if(note)emailBody+='Note : '+note+'\n\n';
+  emailBody+='━━━━━━━━━━━━━━━━━━━━━━\nGénéré automatiquement par MyHostKit';
+  // Ouvrir le client mail avec le bon de commande pré-rempli
+  var mailtoLink='mailto:'+ORDER_ADMIN_EMAIL+'?subject='+encodeURIComponent(emailSubject)+'&body='+encodeURIComponent(emailBody);
+  window.location.href=mailtoLink;
+  // Sauvegarder dans l'historique
+  var historyEntry={id:'h'+Date.now(),date:dateStr,ref:orderRef,prop:propName,items:checked.map(function(i){return i.name+' ×'+i.qty;}),note:note,count:checked.length,commission:COMMISSION_PCT};
   orderHistory.unshift(historyEntry);
-  localStorage.setItem('mhk-order-history', JSON.stringify(orderHistory));
-  var checkedIds = checked.map(function(i){ return i.id; });
-  orderList = orderList.filter(function(i){ return !checkedIds.includes(i.id); });
+  localStorage.setItem('mhk-order-history',JSON.stringify(orderHistory));
+  var checkedIds=checked.map(function(i){return i.id;});
+  orderList=orderList.filter(function(i){return!checkedIds.includes(i.id);});
   renderOrderList(); renderOrderHistory();
   closeModal('order');
-  showToast(checked.length + ' article(s) commandés — Amazon ouvert', 'green');
+  showToast('✉ Bon de commande '+orderRef+' envoyé à '+ORDER_ADMIN_EMAIL,'green');
 }
-function renderOrderHistory() {
-  var container = ge('order-history-list');
-  var countEl = ge('order-history-count');
-  if (!container) return;
-  if (countEl) countEl.textContent = orderHistory.length + ' commande' + (orderHistory.length>1?'s':'');
-  if (!orderHistory.length) { container.innerHTML = '<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>'; return; }
-  container.innerHTML = orderHistory.slice(0,8).map(function(h) {
-    return '<div class="order-history-item"><div style="width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div><div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:var(--n)">' + h.prop + ' · ' + h.count + ' article(s)</div><div style="font-size:.72rem;color:var(--g);margin-top:2px">' + h.items.slice(0,3).join(', ') + (h.items.length>3?' +' + (h.items.length-3) + ' autres':'') + '</div>' + (h.note?'<div style="font-size:.7rem;color:var(--bl);margin-top:2px">Note: '+h.note+'</div>':'') + '</div><div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">' + h.date + '</div></div>';
+
+// ── MODIFICATION: renderOrderHistory — afficher la référence et la commission ──
+function renderOrderHistory(){
+  var container=ge('order-history-list'), countEl=ge('order-history-count'); if(!container)return;
+  if(countEl)countEl.textContent=orderHistory.length+' commande'+(orderHistory.length>1?'s':'');
+  if(!orderHistory.length){container.innerHTML='<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucun bon de commande passé.</div>';return;}
+  container.innerHTML=orderHistory.slice(0,8).map(function(h){
+    return '<div class="order-history-item">'
+      +'<div style="width:7px;height:7px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:4px"></div>'
+      +'<div style="flex:1">'
+        +'<div style="font-size:.82rem;font-weight:600;color:var(--n)">'+h.prop+' · '+h.count+' article(s)</div>'
+        +(h.ref?'<div style="font-size:.68rem;font-family:monospace;color:var(--bl);margin-top:1px">'+h.ref+'</div>':'')
+        +'<div style="font-size:.72rem;color:var(--g);margin-top:2px">'+h.items.slice(0,3).join(', ')+(h.items.length>3?' +' +(h.items.length-3)+' autres':'')+'</div>'
+        +(h.note?'<div style="font-size:.7rem;color:var(--g);margin-top:2px">Note: '+h.note+'</div>':'')
+        +(h.commission?'<div style="font-size:.7rem;color:var(--or-d);margin-top:2px">Commission: '+h.commission+'%</div>':'')
+      +'</div>'
+      +'<div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">'+h.date+'</div>'
+      +'</div>';
   }).join('');
 }
 
 // ════ INIT ════
-(async function init() {
-  var saved = localStorage.getItem('mhk-properties');
-  if (saved) { try { Object.assign(propertiesDB, JSON.parse(saved)); } catch(e) {} }
+(async function init(){
+  var saved=localStorage.getItem('mhk-properties'); if(saved){try{Object.assign(propertiesDB,JSON.parse(saved));}catch(e){}}
   initSupabase();
-  try {
-    var result = await sb.auth.getSession();
-    if (result.data && result.data.session && result.data.session.user) {
-      loadApp(result.data.session.user);
-      return;
-    }
-  } catch(e) {}
-  sb.auth.onAuthStateChange(function(event, session) {
-    if (event === 'SIGNED_IN' && session) loadApp(session.user);
-    if (event === 'SIGNED_OUT') showPage('auth');
+  try{
+    var result=await sb.auth.getSession();
+    if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}
+  }catch(e){}
+  sb.auth.onAuthStateChange(function(event,session){
+    if(event==='SIGNED_IN'&&session)loadApp(session.user);
+    if(event==='SIGNED_OUT')showPage('auth');
   });
 })();
 </script>
