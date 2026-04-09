@@ -1998,13 +1998,9 @@ function renderOrderHistory(){
     if(event==='SIGNED_IN'&&session)loadApp(session.user);
     if(event==='SIGNED_OUT')showPage('auth');
   });        
-})();        
-</script>
-<script>
-// ===== PATCH MyHostKit - Corrections et complétions =====
-// Intégrez ce bloc AVANT la fermeture </script> existante, ou remplacez les fonctions concernées.
+})();    
 
-// 1. INIT AU DÉMARRAGE - restaurer les plateformes connectées
+<script>
 function restoreConnectedPlatforms() {
   var connected = localStorage.getItem('mhk-platforms-connected');
   if (!connected) return;
@@ -2021,7 +2017,6 @@ function restoreConnectedPlatforms() {
   if (badge) badge.textContent = '12';
 }
 
-// 2. PLAN PRO - déverrouillage messages/revenue si plan >= pro
 function checkPlanAccess() {
   var plan = CURRENT_PLAN;
   var hasMsgAccess = (plan === 'pro' || plan === 'concpro' || plan === 'admin');
@@ -2037,7 +2032,6 @@ function checkPlanAccess() {
   }
 }
 
-// 9. GESTION ERREUR RÉSEAU pour l'IA - toast explicite
 function handleApiError(err, context) {
   var msg = 'Erreur API';
   if (err && err.message) {
@@ -2049,7 +2043,6 @@ function handleApiError(err, context) {
   showToast(msg, 'orange');
 }
 
-// 10. MISE À JOUR BADGE NOTIFICATIONS au démarrage
 function refreshBadges() {
   var notifs = buildNotificationsFromStocks ? buildNotificationsFromStocks() : [];
   var unread = notifs.filter(function(n) { return !n.read; }).length;
@@ -2074,7 +2067,6 @@ function refreshBadges() {
   }
 }
 
-// 11. CALENDRIER - reset complet
 function resetCalendar() {
   localStorage.removeItem('mhk-calendar');
   localStorage.removeItem('mhk-events');
@@ -2084,7 +2076,6 @@ function resetCalendar() {
   showToast('Calendrier réinitialisé', '');
 }
 
-// 12. EXPORT CSV STOCKS
 function exportStocksCSV() {
   var propId = currentStockProp;
   var items = (stocksDB && stocksDB[propId]) || [];
@@ -2104,7 +2095,6 @@ function exportStocksCSV() {
   showToast('Export CSV téléchargé', 'green');
 }
 
-// 13. RACCOURCIS CLAVIER GLOBAUX
 document.addEventListener('keydown', function(e) {
   // Ctrl+K = recherche rapide (placeholder)
   if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -2114,13 +2104,10 @@ document.addEventListener('keydown', function(e) {
   // Escape déjà géré par le code original
 });
 
-// 14. FORMATAGE DEVISE
 function fmtEur(n) {
   return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
 }
 
-// 15. APPLIQUER LES CORRECTIFS AU CHARGEMENT
-// (appelé après que le DOM soit prêt - le script original fait déjà un init async)
 window.addEventListener('load', function() {
   setTimeout(function() {
     refreshBadges();
@@ -2132,7 +2119,6 @@ window.addEventListener('load', function() {
   }, 300);
 });
 
-// ===== FIN DU PATCH =====
 </script>
 </body>
 </html>
