@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Assistant MyHostKit</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --green:#0FB980;--green-d:#0A9468;--green-l:#E0F7F0;
+  --bl:#1C5F8A;--bc:#2478A8;--bp:#E8F4FB;
+  --w:#fff;--n:#141414;--g:#6A6A72;
+  --border:rgba(0,0,0,.08);--radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:#F7F4EE;color:var(--n)}
+
+.header{background:var(--w);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.logomark{width:30px;height:30px;background:linear-gradient(135deg,#0FB980,#0A9468);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logoname{font-size:15px;font-weight:700;color:var(--n)}
+.ai-badge{font-size:10px;color:var(--green-d);background:var(--green-l);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:auto;display:flex;align-items:center;gap:4px}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.prop-banner{background:linear-gradient(135deg,#0F3D5C,#1C5F8A);padding:20px;text-align:center;color:#fff}
+.prop-banner-name{font-size:1.2rem;font-weight:700;margin-bottom:3px}
+.prop-banner-meta{font-size:.8rem;opacity:.7}
+
+.chat-wrap{max-width:600px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 200px)}
+
+.bubble{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.88rem;line-height:1.6}
+.bubble.ai{background:var(--w);border:1px solid var(--border);color:var(--n);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.bubble.user{background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bubble-wrap{display:flex;flex-direction:column}
+.bubble-wrap.user{align-items:flex-end}
+.bubble-meta{font-size:.65rem;color:#B8B5AE;margin-top:4px}
+.bubble-meta.left{text-align:left}
+
+.suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px;max-width:600px;margin:0 auto}
+.sugg-btn{padding:8px 14px;border:1.5px solid var(--border);border-radius:20px;background:var(--w);color:var(--n);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
+.sugg-btn:hover{border-color:var(--green);color:var(--green-d);background:var(--green-l)}
+
+.input-area{position:sticky;bottom:0;background:rgba(247,244,238,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:12px 16px;display:flex;gap:8px;max-width:100%}
+.input-area textarea{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:.88rem;font-family:inherit;outline:none;resize:none;transition:border-color .2s;background:var(--w);max-height:120px}
+.input-area textarea:focus{border-color:var(--bl)}
+.send-btn{padding:10px 18px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:12px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.send-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:14px;color:var(--g)}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.error-wrap{text-align:center;padding:60px 20px;color:var(--g)}
+.error-icon{font-size:2.5rem;margin-bottom:12px}
+.error-title{font-size:1rem;font-weight:700;color:var(--n);margin-bottom:6px}
+.error-sub{font-size:.84rem;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logomark"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+  <span class="logoname">MyHostKit</span>
+  <div class="ai-badge"><div class="ai-dot"></div>Assistant IA</div>
+</div>
+
+<div id="loading" class="loading-wrap">
+  <div class="loading-spinner"></div>
+  <div>Chargement de votre logement...</div>
+</div>
+
+<div id="error" class="error-wrap" style="display:none">
+  <div class="error-icon">😕</div>
+  <div class="error-title">Logement introuvable</div>
+  <div class="error-sub">Ce QR code ne correspond à aucun logement.<br>Contactez votre hôte directement.</div>
+</div>
+
+<div id="chat-app" style="display:none">
+  <div class="prop-banner">
+    <div class="prop-banner-name" id="prop-name">Chargement...</div>
+    <div class="prop-banner-meta" id="prop-meta">Assistant disponible 24h/24</div>
+  </div>
+
+  <div class="suggestions" id="suggestions">
+    <button class="sugg-btn" onclick="sendSugg(this)">🕐 Heure d'arrivée ?</button>
+    <button class="sugg-btn" onclick="sendSugg(this)">🔑 Code d'accès ?</button>
+    <button class="sugg-btn" onclick="sendSugg(this)">📶 Mot de passe WiFi ?</button>
+    <button class="sugg-btn" onclick="sendSugg(this)">🧹 Heure de départ ?</button>
+    <button class="sugg-btn" onclick="sendSugg(this)">🅿️ Parking disponible ?</button>
+  </div>
+
+  <div class="chat-wrap" id="chat-messages"></div>
+
+  <div class="input-area">
+    <textarea id="msg-input" rows="1" placeholder="Posez votre question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
+    <button class="send-btn" id="send-btn" onclick="sendMessage()">Envoyer</button>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+var property = null;
+var messages = [];
+
+// Récupérer l'ID du logement depuis l'URL
+var params = new URLSearchParams(window.location.search);
+var propId = params.get('id');
+
+async function init() {
+  if (!propId) { showError(); return; }
+
+  var { data, error } = await db.from('properties').select('*').eq('id', propId).single();
+
+  if (error || !data) { showError(); return; }
+
+  property = data;
+  document.title = 'Assistant — ' + property.name;
+  document.getElementById('prop-name').textContent = property.name;
+  document.getElementById('prop-meta').textContent = (property.address || '') + ' · Assistant disponible 24h/24';
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('chat-app').style.display = 'block';
+
+  addBubble('ai', 'Bonjour et bienvenue dans ' + property.name + ' ! 👋\n\nJe suis votre assistant IA disponible 24h/24. Posez-moi toutes vos questions sur le logement, je suis là pour vous aider !');
+}
+
+function showError() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display = 'block';
+}
+
+function addBubble(role, text, time) {
+  var container = document.getElementById('chat-messages');
+  var t = time || new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  var wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap' + (role === 'user' ? ' user' : '');
+  wrap.innerHTML =
+    '<div class="bubble ' + role + '">' + text.replace(/\n/g, '<br>') + '</div>' +
+    '<div class="bubble-meta' + (role === 'ai' ? ' left' : '') + '">' + (role === 'ai' ? '🤖 IA · ' : 'Vous · ') + t + '</div>';
+  container.appendChild(wrap);
+  container.scrollTop = container.scrollHeight;
+  return wrap;
+}
+
+function sendSugg(btn) {
+  var text = btn.textContent.replace(/^[^\s]+\s/, '').replace('?','');
+  document.getElementById('msg-input').value = btn.textContent;
+  sendMessage();
+  document.getElementById('suggestions').style.display = 'none';
+}
+
+async function sendMessage() {
+  var input = document.getElementById('msg-input');
+  var msg = input.value.trim();
+  if (!msg || !property) return;
+
+  input.value = '';
+  addBubble('user', msg);
+  messages.push({ role: 'user', content: msg });
+
+  var sendBtn = document.getElementById('send-btn');
+  sendBtn.disabled = true;
+
+  var typingWrap = addBubble('ai', '...');
+  typingWrap.querySelector('.bubble').style.opacity = '.5';
+
+  var systemPrompt = `Tu es un assistant de conciergerie IA pour le logement suivant.
+Réponds toujours de manière chaleureuse, précise et concise en français (ou dans la langue du voyageur).
+Ne dis jamais que tu es Claude ou une IA de Anthropic — tu es l'assistant de MyHostKit.
+
+=== FICHE LOGEMENT ===
+Nom: ${property.name}
+Adresse: ${property.address || 'Non communiquée'}
+Check-in: ${property.check_in_time || '15:00'} | Check-out: ${property.check_out_time || '11:00'}
+Code accès: ${property.access_code || 'Voir instructions'}
+WiFi: ${property.wifi_name || 'Non renseigné'} / Mot de passe: ${property.wifi_password || 'Non renseigné'}
+Ménagère: ${property.cleaner_name || ''} ${property.cleaner_email || ''}
+Message de bienvenue: ${property.welcome_message || ''}
+=== FIN FICHE ===
+
+Si tu n'as pas l'info, dis poliment de contacter l'hôte directement.`;
+
+  try {
+    var response = await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/ai-concierge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_KEY },
+      body: JSON.stringify({
+        property_id: property.id,
+        user_id: property.user_id,
+        guest_name: 'Voyageur',
+        message: msg
+      })
+    });
+
+    var data = await response.json();
+    typingWrap.remove();
+
+    var reply = data.response || 'Je reviens vers vous dans quelques instants.';
+    messages.push({ role: 'assistant', content: reply });
+    addBubble('ai', reply);
+
+  } catch(err) {
+    typingWrap.remove();
+    addBubble('ai', 'Une erreur est survenue. Veuillez réessayer ou contacter votre hôte directement.');
+  }
+
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+init();
+</script>
+</body>
+</html>
