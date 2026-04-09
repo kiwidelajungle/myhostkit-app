@@ -1997,8 +1997,8 @@ function renderOrderHistory(){
   sb.auth.onAuthStateChange(function(event,session){
     if(event==='SIGNED_IN'&&session)loadApp(session.user);
     if(event==='SIGNED_OUT')showPage('auth');
-  });
-})();
+  }
+
 // ===== PATCH MyHostKit - Corrections et complétions =====
 // Intégrez ce bloc AVANT la fermeture </script> existante, ou remplacez les fonctions concernées.
 
