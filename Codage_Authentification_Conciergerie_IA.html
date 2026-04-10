@@ -1227,6 +1227,7 @@ function loadApp(user){
   if(ge('set-email'))ge('set-email').value=user.email||'';
   CURRENT_USER_EMAIL=user.email||'';
   CURRENT_PLAN=IS_DEMO?'pro':getPlan(CURRENT_USER_EMAIL);
+  if(!IS_DEMO && CURRENT_USER_EMAIL) checkAndApplyPlan(CURRENT_USER_EMAIL);
   var apiSection=ge('api-key-settings-section');
   if(apiSection)apiSection.style.display=IS_DEMO?'none':'block';
   if(!IS_DEMO){
@@ -1830,7 +1831,16 @@ function renderAdminUsers(users){
 function filterAdminUsers(){var q=(ge('admin-user-search').value||'').toLowerCase();var filtered=adminUsersData.filter(function(u){return(u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);});renderAdminUsers(filtered);}
 function impersonateUser(email,prenom,plan){IMPERSONATE_USER={email:email,prenom:prenom,plan:plan};CURRENT_PLAN=plan||'starter';ge('impersonate-bar').style.display='flex';ge('impersonate-name').textContent=prenom+' ('+email+')';ge('sb-username').textContent=prenom+' (admin view)';ge('sb-email-display').textContent=email;applyPlanLocks();exitAdmin();showToast('👁 Compte de '+prenom,'orange');}
 function stopImpersonate(){IMPERSONATE_USER=null;CURRENT_PLAN='admin';ge('impersonate-bar').style.display='none';ge('sb-username').textContent='Rayane M.';ge('sb-email-display').textContent=ADMIN_EMAIL;applyPlanLocks();showToast('Retour à votre compte','green');}
-function upgradePlan(btn){btn.textContent='Traitement...';btn.disabled=true;setTimeout(function(){btn.textContent='Passer en Pro →';btn.disabled=false;showToast('Redirection vers Stripe...','blue');setTimeout(function(){window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01','_blank');},800);},1000);}
+function upgradePlan(btn, planId){
+  btn.textContent='Traitement...';btn.disabled=true;
+  setTimeout(function(){
+    btn.textContent='Passer en Pro →';btn.disabled=false;
+    showToast('Redirection vers Stripe...','blue');
+    setTimeout(function(){
+      window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01','_blank');
+    },800);
+  },1000);
+}
 function requestQuote(btn){btn.textContent='Demande envoyée ✓';btn.disabled=true;showToast('Devis envoyé. Réponse sous 24h.','green');}
 
 /* ================================================================
@@ -2067,6 +2077,19 @@ function restoreConnectedPlatforms(){
 ================================================================ */
 (async function init(){
   initSupabase();setCalMode('taken');
+  // Vérifier le plan depuis Supabase après login
+async function checkAndApplyPlan(userEmail){
+  try{
+    var result = await sb.from('subscriptions').select('plan,status').eq('email', userEmail).single();
+    if(result.data && result.data.status === 'active'){
+      CURRENT_PLAN = result.data.plan || 'starter';
+      localStorage.setItem('mhk-plan-' + userEmail, CURRENT_PLAN);
+      applyPlanLocks();
+      var planBadge = ge('sb-plan-badge');
+      if(planBadge) planBadge.textContent = '● ' + CURRENT_PLAN;
+    }
+  }catch(e){ console.log('Plan check:', e); }
+}
   try{
     var result=await sb.auth.getSession();
     if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}}catch(e){}
