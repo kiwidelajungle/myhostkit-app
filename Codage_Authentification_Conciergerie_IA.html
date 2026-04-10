@@ -2087,6 +2087,20 @@ window.addEventListener('load',function(){
     });
   }
 });
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.auth-tab').forEach(function(t,i){t.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup'));});
+  document.getElementById('form-login').style.display=tab==='login'?'':'none';
+  document.getElementById('form-signup').style.display=tab==='signup'?'':'none';
+}
+function doGoogle(){alert('Google login — configurez Supabase');}
+function doLogin(){alert('Connexion — configurez Supabase');}
+function doSignup(){alert('Inscription — configurez Supabase');}
+function loadDemo(){window.location.href='Codage_Conciergerie_IA.html';}
+function showReset(){document.getElementById('auth-main').style.display='none';document.getElementById('auth-reset').style.display='block';}
+function hideReset(){document.getElementById('auth-main').style.display='';document.getElementById('auth-reset').style.display='none';}
+function togglePwd(id){var i=document.getElementById(id);i.type=i.type==='text'?'password':'text';}
+function doReset(){alert('Email envoyé !');}
 </script>
 </body>
 </html>
