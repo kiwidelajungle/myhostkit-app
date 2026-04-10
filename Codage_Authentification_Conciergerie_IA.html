@@ -2054,13 +2054,18 @@ function addStockItem(){
 }
 
 /* ================================================================ PLANS UPGRADE / QUOTE */
-function upgradePlan(btn,plan){
-  btn.textContent='✓ Démarré !';btn.disabled=true;
-  setTimeout(function(){
-    if(!IS_DEMO){localStorage.setItem('mhk-plan-'+CURRENT_USER_EMAIL,plan);CURRENT_PLAN=plan;applyPlanLocks();}
-    showToast('Essai 30j '+(plan==='pro'?'Pro':'Starter')+' activé !','green');
-    btn.textContent='En cours d\'essai';
-  },600);
+async function upgradePlan(btn,plan){
+  if(IS_DEMO){showToast('Mode démo — créez un vrai compte','orange');return;}
+  btn.textContent='⏳ Redirection Stripe...';btn.disabled=true;
+  try{
+    var sess=await sb.auth.getSession();
+    var tok=sess&&sess.data&&sess.data.session&&sess.data.session.access_token;
+    if(!tok){showToast('Reconnectez-vous','orange');btn.textContent='Démarrer 30j gratuits →';btn.disabled=false;return;}
+    var res=await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tok},body:JSON.stringify({action:'create',plan:plan})});
+    var data=await res.json();
+    if(data.url){showToast('Redirection paiement sécurisé...','green');window.location.href=data.url;}
+    else{showToast('Erreur : '+(data.error||'inattendue'),'orange');btn.textContent='Démarrer 30j gratuits →';btn.disabled=false;}
+  }catch(e){showToast('Erreur réseau','orange');btn.textContent='Démarrer 30j gratuits →';btn.disabled=false;}
 }
 function requestQuote(btn){btn.textContent='✉ Demande envoyée !';btn.disabled=true;showToast('Demande de devis envoyée — réponse sous 2h','blue');}
 
@@ -2089,6 +2094,9 @@ window.addEventListener('load',function(){
     });
   }
 });
+
+// Retour Stripe
+(function(){var p=new URLSearchParams(window.location.search);if(p.get('success')==='1'){var pl=p.get('plan')||'pro';setTimeout(function(){showToast('🎉 Abonnement activé !','green');CURRENT_PLAN=pl;applyPlanLocks();},800);window.history.replaceState({},'',window.location.pathname);}if(p.get('canceled')==='1'){setTimeout(function(){showToast('Paiement annulé','orange');},800);window.history.replaceState({},'',window.location.pathname);}})();
 </script>
 </body>
 </html>
