@@ -268,9 +268,7 @@ body{display:flex;flex-direction:column}
 .chat-bubble.ai.typing{opacity:.6}
 .chat-meta{font-size:.64rem;color:#B8B5AE;margin-top:3px;text-align:right}
 .chat-meta.left{text-align:left}
-/* API KEY ROW — masquée en démo */
 .api-key-section{display:none}
-.api-key-section.show-in-settings{display:block}
 .api-key-row{display:flex;gap:8px;align-items:center}
 .api-key-input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:.84rem;font-family:monospace;outline:none;transition:border-color .2s}
 .api-key-input:focus{border-color:var(--bl)}
@@ -398,10 +396,10 @@ body{display:flex;flex-direction:column}
 .admin-search{width:100%;padding:10px 14px;background:#0D1117;border:1px solid #30363D;border-radius:9px;color:#E6EDF3;font-size:.85rem;font-family:inherit;outline:none;margin-bottom:14px;transition:border-color .2s}
 .admin-search:focus{border-color:#58A6FF}
 .admin-search::placeholder{color:#484F58}
-.plan-lock-overlay{position:absolute;inset:0;background:rgba(13,17,23,.85);backdrop-filter:blur(4px);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:20px;text-align:center}
+.plan-lock-overlay{position:absolute;inset:0;background:rgba(247,244,238,.92);backdrop-filter:blur(4px);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;padding:20px;text-align:center}
 .plan-lock-icon{font-size:1.8rem;margin-bottom:8px}
-.plan-lock-title{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:4px}
-.plan-lock-sub{font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:14px}
+.plan-lock-title{font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:4px}
+.plan-lock-sub{font-size:.78rem;color:var(--g);line-height:1.5;margin-bottom:14px}
 .btn-plan-unlock{padding:9px 20px;background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-plan-unlock:hover{transform:translateY(-1px)}
 .inner-page{position:relative}
@@ -416,7 +414,6 @@ body{display:flex;flex-direction:column}
 .cal-tool-btn.cal-blocked{background:#F4F2ED;color:#666;border-color:#D0CDD8}
 .cal-tool-btn.cal-clear{background:var(--red-l);color:var(--red-d);border-color:var(--red)}
 .cal-mode-label{font-size:.72rem;color:var(--g);padding:6px 0;display:flex;align-items:center;gap:5px}
-/* IA STATUS badge in topbar */
 .ia-powered-badge{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--green-d);font-weight:700;background:var(--green-l);padding:4px 10px;border-radius:20px;border:1px solid var(--green-b)}
 @media(max-width:900px){
   .auth-left{display:none}
@@ -573,44 +570,30 @@ body{display:flex;flex-direction:column}
     <!-- DASHBOARD -->
     <div id="inner-dashboard" class="inner-page active">
       <div class="kpi-grid">
-  <div class="kpi"><div class="kpi-lbl">Revenus ce mois</div><div class="kpi-val" id="kpi-revenus">—</div><div class="kpi-delta muted">Connectez Airbnb pour activer</div></div>
-  <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val" id="kpi-occupation">—</div><div class="kpi-delta muted">Connectez Airbnb pour activer</div></div>
-  <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val" id="kpi-messages">0</div><div class="kpi-delta muted">En attente de messages</div></div>
-  <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val" id="kpi-note">—</div><div class="kpi-delta muted">Aucun avis pour l'instant</div></div>
-</div> class="kpi-delta up">↑ +22% vs mars</div></div>
-        <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val">87%</div><div class="kpi-delta up">↑ +8 pts</div></div>
-        <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val">1 247</div><div class="kpi-delta up">0 escalade humaine</div></div>
-        <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val">4.9★</div><div class="kpi-delta up">↑ +0.2 ce mois</div></div>
+        <div class="kpi"><div class="kpi-lbl">Revenus ce mois</div><div class="kpi-val" id="kpi-revenus">—</div><div class="kpi-delta muted" id="kpi-revenus-delta">Connectez Airbnb pour activer</div></div>
+        <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val" id="kpi-occupation">—</div><div class="kpi-delta muted" id="kpi-occupation-delta">Connectez Airbnb pour activer</div></div>
+        <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val" id="kpi-messages">0</div><div class="kpi-delta muted">En attente de messages</div></div>
+        <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val" id="kpi-note">—</div><div class="kpi-delta muted">Aucun avis pour l'instant</div></div>
       </div>
       <div class="ai-panel">
-  <div class="ai-panel-title">✦ Suggestions IA du jour</div>
-  <div id="ai-suggestions-list">
-    <div style="text-align:center;padding:18px 0;color:#085041;font-size:.82rem">
-      Aucune suggestion pour l'instant — connectez Airbnb ou Booking.com pour activer l'analyse IA.
-    </div>
-  </div>
-</div>
-        <div class="ai-sugg" onclick="applySuggestion(this,'Message de départ planifié pour demain')">Le guest de l'Apt. Lyon part demain — envoyer le message de départ + demande d'avis.<div class="ai-sugg-action">Planifier maintenant</div></div>
+        <div class="ai-panel-title">✦ Suggestions IA du jour</div>
+        <div id="ai-suggestions-list">
+          <div class="ai-sugg" onclick="applySuggestion(this,'Message de départ planifié pour demain')">Le guest de l'Apt. Lyon part demain — envoyer le message de départ + demande d'avis.<div class="ai-sugg-action">Planifier maintenant</div></div>
+          <div class="ai-sugg" onclick="applySuggestion(this,'Tarif Festival de Cannes appliqué')">Festival de Cannes (16-27 mai) — demande +38% sur Nice. Appliquer le tarif suggéré 252€/nuit ?<div class="ai-sugg-action">Appliquer le tarif</div></div>
+          <div class="ai-sugg" onclick="applySuggestion(this,'Stocks réapprovisionnés')">Studio Bordeaux : café et papier toilette en rupture avant prochain check-in vendredi.<div class="ai-sugg-action">Commander maintenant</div></div>
+        </div>
       </div>
       <div class="grid2">
         <div class="card">
-          <div class="card-title">Propriétés <span>4 actives</span></div>
+          <div class="card-title">Propriétés <span id="dash-prop-count">4 actives</span></div>
           <div id="dash-prop-list"></div>
         </div>
         <div class="card">
-  <div class="card-title">Propriétés <span id="dash-prop-count">0 active</span></div>
-  <div id="dash-prop-list">
-    <div style="text-align:center;padding:22px 0;color:var(--g);font-size:.82rem">
-      Aucune propriété — <span style="color:var(--bl);cursor:pointer;font-weight:600" onclick="showInner('properties')">Ajouter un logement →</span>
+          <div class="card-title">Revenus par propriété</div>
+          <div id="dash-revenus-list"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-title">Revenus par propriété</div>
-  <div id="dash-revenus-list">
-    <div style="text-align:center;padding:22px 0;color:var(--g);font-size:.82rem">Connectez Airbnb pour voir vos revenus.</div>
-  </div>
-</div>
 
     <!-- MESSAGES -->
     <div id="inner-messages" class="inner-page">
@@ -621,13 +604,14 @@ body{display:flex;flex-direction:column}
         <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Escaladés (0)</span>
       </div>
       <div class="card">
-  <div style="text-align:center;padding:36px 0">
-    <div style="font-size:2rem;margin-bottom:12px">💬</div>
-    <div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Aucun message pour l'instant</div>
-    <div style="font-size:.82rem;color:var(--g);margin-bottom:18px">Connectez Airbnb ou Booking.com pour recevoir et répondre aux messages guests automatiquement.</div>
-    <button class="btn-cta" onclick="showInner('integrations')">Connecter une plateforme →</button>
-  </div>
-</div>
+        <div style="text-align:center;padding:36px 0">
+          <div style="font-size:2rem;margin-bottom:12px">💬</div>
+          <div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Aucun message pour l'instant</div>
+          <div style="font-size:.82rem;color:var(--g);margin-bottom:18px">Connectez Airbnb ou Booking.com pour recevoir et répondre aux messages guests automatiquement.</div>
+          <button class="btn-cta" onclick="showInner('integrations')">Connecter une plateforme →</button>
+        </div>
+      </div>
+    </div>
 
     <!-- REVENUE INTELLIGENCE -->
     <div id="inner-revenue" class="inner-page">
@@ -681,7 +665,7 @@ body{display:flex;flex-direction:column}
     <!-- PROPRIETES -->
     <div id="inner-properties" class="inner-page">
       <div class="card">
-        <div class="card-title">Mes propriétés <span>4 actives</span></div>
+        <div class="card-title">Mes propriétés <span id="prop-count-label">4 actives</span></div>
         <div id="prop-list-full"></div>
         <div style="margin-top:16px">
           <button class="btn-outline" onclick="openAddProperty()" style="margin-right:10px">+ Ajouter une propriété</button>
@@ -713,47 +697,51 @@ body{display:flex;flex-direction:column}
       </div>
     </div>
 
-    <!-- OFFRES -->
-    <div class="plan-card">
-  <div class="plan-name">Starter</div>
-  <div class="plan-price">49<span>€/mois</span></div>
-  <div class="plan-period">1 logement · 30j gratuits</div>
-  <div class="plan-feat">Réponses IA 24h/24</div>
-  <div class="plan-feat">Alertes stock email</div>
-  <div class="plan-feat">Tableau de bord</div>
-  <div class="plan-feat">Rapport mensuel</div>
-  <div class="plan-feat no">Coordination ménage</div>
-  <div class="plan-feat no">Email prestataire auto</div>
-  <div class="plan-feat no">Revenue Intelligence</div>
-  <div class="plan-feat no">Marque blanche</div>
-  <button class="btn-plan btn-plan-ghost" onclick="upgradePlan(this,'starter')">Démarrer 30j gratuits →</button>
-</div>
-<div class="plan-card featured">
-  <div class="plan-badge">⭐ Le plus populaire</div>
-  <div class="plan-name">Pro</div>
-  <div class="plan-price">89<span>€/mois</span></div>
-  <div class="plan-period">1 logement · 30j gratuits</div>
-  <div class="plan-feat">Tout Starter inclus</div>
-  <div class="plan-feat">Coordination ménage auto</div>
-  <div class="plan-feat">Email prestataire auto</div>
-  <div class="plan-feat">Revenue Intelligence Live</div>
-  <div class="plan-feat">Rapport hebdomadaire</div>
-  <div class="plan-feat">Planning mensuel complet</div>
-  <div class="plan-feat no">Marque blanche</div>
-  <button class="btn-plan btn-plan-main" onclick="upgradePlan(this,'pro')">Démarrer 30j gratuits →</button>
-</div>
-<div class="plan-card">
-  <div class="plan-name">Conciergerie Pro</div>
-  <div class="plan-price" style="font-size:1.5rem;padding-top:8px">Sur devis</div>
-  <div class="plan-period">Multi-logements · Illimité</div>
-  <div class="plan-feat">Tout Pro inclus</div>
-  <div class="plan-feat">Logements illimités</div>
-  <div class="plan-feat">Dashboard marque blanche</div>
-  <div class="plan-feat">Account manager dédié</div>
-  <div class="plan-feat">Formation équipe</div>
-  <div class="plan-feat">API & intégrations</div>
-  <button class="btn-plan btn-plan-ghost" onclick="requestQuote(this)">Obtenir mon devis gratuit →</button>
-</div>
+    <!-- OFFRES — FIX: wrapper manquant -->
+    <div id="inner-offers" class="inner-page">
+      <div class="grid3" style="margin-top:8px">
+        <div class="plan-card">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price">49<span>€/mois</span></div>
+          <div class="plan-period">1 logement · 30j gratuits</div>
+          <div class="plan-feat">Réponses IA 24h/24</div>
+          <div class="plan-feat">Alertes stock email</div>
+          <div class="plan-feat">Tableau de bord</div>
+          <div class="plan-feat">Rapport mensuel</div>
+          <div class="plan-feat no">Coordination ménage</div>
+          <div class="plan-feat no">Email prestataire auto</div>
+          <div class="plan-feat no">Revenue Intelligence</div>
+          <div class="plan-feat no">Marque blanche</div>
+          <button class="btn-plan btn-plan-ghost" onclick="upgradePlan(this,'starter')">Démarrer 30j gratuits →</button>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-badge">⭐ Le plus populaire</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">89<span>€/mois</span></div>
+          <div class="plan-period">1 logement · 30j gratuits</div>
+          <div class="plan-feat">Tout Starter inclus</div>
+          <div class="plan-feat">Coordination ménage auto</div>
+          <div class="plan-feat">Email prestataire auto</div>
+          <div class="plan-feat">Revenue Intelligence Live</div>
+          <div class="plan-feat">Rapport hebdomadaire</div>
+          <div class="plan-feat">Planning mensuel complet</div>
+          <div class="plan-feat no">Marque blanche</div>
+          <button class="btn-plan btn-plan-main" onclick="upgradePlan(this,'pro')">Démarrer 30j gratuits →</button>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Conciergerie Pro</div>
+          <div class="plan-price" style="font-size:1.5rem;padding-top:8px">Sur devis</div>
+          <div class="plan-period">Multi-logements · Illimité</div>
+          <div class="plan-feat">Tout Pro inclus</div>
+          <div class="plan-feat">Logements illimités</div>
+          <div class="plan-feat">Dashboard marque blanche</div>
+          <div class="plan-feat">Account manager dédié</div>
+          <div class="plan-feat">Formation équipe</div>
+          <div class="plan-feat">API & intégrations</div>
+          <button class="btn-plan btn-plan-ghost" onclick="requestQuote(this)">Obtenir mon devis gratuit →</button>
+        </div>
+      </div>
+    </div>
 
     <!-- PARAMETRES -->
     <div id="inner-settings" class="inner-page">
@@ -764,7 +752,6 @@ body{display:flex;flex-direction:column}
         <div class="settings-row"><div><div class="settings-row-label">Escalade humaine</div><div class="settings-row-sub">Vous alerter si l'IA ne peut pas répondre</div></div><button class="toggle on" onclick="toggleSetting(this,'Escalade humaine')"></button></div>
         <div class="settings-row"><div><div class="settings-row-label">Demande d'avis automatique</div><div class="settings-row-sub">Envoyer une demande d'avis 24h après le départ</div></div><button class="toggle" onclick="toggleSetting(this,'Demande avis')"></button></div>
       </div>
-      <!-- Clé API masquée en démo, visible pour les vrais comptes -->
       <div class="settings-section api-key-section" id="api-key-settings-section">
         <div class="settings-title">Clé API Anthropic (optionnel — avancé)</div>
         <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:10px">
@@ -863,9 +850,9 @@ body{display:flex;flex-direction:column}
       </div>
     </div>
 
-  </div>
-  </div>
-</div>
+  </div><!-- /main-content-area -->
+  </div><!-- /app-inner -->
+</div><!-- /page-app -->
 
 <!-- MODALS -->
 <div id="modal-order" class="modal-overlay" onclick="if(event.target===this)closeModal('order')">
@@ -970,7 +957,6 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<!-- MODAL IA — chat immédiatement fonctionnel -->
 <div id="modal-ia" class="modal-overlay" onclick="if(event.target===this)closeModal('ia')">
   <div class="modal-box">
     <div class="modal-head">
@@ -1060,12 +1046,6 @@ body{display:flex;flex-direction:column}
 </div>
 
 <script>
-/* ================================================================
-   MYHOSTKIT — IA ENGINE
-   En mode démo : moteur IA intégré, aucune clé requise.
-   En mode compte : utilise la clé perso si fournie, sinon moteur démo.
-================================================================ */
-
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
 var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
@@ -1073,48 +1053,67 @@ var CURRENT_USER_EMAIL='',CURRENT_PLAN='starter',IMPERSONATE_USER=null;
 var ADMIN_EMAIL='m.rayane8306@gmail.com',ADMIN_TEAM=[ADMIN_EMAIL],ADMIN_PIN='2727',adminAuthenticated=false;
 
 /* ================================================================
-   MOTEUR IA DÉMO — Intelligence contextuelle sans API externe
-   Génère des réponses réalistes à partir des fiches logement.
+   DONNÉES STATIQUES — FIX: propStaticData + propertiesDB définis
 ================================================================ */
+var propStaticData={
+  'apt-lyon':{status:'Occupé',revenue:'2 840€',checkoutSoon:true},
+  'villa-nice':{status:'Libre',revenue:'1 950€',checkoutSoon:false},
+  'studio-bordeaux':{status:'Occupé',revenue:'980€',checkoutSoon:false},
+  'chalet-huez':{status:'Libre',revenue:'3 200€',checkoutSoon:false}
+};
 
-/**
- * Répond intelligemment à un message guest en analysant le contexte du logement.
- * Simule un délai réaliste (600ms–1.4s) puis retourne une réponse contextuelle.
- */
-async function demoAiReply(userMsg, prop) {
-  var delay = 600 + Math.random() * 800;
-  await new Promise(function(r){setTimeout(r, delay);});
-  return generateSmartDemoResponse(userMsg, prop);
-}
+var propertiesDB={
+  'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'4821#',access:'Digicode 4821# puis 2e étage droite.',rules:'Pas de fêtes. Pas de fumée. Animaux non autorisés.',amenities:'WiFi: Freebox-Lyon / mdp: Welcome2024. Parking rue.',contacts:'Ménage: Marie 06 12 34 56 78 · Plombier: 04 72 00 00 00',welcome:'Bienvenue à Lyon ! Le guide est sur la table basse.'},
+  'villa-nice':{name:'Villa Nice',emoji:'🌴',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'45 avenue de la Promenade, 06000 Nice',checkin:'16:00',checkout:'11:00',code:'1234A',access:'Portail électrique, télécommande dans la boîte à clés code 1234A.',rules:'Pas de fêtes. Piscine de 8h à 22h. Serviettes piscine fournies.',amenities:'WiFi: Villa-Nice-5G / mdp: Soleil2024. Parking privé. Piscine.',contacts:'Ménage: Lucie 06 98 76 54 32 · Jardinier: 06 11 22 33 44',welcome:'Bienvenue à Nice ! Profitez de la piscine et de la vue mer.'},
+  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 cours de l\'Intendance, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'9876#',access:'Immeuble sécurisé, code 9876# puis appartement 3A.',rules:'Pas de fumée. Petit-déjeuner non inclus. Max 2 personnes.',amenities:'WiFi: Bbox-Bordeaux / mdp: Gironde33. Tout équipé.',contacts:'Ménage: Sophie 06 55 44 33 22',welcome:'Bienvenue à Bordeaux ! Les caves sont à 5 min à pied.'},
+  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"123 route du Téléphérique, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'5555B',access:'Clé sous le paillasson, code 5555B pour le sauna.',rules:'Ski-in ski-out. Pas de chaussures de ski dans le chalet. Sauna dispo.',amenities:'WiFi: Chalet-Huez / mdp: Montagne2024. Sauna. Garage à skis. Buanderie.',contacts:"Ménage: Isabelle 06 77 88 99 00 · Urgence station: 04 76 11 44 44",welcome:"Bienvenue au chalet ! Les forfaits sont à la réception de la station."}
+};
 
-/**
- * Analyse IA stocks en mode démo — détecte les produits manquants dans le texte
- * et génère un rapport JSON structuré.
- */
-async function demoStockAnalysis(description) {
-  await new Promise(function(r){setTimeout(r, 900 + Math.random() * 500);});
-  return generateDemoStockAnalysis(description);
-}
+/* ================================================================
+   STOCKS DEFAULT — FIX: données remises en place
+================================================================ */
+var STOCKS_DEFAULT={
+  'apt-lyon':[
+    {id:'al1',name:'Capsules café',icon:'☕',cat:'Consommables',qty:2,min:4,ref:'CAFE-001'},
+    {id:'al2',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:6,min:6,ref:'HYG-001'},
+    {id:'al3',name:'Savon liquide',icon:'🧴',cat:'Consommables',qty:1,min:2,ref:'HYG-002'},
+    {id:'al4',name:'Serviettes de bain',icon:'🛁',cat:'Linge',qty:4,min:4,ref:'LIN-001'},
+    {id:'al5',name:'Draps (jeu complet)',icon:'🛏',cat:'Linge',qty:2,min:2,ref:'LIN-002'},
+    {id:'al6',name:'Liquide vaisselle',icon:'🫧',cat:'Entretien',qty:1,min:1,ref:'ENT-001'},
+    {id:'al7',name:'Ampoule LED E27',icon:'💡',cat:'Équipements',qty:3,min:2,ref:'EQP-001'}
+  ],
+  'villa-nice':[
+    {id:'vn1',name:'Capsules café Nespresso',icon:'☕',cat:'Consommables',qty:0,min:8,ref:'CAFE-002'},
+    {id:'vn2',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:4,min:8,ref:'HYG-001'},
+    {id:'vn3',name:'Gel douche',icon:'🧴',cat:'Consommables',qty:3,min:4,ref:'HYG-003'},
+    {id:'vn4',name:'Serviettes plage',icon:'🏖',cat:'Linge',qty:6,min:8,ref:'LIN-003'},
+    {id:'vn5',name:'Serviettes de bain',icon:'🛁',cat:'Linge',qty:8,min:8,ref:'LIN-001'},
+    {id:'vn6',name:'Pastilles lave-vaisselle',icon:'🍽',cat:'Entretien',qty:12,min:10,ref:'ENT-002'},
+    {id:'vn7',name:'Chlore piscine',icon:'🏊',cat:'Entretien',qty:1,min:2,ref:'ENT-003'}
+  ],
+  'studio-bordeaux':[
+    {id:'sb1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:0,min:2,ref:'CAFE-003'},
+    {id:'sb2',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:2,min:4,ref:'HYG-001'},
+    {id:'sb3',name:'Savon mains',icon:'🧼',cat:'Consommables',qty:1,min:2,ref:'HYG-004'},
+    {id:'sb4',name:'Serviettes de bain',icon:'🛁',cat:'Linge',qty:2,min:2,ref:'LIN-001'},
+    {id:'sb5',name:'Produit ménager spray',icon:'🧹',cat:'Entretien',qty:1,min:1,ref:'ENT-004'}
+  ],
+  'chalet-huez':[
+    {id:'ch1',name:'Chocolat chaud',icon:'🍫',cat:'Consommables',qty:3,min:4,ref:'CAFE-004'},
+    {id:'ch2',name:'Café capsules',icon:'☕',cat:'Consommables',qty:5,min:6,ref:'CAFE-001'},
+    {id:'ch3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:8,min:8,ref:'HYG-001'},
+    {id:'ch4',name:'Serviettes de bain',icon:'🛁',cat:'Linge',qty:10,min:10,ref:'LIN-001'},
+    {id:'ch5',name:'Sel déneigement',icon:'🧂',cat:'Entretien',qty:1,min:2,ref:'ENT-005'},
+    {id:'ch6',name:'Bûches de bois',icon:'🪵',cat:'Équipements',qty:8,min:10,ref:'EQP-002'},
+    {id:'ch7',name:'Pastilles sauna',icon:'🧖',cat:'Équipements',qty:2,min:2,ref:'EQP-003'}
+  ]
+};
 
-/**
- * Revenue Intelligence en mode démo — génère des recommandations tarifaires
- * contextuelles pour avril-mai 2026.
- */
-async function demoRevIntelRefresh() {
-  await new Promise(function(r){setTimeout(r, 1000 + Math.random() * 600);});
-  return [
-    {id:'ri1', sub:'🔥 Festival de Cannes (16-27 mai) — demande +38% sur Nice. Prix suggéré 252€/nuit pour maximiser.'},
-    {id:'ri2', sub:'📉 Taux local Lyon à 47% semaine 15 — baisser temporairement à 115€ pour remplir les 3 nuits libres vs inoccupé.'},
-    {id:'ri3', sub:'✅ Chalet Alpe d\'Huez — tarifs saison ski confirmés dans la fourchette haute. Taux prévisionnel 99%.'}
-  ];
-}
-
-/**
- * Obtient la clé API : clé perso si configurée, sinon null (mode démo).
- */
-function getApiKey() {
-  return localStorage.getItem('mhk-anthropic-key') || null;
-}
+var stocksDB={},currentStockProp='apt-lyon',orderList=[],orderHistory=[];
+var revIntelData=[];
+var iaMessages=[],iaCurrentProp=null;
+var calendarData={},calMode='taken',calEvents=[];
+var notificationsData=[];
 
 /* ================================================================
    HELPERS UI
@@ -1125,7 +1124,7 @@ function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.c
 
 function showInner(id){
   document.querySelectorAll('.inner-page').forEach(function(p){p.classList.remove('active');});
-  ge('inner-'+id).classList.add('active');
+  var target=ge('inner-'+id);if(target)target.classList.add('active');
   document.querySelectorAll('.sb-item').forEach(function(b){b.classList.remove('active');});
   var btn=document.querySelector('.sb-item[data-nav="'+id+'"]');
   if(btn)btn.classList.add('active');
@@ -1133,6 +1132,7 @@ function showInner(id){
   ge('topbar-title').textContent=titles[id]||id;
   if(id==='properties')renderPropList();
   if(id==='notifications')renderNotifications();
+  if(id==='revenue')buildPriceRows();
 }
 
 var _toastTimer;
@@ -1162,9 +1162,7 @@ function activateDemoBar(){
   var bar=ge('demo-mode-bar');
   if(bar)bar.style.display='flex';
   var sidebar=ge('main-sidebar');
-  var content=ge('main-content-area');
   if(sidebar)sidebar.style.marginTop='36px';
-  /* Masquer la section clé API en démo */
   var apiSection=ge('api-key-settings-section');
   if(apiSection)apiSection.style.display='none';
 }
@@ -1175,32 +1173,24 @@ async function doLogin(){
   if(!email.includes('@')){showAlert('Email invalide.','err');return;}
   if(!pass){showAlert('Entrez votre mot de passe.','err');return;}
   setLoading('btn-login',true);
-  
-  try {
+  try{
     var result=await sb.auth.signInWithPassword({email:email,password:pass});
-    
     if(result.error){
-      // Afficher le vrai message d'erreur Supabase
-      var msg = result.error.message;
-      if(msg.includes('Invalid login credentials')) msg='Email ou mot de passe incorrect.';
-      else if(msg.includes('Email not confirmed')) msg='Confirmez votre email avant de vous connecter.';
-      else if(msg.includes('Too many requests')) msg='Trop de tentatives. Attendez quelques minutes.';
+      var msg=result.error.message;
+      if(msg.includes('Invalid login credentials'))msg='Email ou mot de passe incorrect.';
+      else if(msg.includes('Email not confirmed'))msg='Confirmez votre email avant de vous connecter.';
+      else if(msg.includes('Too many requests'))msg='Trop de tentatives. Attendez quelques minutes.';
       showAlert(msg,'err');
-      setLoading('btn-login',false);
-      return;
-    }
-    
-    if(result.data && result.data.user){
+    }else if(result.data&&result.data.user){
       loadApp(result.data.user);
-    } else {
+    }else{
       showAlert('Connexion échouée — réessayez.','err');
     }
-  } catch(e) {
-    showAlert('Erreur réseau : '+e.message,'err');
-  }
-  
+  }catch(e){showAlert('Erreur réseau : '+e.message,'err');}
   setLoading('btn-login',false);
-}async function doSignup(){
+}
+
+async function doSignup(){
   clearAlert();
   var prenom=ge('s-prenom').value.trim(),email=ge('s-email').value.trim(),pass=ge('s-pass').value;
   if(!prenom){showAlert('Entrez votre prénom.','err');return;}
@@ -1237,10 +1227,8 @@ function loadApp(user){
   if(ge('set-email'))ge('set-email').value=user.email||'';
   CURRENT_USER_EMAIL=user.email||'';
   CURRENT_PLAN=IS_DEMO?'pro':getPlan(CURRENT_USER_EMAIL);
-  /* Afficher section clé API seulement pour les vrais comptes */
   var apiSection=ge('api-key-settings-section');
   if(apiSection)apiSection.style.display=IS_DEMO?'none':'block';
-  /* Restaurer clé si compte réel */
   if(!IS_DEMO){
     var savedKey=localStorage.getItem('mhk-anthropic-key');
     if(savedKey&&ge('anthropic-key')){
@@ -1251,13 +1239,22 @@ function loadApp(user){
   var adminBtn=ge('sb-admin-btn');
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
   var savedProps=localStorage.getItem('mhk-properties');
-  if(savedProps){try{Object.assign(propertiesDB,JSON.parse(savedProps));}catch(e){}}
-  buildCalendar();buildPriceRows();loadPropertiesIntoSelect();initStocks();initRevIntel();
-  renderPropList();renderNotifications();
-  showPage('app');showInner('dashboard');
+  if(savedProps){try{var parsed=JSON.parse(savedProps);Object.keys(parsed).forEach(function(k){propertiesDB[k]=parsed[k];});}catch(e){}}
+  initStocks();
+  buildCalendar();
+  buildPriceRows();
+  loadPropertiesIntoSelect();
+  initRevIntel();
+  renderPropList();
+  renderDashRevenues();
+  renderNotifications();
+  showPage('app');
+  showInner('dashboard');
   if(IS_DEMO)activateDemoBar();
   setTimeout(function(){
-    applyPlanLocks();renderStocks();renderOrderHistory();
+    applyPlanLocks();
+    renderStocks();
+    renderOrderHistory();
     restoreConnectedPlatforms();
   },80);
   showToast('Bonjour '+prenom+' ! IA active ✦','green');
@@ -1284,6 +1281,8 @@ function saveApiKey(){
   }
 }
 
+function getApiKey(){return localStorage.getItem('mhk-anthropic-key')||null;}
+
 function connectPlatform(btn,name){
   btn.textContent='Connexion...';btn.disabled=true;
   setTimeout(function(){
@@ -1302,7 +1301,6 @@ function toggleSetting(btn,name){btn.classList.toggle('on');showToast(name+(btn.
 /* ================================================================
    NOTIFICATIONS
 ================================================================ */
-var notificationsData=[];
 function buildNotificationsFromStocks(){
   var notifs=[];
   Object.keys(STOCKS_DEFAULT).forEach(function(propId){
@@ -1317,6 +1315,7 @@ function buildNotificationsFromStocks(){
   notifs.push({id:'notif-review',type:'ok',title:'Nouvel avis 5 étoiles — Studio Bordeaux',sub:'"Parfait séjour, réponses ultra rapides !" — Thomas K.',time:'Hier',read:true});
   return notifs;
 }
+
 function renderNotifications(){
   notificationsData=buildNotificationsFromStocks();
   var unread=notificationsData.filter(function(n){return!n.read;}).length;
@@ -1333,11 +1332,21 @@ function renderNotifications(){
 function markReadN(idx){if(notificationsData[idx])notificationsData[idx].read=true;renderNotifications();}
 
 /* ================================================================
+   DASHBOARD REVENUS
+================================================================ */
+function renderDashRevenues(){
+  var el=ge('dash-revenus-list');if(!el)return;
+  var propIds=['apt-lyon','villa-nice','studio-bordeaux','chalet-huez'];
+  el.innerHTML=propIds.map(function(id){
+    var sd=propStaticData[id]||{};
+    var prop=propertiesDB[id]||{};
+    return '<div class="prop-row" style="cursor:default"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+'</div></div><span class="chip chip-green">'+sd.revenue+'</span></div>';
+  }).join('');
+}
+
+/* ================================================================
    PROPRIÉTÉS
 ================================================================ */
-var propertiesDB={};
-};
-
 function getPropAlerts(propId){
   var alerts=[];
   var items=stocksDB[propId]||STOCKS_DEFAULT[propId]||[];
@@ -1355,9 +1364,11 @@ function renderPropList(){
   var propIds=['apt-lyon','villa-nice','studio-bordeaux','chalet-huez'];
   var fullEl=ge('prop-list-full'),dashEl=ge('dash-prop-list');
   var makeRow=function(propId,full){
-    var prop=propertiesDB[propId];var sd=propStaticData[propId]||{};
+    var prop=propertiesDB[propId];
+    if(!prop)return'';
+    var sd=propStaticData[propId]||{};
     var alerts=getPropAlerts(propId);
-    var alertsHtml='<div class="prop-alert-bar">'+alerts.map(function(a){return '<span class="prop-alert '+a.cls+'">'+a.text+'</span>';}).join('')+'</div>';
+    var alertsHtml='<div class="prop-alert-bar">'+alerts.map(function(a){return'<span class="prop-alert '+a.cls+'">'+a.text+'</span>';}).join('')+'</div>';
     var statusChip=sd.status==='Libre'?'<span class="chip chip-amber">Libre</span>':'<span class="chip chip-green">'+sd.revenue+'</span>';
     if(full){
       return '<div class="prop-row" onclick="editProperty(\''+propId+'\')" style="flex-direction:column;align-items:flex-start;gap:6px"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+' · '+prop.type+' · '+sd.status+'</div></div><div style="display:flex;align-items:center;gap:8px">'+statusChip+'<span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>'+alertsHtml+'</div>';
@@ -1392,23 +1403,18 @@ function loadPropertiesIntoSelect(){
   var sel=ge('ia-prop-select');if(!sel)return;
   sel.innerHTML='<option value="">-- Choisir un logement --</option>';
   Object.keys(propertiesDB).forEach(function(id){var opt=document.createElement('option');opt.value=id;opt.textContent=(propertiesDB[id].emoji||'🏠')+' '+propertiesDB[id].name;sel.appendChild(opt);});
-  /* Auto-sélectionner le premier logement pour fluidité */
   if(sel.options.length>1)sel.selectedIndex=1;
 }
 
 /* ================================================================
    CALENDRIER
 ================================================================ */
-var calendarData={},calMode='taken',calEvents=[];
 function initCalendarData(){
   var saved=localStorage.getItem('mhk-calendar');
   if(saved){try{calendarData=JSON.parse(saved);}catch(e){}}
-  if(Object.keys(calendarData).length===0){
-  // Calendrier vide au démarrage
-}
   var savedEv=localStorage.getItem('mhk-events');
   if(savedEv){try{calEvents=JSON.parse(savedEv);}catch(e){}}
-  if(calEvents.length===0){
+  if(!calEvents.length){
     calEvents=[
       {id:'e1',title:'Check-out Apt. Lyon',date:'2026-04-10',time:'11:00',type:'checkout',prop:'apt-lyon',note:'Ménage 10h-13h'},
       {id:'e2',title:'Arrivée Studio Bordeaux',date:'2026-04-12',time:'15:00',type:'checkin',prop:'studio-bordeaux',note:'3 personnes'},
@@ -1432,7 +1438,7 @@ function buildCalendar(){
   initCalendarData();
   var grid=ge('cal-grid');if(!grid)return;
   var days=['L','M','M','J','V','S','D'];
-  var html=days.map(function(d){return '<div class="cal-day-hdr">'+d+'</div>';}).join('');
+  var html=days.map(function(d){return'<div class="cal-day-hdr">'+d+'</div>';}).join('');
   var startOffset=2,todayDay=10;
   for(var cell=0;cell<35;cell++){
     var day=cell-startOffset+1;
@@ -1489,21 +1495,22 @@ function deleteEvent(id){calEvents=calEvents.filter(function(e){return e.id!==id
 /* ================================================================
    REVENUE INTELLIGENCE
 ================================================================ */
-var revIntelData=[];
 function initRevIntel(){
-  revIntelData=[];
+  revIntelData=[
+    {id:'ri1',prop:'Villa Nice',title:'Festival de Cannes (16-27 mai)',sub:'Demande en hausse +38% sur la Côte d\'Azur. Tarif actuel sous-optimal.',priority:'urgent',currentPrice:185,suggestedPrice:252,gain:'+67€/nuit soit +804€/séjour',sources:['Airbnb Trends','Booking Insight'],applied:false},
+    {id:'ri2',prop:'Apt. Lyon',title:'Semaine 15 — taux local 47%',sub:'Le marché lyonnais est mou cette semaine. Baisser temporairement pour remplir 3 nuits libres.',priority:'high',currentPrice:135,suggestedPrice:115,gain:'+3 nuits occupées vs 0',sources:['AirDNA','Données locales'],applied:false},
+    {id:'ri3',prop:"Chalet Alpe d'Huez",title:'Saison ski — tarifs confirmés',sub:'Vos tarifs sont dans la fourchette haute du marché. Taux prévisionnel 99% jusqu\'en avril.',priority:'normal',currentPrice:290,suggestedPrice:290,gain:'Optimisé ✓',sources:['Historique','Marché local'],applied:true}
+  ];
   renderRevIntel();
+  buildPriceRows();
 }
 
 function renderRevIntel(){
   var list=ge('rev-intel-list');if(!list)return;
-  if(!revIntelData.length){
-    list.innerHTML='<div style="text-align:center;padding:48px 0"><div style="font-size:2rem;margin-bottom:12px">📈</div><div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Revenue Intelligence inactif</div><div style="font-size:.82rem;color:var(--g);margin-bottom:18px;line-height:1.7">Connectez Airbnb ou Booking.com pour activer l\'analyse tarifaire en temps réel.</div><button class="btn-cta" onclick="showInner(\'integrations\')">Connecter une plateforme →</button></div>';
-    return;
-  }  list.innerHTML=revIntelData.map(function(item){
+  list.innerHTML=revIntelData.map(function(item){
     var priorityLabel={urgent:'Urgent',high:'Important',normal:'Optimisé'}[item.priority]||'';
     var priorityCls={urgent:'chip-red',high:'chip-amber',normal:'chip-green'}[item.priority]||'chip-blue';
-    var sourcesHtml=item.sources.map(function(s){return '<span class="rev-source live">'+s+'</span>';}).join('');
+    var sourcesHtml=item.sources.map(function(s){return'<span class="rev-source live">'+s+'</span>';}).join('');
     var actionBtns=item.applied?
       '<span class="chip chip-green" style="padding:8px 14px">✓ Prix appliqué</span>':
       '<button class="btn-apply-price" onclick="applyRevPrice(\''+item.id+'\')">Appliquer '+item.suggestedPrice+'€/nuit →</button>'+
@@ -1529,6 +1536,7 @@ function renderRevIntel(){
     '</div>';
   }).join('');
 }
+
 function applyRevPrice(id){
   var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;
   item.applied=true;item.currentPrice=item.suggestedPrice;
@@ -1543,7 +1551,6 @@ function applyManualPrice(id){
   renderRevIntel();buildPriceRows();showToast('Prix manuel : '+val+'€/nuit','green');
 }
 
-/* Refresh Revenue Intelligence — moteur démo intégré, ou API si clé dispo */
 async function refreshRevIntel(){
   var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse en cours...';btn.disabled=true;
   var apiKey=getApiKey();
@@ -1560,10 +1567,9 @@ async function refreshRevIntel(){
           if(item&&!item.applied)item.sub=rec.sub;
         });
       }
-    }catch(e){/* fallback démo */var recs=await demoRevIntelRefresh();applyRevIntelRecs(recs);}
+    }catch(e){await demoRevIntelRefresh();}
   }else{
-    var recs=await demoRevIntelRefresh();
-    applyRevIntelRecs(recs);
+    await demoRevIntelRefresh();
   }
   renderRevIntel();
   if(ge('price-last-updated'))ge('price-last-updated').textContent='Mis à jour il y a quelques secondes';
@@ -1571,23 +1577,26 @@ async function refreshRevIntel(){
   btn.textContent='↻ Actualiser l\'analyse';btn.disabled=false;
 }
 
-function applyRevIntelRecs(recs){
-  recs.forEach(function(rec){
-    var item=revIntelData.find(function(i){return i.id===rec.id;});
-    if(item&&!item.applied)item.sub=rec.sub;
+async function demoRevIntelRefresh(){
+  await new Promise(function(r){setTimeout(r,1000+Math.random()*600);});
+  revIntelData.forEach(function(item){
+    if(!item.applied){
+      if(item.id==='ri1')item.sub='🔥 Festival de Cannes (16-27 mai) — demande +38% sur Nice. Prix suggéré 252€/nuit pour maximiser.';
+      if(item.id==='ri2')item.sub='📉 Taux local Lyon à 47% semaine 15 — baisser temporairement à 115€ pour remplir les 3 nuits libres.';
+    }
   });
 }
 
 function buildPriceRows(){
   var el=ge('price-rows');if(!el)return;
   var vnice=revIntelData.find(function(i){return i.id==='ri1';});
-  var base=vnice&&vnice.applied?244:185;
+  var base=vnice&&vnice.applied?252:185;
   var rows=[['Lun 13',base+'€','chip-blue'],['Mar 14',base+'€','chip-blue'],['Mer 15',base+'€','chip-blue'],['Jeu 16',base+'€','chip-blue'],['Ven 17',(base+19)+'€ ↑','chip-green'],['Sam 18',(base+19)+'€ ↑','chip-green'],['Dim 19',(base+14)+'€ ↑','chip-green']];
-  el.innerHTML=rows.map(function(r){return '<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">'+r[0]+'</span><span class="chip '+r[2]+'">'+r[1]+'</span></div>';}).join('');
+  el.innerHTML=rows.map(function(r){return'<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">'+r[0]+'</span><span class="chip '+r[2]+'">'+r[1]+'</span></div>';}).join('');
 }
 
 /* ================================================================
-   CALL ANTHROPIC API (clé perso uniquement)
+   CALL ANTHROPIC API
 ================================================================ */
 async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
   var response=await fetch('https://api.anthropic.com/v1/messages',{
@@ -1601,12 +1610,68 @@ async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
 /* ================================================================
    IA CONCIERGERIE CHAT
 ================================================================ */
-var iaMessages=[],iaCurrentProp=null;
+async function demoAiReply(userMsg,prop){
+  var delay=600+Math.random()*800;
+  await new Promise(function(r){setTimeout(r,delay);});
+  return generateSmartDemoResponse(userMsg,prop);
+}
+
+function generateSmartDemoResponse(userMsg,prop){
+  var msg=userMsg.toLowerCase();
+  var checkin=prop.checkin||'15h00',checkout=prop.checkout||'11h00';
+  var code=prop.code||'Code non renseigné';
+  var wifi=prop.amenities||'WiFi disponible';
+  var rules=prop.rules||'Règlement standard';
+  var contacts=prop.contacts||'Contactez le propriétaire';
+  var welcome=prop.welcome||'Bienvenue !';
+  var name=prop.name||'votre logement';
+  if(msg.includes('arriv')||msg.includes('check-in')||msg.includes('checkin')||msg.includes('entrer')||msg.includes('accès')||msg.includes('acces')||msg.includes('heure')){
+    return 'Votre arrivée est possible à partir de <strong>'+checkin+'</strong>. '+prop.access+' Le code d\'accès est : <strong>'+code+'</strong>. Pour une arrivée tardive, prévenez-moi et j\'organise ça !';
+  }
+  if(msg.includes('départ')||msg.includes('depart')||msg.includes('check-out')||msg.includes('checkout')||msg.includes('quitter')||msg.includes('partir')){
+    return 'Le départ est prévu avant <strong>'+checkout+'</strong>. Merci de laisser les clés sur la table et de fermer les fenêtres. Nous adorerions recevoir votre avis si vous avez apprécié le séjour ! ⭐';
+  }
+  if(msg.includes('code')||msg.includes('clé')||msg.includes('cle')||msg.includes('porte')||msg.includes('ouvrir')){
+    return 'Le code d\'accès est : <strong>'+code+'</strong>.<br>'+prop.access+'<br>En cas de problème : '+contacts;
+  }
+  if(msg.includes('wifi')||msg.includes('internet')||msg.includes('connexion')||msg.includes('réseau')||msg.includes('mot de passe')){
+    return 'Voici les informations WiFi :<br><strong>'+wifi+'</strong><br>Si la connexion pose problème, redémarrez votre appareil ou contactez-moi directement.';
+  }
+  if(msg.includes('piscine')||msg.includes('nager')||msg.includes('baignade')||msg.includes('pool')){
+    return 'Pour la piscine de '+name+', les horaires sont de 8h à 22h. Profitez-en ! 🏊 Les serviettes sont disponibles dans le logement.';
+  }
+  if(msg.includes('ménage')||msg.includes('menage')||msg.includes('linge')||msg.includes('serviette')||msg.includes('drap')){
+    return 'Linge de lit et serviettes sont fournis et disponibles dans l\'armoire. Pour un service ménage en cours de séjour, contactez : '+contacts+' — réponse sous 30 min !';
+  }
+  if(msg.includes('parking')||msg.includes('voiture')||msg.includes('garer')||msg.includes('stationner')){
+    return 'Informations parking : '+prop.access+' · Pour toute question : '+contacts;
+  }
+  if(msg.includes('règlement')||msg.includes('reglement')||msg.includes('règles')||msg.includes('autorisé')||msg.includes('interdit')){
+    return 'Règlement de '+name+' : <em>'+rules+'</em><br>Merci de le respecter pour le confort de tous. 🙏';
+  }
+  if(msg.includes('merci')||msg.includes('parfait')||msg.includes('super')||msg.includes('excellent')||msg.includes('génial')||msg.includes('top')){
+    return 'Avec grand plaisir ! 😊 Profitez bien de '+prop.city+'. Si vous avez d\'autres questions, je suis là 24h/24 !';
+  }
+  if(msg.includes('urgence')||msg.includes('problème')||msg.includes('problem')||msg.includes('panne')||msg.includes('cassé')||msg.includes('fuite')){
+    return '⚠️ Pas de panique ! Pour toute urgence dans votre logement, contactez immédiatement : <strong>'+contacts+'</strong>. Intervention possible sous 15-30 minutes.';
+  }
+  if(/hello|hi\s|good\s/i.test(userMsg)){
+    return 'Hello! Welcome to <strong>'+name+'</strong>! '+welcome+' I\'m here 24/7 to help you. Check-in: '+checkin+' · Check-out: '+checkout+'. How can I help you? 🏡';
+  }
+  if(/hola|buenas|gracias/i.test(userMsg)){
+    return '¡Hola! Bienvenido a <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Código: '+code+'. ¿En qué puedo ayudarle? 😊';
+  }
+  var responses=[
+    'Je suis l\'assistant de <strong>'+name+'</strong>. Voici l\'essentiel : '+welcome+' Check-in: <strong>'+checkin+'</strong> · Check-out: <strong>'+checkout+'</strong> · Code: <strong>'+code+'</strong>. Des questions spécifiques ?',
+    'Pour <strong>'+name+'</strong> à '+prop.city+' : accès à '+checkin+', départ avant '+checkout+', code <strong>'+code+'</strong>. Équipements : '+wifi.split(',')[0]+'. Y a-t-il autre chose que je puisse faire pour vous ?',
+    'Bonne question ! Pour '+name+', voici les infos clés : <strong>'+welcome+'</strong> Besoin d\'autre chose ? Je suis là ! Contact local si urgence : '+contacts
+  ];
+  return responses[Math.floor(Math.random()*responses.length)];
+}
 
 function openIaTest(){
   loadPropertiesIntoSelect();
   openModal('ia');
-  /* Auto-initialiser avec le premier logement */
   setTimeout(function(){
     var sel=ge('ia-prop-select');
     if(sel&&sel.selectedIndex>0){
@@ -1645,78 +1710,6 @@ function addIaMessage(role,text){
   container.scrollTop=container.scrollHeight;
 }
 
-/* Moteur de réponse contextuelle — analyse la fiche logement */
-function generateSmartDemoResponse(userMsg,prop){
-  var msg=userMsg.toLowerCase();
-  var checkin=prop.checkin||'15h00',checkout=prop.checkout||'11h00';
-  var code=prop.code||'Code non renseigné';
-  var wifi=prop.amenities||'WiFi disponible';
-  var rules=prop.rules||'Règlement standard';
-  var contacts=prop.contacts||'Contactez le propriétaire';
-  var welcome=prop.welcome||'Bienvenue !';
-  var name=prop.name||'votre logement';
-
-  if(msg.includes('arriv')||msg.includes('check-in')||msg.includes('checkin')||msg.includes('entrer')||msg.includes('accès')||msg.includes('acces')||msg.includes('heure')){
-    return 'Votre arrivée est possible à partir de <strong>'+checkin+'</strong>. '+prop.access+' Le code d\'accès est : <strong>'+code+'</strong>. Pour une arrivée tardive, prévenez-moi et j\'organise ça !';
-  }
-  if(msg.includes('départ')||msg.includes('depart')||msg.includes('check-out')||msg.includes('checkout')||msg.includes('quitter')||msg.includes('partir')){
-    return 'Le départ est prévu avant <strong>'+checkout+'</strong>. Merci de laisser les clés sur la table et de fermer les fenêtres. Nous adorerions recevoir votre avis si vous avez apprécié le séjour ! ⭐';
-  }
-  if(msg.includes('code')||msg.includes('clé')||msg.includes('cle')||msg.includes('porte')||msg.includes('ouvrir')||msg.includes('entrer')){
-    return 'Le code d\'accès est : <strong>'+code+'</strong>.<br>'+prop.access+'<br>En cas de problème : '+contacts;
-  }
-  if(msg.includes('wifi')||msg.includes('internet')||msg.includes('connexion')||msg.includes('réseau')||msg.includes('mot de passe')){
-    return 'Voici les informations WiFi :<br><strong>'+wifi+'</strong><br>Si la connexion pose problème, redémarrez votre appareil ou contactez-moi directement.';
-  }
-  if(msg.includes('piscine')||msg.includes('nager')||msg.includes('baignade')||msg.includes('pool')){
-    if(wifi.includes('piscine')||rules.includes('piscine')){
-      return 'La piscine est disponible selon les horaires du règlement. Profitez-en ! 🏊 Les serviettes sont disponibles dans le logement.';
-    }
-    return 'Pour les équipements extérieurs de '+name+', voici le contact : '+contacts;
-  }
-  if(msg.includes('ménage')||msg.includes('menage')||msg.includes('linge')||msg.includes('serviette')||msg.includes('drap')){
-    return 'Linge de lit et serviettes sont fournis et disponibles dans l\'armoire. Pour un service ménage en cours de séjour, contactez : '+contacts+' — réponse sous 30 min !';
-  }
-  if(msg.includes('parking')||msg.includes('voiture')||msg.includes('garer')||msg.includes('stationner')){
-    if(wifi.includes('parking')||prop.access.includes('parking')){
-      return 'Un parking est prévu pour votre logement. '+prop.access;
-    }
-    return 'Informations parking : '+prop.access+' · Pour toute question : '+contacts;
-  }
-  if(msg.includes('règlement')||msg.includes('reglement')||msg.includes('règles')||msg.includes('autorisé')||msg.includes('interdit')){
-    return 'Règlement de '+name+' : <em>'+rules+'</em><br>Merci de le respecter pour le confort de tous. 🙏';
-  }
-  if(msg.includes('sauna')||msg.includes('spa')||msg.includes('jacuzzi')){
-    if(wifi.includes('sauna')||welcome.includes('sauna')){
-      return 'Le sauna est disponible ! '+welcome+' En cas de question : '+contacts;
-    }
-    return 'Pour les équipements bien-être de '+name+', contactez : '+contacts;
-  }
-  if(msg.includes('merci')||msg.includes('parfait')||msg.includes('super')||msg.includes('excellent')||msg.includes('génial')||msg.includes('top')){
-    return 'Avec grand plaisir ! 😊 Profitez bien de '+prop.city+'. Si vous avez d\'autres questions, je suis là 24h/24 !';
-  }
-  if(msg.includes('urgence')||msg.includes('problème')||msg.includes('problem')||msg.includes('panne')||msg.includes('cassé')||msg.includes('fuite')){
-    return '⚠️ Pas de panique ! Pour toute urgence dans votre logement, contactez immédiatement : <strong>'+contacts+'</strong>. Intervention possible sous 15-30 minutes.';
-  }
-  /* Réponses multilingues */
-  if(/hello|hi\s|good\s/i.test(userMsg)){
-    return 'Hello! Welcome to <strong>'+name+'</strong>! '+welcome+' I\'m here 24/7 to help you. Check-in: '+checkin+' · Check-out: '+checkout+'. How can I help you? 🏡';
-  }
-  if(/hola|buenas|gracias/i.test(userMsg)){
-    return '¡Hola! Bienvenido a <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Código: '+code+'. ¿En qué puedo ayudarle? 😊';
-  }
-  if(/guten|danke|hallo/i.test(userMsg)){
-    return 'Guten Tag! Willkommen in <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Zugangscode: '+code+'. Wie kann ich Ihnen helfen?';
-  }
-  /* Réponses génériques variées */
-  var responses=[
-    'Je suis l\'assistant de <strong>'+name+'</strong>. Voici l\'essentiel : '+welcome+' Check-in: <strong>'+checkin+'</strong> · Check-out: <strong>'+checkout+'</strong> · Code: <strong>'+code+'</strong>. Des questions spécifiques ?',
-    'Pour <strong>'+name+'</strong> à '+prop.city+' : accès à '+checkin+', départ avant '+checkout+', code <strong>'+code+'</strong>. Équipements : '+wifi.split(',')[0]+'. Y a-t-il autre chose que je puisse faire pour vous ?',
-    'Bonne question ! Pour '+name+', voici les infos clés : <strong>'+welcome+'</strong> Besoin d\'autre chose ? Je suis là ! Contact local si urgence : '+contacts
-  ];
-  return responses[Math.floor(Math.random()*responses.length)];
-}
-
 async function sendIaMessage(){
   var input=ge('ia-input');
   var msg=input.value.trim();if(!msg)return;
@@ -1734,14 +1727,13 @@ async function sendIaMessage(){
   var apiKey=getApiKey();
   var aiReply='';
   if(apiKey){
-    var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds chaleureusement en FRANÇAIS sauf si le guest écrit dans une autre langue (réponds alors dans sa langue).\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nType: '+(prop.type||'')+'\nAdresse: '+(prop.address||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nInstructions accès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nÉquipements / WiFi: '+(prop.amenities||'')+'\nContacts prestataires: '+(prop.contacts||'')+'\nMessage de bienvenue: '+(prop.welcome||'')+'\n=== FIN FICHE ===\n\nRéponds en 1-3 phrases max, de manière utile et chaleureuse. Si info absente, propose de contacter le propriétaire.';
+    var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds chaleureusement en FRANÇAIS sauf si le guest écrit dans une autre langue.\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nType: '+(prop.type||'')+'\nAdresse: '+(prop.address||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nInstructions accès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nÉquipements / WiFi: '+(prop.amenities||'')+'\nContacts prestataires: '+(prop.contacts||'')+'\nMessage de bienvenue: '+(prop.welcome||'')+'\n=== FIN FICHE ===\n\nRéponds en 1-3 phrases max, de manière utile et chaleureuse.';
     try{
       var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',500,systemPrompt,iaMessages);
       if(data.error){aiReply=await demoAiReply(msg,prop);}
       else{aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});}
     }catch(e){aiReply=await demoAiReply(msg,prop);}
   }else{
-    /* Mode démo — moteur IA intégré */
     aiReply=await demoAiReply(msg,prop);
   }
   var te=ge('ia-typing');if(te)te.remove();
@@ -1769,17 +1761,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.qu
    PLANS & ADMIN
 ================================================================ */
 var PLAN_CONFIG={
-  starter:{
-    label:'Starter 49€',
-    locked:['revenue'],
-    lockMsg:{
-      revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro à 89€/mois.'}
-    }
-  },
+  starter:{label:'Starter 49€',locked:['revenue'],lockMsg:{revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro à 89€/mois.'}}},
   pro:{label:'Pro 89€',locked:[],lockMsg:{}},
   concpro:{label:'Conciergerie Pro',locked:[],lockMsg:{}},
   admin:{label:'🛡 Admin',locked:[],lockMsg:{}}
-};function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
+};
+function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
 function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks(){
   var plan=CURRENT_PLAN,config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
@@ -1849,15 +1836,12 @@ function requestQuote(btn){btn.textContent='Demande envoyée ✓';btn.disabled=t
 /* ================================================================
    STOCKS
 ================================================================ */
-var STOCKS_DEFAULT={};
-  ]
-};
-var stocksDB={},currentStockProp='apt-lyon',orderList=[],orderHistory=[];
-
 function initStocks(){
-  var saved=localStorage.getItem('mhk-stocks');if(saved){try{stocksDB=JSON.parse(saved);}catch(e){}}
+  var saved=localStorage.getItem('mhk-stocks');
+  if(saved){try{stocksDB=JSON.parse(saved);}catch(e){}}
   Object.keys(STOCKS_DEFAULT).forEach(function(pid){if(!stocksDB[pid])stocksDB[pid]=JSON.parse(JSON.stringify(STOCKS_DEFAULT[pid]));});
-  var savedOrders=localStorage.getItem('mhk-order-history');if(savedOrders){try{orderHistory=JSON.parse(savedOrders);}catch(e){}}
+  var savedOrders=localStorage.getItem('mhk-order-history');
+  if(savedOrders){try{orderHistory=JSON.parse(savedOrders);}catch(e){}}
   saveStocks();
 }
 function saveStocks(){localStorage.setItem('mhk-stocks',JSON.stringify(stocksDB));}
@@ -1921,7 +1905,7 @@ function addStockItem(){
 }
 
 /* ================================================================
-   ANALYSE IA STOCKS — moteur démo ou API
+   ANALYSE IA STOCKS
 ================================================================ */
 async function analyseStocksIA(){
   var description=ge('stock-ia-input').value.trim();
@@ -1941,16 +1925,16 @@ async function analyseStocksIA(){
       if(data.error)throw new Error(data.error.message);
       var raw=data.content[0].text.replace(/```json|```/g,'').trim();
       parsed=JSON.parse(raw);
-    }catch(err){parsed=await demoStockAnalysis(description);}
+    }catch(err){parsed=generateDemoStockAnalysis(description);}
   }else{
-    parsed=await demoStockAnalysis(description);
+    await new Promise(function(r){setTimeout(r,900+Math.random()*500);});
+    parsed=generateDemoStockAnalysis(description);
   }
   displayIaStockResult(parsed);
   btn.disabled=false;
   btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
 }
 
-/* Analyse démo intelligente — détecte les produits dans le texte */
 function generateDemoStockAnalysis(description){
   var desc=description.toLowerCase();
   var manquants=[];
@@ -1960,10 +1944,10 @@ function generateDemoStockAnalysis(description){
     {words:['savon','gel douche','shampoing','shampoo','douche'],nom:'Savon / Gel douche',qty:'×2',urgence:'haute',ref:'HYG-003'},
     {words:['papier toilette','pq','toilette','wc'],nom:'Papier toilette',qty:'×6',urgence:'haute',ref:'HYG-002'},
     {words:['ampoule','lumière','lampe','éclairage'],nom:'Ampoule LED',qty:'×2',urgence:'normale',ref:'EQP-001'},
-    {words:['liquide vaisselle','vaisselle','lavage'],nom:'Liquide vaisselle',qty:'×1',urgence:'normale',ref:'ENT-001'},
-    {words:['pastille','lave-vaisselle','dishwasher'],nom:'Pastilles lave-vaisselle',qty:'×20',urgence:'normale',ref:'ENT-002'},
+    {words:['liquide vaisselle','vaisselle'],nom:'Liquide vaisselle',qty:'×1',urgence:'normale',ref:'ENT-001'},
+    {words:['pastille','lave-vaisselle'],nom:'Pastilles lave-vaisselle',qty:'×20',urgence:'normale',ref:'ENT-002'},
     {words:['sel','déneigement','neige'],nom:'Sel déneigement',qty:'×2',urgence:'normale',ref:'ENT-005'},
-    {words:['chocolat','cacao','chaud'],nom:'Chocolat chaud',qty:'×3',urgence:'normale',ref:'CAFE-005'},
+    {words:['chocolat','cacao'],nom:'Chocolat chaud',qty:'×3',urgence:'normale',ref:'CAFE-005'},
     {words:['pile','batterie'],nom:'Piles AA',qty:'×8',urgence:'normale',ref:'EQP-002'},
     {words:['drap','lit','linge de lit'],nom:'Draps / Linge de lit',qty:'×2',urgence:'haute',ref:'LIN-002'},
     {words:['produit ménage','nettoyant','spray'],nom:'Produit ménager',qty:'×1',urgence:'normale',ref:'ENT-006'}
@@ -1978,7 +1962,7 @@ function generateDemoStockAnalysis(description){
       {nom:'Papier toilette',quantite:'×4',urgence:'normale',raison:'Stock à recompléter',ref:'HYG-002'}
     ];
   }
-  return {manquants:manquants,resume:manquants.length+' produit(s) identifié(s) · Analyse IA MyHostKit'};
+  return{manquants:manquants,resume:manquants.length+' produit(s) identifié(s) · Analyse IA MyHostKit'};
 }
 
 function displayIaStockResult(parsed){
@@ -1997,6 +1981,9 @@ function displayIaStockResult(parsed){
   renderOrderList();showToast('IA : '+parsed.manquants.length+' produit(s) identifié(s) !','green');
 }
 
+/* ================================================================
+   COMMANDES
+================================================================ */
 function renderOrderList(){
   var container=ge('order-list'),actions=ge('order-actions'),countEl=ge('order-pending-count');
   if(!orderList.length){
@@ -2013,7 +2000,7 @@ function renderOrderList(){
       '<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);font-weight:400;margin-left:6px">'+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div>'+
       '<span class="order-item-qty">'+item.qty+'</span>'+
       '<button onclick="removeOrderItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px">✕</button>'+
-      '</div>';
+    '</div>';
   });
   if(container)container.innerHTML=html;
 }
