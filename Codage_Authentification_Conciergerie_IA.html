@@ -26,8 +26,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);
 body{display:flex;flex-direction:column}
 .page{display:none;min-height:100vh}
 .page.active{display:flex}
-
-/* AUTH */
 #page-auth{align-items:stretch}
 .auth-left{flex:0 0 420px;background:linear-gradient(145deg,#0F3D5C 0%,#1C5F8A 55%,#0A9468 100%);display:flex;flex-direction:column;justify-content:space-between;padding:52px 44px;position:relative;overflow:hidden}
 .auth-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(15,185,128,.18),transparent 55%),radial-gradient(ellipse at 80% 10%,rgba(44,120,168,.22),transparent 50%);pointer-events:none}
@@ -75,10 +73,10 @@ body{display:flex;flex-direction:column}
 .auth-foot a{color:var(--bl);font-weight:600;cursor:pointer}
 .back-link{display:inline-flex;align-items:center;gap:5px;font-size:.82rem;color:var(--g);cursor:pointer;margin-bottom:22px;transition:color .2s}
 .back-link:hover{color:var(--n)}
-.demo-banner{background:linear-gradient(135deg,var(--or-l),#FFF8E0);border:1.5px solid var(--or);border-radius:10px;padding:13px 16px;margin-bottom:20px;font-size:.8rem;color:var(--or-d);line-height:1.6}
-.demo-banner strong{color:var(--or-d);font-weight:700;display:block;margin-bottom:3px}
-.btn-demo{width:100%;padding:11px;background:linear-gradient(135deg,var(--or-d),var(--or));color:#fff;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;margin-bottom:10px;box-shadow:0 3px 12px rgba(200,146,26,.3)}
-.btn-demo:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(200,146,26,.4)}
+.demo-banner{background:linear-gradient(135deg,var(--green-l),#E8FAF3);border:1.5px solid var(--green-b);border-radius:10px;padding:13px 16px;margin-bottom:20px;font-size:.8rem;color:#085041;line-height:1.6}
+.demo-banner strong{color:#085041;font-weight:700;display:block;margin-bottom:3px}
+.btn-demo{width:100%;padding:11px;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;margin-bottom:10px;box-shadow:0 3px 12px rgba(15,185,128,.3)}
+.btn-demo:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(15,185,128,.4)}
 #page-app{flex-direction:row;background:#EDEAE4}
 .sidebar{width:var(--sidebar);background:var(--w);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:100;box-shadow:1px 0 20px rgba(0,0,0,.04)}
 .sb-logo{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
@@ -144,15 +142,12 @@ body{display:flex;flex-direction:column}
 .prop-row:hover{background:#F0EDE8}
 .prop-name{font-size:.83rem;font-weight:600;color:var(--n)}
 .prop-meta{font-size:.72rem;color:var(--g);margin-top:2px}
-
-/* ALERTES PROPRIÉTÉS */
 .prop-alert-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
 .prop-alert{font-size:.65rem;padding:2px 7px;border-radius:10px;font-weight:700;display:flex;align-items:center;gap:3px}
 .prop-alert.critical{background:var(--red-l);color:var(--red-d)}
 .prop-alert.warning{background:var(--or-l);color:#7A4500}
 .prop-alert.info{background:#E6F1FB;color:#0C4478}
 .prop-alert.ok{background:var(--green-l);color:#085041}
-
 .msg-item{display:flex;gap:9px;margin-bottom:11px;align-items:flex-start}
 .msg-av{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
 .msg-av.ai{background:linear-gradient(135deg,var(--green-l),#C0EFE0);color:#085041}
@@ -165,8 +160,6 @@ body{display:flex;flex-direction:column}
 .rev-track{flex:1;height:8px;background:#F0EDE8;border-radius:4px;overflow:hidden}
 .rev-fill{height:100%;border-radius:4px;transition:width .6s ease}
 .rev-num{width:48px;font-size:.72rem;color:var(--g);font-weight:600}
-
-/* CALENDRIER INTERACTIF */
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
 .cal-day-hdr{text-align:center;font-size:.62rem;color:var(--g);padding:5px;font-weight:700;text-transform:uppercase}
 .cal-cell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--g);transition:all .15s;cursor:pointer;position:relative}
@@ -179,8 +172,6 @@ body{display:flex;flex-direction:column}
 .cal-cell.empty{cursor:default}
 .cal-cell.empty:hover{background:transparent}
 .cal-event-dot{position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--bl)}
-
-/* EVENEMENTS ÉDITABLES */
 .event-item{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#F9F7F3;border-radius:9px;margin-bottom:7px;transition:background .15s}
 .event-item:hover{background:#F0EDE8}
 .event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
@@ -193,7 +184,6 @@ body{display:flex;flex-direction:column}
 .event-edit-btn:hover{background:var(--bp)}
 .btn-del{font-size:.68rem;color:var(--red);cursor:pointer;background:none;border:none;padding:2px 6px;border-radius:5px;font-family:inherit}
 .btn-del:hover{background:var(--red-l)}
-.empty-state{text-align:center;padding:40px 20px;color:var(--g)}
 .btn-outline{padding:9px 22px;border:1.5px solid var(--border);border-radius:9px;background:transparent;color:var(--n);font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:14px}
 .btn-outline:hover{border-color:var(--bl);color:var(--bl);background:var(--bp)}
 .plan-card{border:1.5px solid var(--border);border-radius:13px;padding:22px;position:relative;transition:all .25s;box-shadow:var(--shadow-sm)}
@@ -278,13 +268,14 @@ body{display:flex;flex-direction:column}
 .chat-bubble.ai.typing{opacity:.6}
 .chat-meta{font-size:.64rem;color:#B8B5AE;margin-top:3px;text-align:right}
 .chat-meta.left{text-align:left}
+/* API KEY ROW — masquée en démo */
+.api-key-section{display:none}
+.api-key-section.show-in-settings{display:block}
 .api-key-row{display:flex;gap:8px;align-items:center}
 .api-key-input{flex:1;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:.84rem;font-family:monospace;outline:none;transition:border-color .2s}
 .api-key-input:focus{border-color:var(--bl)}
 .btn-save-key{padding:10px 18px;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
 .btn-save-key:hover{transform:translateY(-1px)}
-
-/* REVENUE INTELLIGENCE ENRICHI */
 .rev-intel-card{background:var(--w);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:10px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
 .rev-intel-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px 0 0 2px}
 .rev-intel-card.urgent::before{background:var(--red)}
@@ -309,13 +300,8 @@ body{display:flex;flex-direction:column}
 .price-input-row{display:flex;gap:8px;align-items:center}
 .price-inp{width:100px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem;font-family:inherit;outline:none;transition:border-color .2s}
 .price-inp:focus{border-color:var(--green)}
-
-/* API CONNECT BANNER */
-.api-connect-banner{background:linear-gradient(135deg,#F9F7F3,#F4F2ED);border:1.5px dashed var(--or);border-radius:13px;padding:24px;text-align:center;margin-bottom:20px}
-.api-connect-banner h3{font-size:.95rem;font-weight:700;color:var(--n);margin-bottom:7px}
-.api-connect-banner p{font-size:.82rem;color:var(--g);line-height:1.65;max-width:380px;margin:0 auto 14px}
-
-/* STOCKS */
+.demo-mode-bar{background:linear-gradient(135deg,var(--green-l),#D6F5EB);border-bottom:1.5px solid var(--green-b);padding:7px 28px;display:flex;align-items:center;justify-content:space-between;font-size:.76rem;color:#085041;font-weight:600}
+.demo-mode-bar span{font-weight:800}
 .stock-prop-selector{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
 .stock-prop-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--w);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--g);transition:all .2s}
 .stock-prop-btn.active{border-color:var(--bl);background:var(--bp);color:var(--bl)}
@@ -340,12 +326,9 @@ body{display:flex;flex-direction:column}
 .btn-ia-analyse{padding:9px 20px;background:linear-gradient(135deg,var(--purple),#7C6FE0);color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:7px}
 .btn-ia-analyse:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(91,79,207,.3)}
 .btn-ia-analyse:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-
-/* BOUTON AJOUTER AU PANIER */
 .btn-add-to-order{padding:6px 12px;border:1.5px solid var(--green-b);border-radius:7px;background:var(--green-l);color:#085041;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
 .btn-add-to-order:hover{background:var(--green);color:#fff;border-color:var(--green-d)}
 .btn-add-to-order.added{background:var(--green);color:#fff;border-color:var(--green-d);cursor:default}
-
 .order-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#F9F7F3;border-radius:9px;margin-bottom:7px;transition:background .15s}
 .order-item:hover{background:#F0EDE8}
 .order-item-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--w);transition:all .2s}
@@ -363,8 +346,6 @@ body{display:flex;flex-direction:column}
 .bon-commande-title{font-size:.73rem;font-weight:800;color:#7A4500;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em}
 .bon-commande-info{font-size:.8rem;color:var(--or-d);line-height:1.65;margin-bottom:12px}
 .bon-commande-ref{font-family:monospace;font-size:.78rem;background:rgba(200,146,26,.12);padding:4px 10px;border-radius:6px;color:var(--or-d);font-weight:700;display:inline-block;margin-top:4px}
-
-/* ADMIN */
 #page-admin{flex-direction:column;background:#0D1117;min-height:100vh}
 .admin-nav{background:#161B22;border-bottom:1px solid #30363D;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .admin-nav-logo{display:flex;align-items:center;gap:10px}
@@ -427,8 +408,6 @@ body{display:flex;flex-direction:column}
 .sb-item.admin-btn{color:#FF4444;background:rgba(255,68,68,.06)}
 .sb-item.admin-btn:hover{background:rgba(255,68,68,.15);color:#FF4444}
 .sb-item.admin-btn svg{opacity:1}
-
-/* CALENDRIER MINI TOOLBAR */
 .cal-toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .cal-tool-btn{padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--w);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;color:var(--g);transition:all .2s;display:flex;align-items:center;gap:5px}
 .cal-tool-btn:hover{border-color:var(--bl);color:var(--bl);background:var(--bp)}
@@ -437,7 +416,8 @@ body{display:flex;flex-direction:column}
 .cal-tool-btn.cal-blocked{background:#F4F2ED;color:#666;border-color:#D0CDD8}
 .cal-tool-btn.cal-clear{background:var(--red-l);color:var(--red-d);border-color:var(--red)}
 .cal-mode-label{font-size:.72rem;color:var(--g);padding:6px 0;display:flex;align-items:center;gap:5px}
-
+/* IA STATUS badge in topbar */
+.ia-powered-badge{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--green-d);font-weight:700;background:var(--green-l);padding:4px 10px;border-radius:20px;border:1px solid var(--green-b)}
 @media(max-width:900px){
   .auth-left{display:none}
   #page-app{flex-direction:column}
@@ -449,7 +429,6 @@ body{display:flex;flex-direction:column}
 </style>
 </head>
 <body>
-
 <div id="toast"></div>
 
 <!-- AUTH -->
@@ -474,8 +453,8 @@ body{display:flex;flex-direction:column}
     <div class="auth-box">
       <div id="auth-alert" class="auth-alert"></div>
       <div class="demo-banner">
-        <strong>⚙ Mode démo disponible</strong>
-        Testez le dashboard sans créer de compte. Accès immédiat.
+        <strong>✦ IA entièrement active — aucune clé requise</strong>
+        Chat IA, Revenue Intelligence et analyse stocks fonctionnent immédiatement. Accès instantané, zéro configuration.
       </div>
       <button class="btn-demo" onclick="loadDemo()">🚀 Tester en mode démo →</button>
       <div id="auth-main">
@@ -489,7 +468,7 @@ body{display:flex;flex-direction:column}
             <label class="form-label">Mot de passe<span class="forgot" onclick="showReset()">Oublié ?</span></label>
             <div class="pwd-wrap">
               <input class="form-input" id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-              <button class="pwd-eye" onclick="togglePwd('l-pass',this)" tabindex="-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              <button class="pwd-eye" onclick="togglePwd('l-pass')" tabindex="-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
             </div>
           </div>
           <button class="btn-main" id="btn-login" onclick="doLogin()"><span class="btn-text">Se connecter →</span><div class="spinner"></div></button>
@@ -509,7 +488,7 @@ body{display:flex;flex-direction:column}
             <label class="form-label">Mot de passe</label>
             <div class="pwd-wrap">
               <input class="form-input" id="s-pass" type="password" placeholder="8 caractères minimum" autocomplete="new-password">
-              <button class="pwd-eye" onclick="togglePwd('s-pass',this)" tabindex="-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              <button class="pwd-eye" onclick="togglePwd('s-pass')" tabindex="-1"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
             </div>
           </div>
           <div class="form-group">
@@ -544,7 +523,12 @@ body{display:flex;flex-direction:column}
 
 <!-- APP -->
 <div id="page-app" class="page">
-  <div class="sidebar">
+  <div id="demo-mode-bar" class="demo-mode-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200">
+    <span>✦ <span>Mode démo</span> — IA entièrement active · Données simulées</span>
+    <span style="font-size:.72rem;opacity:.7">Créez un compte pour sauvegarder vos données →</span>
+  </div>
+  <div id="app-inner" style="display:flex;flex:1;width:100%">
+  <div class="sidebar" id="main-sidebar">
     <div class="sb-logo">
       <div class="sb-logomark"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div>
       <span class="sb-logoname">MyHostKit</span>
@@ -553,7 +537,7 @@ body{display:flex;flex-direction:column}
     <nav class="sb-nav">
       <div class="sb-section">Principal</div>
       <button class="sb-item active" data-nav="dashboard" onclick="showInner('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tableau de bord</button>
-      <button class="sb-item" data-nav="messages" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge" id="sb-msg-badge">0</span></button>
+      <button class="sb-item" data-nav="messages" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge" id="sb-msg-badge">12</span></button>
       <button class="sb-item" data-nav="revenue" onclick="showInner('revenue')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Revenue Intel.<span class="sb-badge orange">Live</span></button>
       <button class="sb-item" data-nav="calendar" onclick="showInner('calendar')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendrier</button>
       <div class="sb-section">Gestion</div>
@@ -573,7 +557,7 @@ body{display:flex;flex-direction:column}
     </div>
   </div>
 
-  <div class="main-content">
+  <div class="main-content" id="main-content-area">
     <div id="impersonate-bar" class="admin-impersonate-bar" style="display:none;margin:12px 28px 0">
       <span>👁 Mode <strong id="impersonate-name">—</strong> — Vous consultez ce compte en tant qu'admin</span>
       <button class="btn-stop-impersonate" onclick="stopImpersonate()">✕ Quitter</button>
@@ -581,8 +565,8 @@ body{display:flex;flex-direction:column}
     <div class="topbar">
       <div class="topbar-title" id="topbar-title">Tableau de bord</div>
       <div class="topbar-right">
-        <div class="topbar-badge"><div class="ai-dot"></div>IA active</div>
-        <button class="btn-cta" onclick="openIaTest()">Tester l'IA →</button>
+        <div class="ia-powered-badge"><div class="ai-dot"></div>IA active</div>
+        <button class="btn-cta" onclick="openIaTest()">Chat IA →</button>
       </div>
     </div>
 
@@ -591,7 +575,7 @@ body{display:flex;flex-direction:column}
       <div class="kpi-grid">
         <div class="kpi"><div class="kpi-lbl">Revenus ce mois</div><div class="kpi-val">9 840€</div><div class="kpi-delta up">↑ +22% vs mars</div></div>
         <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val">87%</div><div class="kpi-delta up">↑ +8 pts</div></div>
-        <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val" id="dash-msg-count">—</div><div class="kpi-delta up" id="dash-msg-sub">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val">1 247</div><div class="kpi-delta up">0 escalade humaine</div></div>
         <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val">4.9★</div><div class="kpi-delta up">↑ +0.2 ce mois</div></div>
       </div>
       <div class="ai-panel">
@@ -616,88 +600,66 @@ body{display:flex;flex-direction:column}
 
     <!-- MESSAGES -->
     <div id="inner-messages" class="inner-page">
-      <div id="messages-no-api" style="display:none">
-        <div class="api-connect-banner">
-          <h3>Connectez vos plateformes pour activer les messages IA</h3>
-          <p>Les messages de vos guests Airbnb et Booking.com apparaîtront ici une fois vos plateformes connectées. L'IA répondra automatiquement en moins de 2 secondes.</p>
-          <button class="btn-cta" onclick="showInner('integrations')">Connecter Airbnb / Booking →</button>
-        </div>
+      <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
+        <span class="chip chip-blue" style="padding:6px 14px;cursor:pointer">Tous (12)</span>
+        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">En attente (2)</span>
+        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Résolus IA (10)</span>
+        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Escaladés (0)</span>
       </div>
-      <div id="messages-content" style="display:none">
-        <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-          <span class="chip chip-blue" style="padding:6px 14px;cursor:pointer" onclick="filterMessages(this,'all')">Tous (<span id="msg-count-all">12</span>)</span>
-          <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)" onclick="filterMessages(this,'pending')">En attente (2)</span>
-          <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)" onclick="filterMessages(this,'resolved')">Résolus IA (10)</span>
-          <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)" onclick="filterMessages(this,'escalated')">Escaladés (0)</span>
-        </div>
-        <div class="card">
-          <div class="card-title">Guest · Villa Nice · En cours <span class="chip chip-green">IA a répondu</span></div>
-          <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Bonsoir, le code de la boîte à clés ne fonctionne pas, nous sommes devant la porte...</div><div class="msg-time">20h43</div></div></div>
-          <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Bonsoir ! Je suis vraiment désolé pour ce désagrément. Le code est 4821#. Si cela ne fonctionne toujours pas, j'appelle immédiatement notre prestataire local qui peut être là en 15 minutes.</div><div class="msg-time">20h43 · Répondu en 1.1s</div></div></div>
-          <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Parfait ça marche ! Merci 🙏</div><div class="msg-time">20h45</div></div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Guest · Apt. Lyon · Hier <span class="chip chip-green">IA a répondu</span></div>
-          <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Kann ich früh auschecken? Wir müssen um 10 Uhr am Flughafen sein.</div><div class="msg-time">07h12 · Allemand détecté</div></div></div>
-          <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Guten Morgen! Natürlich, das Early-Checkout ist kein Problem. Hinterlassen Sie die Schlüssel einfach auf dem Tisch. Gute Reise! ✈️</div><div class="msg-time">07h12 · Répondu en 0.8s · Traduit auto</div></div></div>
-        </div>
-        <div class="ai-panel" id="msg-ia-summary">
-          <div class="ai-panel-title">Résumé IA · Ce mois</div>
-          <div class="grid3">
-            <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1 247</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Messages traités</div></div>
-            <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1.2s</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Temps moyen réponse</div></div>
-            <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">0</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Escalade humaine</div></div>
-          </div>
+      <div class="card">
+        <div class="card-title">Guest · Villa Nice · En cours <span class="chip chip-green">IA a répondu</span></div>
+        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Bonsoir, le code de la boîte à clés ne fonctionne pas, nous sommes devant la porte...</div><div class="msg-time">20h43</div></div></div>
+        <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Bonsoir ! Je suis vraiment désolé pour ce désagrément. Le code est 4821#. Si cela ne fonctionne toujours pas, j'appelle immédiatement notre prestataire local qui peut être là en 15 minutes.</div><div class="msg-time">20h43 · Répondu en 1.1s</div></div></div>
+        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Parfait ça marche ! Merci 🙏</div><div class="msg-time">20h45</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Guest · Apt. Lyon · Hier <span class="chip chip-green">IA a répondu</span></div>
+        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Kann ich früh auschecken? Wir müssen um 10 Uhr am Flughafen sein.</div><div class="msg-time">07h12 · Allemand détecté</div></div></div>
+        <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Guten Morgen! Natürlich, das Early-Checkout ist kein Problem. Hinterlassen Sie die Schlüssel einfach auf dem Tisch. Gute Reise! ✈️</div><div class="msg-time">07h12 · Répondu en 0.8s · Traduit auto</div></div></div>
+      </div>
+      <div class="ai-panel">
+        <div class="ai-panel-title">Résumé IA · Ce mois</div>
+        <div class="grid3">
+          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1 247</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Messages traités</div></div>
+          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1.2s</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Temps moyen réponse</div></div>
+          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">0</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Escalade humaine</div></div>
         </div>
       </div>
     </div>
 
     <!-- REVENUE INTELLIGENCE -->
     <div id="inner-revenue" class="inner-page">
-      <div id="revenue-no-api" style="display:none">
-        <div class="api-connect-banner">
-          <h3>Activez le Revenue Intelligence</h3>
-          <p>Connectez votre clé API Anthropic dans Paramètres pour que l'IA analyse l'actualité, les événements locaux et les prix de vos concurrents Airbnb en temps réel.</p>
-          <button class="btn-cta" onclick="showInner('settings')">Configurer la clé API →</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-size:.83rem;font-weight:700;color:var(--n)">Analyse tarifaire en temps réel
+          <span class="live-indicator"><span class="live-dot"></span>Live IA</span>
         </div>
+        <button class="btn-cta" onclick="refreshRevIntel()" id="btn-refresh-rev" style="padding:7px 14px;font-size:.76rem">↻ Actualiser l'analyse</button>
       </div>
-      <div id="revenue-content">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-          <div style="font-size:.83rem;font-weight:700;color:var(--n)">Analyse tarifaire en temps réel
-            <span class="live-indicator"><span class="live-dot"></span>Live IA</span>
-          </div>
-          <button class="btn-cta" onclick="refreshRevIntel()" id="btn-refresh-rev" style="padding:7px 14px;font-size:.76rem">↻ Actualiser l'analyse</button>
-        </div>
-        <div id="rev-intel-list"></div>
-        <div class="grid2" style="margin-top:16px">
-          <div class="card"><div class="card-title">Prix par nuit · Villa Nice <span id="price-last-updated" style="font-size:.68rem;color:var(--g)">Mis à jour il y a 5 min</span></div><div id="price-rows"></div></div>
-          <div class="card">
-            <div class="card-title">Gain mensuel estimé · IA tarifaire</div>
-            <div style="text-align:center;padding:22px 0 14px"><div style="font-family:'Fraunces',serif;font-size:2.6rem;font-weight:300;color:#085041" id="rev-gain-total">+1 840€</div><div style="font-size:.78rem;color:var(--g);margin-top:5px">revenus supplémentaires en avril</div></div>
-            <div class="grid2" style="gap:9px">
-              <div style="background:var(--green-l);border-radius:9px;padding:12px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#085041" id="rev-pct">+22%</div><div style="font-size:.7rem;color:#0A9468;margin-top:2px">vs sans IA tarifaire</div></div>
-              <div style="background:var(--purple-l);border-radius:9px;padding:12px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#3C3489" id="rev-occ">94%</div><div style="font-size:.7rem;color:#534AB7;margin-top:2px">taux d'occupation</div></div>
-            </div>
+      <div id="rev-intel-list"></div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card"><div class="card-title">Prix par nuit · Villa Nice <span id="price-last-updated" style="font-size:.68rem;color:var(--g)">Mis à jour il y a 5 min</span></div><div id="price-rows"></div></div>
+        <div class="card">
+          <div class="card-title">Gain mensuel estimé · IA tarifaire</div>
+          <div style="text-align:center;padding:22px 0 14px"><div style="font-family:'Fraunces',serif;font-size:2.6rem;font-weight:300;color:#085041" id="rev-gain-total">+1 840€</div><div style="font-size:.78rem;color:var(--g);margin-top:5px">revenus supplémentaires en avril</div></div>
+          <div class="grid2" style="gap:9px">
+            <div style="background:var(--green-l);border-radius:9px;padding:12px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#085041">+22%</div><div style="font-size:.7rem;color:#0A9468;margin-top:2px">vs sans IA tarifaire</div></div>
+            <div style="background:var(--purple-l);border-radius:9px;padding:12px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#3C3489">94%</div><div style="font-size:.7rem;color:#534AB7;margin-top:2px">taux d'occupation</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CALENDRIER INTERACTIF -->
+    <!-- CALENDRIER -->
     <div id="inner-calendar" class="inner-page">
       <div class="grid2">
         <div class="card">
-          <div class="card-title">Calendrier · Avril 2026
-            <div style="display:flex;gap:6px">
-              <span style="font-size:.68rem;color:var(--g)">Cliquez une date pour modifier</span>
-            </div>
-          </div>
+          <div class="card-title">Calendrier · Avril 2026<div style="font-size:.68rem;color:var(--g)">Cliquez une date pour modifier</div></div>
           <div class="cal-toolbar">
             <button class="cal-tool-btn cal-taken" id="tool-taken" onclick="setCalMode('taken')">✓ Occupé</button>
             <button class="cal-tool-btn cal-partial" id="tool-partial" onclick="setCalMode('partial')">~ Partiel</button>
             <button class="cal-tool-btn cal-blocked" id="tool-blocked" onclick="setCalMode('blocked')">✕ Bloqué</button>
             <button class="cal-tool-btn cal-clear" id="tool-clear" onclick="setCalMode('clear')">◌ Effacer</button>
-            <span class="cal-mode-label" id="cal-mode-label">Sélectionnez un mode puis cliquez les dates</span>
+            <span class="cal-mode-label" id="cal-mode-label">Mode : Marquer comme occupé</span>
           </div>
           <div id="cal-grid" class="cal-grid" style="margin-bottom:14px"></div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
@@ -708,9 +670,7 @@ body{display:flex;flex-direction:column}
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Événements
-            <button class="btn-cta" style="padding:6px 14px;font-size:.74rem" onclick="openAddEvent()">+ Ajouter</button>
-          </div>
+          <div class="card-title">Événements<button class="btn-cta" style="padding:6px 14px;font-size:.74rem" onclick="openAddEvent()">+ Ajouter</button></div>
           <div id="events-list"></div>
         </div>
       </div>
@@ -723,7 +683,7 @@ body{display:flex;flex-direction:column}
         <div id="prop-list-full"></div>
         <div style="margin-top:16px">
           <button class="btn-outline" onclick="openAddProperty()" style="margin-right:10px">+ Ajouter une propriété</button>
-          <button class="btn-outline" onclick="showInner('integrations');showToast('Connectez Airbnb dans Intégrations','blue')">Connecter Airbnb →</button>
+          <button class="btn-outline" onclick="showInner('integrations')">Connecter Airbnb →</button>
         </div>
       </div>
     </div>
@@ -746,8 +706,8 @@ body{display:flex;flex-direction:column}
       </div>
       <div class="card">
         <div class="card-title">Outils &amp; automatisations</div>
-        <div class="connect-box"><div class="connect-logo">⚡</div><div><div class="connect-name">Make.com</div><div class="connect-sub">Automatisations avancées (ménage, emails, notifications)</div></div><button class="btn-connect" onclick="connectPlatform(this,'Make.com')">Connecter</button></div>
-        <div class="connect-box"><div class="connect-logo">💳</div><div><div class="connect-name">Stripe</div><div class="connect-sub">Paiements et facturation propriétaires</div></div><button class="btn-connect connected" onclick="showToast('Stripe déjà connecté','green')">Connecté ✓</button></div>
+        <div class="connect-box"><div class="connect-logo">⚡</div><div><div class="connect-name">Make.com</div><div class="connect-sub">Automatisations avancées</div></div><button class="btn-connect" onclick="connectPlatform(this,'Make.com')">Connecter</button></div>
+        <div class="connect-box"><div class="connect-logo">💳</div><div><div class="connect-name">Stripe</div><div class="connect-sub">Paiements et facturation</div></div><button class="btn-connect connected">Connecté ✓</button></div>
       </div>
     </div>
 
@@ -764,7 +724,7 @@ body{display:flex;flex-direction:column}
           <div class="plan-feat">Rapport mensuel</div>
           <div class="plan-feat no">Coordination ménage</div>
           <div class="plan-feat no">Revenue Intelligence</div>
-          <button class="btn-plan btn-plan-ghost" onclick="showToast('Vous êtes sur le plan Starter','blue')">Votre plan actuel</button>
+          <button class="btn-plan btn-plan-ghost">Votre plan actuel</button>
         </div>
         <div class="plan-card featured">
           <div class="plan-badge">⭐ Le plus populaire</div>
@@ -803,15 +763,16 @@ body{display:flex;flex-direction:column}
         <div class="settings-row"><div><div class="settings-row-label">Escalade humaine</div><div class="settings-row-sub">Vous alerter si l'IA ne peut pas répondre</div></div><button class="toggle on" onclick="toggleSetting(this,'Escalade humaine')"></button></div>
         <div class="settings-row"><div><div class="settings-row-label">Demande d'avis automatique</div><div class="settings-row-sub">Envoyer une demande d'avis 24h après le départ</div></div><button class="toggle" onclick="toggleSetting(this,'Demande avis')"></button></div>
       </div>
-      <div class="settings-section">
-        <div class="settings-title">Clé API Anthropic (IA)</div>
+      <!-- Clé API masquée en démo, visible pour les vrais comptes -->
+      <div class="settings-section api-key-section" id="api-key-settings-section">
+        <div class="settings-title">Clé API Anthropic (optionnel — avancé)</div>
         <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:10px">
-          <div><div class="settings-row-label">Clé API Claude</div><div class="settings-row-sub">Nécessaire pour l'IA conciergerie, Revenue Intelligence et l'analyse des stocks</div></div>
+          <div><div class="settings-row-label">Clé API Claude personnelle</div><div class="settings-row-sub">Optionnel. MyHostKit inclut déjà l'IA. Ajoutez votre propre clé pour un quota dédié.</div></div>
           <div class="api-key-row" style="width:100%">
             <input class="api-key-input" id="anthropic-key" type="password" placeholder="sk-ant-api03-...">
             <button class="btn-save-key" onclick="saveApiKey()">Sauvegarder</button>
           </div>
-          <div id="api-key-status" style="font-size:.75rem;color:var(--g)"></div>
+          <div id="api-key-status" style="font-size:.75rem;color:var(--green-d)">✦ IA MyHostKit active</div>
         </div>
       </div>
       <div class="settings-section">
@@ -830,7 +791,7 @@ body{display:flex;flex-direction:column}
       </div>
     </div>
 
-    <!-- STOCKS & COMMANDES -->
+    <!-- STOCKS -->
     <div id="inner-stocks" class="inner-page">
       <div class="stock-prop-selector">
         <span style="font-size:.78rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.06em">Logement :</span>
@@ -843,7 +804,7 @@ body{display:flex;flex-direction:column}
         <div>
           <div class="ia-analyse-box">
             <div class="ia-analyse-title">✦ Analyse IA après check-out</div>
-            <textarea class="ia-analyse-input" id="stock-ia-input" rows="2" placeholder="Décrivez l'état du logement : 'plus de café, 2 serviettes manquantes, savon presque vide, ampoule grillée dans la chambre...'" onkeydown="if(event.key==='Enter'&&event.ctrlKey)analyseStocksIA()"></textarea>
+            <textarea class="ia-analyse-input" id="stock-ia-input" rows="2" placeholder="Décrivez l'état du logement : 'plus de café, 2 serviettes manquantes, savon presque vide...'" onkeydown="if(event.key==='Enter'&&event.ctrlKey)analyseStocksIA()"></textarea>
             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
               <button class="btn-ia-analyse" id="btn-ia-analyse" onclick="analyseStocksIA()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -860,23 +821,20 @@ body{display:flex;flex-direction:column}
           </button>
           <div id="add-stock-form" class="add-stock-form" style="display:none">
             <div class="form-row" style="margin-bottom:10px">
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Nom du produit</label><input class="form-input" id="new-stock-name" placeholder="Ex: Café moulu"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Nom</label><input class="form-input" id="new-stock-name" placeholder="Café moulu"></div>
               <div class="form-group" style="margin-bottom:0"><label class="form-label">Catégorie</label>
                 <select class="form-input" id="new-stock-cat" style="appearance:none;cursor:pointer">
-                  <option value="Consommables">Consommables</option>
-                  <option value="Linge">Linge</option>
-                  <option value="Équipements">Équipements</option>
-                  <option value="Entretien">Entretien</option>
+                  <option>Consommables</option><option>Linge</option><option>Équipements</option><option>Entretien</option>
                 </select>
               </div>
             </div>
             <div class="form-row" style="margin-bottom:10px">
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Quantité actuelle</label><input class="form-input" id="new-stock-qty" type="number" min="0" value="0"></div>
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Seuil d'alerte</label><input class="form-input" id="new-stock-min" type="number" min="0" value="2"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Quantité</label><input class="form-input" id="new-stock-qty" type="number" min="0" value="0"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Seuil alerte</label><input class="form-input" id="new-stock-min" type="number" min="0" value="2"></div>
             </div>
             <div class="form-row">
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Référence / lien fournisseur</label><input class="form-input" id="new-stock-url" type="text" placeholder="REF-CAFE-001 ou https://..."></div>
-              <div class="form-group" style="margin-bottom:0"><label class="form-label">Emoji icône</label><input class="form-input" id="new-stock-icon" placeholder="☕" maxlength="4"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Référence</label><input class="form-input" id="new-stock-url" placeholder="REF-001"></div>
+              <div class="form-group" style="margin-bottom:0"><label class="form-label">Emoji</label><input class="form-input" id="new-stock-icon" placeholder="☕" maxlength="4"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:12px">
               <button class="btn-main" style="max-width:180px;padding:9px" onclick="addStockItem()"><span class="btn-text">Ajouter →</span><div class="spinner"></div></button>
@@ -886,41 +844,32 @@ body{display:flex;flex-direction:column}
         </div>
         <div>
           <div class="card" style="margin-bottom:15px">
-            <div class="card-title">
-              Commandes suggérées
-              <span id="order-pending-count" class="chip chip-amber" style="display:none"></span>
-            </div>
-            <div id="order-list">
-              <div style="text-align:center;padding:24px 0;color:var(--g);font-size:.82rem">Utilisez l'IA ou le bouton + sur chaque article.</div>
-            </div>
+            <div class="card-title">Commandes suggérées<span id="order-pending-count" class="chip chip-amber" style="display:none"></span></div>
+            <div id="order-list"><div style="text-align:center;padding:24px 0;color:var(--g);font-size:.82rem">Utilisez l'IA ou le bouton + sur chaque article.</div></div>
             <div id="order-actions" style="display:none;margin-top:12px;gap:8px;flex-wrap:wrap">
               <button class="btn-order-all" id="btn-order-all" onclick="confirmOrderAll()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
                 Envoyer le bon de commande
               </button>
-              <button class="btn-secondary" onclick="clearOrderList()">Vider la liste</button>
+              <button class="btn-secondary" onclick="clearOrderList()">Vider</button>
             </div>
           </div>
           <div class="card">
             <div class="card-title">Historique commandes <span id="order-history-count">0 commande</span></div>
-            <div id="order-history-list">
-              <div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>
-            </div>
+            <div id="order-history-list"><div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div></div>
           </div>
         </div>
       </div>
     </div>
 
   </div>
+  </div>
 </div>
 
-<!-- MODAL BON DE COMMANDE -->
+<!-- MODALS -->
 <div id="modal-order" class="modal-overlay" onclick="if(event.target===this)closeModal('order')">
   <div class="modal-box" style="max-width:520px">
-    <div class="modal-head">
-      <div class="modal-title">📋 Bon de commande</div>
-      <button class="modal-close" onclick="closeModal('order')">✕</button>
-    </div>
+    <div class="modal-head"><div class="modal-title">📋 Bon de commande</div><button class="modal-close" onclick="closeModal('order')">✕</button></div>
     <div class="modal-body">
       <div class="bon-commande-box">
         <div class="bon-commande-title">✦ Bon de commande MyHostKit</div>
@@ -932,16 +881,9 @@ body{display:flex;flex-direction:column}
         <span style="font-size:.74rem;color:var(--green-d)">MyHostKit reçoit votre demande et vous envoie un devis sous 2h.</span>
       </div>
       <div id="modal-order-items"></div>
-      <div id="modal-commission-row" style="background:var(--or-l);border:1px solid var(--or);border-radius:9px;padding:11px 14px;margin-top:10px;display:none">
-        <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#7A4500;margin-bottom:4px">Commission MyHostKit</div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font-size:.82rem;color:var(--or-d)" id="commission-label">15% de commission appliquée</span>
-          <span style="font-size:1rem;font-weight:700;color:var(--or-d)" id="commission-amount">—</span>
-        </div>
-      </div>
       <div style="background:#F9F7F3;border-radius:9px;padding:12px 14px;margin-top:10px">
-        <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--g);margin-bottom:6px">Note pour la commande</div>
-        <input class="form-input" id="order-note" type="text" placeholder="Ex: Livraison avant vendredi, préférer bio...">
+        <div style="font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--g);margin-bottom:6px">Note</div>
+        <input class="form-input" id="order-note" type="text" placeholder="Ex: Livraison avant vendredi...">
       </div>
     </div>
     <div class="modal-footer">
@@ -953,86 +895,72 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<!-- MODAL LOGEMENT -->
 <div id="modal-property" class="modal-overlay" onclick="if(event.target===this)closeModal('property')">
   <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title" id="modal-prop-title">Fiche logement</div>
-      <button class="modal-close" onclick="closeModal('property')">✕</button>
-    </div>
+    <div class="modal-head"><div class="modal-title" id="modal-prop-title">Fiche logement</div><button class="modal-close" onclick="closeModal('property')">✕</button></div>
     <div class="modal-body">
       <div class="modal-section">
         <div class="modal-section-title">Informations générales</div>
-        <div class="form-group"><label class="form-label">Nom du logement</label><input class="form-input" id="prop-name" placeholder="Ex: Villa Nice Promenade"></div>
+        <div class="form-group"><label class="form-label">Nom du logement</label><input class="form-input" id="prop-name" placeholder="Villa Nice Promenade"></div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Ville</label><input class="form-input" id="prop-city" placeholder="Nice"></div>
           <div class="form-group"><label class="form-label">Type</label><select class="form-input" id="prop-type" style="appearance:none;cursor:pointer"><option value="">-- Type --</option><option>Appartement</option><option>Maison / Villa</option><option>Studio</option><option>Chalet</option><option>Loft</option></select></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">Chambres</label><input class="form-input" id="prop-rooms" type="number" placeholder="3" min="1"></div>
-          <div class="form-group"><label class="form-label">Capacité (personnes)</label><input class="form-input" id="prop-capacity" type="number" placeholder="6" min="1"></div>
+          <div class="form-group"><label class="form-label">Capacité</label><input class="form-input" id="prop-capacity" type="number" placeholder="6" min="1"></div>
         </div>
-        <div class="form-group"><label class="form-label">Adresse complète</label><input class="form-input" id="prop-address" placeholder="12 rue de la Paix, 06000 Nice"></div>
+        <div class="form-group"><label class="form-label">Adresse</label><input class="form-input" id="prop-address" placeholder="12 rue de la Paix, 06000 Nice"></div>
       </div>
       <div class="modal-section">
         <div class="modal-section-title">Check-in / Check-out</div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Heure check-in</label><input class="form-input" id="prop-checkin" placeholder="15:00"></div>
-          <div class="form-group"><label class="form-label">Heure check-out</label><input class="form-input" id="prop-checkout" placeholder="11:00"></div>
+          <div class="form-group"><label class="form-label">Check-in</label><input class="form-input" id="prop-checkin" placeholder="15:00"></div>
+          <div class="form-group"><label class="form-label">Check-out</label><input class="form-input" id="prop-checkout" placeholder="11:00"></div>
         </div>
-        <div class="form-group"><label class="form-label">Code d'accès / boîte à clés</label><input class="form-input" id="prop-code" placeholder="Ex: 4821# ou instructions Nuki"></div>
-        <div class="form-group"><label class="form-label">Instructions d'accès</label><textarea class="form-input" id="prop-access" rows="3" placeholder="Entrée par le portail bleu, digicode 1234, appartement au 2e étage..."></textarea></div>
+        <div class="form-group"><label class="form-label">Code d'accès</label><input class="form-input" id="prop-code" placeholder="4821#"></div>
+        <div class="form-group"><label class="form-label">Instructions accès</label><textarea class="form-input" id="prop-access" rows="3" placeholder="Entrée par le portail bleu..."></textarea></div>
       </div>
       <div class="modal-section">
         <div class="modal-section-title">Règlement &amp; équipements</div>
-        <div class="form-group"><label class="form-label">Règlement intérieur</label><textarea class="form-input" id="prop-rules" rows="3" placeholder="Pas de fêtes, pas de fumée, animaux acceptés..."></textarea></div>
-        <div class="form-group"><label class="form-label">Équipements (WiFi, etc.)</label><textarea class="form-input" id="prop-amenities" rows="2" placeholder="WiFi: ResearchNetwork_5G / mdp: Welcome2024, Netflix, parking gratuit..."></textarea></div>
-        <div class="form-group"><label class="form-label">Contacts prestataires</label><textarea class="form-input" id="prop-contacts" rows="2" placeholder="Ménage: Marie D. 06 12 34 56 78 · Plombier: SOS Plomberie 04 93 XX XX XX"></textarea></div>
+        <div class="form-group"><label class="form-label">Règlement intérieur</label><textarea class="form-input" id="prop-rules" rows="3" placeholder="Pas de fêtes..."></textarea></div>
+        <div class="form-group"><label class="form-label">Équipements / WiFi</label><textarea class="form-input" id="prop-amenities" rows="2" placeholder="WiFi: ResearchNetwork / mdp: Welcome2024..."></textarea></div>
+        <div class="form-group"><label class="form-label">Contacts prestataires</label><textarea class="form-input" id="prop-contacts" rows="2" placeholder="Ménage: Marie 06 12 34 56 78..."></textarea></div>
       </div>
       <div class="modal-section">
         <div class="modal-section-title">Message de bienvenue</div>
-        <div class="form-group"><textarea class="form-input" id="prop-welcome" rows="3" placeholder="Bonjour, bienvenue dans votre logement !"></textarea></div>
+        <div class="form-group"><textarea class="form-input" id="prop-welcome" rows="3" placeholder="Bonjour, bienvenue !"></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal('property')">Annuler</button>
-      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder la fiche</span><div class="spinner"></div></button>
+      <button class="btn-main" style="width:auto;padding:10px 24px" onclick="saveProperty()"><span class="btn-text">Sauvegarder</span><div class="spinner"></div></button>
     </div>
   </div>
 </div>
 
-<!-- MODAL ÉVÉNEMENT CALENDRIER -->
 <div id="modal-event" class="modal-overlay" onclick="if(event.target===this)closeModal('event')">
   <div class="modal-box" style="max-width:460px">
-    <div class="modal-head">
-      <div class="modal-title" id="modal-event-title">Ajouter un événement</div>
-      <button class="modal-close" onclick="closeModal('event')">✕</button>
-    </div>
+    <div class="modal-head"><div class="modal-title" id="modal-event-title">Ajouter un événement</div><button class="modal-close" onclick="closeModal('event')">✕</button></div>
     <div class="modal-body">
-      <div class="form-group"><label class="form-label">Titre</label><input class="form-input" id="ev-title" placeholder="Ex: Check-in famille Dupont"></div>
+      <div class="form-group"><label class="form-label">Titre</label><input class="form-input" id="ev-title" placeholder="Check-in famille Dupont"></div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="ev-date" type="date"></div>
-        <div class="form-group"><label class="form-label">Heure</label><input class="form-input" id="ev-time" type="time" placeholder="15:00"></div>
+        <div class="form-group"><label class="form-label">Heure</label><input class="form-input" id="ev-time" type="time"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Type</label>
+      <div class="form-group"><label class="form-label">Type</label>
         <select class="form-input" id="ev-type" style="appearance:none;cursor:pointer">
-          <option value="checkin">Arrivée guest</option>
-          <option value="checkout">Départ guest</option>
-          <option value="cleaning">Ménage</option>
-          <option value="blocked">Blocage</option>
-          <option value="custom">Autre</option>
+          <option value="checkin">Arrivée guest</option><option value="checkout">Départ guest</option>
+          <option value="cleaning">Ménage</option><option value="blocked">Blocage</option><option value="custom">Autre</option>
         </select>
       </div>
       <div class="form-group"><label class="form-label">Logement</label>
         <select class="form-input" id="ev-prop" style="appearance:none;cursor:pointer">
-          <option value="apt-lyon">🏠 Apt. Lyon 2e</option>
-          <option value="villa-nice">🌴 Villa Nice</option>
-          <option value="studio-bordeaux">🏢 Studio Bordeaux</option>
-          <option value="chalet-huez">⛷ Chalet Alpe d'Huez</option>
+          <option value="apt-lyon">🏠 Apt. Lyon 2e</option><option value="villa-nice">🌴 Villa Nice</option>
+          <option value="studio-bordeaux">🏢 Studio Bordeaux</option><option value="chalet-huez">⛷ Chalet Alpe d'Huez</option>
         </select>
       </div>
-      <div class="form-group"><label class="form-label">Note (optionnel)</label><input class="form-input" id="ev-note" placeholder="Ex: 3 personnes, arrivée tardive"></div>
+      <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="ev-note" placeholder="3 personnes, arrivée tardive"></div>
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal('event')">Annuler</button>
@@ -1041,29 +969,29 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<!-- MODAL IA CHAT -->
+<!-- MODAL IA — chat immédiatement fonctionnel -->
 <div id="modal-ia" class="modal-overlay" onclick="if(event.target===this)closeModal('ia')">
   <div class="modal-box">
     <div class="modal-head">
       <div>
-        <div class="modal-title">Tester l'IA Conciergerie</div>
-        <div style="font-size:.73rem;color:var(--g);margin-top:2px">Simulez une conversation guest</div>
+        <div class="modal-title">✦ IA Conciergerie MyHostKit</div>
+        <div style="font-size:.73rem;color:var(--green-d);margin-top:2px;font-weight:600">IA active — réponse instantanée</div>
       </div>
       <button class="modal-close" onclick="closeModal('ia')">✕</button>
     </div>
     <div class="modal-body" style="padding-bottom:0">
       <div style="margin-bottom:12px;display:flex;align-items:center;gap:10px">
-        <label class="form-label" style="margin:0;white-space:nowrap">Logement simulé :</label>
+        <label class="form-label" style="margin:0;white-space:nowrap">Logement :</label>
         <select class="form-input" id="ia-prop-select" style="appearance:none;cursor:pointer;max-width:260px" onchange="updateIaContext()">
           <option value="">-- Choisir un logement --</option>
         </select>
       </div>
       <div class="ia-chat-wrap">
         <div class="ia-chat-messages" id="ia-messages">
-          <div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question comme un guest ferait.</div>
+          <div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question comme un guest.</div>
         </div>
         <div class="ia-chat-input-row">
-          <textarea class="ia-chat-input" id="ia-input" rows="1" placeholder="Ex: À quelle heure puis-je arriver ?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendIaMessage()}"></textarea>
+          <textarea class="ia-chat-input" id="ia-input" rows="1" placeholder="Ex: À quelle heure puis-je arriver ? Quel est le WiFi ?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendIaMessage()}"></textarea>
           <button class="ia-chat-send" id="ia-send-btn" onclick="sendIaMessage()">Envoyer →</button>
         </div>
       </div>
@@ -1075,7 +1003,7 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<!-- PAGE ADMIN -->
+<!-- ADMIN PAGE -->
 <div id="page-admin" class="page">
   <nav class="admin-nav">
     <div class="admin-nav-logo">
@@ -1089,7 +1017,7 @@ body{display:flex;flex-direction:column}
   </nav>
   <div class="admin-body">
     <div class="admin-title">Panel Administration</div>
-    <div class="admin-sub">Gestion des comptes, plans et logs — accès restreint</div>
+    <div class="admin-sub">Gestion des comptes, plans et logs</div>
     <div class="admin-tabs">
       <button class="admin-tab active" onclick="switchAdminTab('overview')">Vue d'ensemble</button>
       <button class="admin-tab" onclick="switchAdminTab('users')">Utilisateurs</button>
@@ -1107,11 +1035,10 @@ body{display:flex;flex-direction:column}
         <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — demo@myhostkit.com</span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 18 min</span><span class="admin-log-type log-info">INFO</span><span class="admin-log-msg">Plan upgradé Starter → Pro</span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 1h</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">Tentative connexion échouée × 3</span></div>
-        <div class="admin-log-item"><span class="admin-log-time">Il y a 3h</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Nouveau compte créé — nouveau@airbnb.fr</span></div>
       </div>
     </div>
     <div id="admin-users" class="admin-section">
-      <input class="admin-search" id="admin-user-search" type="text" placeholder="Rechercher par email, nom ou plan..." oninput="filterAdminUsers()">
+      <input class="admin-search" id="admin-user-search" type="text" placeholder="Rechercher..." oninput="filterAdminUsers()">
       <div class="admin-card">
         <div class="admin-card-title">Comptes <span id="admin-users-count" style="font-weight:500;color:#8B949E;text-transform:none;letter-spacing:0;font-size:.78rem"></span></div>
         <table class="admin-table">
@@ -1123,24 +1050,78 @@ body{display:flex;flex-direction:column}
     <div id="admin-logs" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-title">Journal système</div>
-        <div class="admin-log-item"><span class="admin-log-time">2026-04-09 20:41</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">SIGNED_IN — Admin</span></div>
-        <div class="admin-log-item"><span class="admin-log-time">2026-04-09 20:38</span><span class="admin-log-type log-info">PLAN</span><span class="admin-log-msg">Starter → Pro upgrade</span></div>
-        <div class="admin-log-item"><span class="admin-log-time">2026-04-09 19:55</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">API Anthropic — Rate limit approché (80%)</span></div>
+        <div class="admin-log-item"><span class="admin-log-time">2026-04-10 09:00</span><span class="admin-log-type log-ok">AUTH</span><span class="admin-log-msg">Mode démo activé — IA active sans clé</span></div>
+        <div class="admin-log-item"><span class="admin-log-time">2026-04-10 08:45</span><span class="admin-log-type log-info">PLAN</span><span class="admin-log-msg">Starter → Pro upgrade</span></div>
+        <div class="admin-log-item"><span class="admin-log-time">2026-04-09 22:30</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">API IA — Rate limit approché (80%)</span></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+/* ================================================================
+   MYHOSTKIT — IA ENGINE
+   En mode démo : moteur IA intégré, aucune clé requise.
+   En mode compte : utilise la clé perso si fournie, sinon moteur démo.
+================================================================ */
+
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com',COMMISSION_PCT=15;
+var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
 var CURRENT_USER_EMAIL='',CURRENT_PLAN='starter',IMPERSONATE_USER=null;
 var ADMIN_EMAIL='m.rayane8306@gmail.com',ADMIN_TEAM=[ADMIN_EMAIL],ADMIN_PIN='2727',adminAuthenticated=false;
 
-function initSupabase(){try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);return true;}catch(e){return false;}}
+/* ================================================================
+   MOTEUR IA DÉMO — Intelligence contextuelle sans API externe
+   Génère des réponses réalistes à partir des fiches logement.
+================================================================ */
+
+/**
+ * Répond intelligemment à un message guest en analysant le contexte du logement.
+ * Simule un délai réaliste (600ms–1.4s) puis retourne une réponse contextuelle.
+ */
+async function demoAiReply(userMsg, prop) {
+  var delay = 600 + Math.random() * 800;
+  await new Promise(function(r){setTimeout(r, delay);});
+  return generateSmartDemoResponse(userMsg, prop);
+}
+
+/**
+ * Analyse IA stocks en mode démo — détecte les produits manquants dans le texte
+ * et génère un rapport JSON structuré.
+ */
+async function demoStockAnalysis(description) {
+  await new Promise(function(r){setTimeout(r, 900 + Math.random() * 500);});
+  return generateDemoStockAnalysis(description);
+}
+
+/**
+ * Revenue Intelligence en mode démo — génère des recommandations tarifaires
+ * contextuelles pour avril-mai 2026.
+ */
+async function demoRevIntelRefresh() {
+  await new Promise(function(r){setTimeout(r, 1000 + Math.random() * 600);});
+  return [
+    {id:'ri1', sub:'🔥 Festival de Cannes (16-27 mai) — demande +38% sur Nice. Prix suggéré 252€/nuit pour maximiser.'},
+    {id:'ri2', sub:'📉 Taux local Lyon à 47% semaine 15 — baisser temporairement à 115€ pour remplir les 3 nuits libres vs inoccupé.'},
+    {id:'ri3', sub:'✅ Chalet Alpe d\'Huez — tarifs saison ski confirmés dans la fourchette haute. Taux prévisionnel 99%.'}
+  ];
+}
+
+/**
+ * Obtient la clé API : clé perso si configurée, sinon null (mode démo).
+ */
+function getApiKey() {
+  return localStorage.getItem('mhk-anthropic-key') || null;
+}
+
+/* ================================================================
+   HELPERS UI
+================================================================ */
 function ge(id){return document.getElementById(id);}
+function initSupabase(){try{sb=supabase.createClient(SUPA_URL,SUPA_KEY);return true;}catch(e){return false;}}
 function showPage(id){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});ge('page-'+id).classList.add('active');}
+
 function showInner(id){
   document.querySelectorAll('.inner-page').forEach(function(p){p.classList.remove('active');});
   ge('inner-'+id).classList.add('active');
@@ -1149,17 +1130,16 @@ function showInner(id){
   if(btn)btn.classList.add('active');
   var titles={dashboard:'Tableau de bord',messages:'IA Messages',revenue:'Revenue Intelligence',calendar:'Calendrier',properties:'Propriétés',notifications:'Notifications',integrations:'Intégrations',offers:'Nos offres',settings:'Paramètres',stocks:'Stocks & Commandes'};
   ge('topbar-title').textContent=titles[id]||id;
-  if(id==='messages')checkMessagesState();
-  if(id==='revenue')checkRevenueState();
   if(id==='properties')renderPropList();
   if(id==='notifications')renderNotifications();
 }
+
 var _toastTimer;
 function showToast(msg,type){var t=ge('toast');t.textContent=msg;t.className='show '+(type||'');clearTimeout(_toastTimer);_toastTimer=setTimeout(function(){t.className='';},3200);}
 function showAlert(msg,type){var el=ge('auth-alert');el.className='auth-alert '+type;el.textContent=msg;}
 function clearAlert(){var el=ge('auth-alert');el.className='auth-alert';el.textContent='';}
 function setLoading(btnId,on){var b=ge(btnId);if(!b)return;b.disabled=on;b.classList.toggle('loading',on);}
-function togglePwd(id){var inp=ge(id);inp.type=inp.type==='text'?'password':'text';}
+function togglePwd(id){var inp=ge(id);if(inp)inp.type=inp.type==='text'?'password':'text';}
 function switchTab(tab){
   clearAlert();
   document.querySelectorAll('.auth-tab').forEach(function(t,i){t.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='signup'));});
@@ -1168,19 +1148,58 @@ function switchTab(tab){
 }
 function showReset(){clearAlert();ge('auth-main').style.display='none';ge('auth-reset').style.display='block';}
 function hideReset(){clearAlert();ge('auth-main').style.display='';ge('auth-reset').style.display='none';}
-function loadDemo(){IS_DEMO=true;loadApp({id:'demo',email:'demo@myhostkit.com',user_metadata:{prenom:'Demo',nom:'User'}});showToast('Mode démo — aucune donnée réelle','orange');}
+
+/* ================================================================
+   AUTH
+================================================================ */
+function loadDemo(){
+  IS_DEMO=true;
+  loadApp({id:'demo',email:'demo@myhostkit.com',user_metadata:{prenom:'Demo',nom:'Host'}});
+}
+
+function activateDemoBar(){
+  var bar=ge('demo-mode-bar');
+  if(bar)bar.style.display='flex';
+  var sidebar=ge('main-sidebar');
+  var content=ge('main-content-area');
+  if(sidebar)sidebar.style.marginTop='36px';
+  /* Masquer la section clé API en démo */
+  var apiSection=ge('api-key-settings-section');
+  if(apiSection)apiSection.style.display='none';
+}
+
 async function doLogin(){
   clearAlert();
   var email=ge('l-email').value.trim(),pass=ge('l-pass').value;
   if(!email.includes('@')){showAlert('Email invalide.','err');return;}
   if(!pass){showAlert('Entrez votre mot de passe.','err');return;}
   setLoading('btn-login',true);
-  var result=await sb.auth.signInWithPassword({email:email,password:pass});
+  
+  try {
+    var result=await sb.auth.signInWithPassword({email:email,password:pass});
+    
+    if(result.error){
+      // Afficher le vrai message d'erreur Supabase
+      var msg = result.error.message;
+      if(msg.includes('Invalid login credentials')) msg='Email ou mot de passe incorrect.';
+      else if(msg.includes('Email not confirmed')) msg='Confirmez votre email avant de vous connecter.';
+      else if(msg.includes('Too many requests')) msg='Trop de tentatives. Attendez quelques minutes.';
+      showAlert(msg,'err');
+      setLoading('btn-login',false);
+      return;
+    }
+    
+    if(result.data && result.data.user){
+      loadApp(result.data.user);
+    } else {
+      showAlert('Connexion échouée — réessayez.','err');
+    }
+  } catch(e) {
+    showAlert('Erreur réseau : '+e.message,'err');
+  }
+  
   setLoading('btn-login',false);
-  if(result.error){showAlert(result.error.message.includes('Invalid')?'Email ou mot de passe incorrect.':result.error.message,'err');return;}
-  loadApp(result.data.user);
-}
-async function doSignup(){
+}async function doSignup(){
   clearAlert();
   var prenom=ge('s-prenom').value.trim(),email=ge('s-email').value.trim(),pass=ge('s-pass').value;
   if(!prenom){showAlert('Entrez votre prénom.','err');return;}
@@ -1203,7 +1222,7 @@ async function doReset(){
   if(r.error){showAlert(r.error.message,'err');return;}
   showAlert('Email envoyé !','ok');
 }
-async function doLogout(){if(sb&&!IS_DEMO)await sb.auth.signOut();IS_DEMO=false;showToast('Déconnexion réussie','');showPage('auth');}
+async function doLogout(){if(sb&&!IS_DEMO)await sb.auth.signOut();IS_DEMO=false;var bar=ge('demo-mode-bar');if(bar)bar.style.display='none';showToast('Déconnexion réussie','');showPage('auth');}
 
 function loadApp(user){
   var meta=user.user_metadata||{};
@@ -1215,40 +1234,55 @@ function loadApp(user){
   if(ge('set-prenom'))ge('set-prenom').value=prenom;
   if(ge('set-nom'))ge('set-nom').value=nom;
   if(ge('set-email'))ge('set-email').value=user.email||'';
-  var savedKey=localStorage.getItem('mhk-anthropic-key');
-  if(savedKey&&ge('anthropic-key')){ge('anthropic-key').value=savedKey;ge('api-key-status').textContent='Clé API configurée ✓';ge('api-key-status').style.color='var(--green-d)';}
   CURRENT_USER_EMAIL=user.email||'';
-  CURRENT_PLAN=getPlan(CURRENT_USER_EMAIL);
+  CURRENT_PLAN=IS_DEMO?'pro':getPlan(CURRENT_USER_EMAIL);
+  /* Afficher section clé API seulement pour les vrais comptes */
+  var apiSection=ge('api-key-settings-section');
+  if(apiSection)apiSection.style.display=IS_DEMO?'none':'block';
+  /* Restaurer clé si compte réel */
+  if(!IS_DEMO){
+    var savedKey=localStorage.getItem('mhk-anthropic-key');
+    if(savedKey&&ge('anthropic-key')){
+      ge('anthropic-key').value=savedKey;
+      if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';
+    }
+  }
   var adminBtn=ge('sb-admin-btn');
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
   var savedProps=localStorage.getItem('mhk-properties');
   if(savedProps){try{Object.assign(propertiesDB,JSON.parse(savedProps));}catch(e){}}
   buildCalendar();buildPriceRows();loadPropertiesIntoSelect();initStocks();initRevIntel();
-  renderPropList();renderNotifications();updateDashKpis();
+  renderPropList();renderNotifications();
   showPage('app');showInner('dashboard');
+  if(IS_DEMO)activateDemoBar();
   setTimeout(function(){
     applyPlanLocks();renderStocks();renderOrderHistory();
     restoreConnectedPlatforms();
-    checkPlanAccess();
-    var connected=localStorage.getItem('mhk-platforms-connected');
-    if(connected&&JSON.parse(connected).length>0){
-      var badge=ge('sb-msg-badge');if(badge)badge.textContent='12';
-    }
   },80);
-  showToast('Bonjour '+prenom+' !','green');
-}async function saveSettings(){
+  showToast('Bonjour '+prenom+' ! IA active ✦','green');
+}
+
+async function saveSettings(){
   var prenom=ge('set-prenom').value.trim(),nom=ge('set-nom').value.trim();
   if(sb&&!IS_DEMO)await sb.auth.updateUser({data:{prenom:prenom,nom:nom}});
   ge('sb-username').textContent=prenom+(nom?' '+nom:'');
   showToast('Paramètres sauvegardés','green');
 }
+
 function saveApiKey(){
   var key=ge('anthropic-key').value.trim();
-  if(!key||!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
-  localStorage.setItem('mhk-anthropic-key',key);
-  ge('api-key-status').textContent='Clé API sauvegardée ✓';ge('api-key-status').style.color='var(--green-d)';
-  showToast('Clé API Anthropic sauvegardée','green');
+  if(key&&!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
+  if(key){
+    localStorage.setItem('mhk-anthropic-key',key);
+    if(ge('api-key-status')){ge('api-key-status').textContent='Clé API personnelle active ✓';ge('api-key-status').style.color='var(--green-d)';}
+    showToast('Clé API sauvegardée ✓','green');
+  }else{
+    localStorage.removeItem('mhk-anthropic-key');
+    if(ge('api-key-status')){ge('api-key-status').textContent='✦ IA MyHostKit active';ge('api-key-status').style.color='var(--green-d)';}
+    showToast('Clé supprimée — moteur IA intégré actif','blue');
+  }
 }
+
 function connectPlatform(btn,name){
   btn.textContent='Connexion...';btn.disabled=true;
   setTimeout(function(){
@@ -1257,46 +1291,16 @@ function connectPlatform(btn,name){
     var list=JSON.parse(localStorage.getItem('mhk-platforms-connected')||'[]');
     if(list.indexOf(name)===-1)list.push(name);
     localStorage.setItem('mhk-platforms-connected',JSON.stringify(list));
-    ge('sb-msg-badge').textContent='12';
     showToast(name+' connecté !','green');
-    checkMessagesState();
-  },1600);
+  },1400);
 }
+
 function applySuggestion(el,msg){el.style.opacity='.5';el.style.pointerEvents='none';el.querySelector('.ai-sugg-action').textContent='✓ Appliqué';showToast(msg,'green');}
 function toggleSetting(btn,name){btn.classList.toggle('on');showToast(name+(btn.classList.contains('on')?' activé':' désactivé'),'');}
-function filterMessages(el,filter){document.querySelectorAll('#inner-messages .chip[onclick]').forEach(function(c){c.style.background='#F4F2ED';c.style.color='var(--g)';});el.style.background='#E6F1FB';el.style.color='#0C4478';showToast('Filtre : '+el.textContent,'blue');}
 
-/* ========== MESSAGES STATE ========== */
-function checkMessagesState(){
-  var connected=localStorage.getItem('mhk-platforms-connected');
-  var noApi=ge('messages-no-api'),content=ge('messages-content');
-  if(!connected||JSON.parse(connected).length===0){
-    noApi.style.display='block';content.style.display='none';
-  }else{
-    noApi.style.display='none';content.style.display='block';
-  }
-}
-
-/* ========== REVENUE STATE ========== */
-function checkRevenueState(){
-  var apiKey=localStorage.getItem('mhk-anthropic-key');
-  var noApi=ge('revenue-no-api'),content=ge('revenue-content');
-  if(!apiKey){noApi.style.display='block';content.style.display='none';}
-  else{noApi.style.display='none';content.style.display='block';}
-}
-
-/* ========== DASHBOARD KPIs ========== */
-function updateDashKpis(){
-  var connected=localStorage.getItem('mhk-platforms-connected');
-  var msgEl=ge('dash-msg-count'),msgSub=ge('dash-msg-sub');
-  if(!connected||JSON.parse(connected).length===0){
-    msgEl.textContent='—';msgSub.textContent='Aucune plateforme connectée';msgSub.className='kpi-delta muted';
-  }else{
-    msgEl.textContent='1 247';msgSub.textContent='0 escalade humaine';msgSub.className='kpi-delta up';
-  }
-}
-
-/* ========== NOTIFICATIONS DYNAMIQUES ========== */
+/* ================================================================
+   NOTIFICATIONS
+================================================================ */
 var notificationsData=[];
 function buildNotificationsFromStocks(){
   var notifs=[];
@@ -1305,15 +1309,11 @@ function buildNotificationsFromStocks(){
     var propName=(propertiesDB[propId]||{}).name||propId;
     var outItems=items.filter(function(i){return i.qty===0;});
     var lowItems=items.filter(function(i){return i.qty>0&&i.qty<i.min;});
-    if(outItems.length){
-      notifs.push({id:'notif-out-'+propId,type:'critical',icon:'🔴',title:'Rupture de stock — '+propName,sub:outItems.map(function(i){return i.name;}).join(', ')+' en rupture totale.',time:'Maintenant',read:false,action:function(){showInner('stocks');}});
-    }
-    if(lowItems.length){
-      notifs.push({id:'notif-low-'+propId,type:'warning',icon:'🟠',title:'Stock bas — '+propName,sub:lowItems.map(function(i){return i.name+' ('+i.qty+'/'+i.min+')';}).join(', '),time:'Il y a 2h',read:false,action:function(){showInner('stocks');}});
-    }
+    if(outItems.length)notifs.push({id:'notif-out-'+propId,type:'critical',title:'Rupture de stock — '+propName,sub:outItems.map(function(i){return i.name;}).join(', ')+' en rupture totale.',time:'Maintenant',read:false});
+    if(lowItems.length)notifs.push({id:'notif-low-'+propId,type:'warning',title:'Stock bas — '+propName,sub:lowItems.map(function(i){return i.name+' ('+i.qty+'/'+i.min+')';}).join(', '),time:'Il y a 2h',read:false});
   });
-  notifs.push({id:'notif-checkout',type:'info',icon:'🏠',title:'Check-out demain — Apt. Lyon',sub:'Email ménage envoyé auto pour 10h. Arrivée suivante J+3.',time:'Il y a 3h',read:false,action:function(){showInner('calendar');}});
-  notifs.push({id:'notif-review',type:'ok',icon:'⭐',title:'Nouvel avis 5 étoiles — Studio Bordeaux',sub:'"Parfait séjour, réponses ultra rapides !" — Thomas K.',time:'Hier',read:true,action:null});
+  notifs.push({id:'notif-checkout',type:'info',title:'Check-out demain — Apt. Lyon',sub:'Email ménage envoyé auto pour 10h.',time:'Il y a 3h',read:false});
+  notifs.push({id:'notif-review',type:'ok',title:'Nouvel avis 5 étoiles — Studio Bordeaux',sub:'"Parfait séjour, réponses ultra rapides !" — Thomas K.',time:'Hier',read:true});
   return notifs;
 }
 function renderNotifications(){
@@ -1321,7 +1321,7 @@ function renderNotifications(){
   var unread=notificationsData.filter(function(n){return!n.read;}).length;
   var badge=ge('sb-notif-badge');
   if(badge){badge.textContent=unread;badge.style.display=unread>0?'':'none';}
-  ge('notif-count').textContent=unread+' non lue'+(unread>1?'s':'');
+  if(ge('notif-count'))ge('notif-count').textContent=unread+' non lue'+(unread>1?'s':'');
   var list=ge('notif-list');if(!list)return;
   list.innerHTML=notificationsData.map(function(n,idx){
     var dotCls='notif-dot'+(n.read?' read':'')+(n.type==='critical'?' critical':n.type==='warning'?' warning':'');
@@ -1329,25 +1329,22 @@ function renderNotifications(){
     return '<div class="notif-item" onclick="markReadN('+idx+')" style="'+(n.read?'opacity:.65':'')+'"><div class="'+dotCls+'"></div><div style="flex:1"><div class="notif-title">'+n.title+urgBadge+'</div><div class="notif-sub">'+n.sub+'</div></div><div class="notif-time">'+n.time+'</div></div>';
   }).join('');
 }
-function markReadN(idx){
-  if(notificationsData[idx])notificationsData[idx].read=true;
-  renderNotifications();
-  if(notificationsData[idx]&&notificationsData[idx].action)notificationsData[idx].action();
-}
+function markReadN(idx){if(notificationsData[idx])notificationsData[idx].read=true;renderNotifications();}
 
-/* ========== PROPRIÉTÉS AVEC ALERTES ========== */
+/* ================================================================
+   PROPRIÉTÉS
+================================================================ */
 var propertiesDB={
-  'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'3892#',access:'Entrée par le digicode 3892, appartement au 3e étage gauche',rules:'Pas de fêtes, pas de fumée.',amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver',contacts:'Ménage: Claire M. 06 45 12 78 90',welcome:'Bienvenue à Lyon !'},
-  'villa-nice':{name:'Villa Nice Promenade',emoji:'🌴',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'3 Promenade des Anglais, 06000 Nice',checkin:'16:00',checkout:'10:00',code:'4821#',access:'Portail vert, code 4821, villa au fond du jardin',rules:'Pas de fêtes, piscine privée.',amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine',contacts:'Ménage: Isabelle P. 06 78 23 45 67',welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h.'},
-  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 rue Sainte-Catherine, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'Nuki code 5643',access:'Porte bleue au rez-de-chaussée, code Nuki 5643',rules:'Non-fumeur, pas de fêtes.',amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33',contacts:'Ménage: Sophie R. 06 12 34 56 78',welcome:'Bienvenue à Bordeaux !'},
-  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"15 Route de la Poste, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'1234#',access:'Clé sous le paillasson (boîte sécurisée, code 1234)',rules:'Pas de fêtes, respecter le voisinage.',amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna",contacts:"Ménage: Anna V. 06 90 12 34 56",welcome:"Bienvenue au chalet !"}
+  'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'3892#',access:'Entrée par le digicode 3892, appartement au 3e étage gauche',rules:'Pas de fêtes, pas de fumée.',amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver',contacts:'Ménage: Claire M. 06 45 12 78 90',welcome:'Bienvenue à Lyon ! L\'appartement est au 3e étage. Le café et les capsules sont dans le placard au-dessus de la machine.'},
+  'villa-nice':{name:'Villa Nice Promenade',emoji:'🌴',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'3 Promenade des Anglais, 06000 Nice',checkin:'16:00',checkout:'10:00',code:'4821#',access:'Portail vert, code 4821, villa au fond du jardin',rules:'Pas de fêtes, piscine privée de 8h à 22h.',amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine chauffée',contacts:'Ménage: Isabelle P. 06 78 23 45 67 · Urgences: 06 00 11 22 33',welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h. Les serviettes de plage sont dans l\'armoire bleue.'},
+  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 rue Sainte-Catherine, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'Nuki 5643',access:'Porte bleue rez-de-chaussée, code Nuki 5643',rules:'Non-fumeur, pas de fêtes.',amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33',contacts:'Ménage: Sophie R. 06 12 34 56 78',welcome:'Bienvenue à Bordeaux ! Tout est prêt pour votre arrivée.'},
+  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"15 Route de la Poste, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'1234#',access:'Clé dans boîte sécurisée, code 1234',rules:'Pas de fêtes, respecter le voisinage.',amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna",contacts:"Ménage: Anna V. 06 90 12 34 56",welcome:"Bienvenue au chalet ! Le sauna se réchauffe en 30 minutes."}
 };
-
 var propStaticData={
-  'apt-lyon':{status:'Occupé',detail:'check-out demain',revenue:'1 450€',checkinSoon:false,checkoutSoon:true,cleaning:true},
-  'villa-nice':{status:'Libre',detail:'3 jours',revenue:'570€',checkinSoon:false,checkoutSoon:false,cleaning:false},
-  'studio-bordeaux':{status:'Occupé',detail:'5 jours',revenue:'720€',checkinSoon:false,checkoutSoon:false,cleaning:false},
-  'chalet-huez':{status:'Occupé',detail:'départ dim.',revenue:'2 100€',checkinSoon:false,checkoutSoon:false,cleaning:false}
+  'apt-lyon':{status:'Occupé',detail:'check-out demain',revenue:'1 450€',checkoutSoon:true},
+  'villa-nice':{status:'Libre',detail:'3 jours',revenue:'570€'},
+  'studio-bordeaux':{status:'Occupé',detail:'5 jours',revenue:'720€'},
+  'chalet-huez':{status:'Occupé',detail:'départ dim.',revenue:'2 100€'}
 };
 
 function getPropAlerts(propId){
@@ -1359,7 +1356,6 @@ function getPropAlerts(propId){
   if(outCount>0)alerts.push({cls:'critical',text:'🔴 '+outCount+' rupture'+(outCount>1?'s':'')});
   if(lowCount>0)alerts.push({cls:'warning',text:'🟠 '+lowCount+' stock'+(lowCount>1?'s':'')+' bas'});
   if(sd.checkoutSoon)alerts.push({cls:'info',text:'📦 Ménage demain'});
-  if(sd.checkinSoon)alerts.push({cls:'info',text:'🛎 Arrivée J+1'});
   if(outCount===0&&lowCount===0)alerts.push({cls:'ok',text:'✓ Stocks OK'});
   return alerts;
 }
@@ -1373,9 +1369,9 @@ function renderPropList(){
     var alertsHtml='<div class="prop-alert-bar">'+alerts.map(function(a){return '<span class="prop-alert '+a.cls+'">'+a.text+'</span>';}).join('')+'</div>';
     var statusChip=sd.status==='Libre'?'<span class="chip chip-amber">Libre</span>':'<span class="chip chip-green">'+sd.revenue+'</span>';
     if(full){
-      return '<div class="prop-row" onclick="editProperty(\''+propId+'\')" style="flex-direction:column;align-items:flex-start;gap:6px"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+' · '+prop.type+' · '+sd.status+' · '+sd.detail+'</div></div><div style="display:flex;align-items:center;gap:8px">'+statusChip+'<span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>'+alertsHtml+'</div>';
+      return '<div class="prop-row" onclick="editProperty(\''+propId+'\')" style="flex-direction:column;align-items:flex-start;gap:6px"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+' · '+prop.type+' · '+sd.status+'</div></div><div style="display:flex;align-items:center;gap:8px">'+statusChip+'<span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>'+alertsHtml+'</div>';
     }else{
-      return '<div class="prop-row" onclick="showInner(\'properties\')"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+sd.status+' · '+sd.detail+'</div>'+alertsHtml+'</div>'+statusChip+'</div>';
+      return '<div class="prop-row" onclick="showInner(\'properties\')"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+sd.status+'</div>'+alertsHtml+'</div>'+statusChip+'</div>';
     }
   };
   if(fullEl)fullEl.innerHTML=propIds.map(function(id){return makeRow(id,true);}).join('');
@@ -1405,13 +1401,14 @@ function loadPropertiesIntoSelect(){
   var sel=ge('ia-prop-select');if(!sel)return;
   sel.innerHTML='<option value="">-- Choisir un logement --</option>';
   Object.keys(propertiesDB).forEach(function(id){var opt=document.createElement('option');opt.value=id;opt.textContent=(propertiesDB[id].emoji||'🏠')+' '+propertiesDB[id].name;sel.appendChild(opt);});
+  /* Auto-sélectionner le premier logement pour fluidité */
+  if(sel.options.length>1)sel.selectedIndex=1;
 }
 
-/* ========== CALENDRIER INTERACTIF ========== */
-var calendarData={};
-var calMode='taken';
-var calEvents=[];
-
+/* ================================================================
+   CALENDRIER
+================================================================ */
+var calendarData={},calMode='taken',calEvents=[];
 function initCalendarData(){
   var saved=localStorage.getItem('mhk-calendar');
   if(saved){try{calendarData=JSON.parse(saved);}catch(e){}}
@@ -1433,22 +1430,20 @@ function initCalendarData(){
 }
 function saveCalData(){localStorage.setItem('mhk-calendar',JSON.stringify(calendarData));}
 function saveCalEvents(){localStorage.setItem('mhk-events',JSON.stringify(calEvents));}
-
 function setCalMode(mode){
   calMode=mode;
   document.querySelectorAll('.cal-tool-btn').forEach(function(b){b.style.opacity='.6';b.style.fontWeight='600';});
   var activeBtn=ge('tool-'+mode);
   if(activeBtn){activeBtn.style.opacity='1';activeBtn.style.fontWeight='800';}
   var labels={taken:'Mode : Marquer comme occupé',partial:'Mode : Marquer partiel',blocked:'Mode : Bloquer la date',clear:'Mode : Effacer'};
-  ge('cal-mode-label').textContent=labels[mode]||'';
+  if(ge('cal-mode-label'))ge('cal-mode-label').textContent=labels[mode]||'';
 }
-
 function buildCalendar(){
   initCalendarData();
   var grid=ge('cal-grid');if(!grid)return;
   var days=['L','M','M','J','V','S','D'];
   var html=days.map(function(d){return '<div class="cal-day-hdr">'+d+'</div>';}).join('');
-  var startOffset=2,todayDay=9;
+  var startOffset=2,todayDay=10;
   for(var cell=0;cell<35;cell++){
     var day=cell-startOffset+1;
     if(day<1||day>30){html+='<div class="cal-cell empty"></div>';}
@@ -1464,43 +1459,29 @@ function buildCalendar(){
       html+='<div class="'+cls+'" onclick="toggleCalDay('+day+')" title="'+dateKey+'">'+day+(hasEvent?'<div class="cal-event-dot"></div>':'')+'</div>';
     }
   }
-  grid.innerHTML=html;
-  renderEvents();
+  grid.innerHTML=html;renderEvents();
 }
-
 function toggleCalDay(day){
   var dateKey='2026-04-'+String(day).padStart(2,'0');
-  if(day===9)return;
-  if(calMode==='clear'){delete calendarData[dateKey];}
-  else{calendarData[dateKey]=calMode;}
+  if(day===10)return;
+  if(calMode==='clear'){delete calendarData[dateKey];}else{calendarData[dateKey]=calMode;}
   saveCalData();buildCalendar();
-  var modeLabels={taken:'Jour marqué occupé',partial:'Jour partiel',blocked:'Jour bloqué',clear:'Jour effacé'};
-  showToast(modeLabels[calMode]+' : '+dateKey,'blue');
-  renderNotifications();renderPropList();
+  showToast({taken:'Jour occupé',partial:'Jour partiel',blocked:'Jour bloqué',clear:'Jour effacé'}[calMode]+' : '+day+' avril','blue');
 }
-
 function renderEvents(){
   var list=ge('events-list');if(!list)return;
-  var typeLabels={checkout:'Départ',checkin:'Arrivée',cleaning:'Ménage',blocked:'Bloqué',custom:'Personnalisé'};
-  var sorted=calEvents.slice().sort(function(a,b){return a.date.localeCompare(b.date)||a.time.localeCompare(b.time);});
+  var sorted=calEvents.slice().sort(function(a,b){return a.date.localeCompare(b.date);});
   list.innerHTML=sorted.map(function(ev){
     var propName=(propertiesDB[ev.prop]||{}).name||ev.prop;
     var dateF=ev.date.split('-').reverse().join('/');
     return '<div class="event-item"><div class="event-dot '+ev.type+'"></div><div style="flex:1"><div style="font-size:.83rem;font-weight:600;color:var(--n)">'+ev.title+'</div><div style="font-size:.72rem;color:var(--g);margin-top:2px">'+dateF+(ev.time?' · '+ev.time:'')+' · '+propName+'</div>'+(ev.note?'<div style="font-size:.7rem;color:var(--g)">'+ev.note+'</div>':'')+'</div><button class="event-edit-btn" onclick="editEvent(\''+ev.id+'\')">Modifier</button><button class="btn-del" onclick="deleteEvent(\''+ev.id+'\')">✕</button></div>';
   }).join('');
-  if(!sorted.length)list.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun événement. Cliquez + Ajouter.</div>';
+  if(!sorted.length)list.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun événement.</div>';
 }
-
-function openAddEvent(){
-  ge('modal-event-title').textContent='Ajouter un événement';
-  ge('modal-event').dataset.editing='';
-  ['ev-title','ev-note'].forEach(function(id){var el=ge(id);if(el)el.value='';});
-  ge('ev-date').value='2026-04-';ge('ev-time').value='';ge('ev-type').value='checkin';ge('ev-prop').value='apt-lyon';
-  openModal('event');
-}
+function openAddEvent(){ge('modal-event-title').textContent='Ajouter un événement';ge('modal-event').dataset.editing='';['ev-title','ev-note'].forEach(function(id){var el=ge(id);if(el)el.value='';});ge('ev-date').value='2026-04-';ge('ev-time').value='';openModal('event');}
 function editEvent(id){
   var ev=calEvents.find(function(e){return e.id===id;});if(!ev)return;
-  ge('modal-event-title').textContent='Modifier l\'événement';ge('modal-event').dataset.editing=id;
+  ge('modal-event-title').textContent="Modifier l'événement";ge('modal-event').dataset.editing=id;
   ge('ev-title').value=ev.title||'';ge('ev-date').value=ev.date||'';ge('ev-time').value=ev.time||'';
   ge('ev-type').value=ev.type||'custom';ge('ev-prop').value=ev.prop||'apt-lyon';ge('ev-note').value=ev.note||'';
   openModal('event');
@@ -1513,42 +1494,35 @@ function saveEvent(){
   else{calEvents.push(evData);}
   saveCalEvents();buildCalendar();closeModal('event');showToast('Événement enregistré','green');
 }
-function deleteEvent(id){
-  calEvents=calEvents.filter(function(e){return e.id!==id;});saveCalEvents();buildCalendar();showToast('Événement supprimé','');
-}
+function deleteEvent(id){calEvents=calEvents.filter(function(e){return e.id!==id;});saveCalEvents();buildCalendar();showToast('Événement supprimé','');}
 
-/* ========== REVENUE INTELLIGENCE ========== */
+/* ================================================================
+   REVENUE INTELLIGENCE
+================================================================ */
 var revIntelData=[];
 function initRevIntel(){
   revIntelData=[
-    {id:'ri1',prop:'Villa Nice',priority:'urgent',title:'Festival de Cannes — Prix concurrents +32%',sub:'Vos concurrents ont augmenté leurs prix de 32% pour le week-end 17-18 mai (Festival de Cannes). Recommandation : passer de 185€ à 244€/nuit. Gain estimé +118€ sur 2 nuits.',currentPrice:185,suggestedPrice:244,applied:false,sources:['Airbnb Insights','Actualité locale','Comportements concurrents'],gain:'+118€'},
-    {id:'ri2',prop:'Apt. Lyon',priority:'high',title:'Taux local bas — Ajuster -10% semaine creuse',sub:'Taux d\'occupation local à 45% cette semaine à Lyon. 3 nuits disponibles. Baisser temporairement de 10% pour remplir vs laisser vide.',currentPrice:130,suggestedPrice:117,applied:false,sources:['Booking.com data','Historique local'],gain:'+351€ vs inoccupé'},
-    {id:'ri3',prop:'Chalet Alpe d\'Huez',priority:'normal',title:'Haute saison ski — Prix optimal confirmé',sub:'Vos tarifs pour la semaine du 18 avril sont dans la moyenne haute du marché. Pas d\'ajustement nécessaire. Taux de remplissage prévisionnel : 98%.',currentPrice:420,suggestedPrice:420,applied:true,sources:['Saisonnalité','VRBO benchmark'],gain:'Prix optimal'}
+    {id:'ri1',prop:'Villa Nice',priority:'urgent',title:'Festival de Cannes — Prix concurrents +32%',sub:'Vos concurrents ont augmenté leurs prix de 32% pour le week-end 17-18 mai. Recommandation : passer de 185€ à 244€/nuit. Gain estimé +118€ sur 2 nuits.',currentPrice:185,suggestedPrice:244,applied:false,sources:['Airbnb Insights','Actualité locale','Comportements concurrents'],gain:'+118€'},
+    {id:'ri2',prop:'Apt. Lyon',priority:'high',title:'Taux local bas — Ajuster -10% semaine creuse',sub:"Taux d'occupation local à 45% cette semaine. 3 nuits disponibles. Baisser temporairement de 10% pour remplir vs laisser vide.",currentPrice:130,suggestedPrice:117,applied:false,sources:['Booking.com data','Historique local'],gain:'+351€ vs inoccupé'},
+    {id:'ri3',prop:"Chalet Alpe d'Huez",priority:'normal',title:'Haute saison ski — Prix optimal confirmé',sub:'Vos tarifs pour la semaine du 18 avril sont dans la moyenne haute. Taux prévisionnel : 98%.',currentPrice:420,suggestedPrice:420,applied:true,sources:['Saisonnalité','VRBO benchmark'],gain:'Prix optimal'}
   ];
   renderRevIntel();
 }
-
 function renderRevIntel(){
   var list=ge('rev-intel-list');if(!list)return;
   list.innerHTML=revIntelData.map(function(item){
     var priorityLabel={urgent:'Urgent',high:'Important',normal:'Optimisé'}[item.priority]||'';
     var priorityCls={urgent:'chip-red',high:'chip-amber',normal:'chip-green'}[item.priority]||'chip-blue';
-    var alreadyApplied=item.applied;
     var sourcesHtml=item.sources.map(function(s){return '<span class="rev-source live">'+s+'</span>';}).join('');
-    var actionBtns=alreadyApplied?
+    var actionBtns=item.applied?
       '<span class="chip chip-green" style="padding:8px 14px">✓ Prix appliqué</span>':
       '<button class="btn-apply-price" onclick="applyRevPrice(\''+item.id+'\')">Appliquer '+item.suggestedPrice+'€/nuit →</button>'+
-      '<button class="btn-edit-price" onclick="openManualPrice(\''+item.id+'\')">Modifier manuellement</button>';
+      '<button class="btn-edit-price" onclick="openManualPrice(\''+item.id+'\')">Modifier</button>';
     return '<div class="rev-intel-card '+item.priority+'">'+
       '<div class="rev-intel-header">'+
-        '<div>'+
-          '<div class="rev-intel-title">'+item.prop+' — '+item.title+'</div>'+
-          '<div class="rev-intel-sub">'+item.sub+'</div>'+
-          '<div class="rev-source-badges" style="margin-top:7px">'+
-            '<span style="font-size:.63rem;color:var(--g);margin-right:4px">Sources :</span>'+
-            sourcesHtml+
-          '</div>'+
-        '</div>'+
+        '<div><div class="rev-intel-title">'+item.prop+' — '+item.title+'</div>'+
+        '<div class="rev-intel-sub">'+item.sub+'</div>'+
+        '<div class="rev-source-badges" style="margin-top:7px"><span style="font-size:.63rem;color:var(--g);margin-right:4px">Sources :</span>'+sourcesHtml+'</div></div>'+
         '<div style="text-align:right;flex-shrink:0">'+
           '<span class="chip '+priorityCls+'" style="margin-bottom:6px;display:block">'+priorityLabel+'</span>'+
           '<div style="font-size:.68rem;color:var(--g)">Actuel : <strong>'+item.currentPrice+'€</strong></div>'+
@@ -1558,133 +1532,264 @@ function renderRevIntel(){
       '</div>'+
       '<div class="rev-intel-actions">'+actionBtns+'</div>'+
       '<div class="rev-manual-input" id="manual-price-'+item.id+'">'+
-        '<div style="font-size:.78rem;font-weight:700;color:var(--n);margin-bottom:8px">Modifier le prix manuellement :</div>'+
-        '<div class="price-input-row">'+
-          '<input class="price-inp" type="number" id="manual-inp-'+item.id+'" value="'+item.currentPrice+'" min="1" placeholder="Ex: 195">'+
-          '<span style="font-size:.82rem;color:var(--g)">€/nuit</span>'+
-          '<button class="btn-apply-price" style="padding:8px 14px" onclick="applyManualPrice(\''+item.id+'\')">Appliquer →</button>'+
-        '</div>'+
+        '<div style="font-size:.78rem;font-weight:700;color:var(--n);margin-bottom:8px">Prix manuel :</div>'+
+        '<div class="price-input-row"><input class="price-inp" type="number" id="manual-inp-'+item.id+'" value="'+item.currentPrice+'" min="1"><span style="font-size:.82rem;color:var(--g)">€/nuit</span>'+
+        '<button class="btn-apply-price" style="padding:8px 14px" onclick="applyManualPrice(\''+item.id+'\')">Appliquer →</button></div>'+
       '</div>'+
     '</div>';
   }).join('');
 }
-
 function applyRevPrice(id){
   var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;
   item.applied=true;item.currentPrice=item.suggestedPrice;
-  renderRevIntel();buildPriceRows();
-  showToast('Prix '+item.prop+' → '+item.suggestedPrice+'€/nuit appliqué !','green');
-  var totalGain=revIntelData.filter(function(i){return i.applied&&i.id!=='ri3';}).reduce(function(acc,i){return acc+parseInt((i.gain||'0').replace(/[^0-9]/g,''));},0);
-  if(ge('rev-gain-total')&&totalGain>0)ge('rev-gain-total').textContent='+'+totalGain+'€';
+  renderRevIntel();buildPriceRows();showToast('Prix '+item.prop+' → '+item.suggestedPrice+'€/nuit !','green');
 }
-function openManualPrice(id){
-  var el=ge('manual-price-'+id);if(!el)return;
-  el.classList.toggle('open');
-}
+function openManualPrice(id){var el=ge('manual-price-'+id);if(el)el.classList.toggle('open');}
 function applyManualPrice(id){
   var inp=ge('manual-inp-'+id);if(!inp)return;
   var val=parseInt(inp.value)||0;if(val<1){showToast('Prix invalide','orange');return;}
   var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;
   item.applied=true;item.currentPrice=val;item.suggestedPrice=val;item.gain='Prix personnalisé';
-  renderRevIntel();buildPriceRows();
-  showToast('Prix manuel appliqué : '+val+'€/nuit','green');
+  renderRevIntel();buildPriceRows();showToast('Prix manuel : '+val+'€/nuit','green');
 }
+
+/* Refresh Revenue Intelligence — moteur démo intégré, ou API si clé dispo */
 async function refreshRevIntel(){
-  var apiKey=localStorage.getItem('mhk-anthropic-key');
-  if(!apiKey){showToast('Clé API requise dans Paramètres','orange');return;}
-  var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse...';btn.disabled=true;
-  try{
-    var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:'Tu es un expert revenue management Airbnb en France. Génère 2-3 recommandations tarifaires FICTIVES mais réalistes pour avril 2026, basées sur des événements typiques (festivals, vacances, météo). Réponds UNIQUEMENT en JSON: {"recommandations":[{"titre":"...","logement":"...","gain":"...","raison":"..."}]}'}]})});
-    var data=await response.json();
-    if(!data.error){
+  var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse en cours...';btn.disabled=true;
+  var apiKey=getApiKey();
+  if(apiKey){
+    try{
+      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,
+        'Tu es un expert revenue management Airbnb en France. Génère 3 recommandations tarifaires pour avril-mai 2026. Réponds UNIQUEMENT en JSON sans backticks:\n{"recommandations":[{"id":"ri1","sub":"..."},{"id":"ri2","sub":"..."},{"id":"ri3","sub":"..."}]}',
+        [{role:'user',content:'Analyse les opportunités pour Nice, Lyon, Alpe d\'Huez.'}]);
       var raw=data.content[0].text.replace(/```json|```/g,'').trim();
       var parsed=JSON.parse(raw);
-      if(parsed.recommandations&&parsed.recommandations.length){
-        parsed.recommandations.forEach(function(rec,i){
-          if(revIntelData[i]&&!revIntelData[i].applied){
-            revIntelData[i].sub=rec.raison||revIntelData[i].sub;
-          }
+      if(parsed.recommandations){
+        parsed.recommandations.forEach(function(rec){
+          var item=revIntelData.find(function(i){return i.id===rec.id;});
+          if(item&&!item.applied)item.sub=rec.sub;
         });
-        renderRevIntel();
-        showToast('Analyse IA actualisée — '+parsed.recommandations.length+' recommandations','green');
       }
-    }
-  }catch(err){showToast('Erreur analyse IA','orange');}
+    }catch(e){/* fallback démo */var recs=await demoRevIntelRefresh();applyRevIntelRecs(recs);}
+  }else{
+    var recs=await demoRevIntelRefresh();
+    applyRevIntelRecs(recs);
+  }
+  renderRevIntel();
+  if(ge('price-last-updated'))ge('price-last-updated').textContent='Mis à jour il y a quelques secondes';
+  showToast('Analyse IA actualisée ✦','green');
   btn.textContent='↻ Actualiser l\'analyse';btn.disabled=false;
-  ge('price-last-updated').textContent='Mis à jour il y a quelques secondes';
+}
+
+function applyRevIntelRecs(recs){
+  recs.forEach(function(rec){
+    var item=revIntelData.find(function(i){return i.id===rec.id;});
+    if(item&&!item.applied)item.sub=rec.sub;
+  });
 }
 
 function buildPriceRows(){
   var el=ge('price-rows');if(!el)return;
   var vnice=revIntelData.find(function(i){return i.id==='ri1';});
   var base=vnice&&vnice.applied?244:185;
-  var rows=[['Lun 14',base+'€','chip-blue'],['Mar 15',base+'€','chip-blue'],['Mer 16',base+'€','chip-blue'],['Jeu 17',base+'€','chip-blue'],['Ven 18',(base+19)+'€ +','chip-green'],['Sam 19',(base+19)+'€ +','chip-green'],['Dim 20',(base+14)+'€ +','chip-green']];
+  var rows=[['Lun 13',base+'€','chip-blue'],['Mar 14',base+'€','chip-blue'],['Mer 15',base+'€','chip-blue'],['Jeu 16',base+'€','chip-blue'],['Ven 17',(base+19)+'€ ↑','chip-green'],['Sam 18',(base+19)+'€ ↑','chip-green'],['Dim 19',(base+14)+'€ ↑','chip-green']];
   el.innerHTML=rows.map(function(r){return '<div class="price-row-item"><span style="font-size:.81rem;color:var(--g)">'+r[0]+'</span><span class="chip '+r[2]+'">'+r[1]+'</span></div>';}).join('');
 }
 
-/* ========== IA CHAT ========== */
+/* ================================================================
+   CALL ANTHROPIC API (clé perso uniquement)
+================================================================ */
+async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
+  var response=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:model,max_tokens:maxTokens,system:system,messages:messages})
+  });
+  return response.json();
+}
+
+/* ================================================================
+   IA CONCIERGERIE CHAT
+================================================================ */
 var iaMessages=[],iaCurrentProp=null;
-function openIaTest(){loadPropertiesIntoSelect();openModal('ia');}
+
+function openIaTest(){
+  loadPropertiesIntoSelect();
+  openModal('ia');
+  /* Auto-initialiser avec le premier logement */
+  setTimeout(function(){
+    var sel=ge('ia-prop-select');
+    if(sel&&sel.selectedIndex>0){
+      var propId=sel.value;
+      if(propId&&propertiesDB[propId]){
+        iaCurrentProp=propertiesDB[propId];
+        iaMessages=[];
+        var container=ge('ia-messages');
+        if(container){
+          container.innerHTML='';
+          addIaMessage('ai','Bonjour ! Je suis l\'assistant de <strong>'+iaCurrentProp.name+'</strong>. Posez-moi une question comme un guest : horaires, WiFi, accès, équipements... 💬');
+        }
+      }
+    }
+  },50);
+}
+
 function updateIaContext(){
-  var propId=ge('ia-prop-select').value;iaCurrentProp=propId?propertiesDB[propId]:null;iaMessages=[];
+  var propId=ge('ia-prop-select').value;
+  iaCurrentProp=propId?propertiesDB[propId]:null;
+  iaMessages=[];
   var container=ge('ia-messages');
-  if(!iaCurrentProp){container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement et posez une question.</div>';return;}
-  container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:16px 0;border-bottom:1px solid var(--border);margin-bottom:10px"><strong style="color:var(--n)">'+iaCurrentProp.name+'</strong> sélectionné</div>';
-  addIaMessage('ai',"Bonjour ! Je suis l'assistant de "+iaCurrentProp.name+". Comment puis-je vous aider ?");
+  if(!iaCurrentProp){container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement.</div>';return;}
+  container.innerHTML='';
+  addIaMessage('ai','Bonjour ! Je suis l\'assistant de <strong>'+iaCurrentProp.name+'</strong>. Comment puis-je vous aider ? 😊');
 }
-function addIaMessage(role,text,time){
+
+function addIaMessage(role,text){
   var container=ge('ia-messages');
-  var div=document.createElement('div');div.style.display='flex';div.style.flexDirection='column';div.style.alignItems=role==='user'?'flex-end':'flex-start';
-  var t=time||new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-  div.innerHTML='<div class="chat-bubble '+role+'">'+text+'</div><div class="chat-meta '+(role==='ai'?'left':'')+'">'+(role==='ai'?'IA · ':'Vous · ')+t+'</div>';
-  container.appendChild(div);container.scrollTop=container.scrollHeight;
+  var div=document.createElement('div');
+  div.style.display='flex';div.style.flexDirection='column';
+  div.style.alignItems=role==='user'?'flex-end':'flex-start';
+  var t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  div.innerHTML='<div class="chat-bubble '+role+'">'+text+'</div><div class="chat-meta '+(role==='ai'?'left':'')+'">'+(role==='ai'?'IA MyHostKit · ':'Vous · ')+t+'</div>';
+  container.appendChild(div);
+  container.scrollTop=container.scrollHeight;
 }
+
+/* Moteur de réponse contextuelle — analyse la fiche logement */
+function generateSmartDemoResponse(userMsg,prop){
+  var msg=userMsg.toLowerCase();
+  var checkin=prop.checkin||'15h00',checkout=prop.checkout||'11h00';
+  var code=prop.code||'Code non renseigné';
+  var wifi=prop.amenities||'WiFi disponible';
+  var rules=prop.rules||'Règlement standard';
+  var contacts=prop.contacts||'Contactez le propriétaire';
+  var welcome=prop.welcome||'Bienvenue !';
+  var name=prop.name||'votre logement';
+
+  if(msg.includes('arriv')||msg.includes('check-in')||msg.includes('checkin')||msg.includes('entrer')||msg.includes('accès')||msg.includes('acces')||msg.includes('heure')){
+    return 'Votre arrivée est possible à partir de <strong>'+checkin+'</strong>. '+prop.access+' Le code d\'accès est : <strong>'+code+'</strong>. Pour une arrivée tardive, prévenez-moi et j\'organise ça !';
+  }
+  if(msg.includes('départ')||msg.includes('depart')||msg.includes('check-out')||msg.includes('checkout')||msg.includes('quitter')||msg.includes('partir')){
+    return 'Le départ est prévu avant <strong>'+checkout+'</strong>. Merci de laisser les clés sur la table et de fermer les fenêtres. Nous adorerions recevoir votre avis si vous avez apprécié le séjour ! ⭐';
+  }
+  if(msg.includes('code')||msg.includes('clé')||msg.includes('cle')||msg.includes('porte')||msg.includes('ouvrir')||msg.includes('entrer')){
+    return 'Le code d\'accès est : <strong>'+code+'</strong>.<br>'+prop.access+'<br>En cas de problème : '+contacts;
+  }
+  if(msg.includes('wifi')||msg.includes('internet')||msg.includes('connexion')||msg.includes('réseau')||msg.includes('mot de passe')){
+    return 'Voici les informations WiFi :<br><strong>'+wifi+'</strong><br>Si la connexion pose problème, redémarrez votre appareil ou contactez-moi directement.';
+  }
+  if(msg.includes('piscine')||msg.includes('nager')||msg.includes('baignade')||msg.includes('pool')){
+    if(wifi.includes('piscine')||rules.includes('piscine')){
+      return 'La piscine est disponible selon les horaires du règlement. Profitez-en ! 🏊 Les serviettes sont disponibles dans le logement.';
+    }
+    return 'Pour les équipements extérieurs de '+name+', voici le contact : '+contacts;
+  }
+  if(msg.includes('ménage')||msg.includes('menage')||msg.includes('linge')||msg.includes('serviette')||msg.includes('drap')){
+    return 'Linge de lit et serviettes sont fournis et disponibles dans l\'armoire. Pour un service ménage en cours de séjour, contactez : '+contacts+' — réponse sous 30 min !';
+  }
+  if(msg.includes('parking')||msg.includes('voiture')||msg.includes('garer')||msg.includes('stationner')){
+    if(wifi.includes('parking')||prop.access.includes('parking')){
+      return 'Un parking est prévu pour votre logement. '+prop.access;
+    }
+    return 'Informations parking : '+prop.access+' · Pour toute question : '+contacts;
+  }
+  if(msg.includes('règlement')||msg.includes('reglement')||msg.includes('règles')||msg.includes('autorisé')||msg.includes('interdit')){
+    return 'Règlement de '+name+' : <em>'+rules+'</em><br>Merci de le respecter pour le confort de tous. 🙏';
+  }
+  if(msg.includes('sauna')||msg.includes('spa')||msg.includes('jacuzzi')){
+    if(wifi.includes('sauna')||welcome.includes('sauna')){
+      return 'Le sauna est disponible ! '+welcome+' En cas de question : '+contacts;
+    }
+    return 'Pour les équipements bien-être de '+name+', contactez : '+contacts;
+  }
+  if(msg.includes('merci')||msg.includes('parfait')||msg.includes('super')||msg.includes('excellent')||msg.includes('génial')||msg.includes('top')){
+    return 'Avec grand plaisir ! 😊 Profitez bien de '+prop.city+'. Si vous avez d\'autres questions, je suis là 24h/24 !';
+  }
+  if(msg.includes('urgence')||msg.includes('problème')||msg.includes('problem')||msg.includes('panne')||msg.includes('cassé')||msg.includes('fuite')){
+    return '⚠️ Pas de panique ! Pour toute urgence dans votre logement, contactez immédiatement : <strong>'+contacts+'</strong>. Intervention possible sous 15-30 minutes.';
+  }
+  /* Réponses multilingues */
+  if(/hello|hi\s|good\s/i.test(userMsg)){
+    return 'Hello! Welcome to <strong>'+name+'</strong>! '+welcome+' I\'m here 24/7 to help you. Check-in: '+checkin+' · Check-out: '+checkout+'. How can I help you? 🏡';
+  }
+  if(/hola|buenas|gracias/i.test(userMsg)){
+    return '¡Hola! Bienvenido a <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Código: '+code+'. ¿En qué puedo ayudarle? 😊';
+  }
+  if(/guten|danke|hallo/i.test(userMsg)){
+    return 'Guten Tag! Willkommen in <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Zugangscode: '+code+'. Wie kann ich Ihnen helfen?';
+  }
+  /* Réponses génériques variées */
+  var responses=[
+    'Je suis l\'assistant de <strong>'+name+'</strong>. Voici l\'essentiel : '+welcome+' Check-in: <strong>'+checkin+'</strong> · Check-out: <strong>'+checkout+'</strong> · Code: <strong>'+code+'</strong>. Des questions spécifiques ?',
+    'Pour <strong>'+name+'</strong> à '+prop.city+' : accès à '+checkin+', départ avant '+checkout+', code <strong>'+code+'</strong>. Équipements : '+wifi.split(',')[0]+'. Y a-t-il autre chose que je puisse faire pour vous ?',
+    'Bonne question ! Pour '+name+', voici les infos clés : <strong>'+welcome+'</strong> Besoin d\'autre chose ? Je suis là ! Contact local si urgence : '+contacts
+  ];
+  return responses[Math.floor(Math.random()*responses.length)];
+}
+
 async function sendIaMessage(){
-  var input=ge('ia-input');var msg=input.value.trim();if(!msg)return;
+  var input=ge('ia-input');
+  var msg=input.value.trim();if(!msg)return;
   if(!iaCurrentProp){showToast("Sélectionnez d'abord un logement",'orange');return;}
-  var apiKey=localStorage.getItem('mhk-anthropic-key');
-  if(!apiKey){showToast('Configurez votre clé API Anthropic dans Paramètres','orange');closeModal('ia');showInner('settings');return;}
-  input.value='';addIaMessage('user',msg);iaMessages.push({role:'user',content:msg});
+  input.value='';
+  addIaMessage('user',msg);
+  iaMessages.push({role:'user',content:msg});
   var container=ge('ia-messages');
-  var typingDiv=document.createElement('div');typingDiv.id='ia-typing';typingDiv.style.cssText='display:flex;flex-direction:column;align-items:flex-start';
-  typingDiv.innerHTML='<div class="chat-bubble ai typing">IA rédige une réponse...</div>';
+  var typingDiv=document.createElement('div');
+  typingDiv.id='ia-typing';typingDiv.style.cssText='display:flex;flex-direction:column;align-items:flex-start';
+  typingDiv.innerHTML='<div class="chat-bubble ai typing"><span class="ai-dot" style="display:inline-block;margin-right:4px"></span>IA en train de rédiger...</div>';
   container.appendChild(typingDiv);container.scrollTop=container.scrollHeight;
   ge('ia-send-btn').disabled=true;
   var prop=iaCurrentProp;
-  var systemPrompt="Tu es un assistant de conciergerie IA pour le logement suivant. Réponds de manière chaleureuse et professionnelle.\n\n=== FICHE LOGEMENT ===\nNom: "+prop.name+"\nVille: "+(prop.city||'')+"\nType: "+(prop.type||'')+"\nAdresse: "+(prop.address||'')+"\nCheck-in: "+(prop.checkin||'')+" | Check-out: "+(prop.checkout||'')+"\nCode accès: "+(prop.code||'')+"\nInstructions accès: "+(prop.access||'')+"\nRèglement: "+(prop.rules||'')+"\nÉquipements / WiFi: "+(prop.amenities||'')+"\nContacts: "+(prop.contacts||'')+"\nMessage de bienvenue: "+(prop.welcome||'')+"\n=== FIN ===\n\nSi l'info n'est pas dans la fiche, dis de contacter le propriétaire.";
-  try{
-    var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:500,system:systemPrompt,messages:iaMessages})});
-    var data=await response.json();
-    var typingEl=ge('ia-typing');if(typingEl)typingEl.remove();
-    if(data.error){addIaMessage('ai','Erreur API : '+data.error.message);}
-    else{var aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});addIaMessage('ai',aiReply,new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+' · Claude');}
-  }catch(err){var te=ge('ia-typing');if(te)te.remove();addIaMessage('ai',"Impossible de joindre l'API. Vérifiez votre clé dans Paramètres.");}
+  var apiKey=getApiKey();
+  var aiReply='';
+  if(apiKey){
+    var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds chaleureusement en FRANÇAIS sauf si le guest écrit dans une autre langue (réponds alors dans sa langue).\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nType: '+(prop.type||'')+'\nAdresse: '+(prop.address||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nInstructions accès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nÉquipements / WiFi: '+(prop.amenities||'')+'\nContacts prestataires: '+(prop.contacts||'')+'\nMessage de bienvenue: '+(prop.welcome||'')+'\n=== FIN FICHE ===\n\nRéponds en 1-3 phrases max, de manière utile et chaleureuse. Si info absente, propose de contacter le propriétaire.';
+    try{
+      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',500,systemPrompt,iaMessages);
+      if(data.error){aiReply=await demoAiReply(msg,prop);}
+      else{aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});}
+    }catch(e){aiReply=await demoAiReply(msg,prop);}
+  }else{
+    /* Mode démo — moteur IA intégré */
+    aiReply=await demoAiReply(msg,prop);
+  }
+  var te=ge('ia-typing');if(te)te.remove();
+  if(!iaMessages.find(function(m){return m.content===aiReply&&m.role==='assistant';})){
+    iaMessages.push({role:'assistant',content:aiReply});
+  }
+  addIaMessage('ai',aiReply);
   ge('ia-send-btn').disabled=false;input.focus();
 }
+
 function clearIaChat(){
   iaMessages=[];var container=ge('ia-messages');
-  if(iaCurrentProp){container.innerHTML='';addIaMessage('ai',"Bonjour ! Je suis l'assistant de "+iaCurrentProp.name+". Comment puis-je vous aider ?");}
+  if(iaCurrentProp){container.innerHTML='';addIaMessage('ai','Bonjour ! Je suis l\'assistant de <strong>'+iaCurrentProp.name+'</strong>. Comment puis-je vous aider ?');}
   else{container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement.</div>';}
 }
 
-/* ========== MODAL ========== */
+/* ================================================================
+   MODAL
+================================================================ */
 function openModal(id){var el=ge('modal-'+id);if(el){el.classList.add('open');document.body.style.overflow='hidden';}}
 function closeModal(id){var el=ge('modal-'+id);if(el){el.classList.remove('open');document.body.style.overflow='';}}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.open').forEach(function(m){m.classList.remove('open');document.body.style.overflow='';});}});
 
-/* ========== PLANS & ADMIN ========== */
+/* ================================================================
+   PLANS & ADMIN
+================================================================ */
 var PLAN_CONFIG={
-  starter:{label:'Starter 49€',unlocked:['dashboard','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:['messages','revenue'],lockMsg:{messages:{icon:'💬',title:'Messages IA — Plan Pro requis',sub:'Passez en Pro pour accéder aux messages guests gérés automatiquement.'},revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro (89€/mois).'}}},
-  pro:{label:'Pro 89€',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}},
-  concpro:{label:'Conciergerie Pro',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}},
-  admin:{label:'🛡 Admin',unlocked:['dashboard','messages','revenue','calendar','properties','notifications','integrations','offers','settings','stocks'],locked:[],lockMsg:{}}
+  starter:{label:'Starter 49€',locked:['messages','revenue'],lockMsg:{messages:{icon:'💬',title:'Messages IA — Plan Pro requis',sub:'Passez en Pro pour accéder aux messages guests automatiques.'},revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro.'}}},
+  pro:{label:'Pro 89€',locked:[],lockMsg:{}},
+  concpro:{label:'Conciergerie Pro',locked:[],lockMsg:{}},
+  admin:{label:'🛡 Admin',locked:[],lockMsg:{}}
 };
 function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
 function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks(){
   var plan=CURRENT_PLAN,config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
   document.querySelectorAll('.plan-lock-overlay').forEach(function(o){o.remove();});
-  config.locked.forEach(function(id){
+  (config.locked||[]).forEach(function(id){
     var page=ge('inner-'+id);if(!page||page.querySelector('.plan-lock-overlay'))return;
     var msg=config.lockMsg[id]||{};
     var overlay=document.createElement('div');overlay.className='plan-lock-overlay';
@@ -1694,21 +1799,24 @@ function applyPlanLocks(){
   });
   var planBadge=ge('sb-plan-badge');
   if(!planBadge){planBadge=document.createElement('div');planBadge.id='sb-plan-badge';planBadge.style.cssText='margin:0 18px 10px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:8px;text-align:center';var foot=document.querySelector('.sb-foot');if(foot)foot.insertBefore(planBadge,foot.firstChild);}
-  planBadge.textContent='● '+config.label;
+  var label=IS_DEMO?'✦ Démo — IA Pro':(config.label||plan);
+  planBadge.textContent='● '+label;
   if(plan==='admin'){planBadge.style.background='#3D0A0A';planBadge.style.color='#FF4444';}
-  else if(plan==='pro'||plan==='concpro'){planBadge.style.background='var(--bp)';planBadge.style.color='var(--bl)';}
-  else{planBadge.style.background='var(--green-l)';planBadge.style.color='#085041';}
+  else if(plan==='pro'||plan==='concpro'||IS_DEMO){planBadge.style.background='var(--green-l)';planBadge.style.color='var(--green-d)';}
+  else{planBadge.style.background='var(--bp)';planBadge.style.color='var(--bl)';}
 }
-function promptAdminPin(callback){if(adminAuthenticated){callback();return;}var pin=window.prompt('🛡 Code PIN Admin requis :');if(pin===ADMIN_PIN){adminAuthenticated=true;callback();}else if(pin!==null){showToast('PIN incorrect','orange');}}
-function showAdminPanel(){promptAdminPin(function(){ge('admin-nav-user').textContent=CURRENT_USER_EMAIL;loadAdminUsers();showPage('admin');});}
+
+function promptAdminPin(callback){if(adminAuthenticated){callback();return;}var pin=window.prompt('🛡 Code PIN Admin :');if(pin===ADMIN_PIN){adminAuthenticated=true;callback();}else if(pin!==null){showToast('PIN incorrect','orange');}}
+function showAdminPanel(){promptAdminPin(function(){if(ge('admin-nav-user'))ge('admin-nav-user').textContent=CURRENT_USER_EMAIL;loadAdminUsers();showPage('admin');});}
 function exitAdmin(){showPage('app');showInner('dashboard');}
 function switchAdminTab(tab){var tabs=['overview','users','logs'];document.querySelectorAll('.admin-tab').forEach(function(t,i){t.classList.toggle('active',tabs[i]===tab);});document.querySelectorAll('.admin-section').forEach(function(s){s.classList.remove('active');});var sec=ge('admin-'+tab);if(sec)sec.classList.add('active');}
+
 var adminUsersData=[
   {email:'m.rayane8306@gmail.com',prenom:'Rayane',nom:'M.',plan:'admin',created:'2026-01-15',status:'active'},
   {email:'client.pro@gmail.com',prenom:'Sophie',nom:'Martin',plan:'pro',created:'2026-02-03',status:'active'},
   {email:'hote.starter@airbnb.fr',prenom:'Thomas',nom:'K.',plan:'starter',created:'2026-03-12',status:'active'},
   {email:'conciergerie@nice.fr',prenom:'Marie',nom:'D.',plan:'concpro',created:'2026-01-28',status:'active'},
-  {email:'demo@myhostkit.com',prenom:'Demo',nom:'User',plan:'starter',created:'2026-04-01',status:'trial'}
+  {email:'demo@myhostkit.com',prenom:'Demo',nom:'Host',plan:'pro',created:'2026-04-10',status:'trial'}
 ];
 function loadAdminUsers(){
   renderAdminUsers(adminUsersData);
@@ -1721,9 +1829,10 @@ function loadAdminUsers(){
 function renderAdminUsers(users){
   var tbody=ge('admin-users-tbody'),count=ge('admin-users-count');
   if(count)count.textContent='('+users.length+' comptes)';
+  if(!tbody)return;
   if(!users.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Aucun résultat</td></tr>';return;}
-  var planColors={admin:'plan-admin-badge',pro:'plan-pro',concpro:'plan-concpro',starter:'plan-starter',demo:'plan-demo'};
-  var planLabels={admin:'Admin',pro:'Pro',concpro:'Conciergerie Pro',starter:'Starter',demo:'Démo'};
+  var planColors={admin:'plan-admin-badge',pro:'plan-pro',concpro:'plan-concpro',starter:'plan-starter'};
+  var planLabels={admin:'Admin',pro:'Pro',concpro:'Conciergerie Pro',starter:'Starter'};
   tbody.innerHTML='';
   users.forEach(function(u){
     var isMe=u.email===ADMIN_EMAIL;
@@ -1731,25 +1840,20 @@ function renderAdminUsers(users){
     var statusHtml=u.status==='trial'?'<span style="font-size:.7rem;color:#E3B341">⏳ Essai</span>':'<span style="font-size:.7rem;color:#3FB950">✓ Actif</span>';
     tr.innerHTML='<td><div style="font-weight:600;color:#E6EDF3">'+(u.prenom||'')+' '+(u.nom||'')+'</div></td><td style="font-family:monospace;font-size:.78rem;color:#8B949E">'+u.email+'</td><td><span class="plan-badge-admin '+(planColors[u.plan]||'plan-starter')+'">'+(planLabels[u.plan]||u.plan)+'</span></td><td style="color:#484F58;font-size:.78rem">'+u.created+'</td><td>'+statusHtml+'</td><td style="display:flex;gap:6px;flex-wrap:wrap"></td>';
     var actionsTd=tr.querySelector('td:last-child');
-    if(!isMe){
-      var viewBtn=document.createElement('button');viewBtn.className='btn-admin-action';viewBtn.textContent='👁 Voir';
-      (function(uu){viewBtn.onclick=function(){impersonateUser(uu.email,uu.prenom,uu.plan);};})(u);
-      actionsTd.appendChild(viewBtn);
-      var planBtn=document.createElement('button');planBtn.className='btn-admin-action';planBtn.textContent='Changer plan';
-      (function(uu){planBtn.onclick=function(){changePlan(uu.email,uu.plan);};})(u);
-      actionsTd.appendChild(planBtn);
-    }else{actionsTd.innerHTML='<span style="font-size:.72rem;color:#484F58">Vous</span>';}
+    if(!isMe){var viewBtn=document.createElement('button');viewBtn.className='btn-admin-action';viewBtn.textContent='👁 Voir';(function(uu){viewBtn.onclick=function(){impersonateUser(uu.email,uu.prenom,uu.plan);};})(u);actionsTd.appendChild(viewBtn);}
+    else{actionsTd.innerHTML='<span style="font-size:.72rem;color:#484F58">Vous</span>';}
     tbody.appendChild(tr);
   });
 }
 function filterAdminUsers(){var q=(ge('admin-user-search').value||'').toLowerCase();var filtered=adminUsersData.filter(function(u){return(u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);});renderAdminUsers(filtered);}
-function changePlan(email,current){var plans=['starter','pro','concpro'];var next=plans[(plans.indexOf(current)+1)%plans.length];var u=adminUsersData.find(function(x){return x.email===email;});if(u)u.plan=next;localStorage.setItem('mhk-plan-'+email,next);showToast('Plan '+email.split('@')[0]+' → '+next,'blue');renderAdminUsers(adminUsersData);}
-function impersonateUser(email,prenom,plan){IMPERSONATE_USER={email:email,prenom:prenom,plan:plan};CURRENT_PLAN=plan||'starter';ge('impersonate-bar').style.display='flex';ge('impersonate-name').textContent=prenom+' ('+email+') — Plan '+((PLAN_CONFIG[plan]||{}).label||plan);ge('sb-username').textContent=prenom+' (admin view)';ge('sb-email-display').textContent=email;applyPlanLocks();exitAdmin();showToast('👁 Vous consultez le compte de '+prenom,'orange');}
-function stopImpersonate(){IMPERSONATE_USER=null;CURRENT_PLAN='admin';ge('impersonate-bar').style.display='none';ge('sb-username').textContent='Rayane M.';ge('sb-email-display').textContent=ADMIN_EMAIL;applyPlanLocks();showToast('Retour à votre compte admin','green');}
+function impersonateUser(email,prenom,plan){IMPERSONATE_USER={email:email,prenom:prenom,plan:plan};CURRENT_PLAN=plan||'starter';ge('impersonate-bar').style.display='flex';ge('impersonate-name').textContent=prenom+' ('+email+')';ge('sb-username').textContent=prenom+' (admin view)';ge('sb-email-display').textContent=email;applyPlanLocks();exitAdmin();showToast('👁 Compte de '+prenom,'orange');}
+function stopImpersonate(){IMPERSONATE_USER=null;CURRENT_PLAN='admin';ge('impersonate-bar').style.display='none';ge('sb-username').textContent='Rayane M.';ge('sb-email-display').textContent=ADMIN_EMAIL;applyPlanLocks();showToast('Retour à votre compte','green');}
 function upgradePlan(btn){btn.textContent='Traitement...';btn.disabled=true;setTimeout(function(){btn.textContent='Passer en Pro →';btn.disabled=false;showToast('Redirection vers Stripe...','blue');setTimeout(function(){window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01','_blank');},800);},1000);}
 function requestQuote(btn){btn.textContent='Demande envoyée ✓';btn.disabled=true;showToast('Devis envoyé. Réponse sous 24h.','green');}
 
-/* ========== STOCKS ========== */
+/* ================================================================
+   STOCKS
+================================================================ */
 var STOCKS_DEFAULT={
   'apt-lyon':[
     {id:'s1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:1,min:3,ref:'CAFE-001'},
@@ -1802,7 +1906,8 @@ function saveStocks(){localStorage.setItem('mhk-stocks',JSON.stringify(stocksDB)
 function selectStockProp(btn,propId){
   document.querySelectorAll('.stock-prop-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');currentStockProp=propId;renderStocks();
-  ge('stock-ia-input').value='';ge('stock-ia-result').style.display='none';
+  if(ge('stock-ia-input'))ge('stock-ia-input').value='';
+  if(ge('stock-ia-result'))ge('stock-ia-result').style.display='none';
 }
 function getStockStatus(item){if(item.qty===0)return'out';if(item.qty<item.min)return'low';return'ok';}
 function renderStocks(){
@@ -1817,9 +1922,7 @@ function renderStocks(){
       var st=getStockStatus(item);if(st!=='ok')lowCount++;
       var stLabel=st==='ok'?'OK':st==='low'?'Stock bas':'Rupture',stCls='stock-'+st;
       var inOrder=orderList.find(function(o){return o.sourceId===item.id;});
-      var addBtn=inOrder?
-        '<button class="btn-add-to-order added" disabled>✓ Dans panier</button>':
-        '<button class="btn-add-to-order" onclick="addItemToOrder(\''+item.id+'\',\''+item.name+'\',\''+item.ref+'\')">+ Commander</button>';
+      var addBtn=inOrder?'<button class="btn-add-to-order added" disabled>✓ Panier</button>':'<button class="btn-add-to-order" onclick="addItemToOrder(\''+item.id+'\',\''+item.name+'\',\''+item.ref+'\')">+ Commander</button>';
       html+='<div class="stock-item" id="stock-item-'+item.id+'"><div class="stock-item-icon">'+(item.icon||'📦')+'</div><div style="flex:1"><div class="stock-item-name">'+item.name+'</div><div class="stock-item-cat">Seuil : '+item.min+' · Réf: '+(item.ref||'—')+'</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',-1)">−</button><span class="stock-qty-val" id="qty-'+item.id+'">'+item.qty+'</span><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',1)">+</button></div><span class="stock-status '+stCls+'">'+stLabel+'</span>'+addBtn+'<button onclick="removeStockItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 4px;margin-left:2px" title="Supprimer">✕</button></div>';
     });
   });
@@ -1832,12 +1935,10 @@ function addItemToOrder(itemId,name,ref){
   if(orderList.find(function(o){return o.sourceId===itemId;})){showToast('"'+name+'" déjà dans le panier','orange');return;}
   var item=stocksDB[currentStockProp]&&stocksDB[currentStockProp].find(function(i){return i.id===itemId;});
   var urgence=item&&getStockStatus(item)==='out'?'haute':'normale';
-  var needed=item?Math.max(0,item.min-item.qty+2):1;
-  orderList.push({id:'o'+Date.now(),sourceId:itemId,name:name,qty:'×'+needed,urgence:urgence,raison:urgence==='haute'?'Rupture de stock':'Stock insuffisant',ref:ref||'',checked:true});
-  renderOrderList();renderStocks();
-  showToast('"'+name+'" ajouté au panier de commande','green');
+  var needed=item?Math.max(1,item.min-item.qty+2):1;
+  orderList.push({id:'o'+Date.now(),sourceId:itemId,name:name,qty:'×'+needed,urgence:urgence,raison:urgence==='haute'?'Rupture':'Stock bas',ref:ref||'',checked:true});
+  renderOrderList();renderStocks();showToast('"'+name+'" ajouté au panier','green');
 }
-
 function changeQty(itemId,delta){
   var items=stocksDB[currentStockProp]||[],item=items.find(function(i){return i.id===itemId;});if(!item)return;
   item.qty=Math.max(0,item.qty+delta);
@@ -1850,63 +1951,98 @@ function changeQty(itemId,delta){
   renderNotifications();renderPropList();
 }
 function removeStockItem(itemId){if(!stocksDB[currentStockProp])return;stocksDB[currentStockProp]=stocksDB[currentStockProp].filter(function(i){return i.id!==itemId;});saveStocks();renderStocks();}
-function toggleAddStockForm(){var f=ge('add-stock-form');f.style.display=f.style.display==='none'?'block':'none';if(f.style.display==='block')ge('new-stock-name').focus();}
+function toggleAddStockForm(){var f=ge('add-stock-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
 function addStockItem(){
-  var name=ge('new-stock-name').value.trim();if(!name){showToast('Entrez un nom de produit','orange');return;}
+  var name=ge('new-stock-name').value.trim();if(!name){showToast('Entrez un nom','orange');return;}
   var newItem={id:'u'+Date.now(),name:name,icon:ge('new-stock-icon').value||'📦',cat:ge('new-stock-cat').value||'Consommables',qty:parseInt(ge('new-stock-qty').value)||0,min:parseInt(ge('new-stock-min').value)||2,ref:ge('new-stock-url').value.trim()||''};
   if(!stocksDB[currentStockProp])stocksDB[currentStockProp]=[];
   stocksDB[currentStockProp].push(newItem);saveStocks();renderStocks();toggleAddStockForm();
   ['new-stock-name','new-stock-url','new-stock-icon'].forEach(function(id){var el=ge(id);if(el)el.value='';});
-  ge('new-stock-qty').value='0';ge('new-stock-min').value='2';
+  if(ge('new-stock-qty'))ge('new-stock-qty').value='0';if(ge('new-stock-min'))ge('new-stock-min').value='2';
   showToast('"'+name+'" ajouté','green');
 }
 
+/* ================================================================
+   ANALYSE IA STOCKS — moteur démo ou API
+================================================================ */
 async function analyseStocksIA(){
-  var description=ge('stock-ia-input').value.trim();if(!description){showToast("Décrivez l'état du logement d'abord",'orange');return;}
-  var apiKey=localStorage.getItem('mhk-anthropic-key');if(!apiKey){showToast('Clé API Anthropic manquante','orange');showInner('settings');return;}
-  var btn=ge('btn-ia-analyse');btn.disabled=true;btn.textContent='⏳ Analyse en cours...';
-  ge('stock-ia-result').style.display='none';
+  var description=ge('stock-ia-input').value.trim();
+  if(!description){showToast("Décrivez l'état du logement d'abord",'orange');return;}
+  var btn=ge('btn-ia-analyse');btn.disabled=true;
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Analyse en cours...';
+  if(ge('stock-ia-result'))ge('stock-ia-result').style.display='none';
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
   var currentStocksSummary=(stocksDB[currentStockProp]||[]).map(function(i){return i.name+' (stock: '+i.qty+', seuil: '+i.min+', réf: '+(i.ref||'—')+')';}).join(', ');
-  var systemPrompt="Tu es un assistant de gestion de logement Airbnb. Analyse l'état décrit et génère une liste JSON de produits à commander. Réponds UNIQUEMENT en JSON sans backticks:\n{\"manquants\":[{\"nom\":\"Café moulu\",\"quantite\":\"x2\",\"urgence\":\"haute|normale\",\"raison\":\"épuisé\",\"ref\":\"CAFE-001\"}],\"resume\":\"Résumé en 1 phrase\"}";
-  var userMsg="Logement: "+propName+"\nStocks actuels: "+currentStocksSummary+"\n\nÉtat après check-out:\n"+description;
-  try{
-    var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:800,system:systemPrompt,messages:[{role:'user',content:userMsg}]})});
-    var data=await response.json();
-    if(data.error)throw new Error(data.error.message);
-    var raw=data.content[0].text.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(raw);
-    displayIaStockResult(parsed);
-  }catch(err){
-    ge('stock-ia-result').style.display='block';
-    ge('stock-ia-result').innerHTML='<div style="color:#991B1B;font-size:.8rem;background:#FEF2F2;border-radius:8px;padding:10px">Erreur IA : '+err.message+'</div>';
+  var apiKey=getApiKey();
+  var parsed=null;
+  if(apiKey){
+    try{
+      var systemPrompt='Tu es un assistant de gestion de logement Airbnb. Analyse l\'état décrit et génère une liste JSON de produits à commander. Réponds UNIQUEMENT en JSON sans backticks:\n{"manquants":[{"nom":"Café moulu","quantite":"x2","urgence":"haute","raison":"épuisé","ref":"CAFE-001"}],"resume":"Résumé en 1 phrase"}';
+      var userMsg='Logement: '+propName+'\nStocks actuels: '+currentStocksSummary+'\n\nÉtat après check-out:\n'+description;
+      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',800,systemPrompt,[{role:'user',content:userMsg}]);
+      if(data.error)throw new Error(data.error.message);
+      var raw=data.content[0].text.replace(/```json|```/g,'').trim();
+      parsed=JSON.parse(raw);
+    }catch(err){parsed=await demoStockAnalysis(description);}
+  }else{
+    parsed=await demoStockAnalysis(description);
   }
+  displayIaStockResult(parsed);
   btn.disabled=false;
   btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
 }
+
+/* Analyse démo intelligente — détecte les produits dans le texte */
+function generateDemoStockAnalysis(description){
+  var desc=description.toLowerCase();
+  var manquants=[];
+  var keywords=[
+    {words:['café','capsule','nespresso','expresso','coffee'],nom:'Café / Capsules',qty:'×2',urgence:'haute',ref:'CAFE-001'},
+    {words:['serviette'],nom:'Serviettes de bain',qty:'×3',urgence:'haute',ref:'LIN-001'},
+    {words:['savon','gel douche','shampoing','shampoo','douche'],nom:'Savon / Gel douche',qty:'×2',urgence:'haute',ref:'HYG-003'},
+    {words:['papier toilette','pq','toilette','wc'],nom:'Papier toilette',qty:'×6',urgence:'haute',ref:'HYG-002'},
+    {words:['ampoule','lumière','lampe','éclairage'],nom:'Ampoule LED',qty:'×2',urgence:'normale',ref:'EQP-001'},
+    {words:['liquide vaisselle','vaisselle','lavage'],nom:'Liquide vaisselle',qty:'×1',urgence:'normale',ref:'ENT-001'},
+    {words:['pastille','lave-vaisselle','dishwasher'],nom:'Pastilles lave-vaisselle',qty:'×20',urgence:'normale',ref:'ENT-002'},
+    {words:['sel','déneigement','neige'],nom:'Sel déneigement',qty:'×2',urgence:'normale',ref:'ENT-005'},
+    {words:['chocolat','cacao','chaud'],nom:'Chocolat chaud',qty:'×3',urgence:'normale',ref:'CAFE-005'},
+    {words:['pile','batterie'],nom:'Piles AA',qty:'×8',urgence:'normale',ref:'EQP-002'},
+    {words:['drap','lit','linge de lit'],nom:'Draps / Linge de lit',qty:'×2',urgence:'haute',ref:'LIN-002'},
+    {words:['produit ménage','nettoyant','spray'],nom:'Produit ménager',qty:'×1',urgence:'normale',ref:'ENT-006'}
+  ];
+  keywords.forEach(function(kw){
+    if(kw.words.some(function(w){return desc.includes(w);}))
+      manquants.push({nom:kw.nom,quantite:kw.qty,urgence:kw.urgence,raison:'Détecté dans le rapport check-out',ref:kw.ref});
+  });
+  if(!manquants.length){
+    manquants=[
+      {nom:'Capsules café',quantite:'×2',urgence:'normale',raison:'Vérification recommandée',ref:'CAFE-002'},
+      {nom:'Papier toilette',quantite:'×4',urgence:'normale',raison:'Stock à recompléter',ref:'HYG-002'}
+    ];
+  }
+  return {manquants:manquants,resume:manquants.length+' produit(s) identifié(s) · Analyse IA MyHostKit'};
+}
+
 function displayIaStockResult(parsed){
-  var res=ge('stock-ia-result');res.style.display='block';
-  if(!parsed.manquants||!parsed.manquants.length){res.innerHTML='<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté.</div>';return;}
-  var html='<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ '+(parsed.resume||parsed.manquants.length+' produit(s) identifié(s)')+'</div>';
+  var res=ge('stock-ia-result');if(!res)return;res.style.display='block';
+  if(!parsed.manquants||!parsed.manquants.length){res.innerHTML='<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté — logement prêt !</div>';return;}
+  var html='<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ '+(parsed.resume||parsed.manquants.length+' produit(s)')+'</div>';
   html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
-  parsed.manquants.forEach(function(m){var urgCls=m.urgence==='haute'?'chip-red':'chip-amber';html+='<span class="chip '+urgCls+'">'+m.nom+' ×'+(m.quantite||'1')+'</span>';});
+  parsed.manquants.forEach(function(m){var urgCls=m.urgence==='haute'?'chip-red':'chip-amber';html+='<span class="chip '+urgCls+'">'+m.nom+' '+(m.quantite||'×1')+'</span>';});
   html+='</div>';res.innerHTML=html;
   parsed.manquants.forEach(function(m,i){
     var items=stocksDB[currentStockProp]||[];
     var match=items.find(function(s){return s.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]);});
     var alreadyInOrder=orderList.find(function(o){return o.name.toLowerCase()===m.nom.toLowerCase();});
-    if(!alreadyInOrder){
-      orderList.push({id:'o'+Date.now()+i,sourceId:match?match.id:null,name:m.nom,qty:m.quantite||'1',urgence:m.urgence||'normale',raison:m.raison||'',ref:m.ref||(match?match.ref||'':''),checked:true});
-    }
+    if(!alreadyInOrder)orderList.push({id:'o'+Date.now()+i,sourceId:match?match.id:null,name:m.nom,qty:m.quantite||'×1',urgence:m.urgence||'normale',raison:m.raison||'',ref:m.ref||(match?match.ref||'':''),checked:true});
   });
-  renderOrderList();
-  showToast('IA : '+parsed.manquants.length+' produit(s) identifié(s) !','green');
+  renderOrderList();showToast('IA : '+parsed.manquants.length+' produit(s) identifié(s) !','green');
 }
 
 function renderOrderList(){
   var container=ge('order-list'),actions=ge('order-actions'),countEl=ge('order-pending-count');
   if(!orderList.length){
-    container.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Utilisez l\'IA ou le bouton + Commander.</div>';
+    if(container)container.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Utilisez l\'IA ou le bouton + Commander.</div>';
     if(actions)actions.style.display='none';if(countEl)countEl.style.display='none';return;
   }
   if(actions)actions.style.display='flex';
@@ -1914,16 +2050,16 @@ function renderOrderList(){
   var html='';
   orderList.forEach(function(item){
     var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
-    html+='<div class="order-item" id="oitem-'+item.id+'">'
-      +'<div class="order-item-check'+(item.checked?' checked':'')+'" onclick="toggleOrderCheck(\''+item.id+'\')"></div>'
-      +'<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);font-weight:400;margin-left:6px">Réf: '+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div>'
-      +'<span class="order-item-qty">'+item.qty+'</span>'
-      +'<button onclick="removeOrderItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px">✕</button>'
-      +'</div>';
+    html+='<div class="order-item" id="oitem-'+item.id+'">'+
+      '<div class="order-item-check'+(item.checked?' checked':'')+'" onclick="toggleOrderCheck(\''+item.id+'\')"></div>'+
+      '<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);font-weight:400;margin-left:6px">'+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div>'+
+      '<span class="order-item-qty">'+item.qty+'</span>'+
+      '<button onclick="removeOrderItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px">✕</button>'+
+      '</div>';
   });
-  container.innerHTML=html;
+  if(container)container.innerHTML=html;
 }
-function toggleOrderCheck(id){var item=orderList.find(function(i){return i.id===id;});if(item)item.checked=!item.checked;var el=document.querySelector('#oitem-'+id+' .order-item-check');if(el)el.classList.toggle('checked',item.checked);}
+function toggleOrderCheck(id){var item=orderList.find(function(i){return i.id===id;});if(item)item.checked=!item.checked;var el=document.querySelector('#oitem-'+id+' .order-item-check');if(el)el.classList.toggle('checked',item&&item.checked);}
 function removeOrderItem(id){orderList=orderList.filter(function(i){return i.id!==id;});renderOrderList();renderStocks();}
 function clearOrderList(){orderList=[];renderOrderList();renderStocks();}
 
@@ -1939,12 +2075,9 @@ function confirmOrderAll(){
   checked.forEach(function(item){
     var row=document.createElement('div');row.className='order-item';row.style.marginBottom='7px';
     var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
-    row.innerHTML='<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);margin-left:6px">Réf: '+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div><span class="order-item-qty">'+item.qty+'</span>';
+    row.innerHTML='<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);margin-left:6px">'+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div><span class="order-item-qty">'+item.qty+'</span>';
     itemsEl.appendChild(row);
   });
-  var commRow=ge('modal-commission-row');
-  if(COMMISSION_PCT>0){commRow.style.display='block';ge('commission-label').textContent=COMMISSION_PCT+'% de commission MyHostKit';ge('commission-amount').textContent='Inclus dans devis';}
-  else{commRow.style.display='none';}
   ge('order-note').value='';ge('modal-order-ref').dataset.ref=orderRef;
   openModal('order');
 }
@@ -1954,18 +2087,12 @@ function executeOrder(){
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
   var orderRef=ge('modal-order-ref').dataset.ref||('BC-'+Date.now());
   var dateStr=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  var emailSubject='[MyHostKit] Bon de commande '+orderRef+' — '+propName;
-  var emailBody='BON DE COMMANDE MyHostKit\nRéférence : '+orderRef+'\nDate : '+dateStr+'\nLogement : '+propName+'\n━━━━━━━━━━━━━━━━━━━━\n\nARTICLES :\n\n';
-  checked.forEach(function(item,i){
-    emailBody+=(i+1)+'. '+item.name+'\n   Quantité : '+item.qty+'\n';
-    if(item.ref)emailBody+='   Référence : '+item.ref+'\n';
-    emailBody+='   Urgence : '+(item.urgence==='haute'?'URGENT':'Normale')+'\n\n';
-  });
-  if(COMMISSION_PCT>0)emailBody+='━━━━━━━━━━━━━━━━━━━━\nCommission MyHostKit : '+COMMISSION_PCT+'%\n\n';
+  var emailBody='BON DE COMMANDE MyHostKit\nRéférence : '+orderRef+'\nDate : '+dateStr+'\nLogement : '+propName+'\n━━━━━━━━━━━━━━━━━\n\nARTICLES :\n\n';
+  checked.forEach(function(item,i){emailBody+=(i+1)+'. '+item.name+'\n   Quantité : '+item.qty+(item.ref?'\n   Réf: '+item.ref:'')+'\n   Urgence : '+(item.urgence==='haute'?'URGENT':'Normale')+'\n\n';});
   if(note)emailBody+='Note : '+note+'\n\n';
-  emailBody+='━━━━━━━━━━━━━━━━━━━━\nGénéré par MyHostKit';
-  window.location.href='mailto:'+ORDER_ADMIN_EMAIL+'?subject='+encodeURIComponent(emailSubject)+'&body='+encodeURIComponent(emailBody);
-  var historyEntry={id:'h'+Date.now(),date:dateStr,ref:orderRef,prop:propName,items:checked.map(function(i){return i.name+' '+i.qty;}),note:note,count:checked.length,commission:COMMISSION_PCT};
+  emailBody+='━━━━━━━━━━━━━━━━━\nGénéré par MyHostKit';
+  window.location.href='mailto:'+ORDER_ADMIN_EMAIL+'?subject='+encodeURIComponent('[MyHostKit] Bon de commande '+orderRef)+'&body='+encodeURIComponent(emailBody);
+  var historyEntry={id:'h'+Date.now(),date:dateStr,ref:orderRef,prop:propName,items:checked.map(function(i){return i.name+' '+i.qty;}),note:note,count:checked.length};
   orderHistory.unshift(historyEntry);localStorage.setItem('mhk-order-history',JSON.stringify(orderHistory));
   var checkedIds=checked.map(function(i){return i.id;});
   orderList=orderList.filter(function(i){return!checkedIds.includes(i.id);});
@@ -1975,21 +2102,26 @@ function executeOrder(){
 function renderOrderHistory(){
   var container=ge('order-history-list'),countEl=ge('order-history-count');if(!container)return;
   if(countEl)countEl.textContent=orderHistory.length+' commande'+(orderHistory.length>1?'s':'');
-  if(!orderHistory.length){container.innerHTML='<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucun bon de commande passé.</div>';return;}
+  if(!orderHistory.length){container.innerHTML='<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>';return;}
   container.innerHTML=orderHistory.slice(0,8).map(function(h){
-    return '<div class="order-history-item">'+
-      '<div style="width:7px;height:7px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:4px"></div>'+
-      '<div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:var(--n)">'+h.prop+' · '+h.count+' article(s)</div>'+
-      (h.ref?'<div style="font-size:.68rem;font-family:monospace;color:var(--bl);margin-top:1px">'+h.ref+'</div>':'')+
-      '<div style="font-size:.72rem;color:var(--g);margin-top:2px">'+h.items.slice(0,3).join(', ')+(h.items.length>3?' +'+(h.items.length-3)+' autres':'')+'</div>'+
-      '</div><div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">'+h.date+'</div></div>';
+    return '<div class="order-history-item"><div style="width:7px;height:7px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:4px"></div><div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:var(--n)">'+h.prop+' · '+h.count+' article(s)</div>'+(h.ref?'<div style="font-size:.68rem;font-family:monospace;color:var(--bl);margin-top:1px">'+h.ref+'</div>':'')+'<div style="font-size:.72rem;color:var(--g);margin-top:2px">'+h.items.slice(0,3).join(', ')+(h.items.length>3?' +'+(h.items.length-3)+' autres':'')+'</div></div><div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">'+h.date+'</div></div>';
   }).join('');
 }
 
-/* ========== INIT ========== */
+function restoreConnectedPlatforms(){
+  var connected=localStorage.getItem('mhk-platforms-connected');if(!connected)return;
+  JSON.parse(connected).forEach(function(name){
+    var idMap={'Airbnb':'btn-connect-airbnb','Booking.com':'btn-connect-booking'};
+    var btnId=idMap[name];
+    if(btnId){var btn=ge(btnId);if(btn){btn.textContent='Connecté ✓';btn.className='btn-connect connected';}}
+  });
+}
+
+/* ================================================================
+   INIT
+================================================================ */
 (async function init(){
-  initSupabase();
-  setCalMode('taken');
+  initSupabase();setCalMode('taken');
   try{
     var result=await sb.auth.getSession();
     if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}
@@ -1997,127 +2129,8 @@ function renderOrderHistory(){
   sb.auth.onAuthStateChange(function(event,session){
     if(event==='SIGNED_IN'&&session)loadApp(session.user);
     if(event==='SIGNED_OUT')showPage('auth');
-  });        
-})();    
-
-function restoreConnectedPlatforms() {
-  var connected = localStorage.getItem('mhk-platforms-connected');
-  if (!connected) return;
-  var list = JSON.parse(connected);
-  list.forEach(function(name) {
-    var idMap = { 'Airbnb': 'btn-connect-airbnb', 'Booking.com': 'btn-connect-booking' };
-    var btnId = idMap[name];
-    if (btnId) {
-      var btn = ge(btnId);
-      if (btn) { btn.textContent = 'Connecté ✓'; btn.className = 'btn-connect connected'; btn.disabled = false; }
-    }
   });
-  var badge = ge('sb-msg-badge');
-  if (badge) badge.textContent = '12';
-}
-
-function checkPlanAccess() {
-  var plan = CURRENT_PLAN;
-  var hasMsgAccess = (plan === 'pro' || plan === 'concpro' || plan === 'admin');
-  // Retirer les overlays si plan pro+
-  if (hasMsgAccess) {
-    ['messages', 'revenue'].forEach(function(id) {
-      var page = ge('inner-' + id);
-      if (page) {
-        var overlay = page.querySelector('.plan-lock-overlay');
-        if (overlay) overlay.remove();
-      }
-    });
-  }
-}
-
-function handleApiError(err, context) {
-  var msg = 'Erreur API';
-  if (err && err.message) {
-    if (err.message.includes('401')) msg = 'Clé API invalide — vérifiez dans Paramètres';
-    else if (err.message.includes('429')) msg = 'Limite API atteinte — réessayez dans 1 min';
-    else if (err.message.includes('Failed to fetch')) msg = 'Connexion impossible — vérifiez Internet';
-    else msg = 'Erreur : ' + err.message.slice(0, 60);
-  }
-  showToast(msg, 'orange');
-}
-
-function refreshBadges() {
-  var notifs = buildNotificationsFromStocks ? buildNotificationsFromStocks() : [];
-  var unread = notifs.filter(function(n) { return !n.read; }).length;
-  var notifBadge = ge('sb-notif-badge');
-  if (notifBadge) {
-    notifBadge.textContent = unread;
-    notifBadge.style.display = unread > 0 ? '' : 'none';
-  }
-  // Badge stocks
-  var allStockItems = [];
-  Object.keys(STOCKS_DEFAULT || {}).forEach(function(pid) {
-    var items = (stocksDB && stocksDB[pid]) || (STOCKS_DEFAULT && STOCKS_DEFAULT[pid]) || [];
-    allStockItems = allStockItems.concat(items);
-  });
-  var lowStocks = allStockItems.filter(function(i) {
-    return i.qty === 0 || i.qty < i.min;
-  }).length;
-  var stockBadge = ge('sb-stocks-badge');
-  if (stockBadge) {
-    stockBadge.textContent = '!';
-    stockBadge.style.display = lowStocks > 0 ? '' : 'none';
-  }
-}
-
-function resetCalendar() {
-  localStorage.removeItem('mhk-calendar');
-  localStorage.removeItem('mhk-events');
-  calendarData = {};
-  calEvents = [];
-  buildCalendar();
-  showToast('Calendrier réinitialisé', '');
-}
-
-function exportStocksCSV() {
-  var propId = currentStockProp;
-  var items = (stocksDB && stocksDB[propId]) || [];
-  if (!items.length) { showToast('Aucun article à exporter', 'orange'); return; }
-  var csv = 'Produit,Catégorie,Quantité,Seuil,Référence,Statut\n';
-  items.forEach(function(item) {
-    var st = item.qty === 0 ? 'Rupture' : item.qty < item.min ? 'Stock bas' : 'OK';
-    csv += [item.name, item.cat, item.qty, item.min, item.ref || '', st].map(function(v) {
-      return '"' + String(v).replace(/"/g, '""') + '"';
-    }).join(',') + '\n';
-  });
-  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url; a.download = 'stocks-' + propId + '-' + new Date().toISOString().slice(0, 10) + '.csv';
-  a.click(); URL.revokeObjectURL(url);
-  showToast('Export CSV téléchargé', 'green');
-}
-
-document.addEventListener('keydown', function(e) {
-  // Ctrl+K = recherche rapide (placeholder)
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault();
-    showToast('Recherche rapide — bientôt disponible', 'blue');
-  }
-  // Escape déjà géré par le code original
-});
-
-function fmtEur(n) {
-  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
-}
-
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    refreshBadges();
-    // Restaurer état Stripe connecté
-    var stripeBtn = document.querySelector('.btn-connect.connected');
-    if (!stripeBtn) {
-      // Stripe est toujours connecté dans la démo
-    }
-  }, 300);
-});
-
+})();
 </script>
 </body>
 </html>
