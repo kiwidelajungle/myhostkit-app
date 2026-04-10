@@ -1019,7 +1019,7 @@ body{display:flex;flex-direction:column}
       </div>
       <div class="admin-card">
         <div class="admin-card-title">Activité récente</div>
-        <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — demo@myhostkit.com</span></div>
+        <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bfffef6f4dbf6e2f3f4e8eff0f2efb5f8f4f6">[email&#160;protected]</a></span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 18 min</span><span class="admin-log-type log-info">INFO</span><span class="admin-log-msg">Plan upgradé Starter → Pro</span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 1h</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">Tentative connexion échouée × 3</span></div>
       </div>
@@ -1045,7 +1045,7 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
 var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
@@ -2069,8 +2069,7 @@ function restoreConnectedPlatforms(){
   initSupabase();setCalMode('taken');
   try{
     var result=await sb.auth.getSession();
-    if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}
-  }catch(e){}
+    if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}}catch(e){}
   sb.auth.onAuthStateChange(function(event,session){
     if(event==='SIGNED_IN'&&session)loadApp(session.user);
     if(event==='SIGNED_OUT')showPage('auth');
