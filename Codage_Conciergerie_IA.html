@@ -520,9 +520,9 @@ body{display:flex;flex-direction:column}
 
 <!-- APP -->
 <div id="page-app" class="page">
-  <div id="demo-mode-bar" class="demo-mode-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200">
-    <span>✦ <span>Mode démo</span> — IA entièrement active · Données simulées</span>
-    <span style="font-size:.72rem;opacity:.7">Créez un compte pour sauvegarder vos données →</span>
+  <div id="demo-mode-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(135deg,#7A4500,var(--or));padding:8px 28px;display:none;align-items:center;justify-content:space-between;font-size:.76rem;color:#fff;font-weight:600">
+    <span>⚠ Mode démo — <strong>Toutes les données sont fictives</strong> · Aucune vraie réservation</span>
+    <button onclick="doLogout()" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:4px 12px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit">Créer un vrai compte →</button>
   </div>
   <div id="app-inner" style="display:flex;flex:1;width:100%">
   <div class="sidebar" id="main-sidebar">
@@ -534,7 +534,7 @@ body{display:flex;flex-direction:column}
     <nav class="sb-nav">
       <div class="sb-section">Principal</div>
       <button class="sb-item active" data-nav="dashboard" onclick="showInner('dashboard')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tableau de bord</button>
-      <button class="sb-item" data-nav="messages" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge" id="sb-msg-badge">12</span></button>
+      <button class="sb-item" data-nav="messages" onclick="showInner('messages')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA Messages<span class="sb-badge" id="sb-msg-badge" style="display:none">0</span></button>
       <button class="sb-item" data-nav="revenue" onclick="showInner('revenue')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Revenue Intel.<span class="sb-badge orange">Live</span></button>
       <button class="sb-item" data-nav="calendar" onclick="showInner('calendar')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendrier</button>
       <div class="sb-section">Gestion</div>
@@ -577,11 +577,7 @@ body{display:flex;flex-direction:column}
       </div>
       <div class="ai-panel">
         <div class="ai-panel-title">✦ Suggestions IA du jour</div>
-        <div id="ai-suggestions-list">
-          <div class="ai-sugg" onclick="applySuggestion(this,'Message de départ planifié pour demain')">Le guest de l'Apt. Lyon part demain — envoyer le message de départ + demande d'avis.<div class="ai-sugg-action">Planifier maintenant</div></div>
-          <div class="ai-sugg" onclick="applySuggestion(this,'Tarif Festival de Cannes appliqué')">Festival de Cannes (16-27 mai) — demande +38% sur Nice. Appliquer le tarif suggéré 252€/nuit ?<div class="ai-sugg-action">Appliquer le tarif</div></div>
-          <div class="ai-sugg" onclick="applySuggestion(this,'Stocks réapprovisionnés')">Studio Bordeaux : café et papier toilette en rupture avant prochain check-in vendredi.<div class="ai-sugg-action">Commander maintenant</div></div>
-        </div>
+        <div id="ai-suggestions-list"></div>
       </div>
       <div class="grid2">
         <div class="card">
@@ -597,20 +593,7 @@ body{display:flex;flex-direction:column}
 
     <!-- MESSAGES -->
     <div id="inner-messages" class="inner-page">
-      <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-        <span class="chip chip-blue" style="padding:6px 14px;cursor:pointer">Tous (12)</span>
-        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">En attente (2)</span>
-        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Résolus IA (10)</span>
-        <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Escaladés (0)</span>
-      </div>
-      <div class="card">
-        <div style="text-align:center;padding:36px 0">
-          <div style="font-size:2rem;margin-bottom:12px">💬</div>
-          <div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Aucun message pour l'instant</div>
-          <div style="font-size:.82rem;color:var(--g);margin-bottom:18px">Connectez Airbnb ou Booking.com pour recevoir et répondre aux messages guests automatiquement.</div>
-          <button class="btn-cta" onclick="showInner('integrations')">Connecter une plateforme →</button>
-        </div>
-      </div>
+      <div id="messages-content"></div>
     </div>
 
     <!-- REVENUE INTELLIGENCE -->
@@ -697,7 +680,7 @@ body{display:flex;flex-direction:column}
       </div>
     </div>
 
-    <!-- OFFRES — FIX: wrapper manquant -->
+    <!-- OFFRES -->
     <div id="inner-offers" class="inner-page">
       <div class="grid3" style="margin-top:8px">
         <div class="plan-card">
@@ -1019,7 +1002,7 @@ body{display:flex;flex-direction:column}
       </div>
       <div class="admin-card">
         <div class="admin-card-title">Activité récente</div>
-        <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bfffef6f4dbf6e2f3f4e8eff0f2efb5f8f4f6">[email&#160;protected]</a></span></div>
+        <div class="admin-log-item"><span class="admin-log-time">Il y a 2 min</span><span class="admin-log-type log-ok">OK</span><span class="admin-log-msg">Connexion — demo@myhostkit.com</span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 18 min</span><span class="admin-log-type log-info">INFO</span><span class="admin-log-msg">Plan upgradé Starter → Pro</span></div>
         <div class="admin-log-item"><span class="admin-log-time">Il y a 1h</span><span class="admin-log-type log-warn">WARN</span><span class="admin-log-msg">Tentative connexion échouée × 3</span></div>
       </div>
@@ -1045,16 +1028,13 @@ body{display:flex;flex-direction:column}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
 var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
 var CURRENT_USER_EMAIL='',CURRENT_PLAN='starter',IMPERSONATE_USER=null;
 var ADMIN_EMAIL='m.rayane8306@gmail.com',ADMIN_TEAM=[ADMIN_EMAIL],ADMIN_PIN='2727',adminAuthenticated=false;
 
-/* ================================================================
-   DONNÉES STATIQUES — FIX: propStaticData + propertiesDB définis
-================================================================ */
 var propStaticData={
   'apt-lyon':{status:'Occupé',revenue:'2 840€',checkoutSoon:true},
   'villa-nice':{status:'Libre',revenue:'1 950€',checkoutSoon:false},
@@ -1062,16 +1042,17 @@ var propStaticData={
   'chalet-huez':{status:'Libre',revenue:'3 200€',checkoutSoon:false}
 };
 
-var propertiesDB={
+var propertiesDB={};
+
+var DEMO_PROPERTIES={
   'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'4821#',access:'Digicode 4821# puis 2e étage droite.',rules:'Pas de fêtes. Pas de fumée. Animaux non autorisés.',amenities:'WiFi: Freebox-Lyon / mdp: Welcome2024. Parking rue.',contacts:'Ménage: Marie 06 12 34 56 78 · Plombier: 04 72 00 00 00',welcome:'Bienvenue à Lyon ! Le guide est sur la table basse.'},
   'villa-nice':{name:'Villa Nice',emoji:'🌴',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'45 avenue de la Promenade, 06000 Nice',checkin:'16:00',checkout:'11:00',code:'1234A',access:'Portail électrique, télécommande dans la boîte à clés code 1234A.',rules:'Pas de fêtes. Piscine de 8h à 22h. Serviettes piscine fournies.',amenities:'WiFi: Villa-Nice-5G / mdp: Soleil2024. Parking privé. Piscine.',contacts:'Ménage: Lucie 06 98 76 54 32 · Jardinier: 06 11 22 33 44',welcome:'Bienvenue à Nice ! Profitez de la piscine et de la vue mer.'},
-  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 cours de l\'Intendance, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'9876#',access:'Immeuble sécurisé, code 9876# puis appartement 3A.',rules:'Pas de fumée. Petit-déjeuner non inclus. Max 2 personnes.',amenities:'WiFi: Bbox-Bordeaux / mdp: Gironde33. Tout équipé.',contacts:'Ménage: Sophie 06 55 44 33 22',welcome:'Bienvenue à Bordeaux ! Les caves sont à 5 min à pied.'},
-  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"123 route du Téléphérique, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'5555B',access:'Clé sous le paillasson, code 5555B pour le sauna.',rules:'Ski-in ski-out. Pas de chaussures de ski dans le chalet. Sauna dispo.',amenities:'WiFi: Chalet-Huez / mdp: Montagne2024. Sauna. Garage à skis. Buanderie.',contacts:"Ménage: Isabelle 06 77 88 99 00 · Urgence station: 04 76 11 44 44",welcome:"Bienvenue au chalet ! Les forfaits sont à la réception de la station."}
+  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:"8 cours de l'Intendance, 33000 Bordeaux",checkin:'14:00',checkout:'12:00',code:'9876#',access:'Immeuble sécurisé, code 9876# puis appartement 3A.',rules:'Pas de fumée. Max 2 personnes.',amenities:'WiFi: Bbox-Bordeaux / mdp: Gironde33. Tout équipé.',contacts:'Ménage: Sophie 06 55 44 33 22',welcome:'Bienvenue à Bordeaux ! Les caves sont à 5 min à pied.'},
+  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"123 route du Téléphérique, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'5555B',access:'Clé sous le paillasson, code 5555B pour le sauna.',rules:'Ski-in ski-out. Pas de chaussures de ski dans le chalet.',amenities:'WiFi: Chalet-Huez / mdp: Montagne2024. Sauna. Garage à skis.',contacts:"Ménage: Isabelle 06 77 88 99 00 · Urgence: 04 76 11 44 44",welcome:"Bienvenue au chalet ! Les forfaits sont à la réception de la station."}}
 };
 
-/* ================================================================
-   STOCKS DEFAULT — FIX: données remises en place
-================================================================ */
+function getRealProperties(){return Object.keys(propertiesDB);}
+
 var STOCKS_DEFAULT={
   'apt-lyon':[
     {id:'al1',name:'Capsules café',icon:'☕',cat:'Consommables',qty:2,min:4,ref:'CAFE-001'},
@@ -1132,6 +1113,7 @@ function showInner(id){
   ge('topbar-title').textContent=titles[id]||id;
   if(id==='properties')renderPropList();
   if(id==='notifications')renderNotifications();
+  if(id==='messages')renderMessages();
   if(id==='revenue')buildPriceRows();
 }
 
@@ -1162,9 +1144,9 @@ function activateDemoBar(){
   var bar=ge('demo-mode-bar');
   if(bar)bar.style.display='flex';
   var sidebar=ge('main-sidebar');
-  if(sidebar)sidebar.style.marginTop='36px';
-  var apiSection=ge('api-key-settings-section');
-  if(apiSection)apiSection.style.display='none';
+  if(sidebar)sidebar.style.marginTop='40px';
+  var msgBadge=ge('sb-msg-badge');
+  if(msgBadge){msgBadge.textContent='12';msgBadge.style.display='';}
 }
 
 async function doLogin(){
@@ -1227,20 +1209,19 @@ function loadApp(user){
   if(ge('set-email'))ge('set-email').value=user.email||'';
   CURRENT_USER_EMAIL=user.email||'';
   CURRENT_PLAN=IS_DEMO?'pro':getPlan(CURRENT_USER_EMAIL);
-  if(!IS_DEMO && CURRENT_USER_EMAIL) checkAndApplyPlan(CURRENT_USER_EMAIL);
-  var apiSection=ge('api-key-settings-section');
-  if(apiSection)apiSection.style.display=IS_DEMO?'none':'block';
-  if(!IS_DEMO){
-    var savedKey=localStorage.getItem('mhk-anthropic-key');
-    if(savedKey&&ge('anthropic-key')){
-      ge('anthropic-key').value=savedKey;
-      if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';
-    }
+  propertiesDB={};
+  if(IS_DEMO){
+    Object.assign(propertiesDB,DEMO_PROPERTIES);
+  }else{
+    var savedProps=localStorage.getItem('mhk-properties-'+CURRENT_USER_EMAIL);
+    if(savedProps){try{Object.assign(propertiesDB,JSON.parse(savedProps));}catch(e){}}
   }
   var adminBtn=ge('sb-admin-btn');
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
-  var savedProps=localStorage.getItem('mhk-properties');
-  if(savedProps){try{var parsed=JSON.parse(savedProps);Object.keys(parsed).forEach(function(k){propertiesDB[k]=parsed[k];});}catch(e){}}
+  if(!IS_DEMO){
+    var savedKey=localStorage.getItem('mhk-anthropic-key');
+    if(savedKey&&ge('anthropic-key')){ge('anthropic-key').value=savedKey;if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';}
+  }
   initStocks();
   buildCalendar();
   buildPriceRows();
@@ -1248,6 +1229,8 @@ function loadApp(user){
   initRevIntel();
   renderPropList();
   renderDashRevenues();
+  renderDashSuggestions();
+  renderDashKpis();
   renderNotifications();
   showPage('app');
   showInner('dashboard');
@@ -1300,20 +1283,53 @@ function applySuggestion(el,msg){el.style.opacity='.5';el.style.pointerEvents='n
 function toggleSetting(btn,name){btn.classList.toggle('on');showToast(name+(btn.classList.contains('on')?' activé':' désactivé'),'');}
 
 /* ================================================================
+   MARK READ NOTIFICATION — INJECT FIX
+================================================================ */
+function markReadN(idx){
+  if(notificationsData[idx])notificationsData[idx].read=true;
+  renderNotifications();
+}
+
+/* ================================================================
+   RENDER DASHBOARD KPIs — INJECT FIX
+================================================================ */
+function renderDashKpis(){
+  if(IS_DEMO){
+    var kpiR=ge('kpi-revenus');
+    if(kpiR){kpiR.textContent='8 970€';var d=ge('kpi-revenus-delta');if(d){d.className='kpi-delta up';d.textContent='↑ +22% vs mars';}}
+    var kpiO=ge('kpi-occupation');
+    if(kpiO){kpiO.textContent='94%';var o=ge('kpi-occupation-delta');if(o){o.className='kpi-delta up';o.textContent='↑ +8pts vs mars';}}
+    var kpiM=ge('kpi-messages');if(kpiM)kpiM.textContent='1 247';
+    var kpiN=ge('kpi-note');
+    if(kpiN){kpiN.textContent='4,9★';var nd=kpiN.parentElement.querySelector('.kpi-delta');if(nd){nd.className='kpi-delta up';nd.textContent='83 avis · IA 24h/24';}}
+    return;
+  }
+  var kpiR=ge('kpi-revenus');
+  if(kpiR){kpiR.textContent='—';var d=ge('kpi-revenus-delta');if(d){d.className='kpi-delta muted';d.textContent='Connectez Airbnb pour activer';}}
+  var kpiO=ge('kpi-occupation');
+  if(kpiO){kpiO.textContent='—';var o=ge('kpi-occupation-delta');if(o){o.className='kpi-delta muted';o.textContent='Connectez Airbnb pour activer';}}
+  var kpiN=ge('kpi-note');if(kpiN)kpiN.textContent='—';
+  var kpiM=ge('kpi-messages');if(kpiM)kpiM.textContent='0';
+}
+
+/* ================================================================
    NOTIFICATIONS
 ================================================================ */
 function buildNotificationsFromStocks(){
   var notifs=[];
-  Object.keys(STOCKS_DEFAULT).forEach(function(propId){
-    var items=stocksDB[propId]||STOCKS_DEFAULT[propId]||[];
+  var realProps=getRealProperties();
+  realProps.forEach(function(propId){
+    var items=stocksDB[propId]||[];
     var propName=(propertiesDB[propId]||{}).name||propId;
     var outItems=items.filter(function(i){return i.qty===0;});
     var lowItems=items.filter(function(i){return i.qty>0&&i.qty<i.min;});
     if(outItems.length)notifs.push({id:'notif-out-'+propId,type:'critical',title:'Rupture de stock — '+propName,sub:outItems.map(function(i){return i.name;}).join(', ')+' en rupture totale.',time:'Maintenant',read:false});
     if(lowItems.length)notifs.push({id:'notif-low-'+propId,type:'warning',title:'Stock bas — '+propName,sub:lowItems.map(function(i){return i.name+' ('+i.qty+'/'+i.min+')';}).join(', '),time:'Il y a 2h',read:false});
   });
-  notifs.push({id:'notif-checkout',type:'info',title:'Check-out demain — Apt. Lyon',sub:'Email ménage envoyé auto pour 10h.',time:'Il y a 3h',read:false});
-  notifs.push({id:'notif-review',type:'ok',title:'Nouvel avis 5 étoiles — Studio Bordeaux',sub:'"Parfait séjour, réponses ultra rapides !" — Thomas K.',time:'Hier',read:true});
+  if(IS_DEMO){
+    notifs.push({id:'notif-checkout',type:'info',title:'Check-out demain — Apt. Lyon',sub:'Email ménage envoyé auto pour 10h.',time:'Il y a 3h',read:false});
+    notifs.push({id:'notif-review',type:'ok',title:'Nouvel avis 5 étoiles — Studio Bordeaux',sub:'"Parfait séjour, réponses ultra rapides !" — Thomas K.',time:'Hier',read:true});
+  }
   return notifs;
 }
 
@@ -1330,18 +1346,43 @@ function renderNotifications(){
     return '<div class="notif-item" onclick="markReadN('+idx+')" style="'+(n.read?'opacity:.65':'')+'"><div class="'+dotCls+'"></div><div style="flex:1"><div class="notif-title">'+n.title+urgBadge+'</div><div class="notif-sub">'+n.sub+'</div></div><div class="notif-time">'+n.time+'</div></div>';
   }).join('');
 }
-function markReadN(idx){if(notificationsData[idx])notificationsData[idx].read=true;renderNotifications();}
+
+function renderDashSuggestions(){
+  var el=ge('ai-suggestions-list');if(!el)return;
+  if(IS_DEMO){
+    el.innerHTML='<div class="ai-sugg" onclick="applySuggestion(this,\'Message de départ planifié\')">Le guest de l\'Apt. Lyon part demain — envoyer le message de départ + demande d\'avis.<div class="ai-sugg-action">Planifier maintenant</div></div><div class="ai-sugg" onclick="applySuggestion(this,\'Tarif Festival de Cannes appliqué\')">Festival de Cannes (16-27 mai) — demande +38% sur Nice. Appliquer le tarif suggéré 252€/nuit ?<div class="ai-sugg-action">Appliquer le tarif</div></div><div class="ai-sugg" onclick="applySuggestion(this,\'Stocks commandés\')">Studio Bordeaux : café et papier toilette en rupture avant prochain check-in vendredi.<div class="ai-sugg-action">Commander maintenant</div></div>';
+    return;
+  }
+  var props=getRealProperties();
+  if(!props.length){
+    el.innerHTML='<div style="text-align:center;padding:14px 0;color:var(--g);font-size:.82rem;opacity:.6">Les suggestions IA apparaîtront ici une fois votre logement configuré.</div>';
+  }else{
+    el.innerHTML='<div style="text-align:center;padding:14px 0;color:var(--g);font-size:.82rem;opacity:.6">Connectez Airbnb pour activer les suggestions IA personnalisées.</div>';
+  }
+}
+
+function renderMessages(){
+  var el=ge('messages-content');if(!el)return;
+  if(IS_DEMO){
+    el.innerHTML='<div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap"><span class="chip chip-blue" style="padding:6px 14px">Tous (12)</span><span class="chip" style="padding:6px 14px;background:#F4F2ED;color:var(--g)">En attente (2)</span><span class="chip" style="padding:6px 14px;background:#F4F2ED;color:var(--g)">Résolus IA (10)</span><span class="chip" style="padding:6px 14px;background:#F4F2ED;color:var(--g)">Escaladés (0)</span></div><div class="card"><div class="card-title">Guest · Villa Nice · En cours <span class="chip chip-green">IA a répondu</span></div><div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Bonsoir, le code de la boîte à clés ne fonctionne pas, nous sommes devant la porte...</div><div class="msg-time">20h43</div></div></div><div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Bonsoir ! Je suis vraiment désolé. Le code est 4821#. Si cela ne fonctionne toujours pas, notre prestataire peut être là en 15 minutes.</div><div class="msg-time">20h43 · Répondu en 1.1s</div></div></div><div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Parfait ça marche ! Merci 🙏</div><div class="msg-time">20h45</div></div></div></div><div class="card"><div class="card-title">Guest · Apt. Lyon · Hier <span class="chip chip-green">IA a répondu</span></div><div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Kann ich früh auschecken? Wir müssen um 10 Uhr am Flughafen sein.</div><div class="msg-time">07h12 · Allemand détecté</div></div></div><div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Guten Morgen! Natürlich, das Early-Checkout ist kein Problem. Hinterlassen Sie die Schlüssel auf dem Tisch. Gute Reise! ✈️</div><div class="msg-time">07h12 · Répondu en 0.8s · Traduit auto</div></div></div></div><div class="ai-panel"><div class="ai-panel-title">Résumé IA · Ce mois</div><div class="grid3"><div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:\'Fraunces\',serif">1 247</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Messages traités</div></div><div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:\'Fraunces\',serif">1.2s</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Temps moyen réponse</div></div><div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:\'Fraunces\',serif">0</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Escalade humaine</div></div></div></div>';
+    return;
+  }
+  el.innerHTML='<div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;opacity:.4;pointer-events:none"><span class="chip chip-blue" style="padding:6px 14px">Tous (0)</span><span class="chip" style="padding:6px 14px;background:#F4F2ED;color:var(--g)">En attente (0)</span></div><div class="card"><div style="opacity:.45;pointer-events:none;margin-bottom:16px"><div class="card-title">Guest · Mon logement · Exemple <span class="chip" style="background:#F4F2ED;color:var(--g)">Non connecté</span></div><div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Bonjour, à quelle heure puis-je arriver ?</div></div></div><div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Bonjour ! Votre arrivée est possible dès 15h00. Le code d\'accès vous sera envoyé la veille. 😊</div></div></div></div><div style="text-align:center;padding:10px 0 4px"><button class="btn-cta" onclick="showInner(\'integrations\')">Connecter Airbnb / Booking pour activer →</button></div></div>';
+}
 
 /* ================================================================
    DASHBOARD REVENUS
 ================================================================ */
 function renderDashRevenues(){
   var el=ge('dash-revenus-list');if(!el)return;
-  var propIds=['apt-lyon','villa-nice','studio-bordeaux','chalet-huez'];
-  el.innerHTML=propIds.map(function(id){
-    var sd=propStaticData[id]||{};
+  var realProps=getRealProperties();
+  if(!realProps.length){
+    el.innerHTML='<div style="opacity:.42"><div class="rev-row"><span class="rev-lbl">Exemple</span><div class="rev-track"><div class="rev-fill" style="width:60%;background:#D0CDD8"></div></div><span class="rev-num" style="color:var(--g)">—</span></div></div><div style="text-align:center;margin-top:10px"><button class="btn-outline" style="font-size:.76rem;padding:7px 16px" onclick="openAddProperty()">Ajouter un logement →</button></div>';
+    return;
+  }
+  el.innerHTML=realProps.map(function(id){
     var prop=propertiesDB[id]||{};
-    return '<div class="prop-row" style="cursor:default"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+'</div></div><span class="chip chip-green">'+sd.revenue+'</span></div>';
+    return '<div class="rev-row"><span class="rev-lbl" style="width:80px;font-size:.72rem;color:var(--g);text-align:right;flex-shrink:0">'+(prop.name||id)+'</span><div class="rev-track"><div class="rev-fill" style="width:30%;background:#D0CDD8"></div></div><span class="rev-num" style="color:var(--g)">—</span></div>';
   }).join('');
 }
 
@@ -1362,20 +1403,27 @@ function getPropAlerts(propId){
 }
 
 function renderPropList(){
-  var propIds=['apt-lyon','villa-nice','studio-bordeaux','chalet-huez'];
+  var propIds=getRealProperties();
   var fullEl=ge('prop-list-full'),dashEl=ge('dash-prop-list');
+  var countLabel=ge('prop-count-label');if(countLabel)countLabel.textContent=propIds.length?propIds.length+' actif'+(propIds.length>1?'s':''):'0 propriété';
+  var dashCount=ge('dash-prop-count');if(dashCount)dashCount.textContent=propIds.length?propIds.length+' actif'+(propIds.length>1?'s':''):'0 propriété';
+
+  var exampleHtml='<div style="opacity:.45;pointer-events:none"><div class="prop-row" style="flex-direction:column;align-items:flex-start;gap:6px;border:1.5px dashed var(--border)"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">🏠 Mon premier logement</div><div class="prop-meta">Paris · Appartement</div></div><span class="chip chip-blue">Exemple</span></div></div></div><div style="margin-top:14px;text-align:center"><button class="btn-cta" onclick="openAddProperty()">+ Ajouter mon premier logement →</button></div>';
+
+  if(!propIds.length){
+    if(fullEl)fullEl.innerHTML=exampleHtml;
+    if(dashEl)dashEl.innerHTML='<div style="opacity:.45"><div class="prop-row" style="border:1.5px dashed var(--border)"><div><div class="prop-name">🏠 Mon premier logement</div><div class="prop-meta">Ajoutez votre logement</div></div><span class="chip chip-blue">Exemple</span></div></div><div style="margin-top:10px"><button class="btn-cta" style="font-size:.75rem;padding:7px 14px" onclick="openAddProperty()">+ Ajouter →</button></div>';
+    return;
+  }
+
   var makeRow=function(propId,full){
-    var prop=propertiesDB[propId];
-    if(!prop)return'';
+    var prop=propertiesDB[propId];if(!prop)return'';
     var sd=propStaticData[propId]||{};
     var alerts=getPropAlerts(propId);
     var alertsHtml='<div class="prop-alert-bar">'+alerts.map(function(a){return'<span class="prop-alert '+a.cls+'">'+a.text+'</span>';}).join('')+'</div>';
-    var statusChip=sd.status==='Libre'?'<span class="chip chip-amber">Libre</span>':'<span class="chip chip-green">'+sd.revenue+'</span>';
-    if(full){
-      return '<div class="prop-row" onclick="editProperty(\''+propId+'\')" style="flex-direction:column;align-items:flex-start;gap:6px"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+' · '+prop.type+' · '+sd.status+'</div></div><div style="display:flex;align-items:center;gap:8px">'+statusChip+'<span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>'+alertsHtml+'</div>';
-    }else{
-      return '<div class="prop-row" onclick="showInner(\'properties\')"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+sd.status+'</div>'+alertsHtml+'</div>'+statusChip+'</div>';
-    }
+    var statusChip=sd.status==='Libre'?'<span class="chip chip-amber">Libre</span>':sd.revenue?'<span class="chip chip-green">'+sd.revenue+'</span>':'<span class="chip chip-blue">Actif</span>';
+    if(full){return '<div class="prop-row" onclick="editProperty(\''+propId+'\')" style="flex-direction:column;align-items:flex-start;gap:6px"><div style="display:flex;align-items:center;justify-content:space-between;width:100%"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+prop.city+' · '+prop.type+'</div></div><div style="display:flex;align-items:center;gap:8px">'+statusChip+'<span style="font-size:.72rem;color:var(--bl);font-weight:600">Modifier →</span></div></div>'+alertsHtml+'</div>';}
+    else{return '<div class="prop-row" onclick="showInner(\'properties\')"><div><div class="prop-name">'+(prop.emoji||'🏠')+' '+prop.name+'</div><div class="prop-meta">'+(sd.status||prop.city||'')+'</div>'+alertsHtml+'</div>'+statusChip+'</div>';}
   };
   if(fullEl)fullEl.innerHTML=propIds.map(function(id){return makeRow(id,true);}).join('');
   if(dashEl)dashEl.innerHTML=propIds.map(function(id){return makeRow(id,false);}).join('');
@@ -1397,7 +1445,7 @@ function saveProperty(){
   var editingId=ge('modal-property').dataset.editing;
   var propId=editingId||name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
   propertiesDB[propId]={name:name,emoji:propertiesDB[propId]?propertiesDB[propId].emoji:'🏠',city:ge('prop-city').value.trim(),type:ge('prop-type').value,rooms:ge('prop-rooms').value,capacity:ge('prop-capacity').value,address:ge('prop-address').value.trim(),checkin:ge('prop-checkin').value,checkout:ge('prop-checkout').value,code:ge('prop-code').value.trim(),access:ge('prop-access').value.trim(),rules:ge('prop-rules').value.trim(),amenities:ge('prop-amenities').value.trim(),contacts:ge('prop-contacts').value.trim(),welcome:ge('prop-welcome').value.trim()};
-  localStorage.setItem('mhk-properties',JSON.stringify(propertiesDB));
+  localStorage.setItem('mhk-properties-'+CURRENT_USER_EMAIL,JSON.stringify(propertiesDB));
   loadPropertiesIntoSelect();renderPropList();closeModal('property');showToast('Fiche "'+name+'" sauvegardée','green');
 }
 function loadPropertiesIntoSelect(){
@@ -1415,7 +1463,7 @@ function initCalendarData(){
   if(saved){try{calendarData=JSON.parse(saved);}catch(e){}}
   var savedEv=localStorage.getItem('mhk-events');
   if(savedEv){try{calEvents=JSON.parse(savedEv);}catch(e){}}
-  if(!calEvents.length){
+  if(!calEvents.length&&IS_DEMO){
     calEvents=[
       {id:'e1',title:'Check-out Apt. Lyon',date:'2026-04-10',time:'11:00',type:'checkout',prop:'apt-lyon',note:'Ménage 10h-13h'},
       {id:'e2',title:'Arrivée Studio Bordeaux',date:'2026-04-12',time:'15:00',type:'checkin',prop:'studio-bordeaux',note:'3 personnes'},
@@ -1423,6 +1471,11 @@ function initCalendarData(){
       {id:'e4',title:'Arrivée Villa Nice',date:'2026-04-21',time:'16:00',type:'checkin',prop:'villa-nice',note:'Prix IA ajusté +39EUR'}
     ];
     saveCalEvents();
+  }
+  if(!Object.keys(calendarData).length&&IS_DEMO){
+    [3,4,5,12,13,20,21,22,23,24].forEach(function(d){calendarData['2026-04-'+String(d).padStart(2,'0')]='taken';});
+    [8,9].forEach(function(d){calendarData['2026-04-'+String(d).padStart(2,'0')]='partial';});
+    saveCalData();
   }
 }
 function saveCalData(){localStorage.setItem('mhk-calendar',JSON.stringify(calendarData));}
@@ -1497,81 +1550,46 @@ function deleteEvent(id){calEvents=calEvents.filter(function(e){return e.id!==id
    REVENUE INTELLIGENCE
 ================================================================ */
 function initRevIntel(){
-  revIntelData=[
-    {id:'ri1',prop:'Villa Nice',title:'Festival de Cannes (16-27 mai)',sub:'Demande en hausse +38% sur la Côte d\'Azur. Tarif actuel sous-optimal.',priority:'urgent',currentPrice:185,suggestedPrice:252,gain:'+67€/nuit soit +804€/séjour',sources:['Airbnb Trends','Booking Insight'],applied:false},
-    {id:'ri2',prop:'Apt. Lyon',title:'Semaine 15 — taux local 47%',sub:'Le marché lyonnais est mou cette semaine. Baisser temporairement pour remplir 3 nuits libres.',priority:'high',currentPrice:135,suggestedPrice:115,gain:'+3 nuits occupées vs 0',sources:['AirDNA','Données locales'],applied:false},
-    {id:'ri3',prop:"Chalet Alpe d'Huez",title:'Saison ski — tarifs confirmés',sub:'Vos tarifs sont dans la fourchette haute du marché. Taux prévisionnel 99% jusqu\'en avril.',priority:'normal',currentPrice:290,suggestedPrice:290,gain:'Optimisé ✓',sources:['Historique','Marché local'],applied:true}
-  ];
-  renderRevIntel();
-  buildPriceRows();
+  if(IS_DEMO){
+    revIntelData=[
+      {id:'ri1',prop:'Villa Nice',title:'Festival de Cannes (16-27 mai)',sub:"Demande en hausse +38% sur la Côte d'Azur. Tarif actuel sous-optimal.",priority:'urgent',currentPrice:185,suggestedPrice:252,gain:'+67€/nuit soit +804€/séjour',sources:['Airbnb Trends','Booking Insight'],applied:false},
+      {id:'ri2',prop:'Apt. Lyon',title:'Semaine 15 — taux local 47%',sub:'Le marché lyonnais est mou cette semaine. Baisser temporairement pour remplir 3 nuits libres.',priority:'high',currentPrice:135,suggestedPrice:115,gain:'+3 nuits occupées vs 0',sources:['AirDNA','Données locales'],applied:false},
+      {id:'ri3',prop:"Chalet Alpe d'Huez",title:'Saison ski — tarifs confirmés',sub:"Vos tarifs sont dans la fourchette haute du marché. Taux prévisionnel 99% jusqu'en avril.",priority:'normal',currentPrice:290,suggestedPrice:290,gain:'Optimisé ✓',sources:['Historique','Marché local'],applied:true}
+    ];
+  }else{revIntelData=[];}
+  renderRevIntel();buildPriceRows();
 }
 
 function renderRevIntel(){
   var list=ge('rev-intel-list');if(!list)return;
+  if(!revIntelData.length){
+    list.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--g);font-size:.82rem"><div style="font-size:2rem;margin-bottom:10px">📈</div><div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Aucune donnée tarifaire</div><div style="margin-bottom:16px;max-width:380px;margin-left:auto;margin-right:auto">Ajoutez vos logements et connectez Airbnb pour que l\'IA analyse les prix du marché en temps réel.</div><button class="btn-cta" onclick="showInner(\'properties\')">Ajouter un logement →</button></div>';
+    return;
+  }
   list.innerHTML=revIntelData.map(function(item){
     var priorityLabel={urgent:'Urgent',high:'Important',normal:'Optimisé'}[item.priority]||'';
     var priorityCls={urgent:'chip-red',high:'chip-amber',normal:'chip-green'}[item.priority]||'chip-blue';
     var sourcesHtml=item.sources.map(function(s){return'<span class="rev-source live">'+s+'</span>';}).join('');
-    var actionBtns=item.applied?
-      '<span class="chip chip-green" style="padding:8px 14px">✓ Prix appliqué</span>':
-      '<button class="btn-apply-price" onclick="applyRevPrice(\''+item.id+'\')">Appliquer '+item.suggestedPrice+'€/nuit →</button>'+
-      '<button class="btn-edit-price" onclick="openManualPrice(\''+item.id+'\')">Modifier</button>';
-    return '<div class="rev-intel-card '+item.priority+'">'+
-      '<div class="rev-intel-header">'+
-        '<div><div class="rev-intel-title">'+item.prop+' — '+item.title+'</div>'+
-        '<div class="rev-intel-sub">'+item.sub+'</div>'+
-        '<div class="rev-source-badges" style="margin-top:7px"><span style="font-size:.63rem;color:var(--g);margin-right:4px">Sources :</span>'+sourcesHtml+'</div></div>'+
-        '<div style="text-align:right;flex-shrink:0">'+
-          '<span class="chip '+priorityCls+'" style="margin-bottom:6px;display:block">'+priorityLabel+'</span>'+
-          '<div style="font-size:.68rem;color:var(--g)">Actuel : <strong>'+item.currentPrice+'€</strong></div>'+
-          '<div style="font-size:.68rem;color:var(--green-d);font-weight:700">Suggéré : <strong>'+item.suggestedPrice+'€</strong></div>'+
-          '<div style="font-size:.68rem;color:var(--bl);margin-top:2px">'+item.gain+'</div>'+
-        '</div>'+
-      '</div>'+
-      '<div class="rev-intel-actions">'+actionBtns+'</div>'+
-      '<div class="rev-manual-input" id="manual-price-'+item.id+'">'+
-        '<div style="font-size:.78rem;font-weight:700;color:var(--n);margin-bottom:8px">Prix manuel :</div>'+
-        '<div class="price-input-row"><input class="price-inp" type="number" id="manual-inp-'+item.id+'" value="'+item.currentPrice+'" min="1"><span style="font-size:.82rem;color:var(--g)">€/nuit</span>'+
-        '<button class="btn-apply-price" style="padding:8px 14px" onclick="applyManualPrice(\''+item.id+'\')">Appliquer →</button></div>'+
-      '</div>'+
-    '</div>';
+    var actionBtns=item.applied?'<span class="chip chip-green" style="padding:8px 14px">✓ Prix appliqué</span>':'<button class="btn-apply-price" onclick="applyRevPrice(\''+item.id+'\')">Appliquer '+item.suggestedPrice+'€/nuit →</button><button class="btn-edit-price" onclick="openManualPrice(\''+item.id+'\')">Modifier</button>';
+    return '<div class="rev-intel-card '+item.priority+'"><div class="rev-intel-header"><div><div class="rev-intel-title">'+item.prop+' — '+item.title+'</div><div class="rev-intel-sub">'+item.sub+'</div><div class="rev-source-badges" style="margin-top:7px"><span style="font-size:.63rem;color:var(--g);margin-right:4px">Sources :</span>'+sourcesHtml+'</div></div><div style="text-align:right;flex-shrink:0"><span class="chip '+priorityCls+'" style="margin-bottom:6px;display:block">'+priorityLabel+'</span><div style="font-size:.68rem;color:var(--g)">Actuel : <strong>'+item.currentPrice+'€</strong></div><div style="font-size:.68rem;color:var(--green-d);font-weight:700">Suggéré : <strong>'+item.suggestedPrice+'€</strong></div><div style="font-size:.68rem;color:var(--bl);margin-top:2px">'+item.gain+'</div></div></div><div class="rev-intel-actions">'+actionBtns+'</div><div class="rev-manual-input" id="manual-price-'+item.id+'"><div style="font-size:.78rem;font-weight:700;color:var(--n);margin-bottom:8px">Prix manuel :</div><div class="price-input-row"><input class="price-inp" type="number" id="manual-inp-'+item.id+'" value="'+item.currentPrice+'" min="1"><span style="font-size:.82rem;color:var(--g)">€/nuit</span><button class="btn-apply-price" style="padding:8px 14px" onclick="applyManualPrice(\''+item.id+'\')">Appliquer →</button></div></div></div>';
   }).join('');
 }
 
-function applyRevPrice(id){
-  var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;
-  item.applied=true;item.currentPrice=item.suggestedPrice;
-  renderRevIntel();buildPriceRows();showToast('Prix '+item.prop+' → '+item.suggestedPrice+'€/nuit !','green');
-}
+function applyRevPrice(id){var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;item.applied=true;item.currentPrice=item.suggestedPrice;renderRevIntel();buildPriceRows();showToast('Prix '+item.prop+' → '+item.suggestedPrice+'€/nuit !','green');}
 function openManualPrice(id){var el=ge('manual-price-'+id);if(el)el.classList.toggle('open');}
-function applyManualPrice(id){
-  var inp=ge('manual-inp-'+id);if(!inp)return;
-  var val=parseInt(inp.value)||0;if(val<1){showToast('Prix invalide','orange');return;}
-  var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;
-  item.applied=true;item.currentPrice=val;item.suggestedPrice=val;item.gain='Prix personnalisé';
-  renderRevIntel();buildPriceRows();showToast('Prix manuel : '+val+'€/nuit','green');
-}
+function applyManualPrice(id){var inp=ge('manual-inp-'+id);if(!inp)return;var val=parseInt(inp.value)||0;if(val<1){showToast('Prix invalide','orange');return;}var item=revIntelData.find(function(i){return i.id===id;});if(!item)return;item.applied=true;item.currentPrice=val;item.suggestedPrice=val;item.gain='Prix personnalisé';renderRevIntel();buildPriceRows();showToast('Prix manuel : '+val+'€/nuit','green');}
 
 async function refreshRevIntel(){
   var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse en cours...';btn.disabled=true;
   var apiKey=getApiKey();
   if(apiKey){
     try{
-      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,
-        'Tu es un expert revenue management Airbnb en France. Génère 3 recommandations tarifaires pour avril-mai 2026. Réponds UNIQUEMENT en JSON sans backticks:\n{"recommandations":[{"id":"ri1","sub":"..."},{"id":"ri2","sub":"..."},{"id":"ri3","sub":"..."}]}',
-        [{role:'user',content:'Analyse les opportunités pour Nice, Lyon, Alpe d\'Huez.'}]);
+      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,'Tu es un expert revenue management Airbnb en France. Génère 3 recommandations tarifaires pour avril-mai 2026. Réponds UNIQUEMENT en JSON sans backticks:\n{"recommandations":[{"id":"ri1","sub":"..."},{"id":"ri2","sub":"..."},{"id":"ri3","sub":"..."}]}',[{role:'user',content:"Analyse les opportunités pour Nice, Lyon, Alpe d'Huez."}]);
       var raw=data.content[0].text.replace(/```json|```/g,'').trim();
       var parsed=JSON.parse(raw);
-      if(parsed.recommandations){
-        parsed.recommandations.forEach(function(rec){
-          var item=revIntelData.find(function(i){return i.id===rec.id;});
-          if(item&&!item.applied)item.sub=rec.sub;
-        });
-      }
+      if(parsed.recommandations){parsed.recommandations.forEach(function(rec){var item=revIntelData.find(function(i){return i.id===rec.id;});if(item&&!item.applied)item.sub=rec.sub;});}
     }catch(e){await demoRevIntelRefresh();}
-  }else{
-    await demoRevIntelRefresh();
-  }
+  }else{await demoRevIntelRefresh();}
   renderRevIntel();
   if(ge('price-last-updated'))ge('price-last-updated').textContent='Mis à jour il y a quelques secondes';
   showToast('Analyse IA actualisée ✦','green');
@@ -1590,6 +1608,7 @@ async function demoRevIntelRefresh(){
 
 function buildPriceRows(){
   var el=ge('price-rows');if(!el)return;
+  if(!IS_DEMO){el.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.8rem">Connectez Airbnb pour voir les prix en temps réel.</div>';if(ge('rev-gain-total'))ge('rev-gain-total').textContent='—';return;}
   var vnice=revIntelData.find(function(i){return i.id==='ri1';});
   var base=vnice&&vnice.applied?252:185;
   var rows=[['Lun 13',base+'€','chip-blue'],['Mar 14',base+'€','chip-blue'],['Mer 15',base+'€','chip-blue'],['Jeu 16',base+'€','chip-blue'],['Ven 17',(base+19)+'€ ↑','chip-green'],['Sam 18',(base+19)+'€ ↑','chip-green'],['Dim 19',(base+14)+'€ ↑','chip-green']];
@@ -1600,11 +1619,7 @@ function buildPriceRows(){
    CALL ANTHROPIC API
 ================================================================ */
 async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
-  var response=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:model,max_tokens:maxTokens,system:system,messages:messages})
-  });
+  var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:model,max_tokens:maxTokens,system:system,messages:messages})});
   return response.json();
 }
 
@@ -1626,48 +1641,18 @@ function generateSmartDemoResponse(userMsg,prop){
   var contacts=prop.contacts||'Contactez le propriétaire';
   var welcome=prop.welcome||'Bienvenue !';
   var name=prop.name||'votre logement';
-  if(msg.includes('arriv')||msg.includes('check-in')||msg.includes('checkin')||msg.includes('entrer')||msg.includes('accès')||msg.includes('acces')||msg.includes('heure')){
-    return 'Votre arrivée est possible à partir de <strong>'+checkin+'</strong>. '+prop.access+' Le code d\'accès est : <strong>'+code+'</strong>. Pour une arrivée tardive, prévenez-moi et j\'organise ça !';
-  }
-  if(msg.includes('départ')||msg.includes('depart')||msg.includes('check-out')||msg.includes('checkout')||msg.includes('quitter')||msg.includes('partir')){
-    return 'Le départ est prévu avant <strong>'+checkout+'</strong>. Merci de laisser les clés sur la table et de fermer les fenêtres. Nous adorerions recevoir votre avis si vous avez apprécié le séjour ! ⭐';
-  }
-  if(msg.includes('code')||msg.includes('clé')||msg.includes('cle')||msg.includes('porte')||msg.includes('ouvrir')){
-    return 'Le code d\'accès est : <strong>'+code+'</strong>.<br>'+prop.access+'<br>En cas de problème : '+contacts;
-  }
-  if(msg.includes('wifi')||msg.includes('internet')||msg.includes('connexion')||msg.includes('réseau')||msg.includes('mot de passe')){
-    return 'Voici les informations WiFi :<br><strong>'+wifi+'</strong><br>Si la connexion pose problème, redémarrez votre appareil ou contactez-moi directement.';
-  }
-  if(msg.includes('piscine')||msg.includes('nager')||msg.includes('baignade')||msg.includes('pool')){
-    return 'Pour la piscine de '+name+', les horaires sont de 8h à 22h. Profitez-en ! 🏊 Les serviettes sont disponibles dans le logement.';
-  }
-  if(msg.includes('ménage')||msg.includes('menage')||msg.includes('linge')||msg.includes('serviette')||msg.includes('drap')){
-    return 'Linge de lit et serviettes sont fournis et disponibles dans l\'armoire. Pour un service ménage en cours de séjour, contactez : '+contacts+' — réponse sous 30 min !';
-  }
-  if(msg.includes('parking')||msg.includes('voiture')||msg.includes('garer')||msg.includes('stationner')){
-    return 'Informations parking : '+prop.access+' · Pour toute question : '+contacts;
-  }
-  if(msg.includes('règlement')||msg.includes('reglement')||msg.includes('règles')||msg.includes('autorisé')||msg.includes('interdit')){
-    return 'Règlement de '+name+' : <em>'+rules+'</em><br>Merci de le respecter pour le confort de tous. 🙏';
-  }
-  if(msg.includes('merci')||msg.includes('parfait')||msg.includes('super')||msg.includes('excellent')||msg.includes('génial')||msg.includes('top')){
-    return 'Avec grand plaisir ! 😊 Profitez bien de '+prop.city+'. Si vous avez d\'autres questions, je suis là 24h/24 !';
-  }
-  if(msg.includes('urgence')||msg.includes('problème')||msg.includes('problem')||msg.includes('panne')||msg.includes('cassé')||msg.includes('fuite')){
-    return '⚠️ Pas de panique ! Pour toute urgence dans votre logement, contactez immédiatement : <strong>'+contacts+'</strong>. Intervention possible sous 15-30 minutes.';
-  }
-  if(/hello|hi\s|good\s/i.test(userMsg)){
-    return 'Hello! Welcome to <strong>'+name+'</strong>! '+welcome+' I\'m here 24/7 to help you. Check-in: '+checkin+' · Check-out: '+checkout+'. How can I help you? 🏡';
-  }
-  if(/hola|buenas|gracias/i.test(userMsg)){
-    return '¡Hola! Bienvenido a <strong>'+name+'</strong>. Check-in: '+checkin+' · Check-out: '+checkout+' · Código: '+code+'. ¿En qué puedo ayudarle? 😊';
-  }
-  var responses=[
-    'Je suis l\'assistant de <strong>'+name+'</strong>. Voici l\'essentiel : '+welcome+' Check-in: <strong>'+checkin+'</strong> · Check-out: <strong>'+checkout+'</strong> · Code: <strong>'+code+'</strong>. Des questions spécifiques ?',
-    'Pour <strong>'+name+'</strong> à '+prop.city+' : accès à '+checkin+', départ avant '+checkout+', code <strong>'+code+'</strong>. Équipements : '+wifi.split(',')[0]+'. Y a-t-il autre chose que je puisse faire pour vous ?',
-    'Bonne question ! Pour '+name+', voici les infos clés : <strong>'+welcome+'</strong> Besoin d\'autre chose ? Je suis là ! Contact local si urgence : '+contacts
-  ];
-  return responses[Math.floor(Math.random()*responses.length)];
+  if(msg.includes('arriv')||msg.includes('check-in')||msg.includes('heure')){return 'Votre arrivée est possible à partir de <strong>'+checkin+'</strong>. '+prop.access+' Le code d\'accès est : <strong>'+code+'</strong>. Pour une arrivée tardive, prévenez-moi !';}
+  if(msg.includes('départ')||msg.includes('depart')||msg.includes('check-out')||msg.includes('quitter')){return 'Le départ est prévu avant <strong>'+checkout+'</strong>. Merci de laisser les clés sur la table. Nous adorerions recevoir votre avis ! ⭐';}
+  if(msg.includes('code')||msg.includes('clé')||msg.includes('porte')){return 'Le code d\'accès est : <strong>'+code+'</strong>.<br>'+prop.access+'<br>En cas de problème : '+contacts;}
+  if(msg.includes('wifi')||msg.includes('internet')||msg.includes('mot de passe')){return 'Voici les informations WiFi :<br><strong>'+wifi+'</strong>';}
+  if(msg.includes('piscine')||msg.includes('pool')){return 'La piscine est accessible de 8h à 22h. Profitez-en ! 🏊';}
+  if(msg.includes('ménage')||msg.includes('serviette')||msg.includes('drap')){return 'Linge de lit et serviettes sont fournis. Pour un service ménage, contactez : '+contacts;}
+  if(msg.includes('parking')||msg.includes('voiture')){return 'Parking : '+prop.access;}
+  if(msg.includes('règlement')||msg.includes('règles')){return 'Règlement : <em>'+rules+'</em> 🙏';}
+  if(msg.includes('merci')||msg.includes('parfait')||msg.includes('super')){return 'Avec grand plaisir ! 😊 Profitez bien de '+prop.city+'.';}
+  if(msg.includes('urgence')||msg.includes('problème')||msg.includes('panne')){return '⚠️ Pas de panique ! Contactez immédiatement : <strong>'+contacts+'</strong>.';}
+  if(/hello|hi\s/i.test(userMsg)){return 'Hello! Welcome to <strong>'+name+'</strong>! Check-in: '+checkin+' · Check-out: '+checkout+'.';}
+  return 'Pour <strong>'+name+'</strong> à '+prop.city+' : accès à '+checkin+', départ avant '+checkout+', code <strong>'+code+'</strong>. '+welcome+' Des questions ?';
 }
 
 function openIaTest(){
@@ -1678,13 +1663,9 @@ function openIaTest(){
     if(sel&&sel.selectedIndex>0){
       var propId=sel.value;
       if(propId&&propertiesDB[propId]){
-        iaCurrentProp=propertiesDB[propId];
-        iaMessages=[];
+        iaCurrentProp=propertiesDB[propId];iaMessages=[];
         var container=ge('ia-messages');
-        if(container){
-          container.innerHTML='';
-          addIaMessage('ai','Bonjour ! Je suis l\'assistant de <strong>'+iaCurrentProp.name+'</strong>. Posez-moi une question comme un guest : horaires, WiFi, accès, équipements... 💬');
-        }
+        if(container){container.innerHTML='';addIaMessage('ai','Bonjour ! Je suis l\'assistant de <strong>'+iaCurrentProp.name+'</strong>. Posez-moi une question comme un guest 💬');}
       }
     }
   },50);
@@ -1692,8 +1673,7 @@ function openIaTest(){
 
 function updateIaContext(){
   var propId=ge('ia-prop-select').value;
-  iaCurrentProp=propId?propertiesDB[propId]:null;
-  iaMessages=[];
+  iaCurrentProp=propId?propertiesDB[propId]:null;iaMessages=[];
   var container=ge('ia-messages');
   if(!iaCurrentProp){container.innerHTML='<div style="text-align:center;color:var(--g);font-size:.78rem;padding:20px 0">Sélectionnez un logement.</div>';return;}
   container.innerHTML='';
@@ -1707,8 +1687,7 @@ function addIaMessage(role,text){
   div.style.alignItems=role==='user'?'flex-end':'flex-start';
   var t=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   div.innerHTML='<div class="chat-bubble '+role+'">'+text+'</div><div class="chat-meta '+(role==='ai'?'left':'')+'">'+(role==='ai'?'IA MyHostKit · ':'Vous · ')+t+'</div>';
-  container.appendChild(div);
-  container.scrollTop=container.scrollHeight;
+  container.appendChild(div);container.scrollTop=container.scrollHeight;
 }
 
 async function sendIaMessage(){
@@ -1716,33 +1695,24 @@ async function sendIaMessage(){
   var msg=input.value.trim();if(!msg)return;
   if(!iaCurrentProp){showToast("Sélectionnez d'abord un logement",'orange');return;}
   input.value='';
-  addIaMessage('user',msg);
-  iaMessages.push({role:'user',content:msg});
+  addIaMessage('user',msg);iaMessages.push({role:'user',content:msg});
   var container=ge('ia-messages');
-  var typingDiv=document.createElement('div');
-  typingDiv.id='ia-typing';typingDiv.style.cssText='display:flex;flex-direction:column;align-items:flex-start';
+  var typingDiv=document.createElement('div');typingDiv.id='ia-typing';typingDiv.style.cssText='display:flex;flex-direction:column;align-items:flex-start';
   typingDiv.innerHTML='<div class="chat-bubble ai typing"><span class="ai-dot" style="display:inline-block;margin-right:4px"></span>IA en train de rédiger...</div>';
   container.appendChild(typingDiv);container.scrollTop=container.scrollHeight;
   ge('ia-send-btn').disabled=true;
-  var prop=iaCurrentProp;
-  var apiKey=getApiKey();
-  var aiReply='';
+  var prop=iaCurrentProp;var apiKey=getApiKey();var aiReply='';
   if(apiKey){
-    var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds chaleureusement en FRANÇAIS sauf si le guest écrit dans une autre langue.\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nType: '+(prop.type||'')+'\nAdresse: '+(prop.address||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nInstructions accès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nÉquipements / WiFi: '+(prop.amenities||'')+'\nContacts prestataires: '+(prop.contacts||'')+'\nMessage de bienvenue: '+(prop.welcome||'')+'\n=== FIN FICHE ===\n\nRéponds en 1-3 phrases max, de manière utile et chaleureuse.';
+    var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds en FRANÇAIS sauf si le guest écrit dans une autre langue.\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nAccès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nWiFi/Équipements: '+(prop.amenities||'')+'\nContacts: '+(prop.contacts||'')+'\nBienvenue: '+(prop.welcome||'')+'\n=== FIN ===\nRéponds en 1-3 phrases max.';
     try{
       var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',500,systemPrompt,iaMessages);
-      if(data.error){aiReply=await demoAiReply(msg,prop);}
-      else{aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});}
+      if(data.error)throw new Error(data.error.message);
+      aiReply=data.content[0].text;iaMessages.push({role:'assistant',content:aiReply});
     }catch(e){aiReply=await demoAiReply(msg,prop);}
-  }else{
-    aiReply=await demoAiReply(msg,prop);
-  }
+  }else{aiReply=await demoAiReply(msg,prop);}
   var te=ge('ia-typing');if(te)te.remove();
-  if(!iaMessages.find(function(m){return m.content===aiReply&&m.role==='assistant';})){
-    iaMessages.push({role:'assistant',content:aiReply});
-  }
-  addIaMessage('ai',aiReply);
-  ge('ia-send-btn').disabled=false;input.focus();
+  if(!iaMessages.find(function(m){return m.content===aiReply&&m.role==='assistant';}))iaMessages.push({role:'assistant',content:aiReply});
+  addIaMessage('ai',aiReply);ge('ia-send-btn').disabled=false;input.focus();
 }
 
 function clearIaChat(){
@@ -1799,305 +1769,324 @@ var adminUsersData=[
   {email:'client.pro@gmail.com',prenom:'Sophie',nom:'Martin',plan:'pro',created:'2026-02-03',status:'active'},
   {email:'hote.starter@airbnb.fr',prenom:'Thomas',nom:'K.',plan:'starter',created:'2026-03-12',status:'active'},
   {email:'conciergerie@nice.fr',prenom:'Marie',nom:'D.',plan:'concpro',created:'2026-01-28',status:'active'},
-  {email:'demo@myhostkit.com',prenom:'Demo',nom:'Host',plan:'pro',created:'2026-04-10',status:'trial'}
+  {email:'demo@myhostkit.com',prenom:'Demo',nom:'Host',plan:'pro',created:'2026-04-01',status:'active'}
 ];
+
 function loadAdminUsers(){
-  renderAdminUsers(adminUsersData);
-  var total=adminUsersData.length,pro=adminUsersData.filter(function(u){return u.plan==='pro'||u.plan==='concpro';}).length,starter=adminUsersData.filter(function(u){return u.plan==='starter';}).length,mrr=pro*89+starter*49;
+  var total=adminUsersData.length;
+  var pro=adminUsersData.filter(function(u){return u.plan==='pro'||u.plan==='concpro';}).length;
+  var starter=adminUsersData.filter(function(u){return u.plan==='starter';}).length;
+  var mrr=pro*89+starter*49;
   if(ge('stat-total-users'))ge('stat-total-users').textContent=total;
   if(ge('stat-pro-users'))ge('stat-pro-users').textContent=pro;
   if(ge('stat-starter-users'))ge('stat-starter-users').textContent=starter;
   if(ge('stat-mrr'))ge('stat-mrr').textContent=mrr+'€';
+  renderAdminUsers(adminUsersData);
 }
+
 function renderAdminUsers(users){
-  var tbody=ge('admin-users-tbody'),count=ge('admin-users-count');
-  if(count)count.textContent='('+users.length+' comptes)';
-  if(!tbody)return;
-  if(!users.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#484F58;padding:28px">Aucun résultat</td></tr>';return;}
-  var planColors={admin:'plan-admin-badge',pro:'plan-pro',concpro:'plan-concpro',starter:'plan-starter'};
-  var planLabels={admin:'Admin',pro:'Pro',concpro:'Conciergerie Pro',starter:'Starter'};
-  tbody.innerHTML='';
-  users.forEach(function(u){
-    var isMe=u.email===ADMIN_EMAIL;
-    var tr=document.createElement('tr');
-    var statusHtml=u.status==='trial'?'<span style="font-size:.7rem;color:#E3B341">⏳ Essai</span>':'<span style="font-size:.7rem;color:#3FB950">✓ Actif</span>';
-    tr.innerHTML='<td><div style="font-weight:600;color:#E6EDF3">'+(u.prenom||'')+' '+(u.nom||'')+'</div></td><td style="font-family:monospace;font-size:.78rem;color:#8B949E">'+u.email+'</td><td><span class="plan-badge-admin '+(planColors[u.plan]||'plan-starter')+'">'+(planLabels[u.plan]||u.plan)+'</span></td><td style="color:#484F58;font-size:.78rem">'+u.created+'</td><td>'+statusHtml+'</td><td style="display:flex;gap:6px;flex-wrap:wrap"></td>';
-    var actionsTd=tr.querySelector('td:last-child');
-    if(!isMe){var viewBtn=document.createElement('button');viewBtn.className='btn-admin-action';viewBtn.textContent='👁 Voir';(function(uu){viewBtn.onclick=function(){impersonateUser(uu.email,uu.prenom,uu.plan);};})(u);actionsTd.appendChild(viewBtn);}
-    else{actionsTd.innerHTML='<span style="font-size:.72rem;color:#484F58">Vous</span>';}
-    tbody.appendChild(tr);
-  });
+  var tbody=ge('admin-users-tbody');if(!tbody)return;
+  var count=ge('admin-users-count');if(count)count.textContent=users.length+' compte'+(users.length>1?'s':'');
+  tbody.innerHTML=users.map(function(u){
+    var planCls={admin:'plan-admin-badge',pro:'plan-pro',concpro:'plan-concpro',starter:'plan-starter',demo:'plan-demo'}[u.plan]||'plan-demo';
+    var planLabel={admin:'🛡 Admin',pro:'Pro',concpro:'Conciergerie Pro',starter:'Starter',demo:'Demo'}[u.plan]||u.plan;
+    return '<tr><td>'+u.prenom+' '+u.nom+'</td><td style="color:#8B949E;font-family:monospace;font-size:.76rem">'+u.email+'</td><td><span class="plan-badge-admin '+planCls+'">'+planLabel+'</span></td><td style="color:#8B949E;font-size:.78rem">'+u.created+'</td><td><span style="color:#3FB950;font-size:.78rem">● Actif</span></td><td style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn-admin-action" onclick="impersonateUser(\''+u.email+'\',\''+u.prenom+' '+u.nom+'\',\''+u.plan+'\')">Voir</button><button class="btn-admin-action" onclick="adminChangePlan(\''+u.email+'\')">Plan</button><button class="btn-admin-action btn-admin-danger" onclick="adminDeleteUser(\''+u.email+'\')">Suppr.</button></td></tr>';
+  }).join('');
 }
-function filterAdminUsers(){var q=(ge('admin-user-search').value||'').toLowerCase();var filtered=adminUsersData.filter(function(u){return(u.email||'').includes(q)||(u.prenom||'').toLowerCase().includes(q)||(u.plan||'').includes(q);});renderAdminUsers(filtered);}
-function impersonateUser(email,prenom,plan){IMPERSONATE_USER={email:email,prenom:prenom,plan:plan};CURRENT_PLAN=plan||'starter';ge('impersonate-bar').style.display='flex';ge('impersonate-name').textContent=prenom+' ('+email+')';ge('sb-username').textContent=prenom+' (admin view)';ge('sb-email-display').textContent=email;applyPlanLocks();exitAdmin();showToast('👁 Compte de '+prenom,'orange');}
-function stopImpersonate(){IMPERSONATE_USER=null;CURRENT_PLAN='admin';ge('impersonate-bar').style.display='none';ge('sb-username').textContent='Rayane M.';ge('sb-email-display').textContent=ADMIN_EMAIL;applyPlanLocks();showToast('Retour à votre compte','green');}
-function upgradePlan(btn, planId){
-  btn.textContent='Traitement...';btn.disabled=true;
-  setTimeout(function(){
-    btn.textContent='Passer en Pro →';btn.disabled=false;
-    showToast('Redirection vers Stripe...','blue');
-    setTimeout(function(){
-      window.open('https://buy.stripe.com/9B6fZ939b3qocmP4HvfYY01','_blank');
-    },800);
-  },1000);
+
+function filterAdminUsers(){
+  var q=(ge('admin-user-search').value||'').toLowerCase();
+  var filtered=adminUsersData.filter(function(u){return(u.email+u.prenom+u.nom+u.plan).toLowerCase().includes(q);});
+  renderAdminUsers(filtered);
 }
-function requestQuote(btn){btn.textContent='Demande envoyée ✓';btn.disabled=true;showToast('Devis envoyé. Réponse sous 24h.','green');}
+
+function impersonateUser(email,name,plan){
+  IMPERSONATE_USER={email:email,name:name,plan:plan};
+  var bar=ge('impersonate-bar');if(bar){bar.style.display='flex';}
+  if(ge('impersonate-name'))ge('impersonate-name').textContent=name+' ('+email+')';
+  exitAdmin();showToast('Vue de '+name,'blue');
+}
+function stopImpersonate(){
+  IMPERSONATE_USER=null;
+  var bar=ge('impersonate-bar');if(bar)bar.style.display='none';
+  showToast('Mode admin normal','');
+}
+function adminChangePlan(email){
+  var newPlan=window.prompt('Plan pour '+email+' :\nstarter / pro / concpro / admin');
+  if(!newPlan)return;
+  newPlan=newPlan.trim().toLowerCase();
+  if(!['starter','pro','concpro','admin'].includes(newPlan)){showToast('Plan invalide','orange');return;}
+  var user=adminUsersData.find(function(u){return u.email===email;});
+  if(user)user.plan=newPlan;
+  localStorage.setItem('mhk-plan-'+email,newPlan);
+  renderAdminUsers(adminUsersData);
+  showToast('Plan mis à jour : '+email+' → '+newPlan,'green');
+}
+function adminDeleteUser(email){
+  if(!window.confirm('Supprimer '+email+' ?'))return;
+  adminUsersData=adminUsersData.filter(function(u){return u.email!==email;});
+  renderAdminUsers(adminUsersData);showToast('Compte supprimé','orange');
+}
 
 /* ================================================================
    STOCKS
 ================================================================ */
 function initStocks(){
   var saved=localStorage.getItem('mhk-stocks');
-  if(saved){try{stocksDB=JSON.parse(saved);}catch(e){}}
-  Object.keys(STOCKS_DEFAULT).forEach(function(pid){if(!stocksDB[pid])stocksDB[pid]=JSON.parse(JSON.stringify(STOCKS_DEFAULT[pid]));});
-  var savedOrders=localStorage.getItem('mhk-order-history');
-  if(savedOrders){try{orderHistory=JSON.parse(savedOrders);}catch(e){}}
-  saveStocks();
+  if(saved){try{stocksDB=JSON.parse(saved);}catch(e){stocksDB={};}}
+  getRealProperties().forEach(function(propId){
+    if(!stocksDB[propId]){
+      stocksDB[propId]=(STOCKS_DEFAULT[propId]||[]).map(function(item){return Object.assign({},item);});
+    }
+  });
+  if(IS_DEMO&&!Object.keys(stocksDB).length){
+    Object.keys(STOCKS_DEFAULT).forEach(function(propId){
+      stocksDB[propId]=STOCKS_DEFAULT[propId].map(function(item){return Object.assign({},item);});
+    });
+  }
+  saveStocks();updateStocksBadge();
 }
+
 function saveStocks(){localStorage.setItem('mhk-stocks',JSON.stringify(stocksDB));}
+
+function updateStocksBadge(){
+  var badge=ge('sb-stocks-badge');if(!badge)return;
+  var hasAlert=false;
+  Object.values(stocksDB).forEach(function(items){
+    items.forEach(function(i){if(i.qty<i.min)hasAlert=true;});
+  });
+  badge.style.display=hasAlert?'':'none';
+}
+
 function selectStockProp(btn,propId){
   document.querySelectorAll('.stock-prop-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');currentStockProp=propId;renderStocks();
-  if(ge('stock-ia-input'))ge('stock-ia-input').value='';
-  if(ge('stock-ia-result'))ge('stock-ia-result').style.display='none';
+  btn.classList.add('active');currentStockProp=propId;
+  ge('stock-ia-result').style.display='none';ge('stock-ia-input').value='';
+  renderStocks();
 }
-function getStockStatus(item){if(item.qty===0)return'out';if(item.qty<item.min)return'low';return'ok';}
+
+function getStockStatus(item){
+  if(item.qty===0)return{cls:'stock-out',label:'Rupture'};
+  if(item.qty<item.min)return{cls:'stock-low',label:'Stock bas'};
+  return{cls:'stock-ok',label:'OK'};
+}
+
 function renderStocks(){
-  var container=ge('stocks-list');if(!container)return;
-  var items=stocksDB[currentStockProp]||[],cats={};
-  items.forEach(function(item){if(!cats[item.cat])cats[item.cat]=[];cats[item.cat].push(item);});
-  var catOrder=['Consommables','Linge','Équipements','Entretien'],html='',lowCount=0;
-  catOrder.forEach(function(cat){
-    if(!cats[cat]||!cats[cat].length)return;
-    html+='<div class="stock-section-title">'+cat+'</div>';
-    cats[cat].forEach(function(item){
-      var st=getStockStatus(item);if(st!=='ok')lowCount++;
-      var stLabel=st==='ok'?'OK':st==='low'?'Stock bas':'Rupture',stCls='stock-'+st;
-      var inOrder=orderList.find(function(o){return o.sourceId===item.id;});
-      var addBtn=inOrder?'<button class="btn-add-to-order added" disabled>✓ Panier</button>':'<button class="btn-add-to-order" onclick="addItemToOrder(\''+item.id+'\',\''+item.name+'\',\''+item.ref+'\')">+ Commander</button>';
-      html+='<div class="stock-item" id="stock-item-'+item.id+'"><div class="stock-item-icon">'+(item.icon||'📦')+'</div><div style="flex:1"><div class="stock-item-name">'+item.name+'</div><div class="stock-item-cat">Seuil : '+item.min+' · Réf: '+(item.ref||'—')+'</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',-1)">−</button><span class="stock-qty-val" id="qty-'+item.id+'">'+item.qty+'</span><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',1)">+</button></div><span class="stock-status '+stCls+'">'+stLabel+'</span>'+addBtn+'<button onclick="removeStockItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 4px;margin-left:2px" title="Supprimer">✕</button></div>';
+  var items=stocksDB[currentStockProp]||[];
+  var el=ge('stocks-list');if(!el)return;
+  var bycat={};
+  items.forEach(function(item){if(!bycat[item.cat])bycat[item.cat]=[];bycat[item.cat].push(item);});
+  var html='';
+  Object.keys(bycat).forEach(function(cat){
+    html+='<div class="stock-section-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>'+cat+'</div>';
+    bycat[cat].forEach(function(item){
+      var st=getStockStatus(item);
+      var inOrder=orderList.find(function(o){return o.id===item.id;});
+      html+='<div class="stock-item"><div class="stock-item-icon">'+item.icon+'</div><div style="flex:1"><div class="stock-item-name">'+item.name+'</div><div class="stock-item-cat">Réf : '+item.ref+' · Min : '+item.min+'</div></div><div class="stock-qty-wrap"><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',-1)">−</button><span class="stock-qty-val">'+item.qty+'</span><button class="stock-qty-btn" onclick="changeQty(\''+item.id+'\',1)">+</button></div><span class="stock-status '+st.cls+'">'+st.label+'</span><button class="btn-add-to-order'+(inOrder?' added':'')+'" onclick="addToOrder(\''+item.id+'\')">'+(inOrder?'✓ Ajouté':'+ Commander')+'</button></div>';
     });
   });
-  container.innerHTML=html;
-  var badge=ge('sb-stocks-badge');if(badge){badge.style.display=lowCount>0?'':'none';badge.textContent=lowCount;}
-  renderNotifications();renderPropList();
+  el.innerHTML=html||'<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Aucun article pour ce logement.</div>';
+  updateStocksBadge();renderNotifications();
 }
 
-function addItemToOrder(itemId,name,ref){
-  if(orderList.find(function(o){return o.sourceId===itemId;})){showToast('"'+name+'" déjà dans le panier','orange');return;}
-  var item=stocksDB[currentStockProp]&&stocksDB[currentStockProp].find(function(i){return i.id===itemId;});
-  var urgence=item&&getStockStatus(item)==='out'?'haute':'normale';
-  var needed=item?Math.max(1,item.min-item.qty+2):1;
-  orderList.push({id:'o'+Date.now(),sourceId:itemId,name:name,qty:'×'+needed,urgence:urgence,raison:urgence==='haute'?'Rupture':'Stock bas',ref:ref||'',checked:true});
-  renderOrderList();renderStocks();showToast('"'+name+'" ajouté au panier','green');
-}
 function changeQty(itemId,delta){
-  var items=stocksDB[currentStockProp]||[],item=items.find(function(i){return i.id===itemId;});if(!item)return;
+  var items=stocksDB[currentStockProp]||[];
+  var item=items.find(function(i){return i.id===itemId;});
+  if(!item)return;
   item.qty=Math.max(0,item.qty+delta);
-  var el=ge('qty-'+itemId);if(el)el.textContent=item.qty;
-  var row=ge('stock-item-'+itemId);
-  if(row){var chip=row.querySelector('.stock-status');var st=getStockStatus(item);chip.className='stock-status stock-'+st;chip.textContent=st==='ok'?'OK':st==='low'?'Stock bas':'Rupture';}
-  saveStocks();
-  var lowCount=(stocksDB[currentStockProp]||[]).filter(function(i){return getStockStatus(i)!=='ok';}).length;
-  var badge=ge('sb-stocks-badge');if(badge){badge.style.display=lowCount>0?'':'none';badge.textContent=lowCount;}
-  renderNotifications();renderPropList();
-}
-function removeStockItem(itemId){if(!stocksDB[currentStockProp])return;stocksDB[currentStockProp]=stocksDB[currentStockProp].filter(function(i){return i.id!==itemId;});saveStocks();renderStocks();}
-function toggleAddStockForm(){var f=ge('add-stock-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
-function addStockItem(){
-  var name=ge('new-stock-name').value.trim();if(!name){showToast('Entrez un nom','orange');return;}
-  var newItem={id:'u'+Date.now(),name:name,icon:ge('new-stock-icon').value||'📦',cat:ge('new-stock-cat').value||'Consommables',qty:parseInt(ge('new-stock-qty').value)||0,min:parseInt(ge('new-stock-min').value)||2,ref:ge('new-stock-url').value.trim()||''};
-  if(!stocksDB[currentStockProp])stocksDB[currentStockProp]=[];
-  stocksDB[currentStockProp].push(newItem);saveStocks();renderStocks();toggleAddStockForm();
-  ['new-stock-name','new-stock-url','new-stock-icon'].forEach(function(id){var el=ge(id);if(el)el.value='';});
-  if(ge('new-stock-qty'))ge('new-stock-qty').value='0';if(ge('new-stock-min'))ge('new-stock-min').value='2';
-  showToast('"'+name+'" ajouté','green');
+  saveStocks();renderStocks();
 }
 
-/* ================================================================
-   ANALYSE IA STOCKS
-================================================================ */
-async function analyseStocksIA(){
-  var description=ge('stock-ia-input').value.trim();
-  if(!description){showToast("Décrivez l'état du logement d'abord",'orange');return;}
-  var btn=ge('btn-ia-analyse');btn.disabled=true;
-  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Analyse en cours...';
-  if(ge('stock-ia-result'))ge('stock-ia-result').style.display='none';
-  var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
-  var currentStocksSummary=(stocksDB[currentStockProp]||[]).map(function(i){return i.name+' (stock: '+i.qty+', seuil: '+i.min+', réf: '+(i.ref||'—')+')';}).join(', ');
-  var apiKey=getApiKey();
-  var parsed=null;
-  if(apiKey){
-    try{
-      var systemPrompt='Tu es un assistant de gestion de logement Airbnb. Analyse l\'état décrit et génère une liste JSON de produits à commander. Réponds UNIQUEMENT en JSON sans backticks:\n{"manquants":[{"nom":"Café moulu","quantite":"x2","urgence":"haute","raison":"épuisé","ref":"CAFE-001"}],"resume":"Résumé en 1 phrase"}';
-      var userMsg='Logement: '+propName+'\nStocks actuels: '+currentStocksSummary+'\n\nÉtat après check-out:\n'+description;
-      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',800,systemPrompt,[{role:'user',content:userMsg}]);
-      if(data.error)throw new Error(data.error.message);
-      var raw=data.content[0].text.replace(/```json|```/g,'').trim();
-      parsed=JSON.parse(raw);
-    }catch(err){parsed=generateDemoStockAnalysis(description);}
-  }else{
-    await new Promise(function(r){setTimeout(r,900+Math.random()*500);});
-    parsed=generateDemoStockAnalysis(description);
-  }
-  displayIaStockResult(parsed);
-  btn.disabled=false;
-  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
+function addToOrder(itemId){
+  var items=stocksDB[currentStockProp]||[];
+  var item=items.find(function(i){return i.id===itemId;});
+  if(!item)return;
+  var already=orderList.find(function(o){return o.id===itemId;});
+  if(already){orderList=orderList.filter(function(o){return o.id!==itemId;});showToast(item.name+' retiré','');}
+  else{orderList.push({id:item.id,name:item.name,icon:item.icon,ref:item.ref,qty:Math.max(1,item.min-item.qty),propId:currentStockProp});}
+  renderStocks();renderOrderList();
 }
 
-function generateDemoStockAnalysis(description){
-  var desc=description.toLowerCase();
-  var manquants=[];
-  var keywords=[
-    {words:['café','capsule','nespresso','expresso','coffee'],nom:'Café / Capsules',qty:'×2',urgence:'haute',ref:'CAFE-001'},
-    {words:['serviette'],nom:'Serviettes de bain',qty:'×3',urgence:'haute',ref:'LIN-001'},
-    {words:['savon','gel douche','shampoing','shampoo','douche'],nom:'Savon / Gel douche',qty:'×2',urgence:'haute',ref:'HYG-003'},
-    {words:['papier toilette','pq','toilette','wc'],nom:'Papier toilette',qty:'×6',urgence:'haute',ref:'HYG-002'},
-    {words:['ampoule','lumière','lampe','éclairage'],nom:'Ampoule LED',qty:'×2',urgence:'normale',ref:'EQP-001'},
-    {words:['liquide vaisselle','vaisselle'],nom:'Liquide vaisselle',qty:'×1',urgence:'normale',ref:'ENT-001'},
-    {words:['pastille','lave-vaisselle'],nom:'Pastilles lave-vaisselle',qty:'×20',urgence:'normale',ref:'ENT-002'},
-    {words:['sel','déneigement','neige'],nom:'Sel déneigement',qty:'×2',urgence:'normale',ref:'ENT-005'},
-    {words:['chocolat','cacao'],nom:'Chocolat chaud',qty:'×3',urgence:'normale',ref:'CAFE-005'},
-    {words:['pile','batterie'],nom:'Piles AA',qty:'×8',urgence:'normale',ref:'EQP-002'},
-    {words:['drap','lit','linge de lit'],nom:'Draps / Linge de lit',qty:'×2',urgence:'haute',ref:'LIN-002'},
-    {words:['produit ménage','nettoyant','spray'],nom:'Produit ménager',qty:'×1',urgence:'normale',ref:'ENT-006'}
-  ];
-  keywords.forEach(function(kw){
-    if(kw.words.some(function(w){return desc.includes(w);}))
-      manquants.push({nom:kw.nom,quantite:kw.qty,urgence:kw.urgence,raison:'Détecté dans le rapport check-out',ref:kw.ref});
-  });
-  if(!manquants.length){
-    manquants=[
-      {nom:'Capsules café',quantite:'×2',urgence:'normale',raison:'Vérification recommandée',ref:'CAFE-002'},
-      {nom:'Papier toilette',quantite:'×4',urgence:'normale',raison:'Stock à recompléter',ref:'HYG-002'}
-    ];
-  }
-  return{manquants:manquants,resume:manquants.length+' produit(s) identifié(s) · Analyse IA MyHostKit'};
-}
-
-function displayIaStockResult(parsed){
-  var res=ge('stock-ia-result');if(!res)return;res.style.display='block';
-  if(!parsed.manquants||!parsed.manquants.length){res.innerHTML='<div style="color:#085041;font-size:.82rem;background:var(--green-l);border-radius:8px;padding:10px">✓ Aucun manque détecté — logement prêt !</div>';return;}
-  var html='<div style="font-size:.78rem;color:#3C3489;font-weight:700;margin-bottom:8px">✦ '+(parsed.resume||parsed.manquants.length+' produit(s)')+'</div>';
-  html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">';
-  parsed.manquants.forEach(function(m){var urgCls=m.urgence==='haute'?'chip-red':'chip-amber';html+='<span class="chip '+urgCls+'">'+m.nom+' '+(m.quantite||'×1')+'</span>';});
-  html+='</div>';res.innerHTML=html;
-  parsed.manquants.forEach(function(m,i){
-    var items=stocksDB[currentStockProp]||[];
-    var match=items.find(function(s){return s.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]);});
-    var alreadyInOrder=orderList.find(function(o){return o.name.toLowerCase()===m.nom.toLowerCase();});
-    if(!alreadyInOrder)orderList.push({id:'o'+Date.now()+i,sourceId:match?match.id:null,name:m.nom,qty:m.quantite||'×1',urgence:m.urgence||'normale',raison:m.raison||'',ref:m.ref||(match?match.ref||'':''),checked:true});
-  });
-  renderOrderList();showToast('IA : '+parsed.manquants.length+' produit(s) identifié(s) !','green');
-}
-
-/* ================================================================
-   COMMANDES
-================================================================ */
 function renderOrderList(){
-  var container=ge('order-list'),actions=ge('order-actions'),countEl=ge('order-pending-count');
+  var el=ge('order-list');var actions=ge('order-actions');var countEl=ge('order-pending-count');
+  if(!el)return;
   if(!orderList.length){
-    if(container)container.innerHTML='<div style="text-align:center;padding:20px 0;color:var(--g);font-size:.82rem">Utilisez l\'IA ou le bouton + Commander.</div>';
-    if(actions)actions.style.display='none';if(countEl)countEl.style.display='none';return;
+    el.innerHTML='<div style="text-align:center;padding:24px 0;color:var(--g);font-size:.82rem">Utilisez l\'IA ou le bouton + sur chaque article.</div>';
+    if(actions)actions.style.display='none';
+    if(countEl)countEl.style.display='none';
+    return;
   }
+  if(countEl){countEl.textContent=orderList.length+' article'+(orderList.length>1?'s':'');countEl.style.display='';}
+  el.innerHTML=orderList.map(function(o){
+    return '<div class="order-item"><div class="order-item-check checked"></div><div class="order-item-name">'+o.icon+' '+o.name+'</div><div class="order-item-qty">×'+o.qty+'</div><button class="btn-del" onclick="removeFromOrder(\''+o.id+'\')">✕</button></div>';
+  }).join('');
   if(actions)actions.style.display='flex';
-  if(countEl){countEl.style.display='';countEl.textContent=orderList.length+' article'+(orderList.length>1?'s':'');}
-  var html='';
-  orderList.forEach(function(item){
-    var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
-    html+='<div class="order-item" id="oitem-'+item.id+'">'+
-      '<div class="order-item-check'+(item.checked?' checked':'')+'" onclick="toggleOrderCheck(\''+item.id+'\')"></div>'+
-      '<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);font-weight:400;margin-left:6px">'+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div>'+
-      '<span class="order-item-qty">'+item.qty+'</span>'+
-      '<button onclick="removeOrderItem(\''+item.id+'\')" style="background:none;border:none;cursor:pointer;color:#D0CDD8;font-size:.8rem;padding:2px 6px;margin-left:4px">✕</button>'+
-    '</div>';
-  });
-  if(container)container.innerHTML=html;
 }
-function toggleOrderCheck(id){var item=orderList.find(function(i){return i.id===id;});if(item)item.checked=!item.checked;var el=document.querySelector('#oitem-'+id+' .order-item-check');if(el)el.classList.toggle('checked',item&&item.checked);}
-function removeOrderItem(id){orderList=orderList.filter(function(i){return i.id!==id;});renderOrderList();renderStocks();}
+
+function removeFromOrder(id){orderList=orderList.filter(function(o){return o.id!==id;});renderOrderList();renderStocks();}
 function clearOrderList(){orderList=[];renderOrderList();renderStocks();}
 
 function confirmOrderAll(){
-  var checked=orderList.filter(function(i){return i.checked;});
-  if(!checked.length){showToast('Sélectionnez au moins un article','orange');return;}
+  if(!orderList.length){showToast('Aucun article à commander','orange');return;}
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
-  var orderRef='BC-'+new Date().toISOString().slice(0,10).replace(/-/g,'')+'-'+Math.floor(Math.random()*9000+1000);
-  ge('modal-order-summary').innerHTML='<strong>'+checked.length+' article(s)</strong> pour <strong>'+propName+'</strong><br>Date : '+new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  ge('modal-order-ref').innerHTML='<div class="bon-commande-ref">'+orderRef+'</div>';
+  var ref='MHK-'+Date.now().toString().slice(-6);
+  ge('modal-order-summary').innerHTML='<strong>'+orderList.length+' article'+(orderList.length>1?'s':'')+' à réapprovisionner</strong> pour <em>'+propName+'</em>';
+  ge('modal-order-ref').innerHTML='<div class="bon-commande-ref">Réf. '+ref+'</div>';
   ge('modal-order-recipient').textContent=ORDER_ADMIN_EMAIL;
-  var itemsEl=ge('modal-order-items');itemsEl.innerHTML='';
-  checked.forEach(function(item){
-    var row=document.createElement('div');row.className='order-item';row.style.marginBottom='7px';
-    var urgCls=item.urgence==='haute'?'chip-red':'chip-amber';
-    row.innerHTML='<div class="order-item-name">'+item.name+(item.ref?'<span style="font-size:.68rem;color:var(--g);margin-left:6px">'+item.ref+'</span>':'')+' <span class="chip '+urgCls+'" style="margin-left:7px;font-size:.62rem">'+(item.urgence==='haute'?'Urgent':'Normal')+'</span></div><span class="order-item-qty">'+item.qty+'</span>';
-    itemsEl.appendChild(row);
-  });
-  ge('order-note').value='';ge('modal-order-ref').dataset.ref=orderRef;
+  ge('modal-order-items').innerHTML=orderList.map(function(o){return'<div class="order-item" style="background:#F9F7F3;border-radius:9px;margin-bottom:7px"><div class="order-item-check checked"></div><div class="order-item-name">'+o.icon+' '+o.name+'</div><div class="order-item-qty">×'+o.qty+'</div><span style="font-size:.7rem;color:var(--g)">Réf: '+o.ref+'</span></div>';}).join('');
+  ge('order-note').value='';
   openModal('order');
 }
+
 function executeOrder(){
-  var checked=orderList.filter(function(i){return i.checked;});
   var note=ge('order-note').value.trim();
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
-  var orderRef=ge('modal-order-ref').dataset.ref||('BC-'+Date.now());
-  var dateStr=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  var emailBody='BON DE COMMANDE MyHostKit\nRéférence : '+orderRef+'\nDate : '+dateStr+'\nLogement : '+propName+'\n━━━━━━━━━━━━━━━━━\n\nARTICLES :\n\n';
-  checked.forEach(function(item,i){emailBody+=(i+1)+'. '+item.name+'\n   Quantité : '+item.qty+(item.ref?'\n   Réf: '+item.ref:'')+'\n   Urgence : '+(item.urgence==='haute'?'URGENT':'Normale')+'\n\n';});
-  if(note)emailBody+='Note : '+note+'\n\n';
-  emailBody+='━━━━━━━━━━━━━━━━━\nGénéré par MyHostKit';
-  window.location.href='mailto:'+ORDER_ADMIN_EMAIL+'?subject='+encodeURIComponent('[MyHostKit] Bon de commande '+orderRef)+'&body='+encodeURIComponent(emailBody);
-  var historyEntry={id:'h'+Date.now(),date:dateStr,ref:orderRef,prop:propName,items:checked.map(function(i){return i.name+' '+i.qty;}),note:note,count:checked.length};
-  orderHistory.unshift(historyEntry);localStorage.setItem('mhk-order-history',JSON.stringify(orderHistory));
-  var checkedIds=checked.map(function(i){return i.id;});
-  orderList=orderList.filter(function(i){return!checkedIds.includes(i.id);});
-  renderOrderList();renderOrderHistory();renderStocks();closeModal('order');
-  showToast('✉ Bon de commande '+orderRef+' envoyé !','green');
+  var ref='MHK-'+Date.now().toString().slice(-6);
+  var entry={ref:ref,date:new Date().toLocaleDateString('fr-FR'),items:orderList.slice(),prop:propName,note:note,status:'Envoyé'};
+  orderHistory.unshift(entry);
+  localStorage.setItem('mhk-order-history',JSON.stringify(orderHistory));
+  closeModal('order');
+  orderList=[];renderOrderList();renderStocks();renderOrderHistory();
+  showToast('Bon de commande '+ref+' envoyé à MyHostKit ✉','green');
 }
+
 function renderOrderHistory(){
-  var container=ge('order-history-list'),countEl=ge('order-history-count');if(!container)return;
-  if(countEl)countEl.textContent=orderHistory.length+' commande'+(orderHistory.length>1?'s':'');
-  if(!orderHistory.length){container.innerHTML='<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>';return;}
-  container.innerHTML=orderHistory.slice(0,8).map(function(h){
-    return '<div class="order-history-item"><div style="width:7px;height:7px;border-radius:50%;background:var(--bl);flex-shrink:0;margin-top:4px"></div><div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:var(--n)">'+h.prop+' · '+h.count+' article(s)</div>'+(h.ref?'<div style="font-size:.68rem;font-family:monospace;color:var(--bl);margin-top:1px">'+h.ref+'</div>':'')+'<div style="font-size:.72rem;color:var(--g);margin-top:2px">'+h.items.slice(0,3).join(', ')+(h.items.length>3?' +'+(h.items.length-3)+' autres':'')+'</div></div><div style="font-size:.68rem;color:#C0BDB6;white-space:nowrap;flex-shrink:0">'+h.date+'</div></div>';
+  var saved=localStorage.getItem('mhk-order-history');
+  if(saved){try{orderHistory=JSON.parse(saved);}catch(e){orderHistory=[];}}
+  var el=ge('order-history-list');var countEl=ge('order-history-count');
+  if(!el)return;
+  if(countEl)countEl.textContent=orderHistory.length+' commande'+(orderHistory.length!==1?'s':'');
+  if(!orderHistory.length){el.innerHTML='<div style="text-align:center;padding:18px 0;color:var(--g);font-size:.78rem">Aucune commande passée.</div>';return;}
+  el.innerHTML=orderHistory.map(function(o){
+    return '<div class="order-history-item"><div style="flex:1"><div style="font-weight:700;color:var(--n)">'+o.ref+' · '+o.prop+'</div><div style="color:var(--g);margin-top:2px">'+o.items.map(function(i){return i.icon+' '+i.name+' ×'+i.qty;}).join(', ')+'</div>'+(o.note?'<div style="color:var(--g);font-size:.74rem;font-style:italic">'+o.note+'</div>':'')+'</div><div style="text-align:right;flex-shrink:0"><div style="font-size:.75rem;color:var(--g)">'+o.date+'</div><span class="chip chip-green" style="margin-top:3px;display:inline-block">'+o.status+'</span></div></div>';
   }).join('');
 }
 
+/* ================================================================
+   IA ANALYSE STOCKS
+================================================================ */
+async function analyseStocksIA(){
+  var input=ge('stock-ia-input').value.trim();
+  if(!input){showToast('Décrivez l\'état du logement','orange');return;}
+  var btn=ge('btn-ia-analyse');btn.disabled=true;btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Analyse en cours...';
+  var result=ge('stock-ia-result');result.style.display='';result.innerHTML='<div style="color:var(--purple);font-size:.82rem">⏳ L\'IA analyse votre description...</div>';
+  var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
+  var items=stocksDB[currentStockProp]||[];
+  var itemsList=items.map(function(i){return i.name+' (stock: '+i.qty+', min: '+i.min+')';}).join(', ');
+  var apiKey=getApiKey();var reply='';
+  if(apiKey){
+    try{
+      var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,'Tu es un assistant conciergerie. Analyse le rapport post check-out et identifie les articles à réapprovisionner. Réponds en JSON: {"manquants":[{"nom":"...","urgence":"critique|normal","quantite":1}],"resume":"..."}',
+        [{role:'user',content:'Logement: '+propName+'\nStocks actuels: '+itemsList+'\nRapport: '+input}]);
+      if(data.error)throw new Error(data.error.message);
+      var raw=data.content[0].text.replace(/```json|```/g,'').trim();
+      var parsed=JSON.parse(raw);
+      reply=parsed;
+    }catch(e){reply=null;}
+  }
+  if(!reply){
+    await new Promise(function(r){setTimeout(r,900);});
+    reply=buildDemoStockAnalysis(input,items);
+  }
+  displayStockIaResult(reply,items);
+  btn.disabled=false;btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Analyser avec l\'IA →';
+}
+
+function buildDemoStockAnalysis(input,items){
+  var msg=input.toLowerCase();var manquants=[];
+  items.forEach(function(item){
+    var keywords=item.name.toLowerCase().split(' ');
+    var mentioned=keywords.some(function(k){return k.length>3&&msg.includes(k);});
+    if(mentioned||item.qty<item.min){
+      manquants.push({nom:item.name,urgence:item.qty===0?'critique':'normal',quantite:Math.max(1,item.min-item.qty)});
+    }
+  });
+  if(!manquants.length&&msg.length>5){
+    manquants.push({nom:'Articles manquants identifiés',urgence:'normal',quantite:1});
+  }
+  return{manquants:manquants,resume:'Analyse terminée : '+manquants.length+' article(s) à réapprovisionner détecté(s) suite au check-out.'};
+}
+
+function displayStockIaResult(data,items){
+  var result=ge('stock-ia-result');
+  if(!data||!data.manquants){result.innerHTML='<div style="color:var(--red);font-size:.82rem">Erreur d\'analyse. Réessayez.</div>';return;}
+  var html='<div style="background:var(--purple-l);border:1px solid #C7D2FE;border-radius:9px;padding:12px 14px">';
+  html+='<div style="font-size:.73rem;font-weight:800;color:#3C3489;margin-bottom:8px">✦ Résultat IA</div>';
+  html+='<div style="font-size:.8rem;color:var(--n);margin-bottom:10px">'+data.resume+'</div>';
+  if(data.manquants.length){
+    data.manquants.forEach(function(m){
+      var matchedItem=items.find(function(i){return i.name.toLowerCase().includes(m.nom.toLowerCase().split(' ')[0]);});
+      var urgCls=m.urgence==='critique'?'chip-red':'chip-amber';
+      html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="chip '+urgCls+'">'+m.urgence+'</span><span style="font-size:.82rem;font-weight:600;flex:1">'+m.nom+' × '+m.quantite+'</span>';
+      if(matchedItem){html+='<button class="btn-add-to-order" onclick="addToOrder(\''+matchedItem.id+'\')">+ Commander</button>';}
+      html+='</div>';
+    });
+  }else{html+='<div style="font-size:.8rem;color:var(--green-d)">✓ Aucun réapprovisionnement nécessaire.</div>';}
+  html+='</div>';
+  result.innerHTML=html;
+}
+
+/* ================================================================
+   FORM AJOUT STOCK MANUEL
+================================================================ */
+function toggleAddStockForm(){
+  var form=ge('add-stock-form');
+  form.style.display=form.style.display==='none'?'block':'none';
+}
+function addStockItem(){
+  var name=ge('new-stock-name').value.trim();
+  if(!name){showToast('Entrez un nom','orange');return;}
+  var id='custom-'+Date.now();
+  var newItem={id:id,name:name,icon:ge('new-stock-icon').value||'📦',cat:ge('new-stock-cat').value||'Consommables',qty:parseInt(ge('new-stock-qty').value)||0,min:parseInt(ge('new-stock-min').value)||2,ref:ge('new-stock-url').value.trim()||'CUSTOM'};
+  if(!stocksDB[currentStockProp])stocksDB[currentStockProp]=[];
+  stocksDB[currentStockProp].push(newItem);
+  saveStocks();renderStocks();toggleAddStockForm();
+  ['new-stock-name','new-stock-qty','new-stock-min','new-stock-url','new-stock-icon'].forEach(function(id){var el=ge(id);if(el)el.value='';});
+  showToast(name+' ajouté ✓','green');
+}
+
+/* ================================================================
+   PLANS UPGRADE / QUOTE
+================================================================ */
+function upgradePlan(btn,plan){
+  btn.textContent='✓ Démarré !';btn.disabled=true;
+  setTimeout(function(){
+    if(!IS_DEMO){localStorage.setItem('mhk-plan-'+CURRENT_USER_EMAIL,plan);CURRENT_PLAN=plan;applyPlanLocks();}
+    showToast('Essai 30j '+(plan==='pro'?'Pro':'Starter')+' activé !','green');
+    btn.textContent='En cours d\'essai';
+  },600);
+}
+function requestQuote(btn){btn.textContent='✉ Demande envoyée !';btn.disabled=true;showToast('Demande de devis envoyée — réponse sous 2h','blue');}
+
+/* ================================================================
+   CONNECTED PLATFORMS
+================================================================ */
 function restoreConnectedPlatforms(){
-  var connected=localStorage.getItem('mhk-platforms-connected');if(!connected)return;
-  JSON.parse(connected).forEach(function(name){
-    var idMap={'Airbnb':'btn-connect-airbnb','Booking.com':'btn-connect-booking'};
-    var btnId=idMap[name];
-    if(btnId){var btn=ge(btnId);if(btn){btn.textContent='Connecté ✓';btn.className='btn-connect connected';}}
+  var list=JSON.parse(localStorage.getItem('mhk-platforms-connected')||'[]');
+  list.forEach(function(name){
+    var id=name==='Airbnb'?'btn-connect-airbnb':name==='Booking.com'?'btn-connect-booking':null;
+    if(id){var btn=ge(id);if(btn){btn.textContent='Connecté ✓';btn.className='btn-connect connected';}}
   });
 }
 
 /* ================================================================
    INIT
 ================================================================ */
-(async function init(){
-  initSupabase();setCalMode('taken');
-  // Vérifier le plan depuis Supabase après login
-async function checkAndApplyPlan(userEmail){
-  try{
-    var result = await sb.from('subscriptions').select('plan,status').eq('email', userEmail).single();
-    if(result.data && result.data.status === 'active'){
-      CURRENT_PLAN = result.data.plan || 'starter';
-      localStorage.setItem('mhk-plan-' + userEmail, CURRENT_PLAN);
-      applyPlanLocks();
-      var planBadge = ge('sb-plan-badge');
-      if(planBadge) planBadge.textContent = '● ' + CURRENT_PLAN;
-    }
-  }catch(e){ console.log('Plan check:', e); }
-}
-  try{
-    var result=await sb.auth.getSession();
-    if(result.data&&result.data.session&&result.data.session.user){loadApp(result.data.session.user);return;}}catch(e){}
-  sb.auth.onAuthStateChange(function(event,session){
-    if(event==='SIGNED_IN'&&session)loadApp(session.user);
-    if(event==='SIGNED_OUT')showPage('auth');
-  });
-})();
+window.addEventListener('load',function(){
+  if(!initSupabase()){showToast('Mode démo actif — Supabase non chargé','orange');}
+  if(sb){
+    sb.auth.onAuthStateChange(function(event,session){
+      if(event==='SIGNED_IN'&&session&&session.user&&!IS_DEMO){
+        loadApp(session.user);
+      }
+    });
+    sb.auth.getSession().then(function(result){
+      if(result.data&&result.data.session&&result.data.session.user&&!IS_DEMO){
+        loadApp(result.data.session.user);
+      }
+    });
+  }
+});
 </script>
 </body>
 </html>
