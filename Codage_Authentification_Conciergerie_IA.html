@@ -573,14 +573,23 @@ body{display:flex;flex-direction:column}
     <!-- DASHBOARD -->
     <div id="inner-dashboard" class="inner-page active">
       <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-lbl">Revenus ce mois</div><div class="kpi-val">9 840€</div><div class="kpi-delta up">↑ +22% vs mars</div></div>
+  <div class="kpi"><div class="kpi-lbl">Revenus ce mois</div><div class="kpi-val" id="kpi-revenus">—</div><div class="kpi-delta muted">Connectez Airbnb pour activer</div></div>
+  <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val" id="kpi-occupation">—</div><div class="kpi-delta muted">Connectez Airbnb pour activer</div></div>
+  <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val" id="kpi-messages">0</div><div class="kpi-delta muted">En attente de messages</div></div>
+  <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val" id="kpi-note">—</div><div class="kpi-delta muted">Aucun avis pour l'instant</div></div>
+</div> class="kpi-delta up">↑ +22% vs mars</div></div>
         <div class="kpi"><div class="kpi-lbl">Taux d'occupation</div><div class="kpi-val">87%</div><div class="kpi-delta up">↑ +8 pts</div></div>
         <div class="kpi"><div class="kpi-lbl">Messages IA traités</div><div class="kpi-val">1 247</div><div class="kpi-delta up">0 escalade humaine</div></div>
         <div class="kpi"><div class="kpi-lbl">Note moyenne</div><div class="kpi-val">4.9★</div><div class="kpi-delta up">↑ +0.2 ce mois</div></div>
       </div>
       <div class="ai-panel">
-        <div class="ai-panel-title">✦ Suggestions IA du jour</div>
-        <div class="ai-sugg" onclick="applySuggestion(this,'Prix Villa Nice ajusté +18EUR/nuit')"><strong>Villa Nice :</strong> taux d'occupation local à 94% — augmenter de +18EUR/nuit ce week-end.<div class="ai-sugg-action">Appliquer automatiquement</div></div>
+  <div class="ai-panel-title">✦ Suggestions IA du jour</div>
+  <div id="ai-suggestions-list">
+    <div style="text-align:center;padding:18px 0;color:#085041;font-size:.82rem">
+      Aucune suggestion pour l'instant — connectez Airbnb ou Booking.com pour activer l'analyse IA.
+    </div>
+  </div>
+</div>
         <div class="ai-sugg" onclick="applySuggestion(this,'Message de départ planifié pour demain')">Le guest de l'Apt. Lyon part demain — envoyer le message de départ + demande d'avis.<div class="ai-sugg-action">Planifier maintenant</div></div>
       </div>
       <div class="grid2">
@@ -589,14 +598,19 @@ body{display:flex;flex-direction:column}
           <div id="dash-prop-list"></div>
         </div>
         <div class="card">
-          <div class="card-title">Revenus par propriété</div>
-          <div class="rev-row"><span class="rev-lbl">Chalet</span><div class="rev-track"><div class="rev-fill" style="width:100%;background:var(--green)"></div></div><span class="rev-num">2 100€</span></div>
-          <div class="rev-row"><span class="rev-lbl">Apt. Lyon</span><div class="rev-track"><div class="rev-fill" style="width:69%;background:#378ADD"></div></div><span class="rev-num">1 450€</span></div>
-          <div class="rev-row"><span class="rev-lbl">Studio</span><div class="rev-track"><div class="rev-fill" style="width:34%;background:var(--purple)"></div></div><span class="rev-num">720€</span></div>
-          <div class="rev-row"><span class="rev-lbl">Villa Nice</span><div class="rev-track"><div class="rev-fill" style="width:27%;background:var(--or)"></div></div><span class="rev-num">570€</span></div>
-        </div>
-      </div>
+  <div class="card-title">Propriétés <span id="dash-prop-count">0 active</span></div>
+  <div id="dash-prop-list">
+    <div style="text-align:center;padding:22px 0;color:var(--g);font-size:.82rem">
+      Aucune propriété — <span style="color:var(--bl);cursor:pointer;font-weight:600" onclick="showInner('properties')">Ajouter un logement →</span>
     </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Revenus par propriété</div>
+  <div id="dash-revenus-list">
+    <div style="text-align:center;padding:22px 0;color:var(--g);font-size:.82rem">Connectez Airbnb pour voir vos revenus.</div>
+  </div>
+</div>
 
     <!-- MESSAGES -->
     <div id="inner-messages" class="inner-page">
@@ -607,25 +621,13 @@ body{display:flex;flex-direction:column}
         <span class="chip" style="padding:6px 14px;cursor:pointer;background:#F4F2ED;color:var(--g)">Escaladés (0)</span>
       </div>
       <div class="card">
-        <div class="card-title">Guest · Villa Nice · En cours <span class="chip chip-green">IA a répondu</span></div>
-        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Bonsoir, le code de la boîte à clés ne fonctionne pas, nous sommes devant la porte...</div><div class="msg-time">20h43</div></div></div>
-        <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Bonsoir ! Je suis vraiment désolé pour ce désagrément. Le code est 4821#. Si cela ne fonctionne toujours pas, j'appelle immédiatement notre prestataire local qui peut être là en 15 minutes.</div><div class="msg-time">20h43 · Répondu en 1.1s</div></div></div>
-        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Parfait ça marche ! Merci 🙏</div><div class="msg-time">20h45</div></div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Guest · Apt. Lyon · Hier <span class="chip chip-green">IA a répondu</span></div>
-        <div class="msg-item"><div class="msg-av guest">G</div><div><div class="msg-bub">Kann ich früh auschecken? Wir müssen um 10 Uhr am Flughafen sein.</div><div class="msg-time">07h12 · Allemand détecté</div></div></div>
-        <div class="msg-item"><div class="msg-av ai">IA</div><div><div class="msg-bub">Guten Morgen! Natürlich, das Early-Checkout ist kein Problem. Hinterlassen Sie die Schlüssel einfach auf dem Tisch. Gute Reise! ✈️</div><div class="msg-time">07h12 · Répondu en 0.8s · Traduit auto</div></div></div>
-      </div>
-      <div class="ai-panel">
-        <div class="ai-panel-title">Résumé IA · Ce mois</div>
-        <div class="grid3">
-          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1 247</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Messages traités</div></div>
-          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">1.2s</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Temps moyen réponse</div></div>
-          <div style="background:var(--w);border-radius:9px;padding:14px;text-align:center;box-shadow:var(--shadow-sm)"><div style="font-size:1.5rem;font-weight:400;color:#085041;font-family:'Fraunces',serif">0</div><div style="font-size:.72rem;color:var(--g);margin-top:4px">Escalade humaine</div></div>
-        </div>
-      </div>
-    </div>
+  <div style="text-align:center;padding:36px 0">
+    <div style="font-size:2rem;margin-bottom:12px">💬</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Aucun message pour l'instant</div>
+    <div style="font-size:.82rem;color:var(--g);margin-bottom:18px">Connectez Airbnb ou Booking.com pour recevoir et répondre aux messages guests automatiquement.</div>
+    <button class="btn-cta" onclick="showInner('integrations')">Connecter une plateforme →</button>
+  </div>
+</div>
 
     <!-- REVENUE INTELLIGENCE -->
     <div id="inner-revenue" class="inner-page">
@@ -712,47 +714,46 @@ body{display:flex;flex-direction:column}
     </div>
 
     <!-- OFFRES -->
-    <div id="inner-offers" class="inner-page">
-      <div class="grid3">
-        <div class="plan-card">
-          <div class="plan-name">Starter</div>
-          <div class="plan-price">49<span>€/mois</span></div>
-          <div class="plan-period">1 logement · 30j gratuits</div>
-          <div class="plan-feat">Réponses IA 24h/24</div>
-          <div class="plan-feat">Alertes stock email</div>
-          <div class="plan-feat">Tableau de bord</div>
-          <div class="plan-feat">Rapport mensuel</div>
-          <div class="plan-feat no">Coordination ménage</div>
-          <div class="plan-feat no">Revenue Intelligence</div>
-          <button class="btn-plan btn-plan-ghost">Votre plan actuel</button>
-        </div>
-        <div class="plan-card featured">
-          <div class="plan-badge">⭐ Le plus populaire</div>
-          <div class="plan-name">Pro</div>
-          <div class="plan-price">89<span>€/mois</span></div>
-          <div class="plan-period">1 logement · 30j gratuits</div>
-          <div class="plan-feat">Tout Starter inclus</div>
-          <div class="plan-feat">Coordination ménage auto</div>
-          <div class="plan-feat">Revenue Intelligence Live</div>
-          <div class="plan-feat">Rapport hebdomadaire</div>
-          <div class="plan-feat">Planning mensuel complet</div>
-          <div class="plan-feat no">Marque blanche</div>
-          <button class="btn-plan btn-plan-main" onclick="upgradePlan(this)">Passer en Pro →</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Conciergerie Pro</div>
-          <div class="plan-price" style="font-size:1.5rem;padding-top:8px">Sur devis</div>
-          <div class="plan-period">Multi-logements · Illimité</div>
-          <div class="plan-feat">Tout Pro inclus</div>
-          <div class="plan-feat">Logements illimités</div>
-          <div class="plan-feat">Dashboard marque blanche</div>
-          <div class="plan-feat">Account manager dédié</div>
-          <div class="plan-feat">Formation équipe</div>
-          <div class="plan-feat">API &amp; intégrations</div>
-          <button class="btn-plan btn-plan-ghost" onclick="requestQuote(this)">Obtenir un devis →</button>
-        </div>
-      </div>
-    </div>
+    <div class="plan-card">
+  <div class="plan-name">Starter</div>
+  <div class="plan-price">49<span>€/mois</span></div>
+  <div class="plan-period">1 logement · 30j gratuits</div>
+  <div class="plan-feat">Réponses IA 24h/24</div>
+  <div class="plan-feat">Alertes stock email</div>
+  <div class="plan-feat">Tableau de bord</div>
+  <div class="plan-feat">Rapport mensuel</div>
+  <div class="plan-feat no">Coordination ménage</div>
+  <div class="plan-feat no">Email prestataire auto</div>
+  <div class="plan-feat no">Revenue Intelligence</div>
+  <div class="plan-feat no">Marque blanche</div>
+  <button class="btn-plan btn-plan-ghost" onclick="upgradePlan(this,'starter')">Démarrer 30j gratuits →</button>
+</div>
+<div class="plan-card featured">
+  <div class="plan-badge">⭐ Le plus populaire</div>
+  <div class="plan-name">Pro</div>
+  <div class="plan-price">89<span>€/mois</span></div>
+  <div class="plan-period">1 logement · 30j gratuits</div>
+  <div class="plan-feat">Tout Starter inclus</div>
+  <div class="plan-feat">Coordination ménage auto</div>
+  <div class="plan-feat">Email prestataire auto</div>
+  <div class="plan-feat">Revenue Intelligence Live</div>
+  <div class="plan-feat">Rapport hebdomadaire</div>
+  <div class="plan-feat">Planning mensuel complet</div>
+  <div class="plan-feat no">Marque blanche</div>
+  <button class="btn-plan btn-plan-main" onclick="upgradePlan(this,'pro')">Démarrer 30j gratuits →</button>
+</div>
+<div class="plan-card">
+  <div class="plan-name">Conciergerie Pro</div>
+  <div class="plan-price" style="font-size:1.5rem;padding-top:8px">Sur devis</div>
+  <div class="plan-period">Multi-logements · Illimité</div>
+  <div class="plan-feat">Tout Pro inclus</div>
+  <div class="plan-feat">Logements illimités</div>
+  <div class="plan-feat">Dashboard marque blanche</div>
+  <div class="plan-feat">Account manager dédié</div>
+  <div class="plan-feat">Formation équipe</div>
+  <div class="plan-feat">API & intégrations</div>
+  <button class="btn-plan btn-plan-ghost" onclick="requestQuote(this)">Obtenir mon devis gratuit →</button>
+</div>
 
     <!-- PARAMETRES -->
     <div id="inner-settings" class="inner-page">
@@ -1334,17 +1335,7 @@ function markReadN(idx){if(notificationsData[idx])notificationsData[idx].read=tr
 /* ================================================================
    PROPRIÉTÉS
 ================================================================ */
-var propertiesDB={
-  'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'3892#',access:'Entrée par le digicode 3892, appartement au 3e étage gauche',rules:'Pas de fêtes, pas de fumée.',amenities:'WiFi: Freebox_Lyon / mdp: Bienvenue69, machine à laver',contacts:'Ménage: Claire M. 06 45 12 78 90',welcome:'Bienvenue à Lyon ! L\'appartement est au 3e étage. Le café et les capsules sont dans le placard au-dessus de la machine.'},
-  'villa-nice':{name:'Villa Nice Promenade',emoji:'🌴',city:'Nice',type:'Maison / Villa',rooms:'4',capacity:'8',address:'3 Promenade des Anglais, 06000 Nice',checkin:'16:00',checkout:'10:00',code:'4821#',access:'Portail vert, code 4821, villa au fond du jardin',rules:'Pas de fêtes, piscine privée de 8h à 22h.',amenities:'WiFi: VillaNice_5G / mdp: Soleil06, Netflix, parking privatif, piscine chauffée',contacts:'Ménage: Isabelle P. 06 78 23 45 67 · Urgences: 06 00 11 22 33',welcome:'Bienvenue à Nice ! La piscine est disponible de 8h à 22h. Les serviettes de plage sont dans l\'armoire bleue.'},
-  'studio-bordeaux':{name:'Studio Bordeaux',emoji:'🏢',city:'Bordeaux',type:'Studio',rooms:'1',capacity:'2',address:'8 rue Sainte-Catherine, 33000 Bordeaux',checkin:'14:00',checkout:'12:00',code:'Nuki 5643',access:'Porte bleue rez-de-chaussée, code Nuki 5643',rules:'Non-fumeur, pas de fêtes.',amenities:'WiFi: Bbox_Bordeaux / mdp: Bordeaux33',contacts:'Ménage: Sophie R. 06 12 34 56 78',welcome:'Bienvenue à Bordeaux ! Tout est prêt pour votre arrivée.'},
-  'chalet-huez':{name:"Chalet Alpe d'Huez",emoji:'⛷',city:"Alpe d'Huez",type:'Chalet',rooms:'5',capacity:'10',address:"15 Route de la Poste, 38750 Alpe d'Huez",checkin:'17:00',checkout:'10:00',code:'1234#',access:'Clé dans boîte sécurisée, code 1234',rules:'Pas de fêtes, respecter le voisinage.',amenities:"WiFi: Chalet_Huez / mdp: Montagne38, Netflix, sauna",contacts:"Ménage: Anna V. 06 90 12 34 56",welcome:"Bienvenue au chalet ! Le sauna se réchauffe en 30 minutes."}
-};
-var propStaticData={
-  'apt-lyon':{status:'Occupé',detail:'check-out demain',revenue:'1 450€',checkoutSoon:true},
-  'villa-nice':{status:'Libre',detail:'3 jours',revenue:'570€'},
-  'studio-bordeaux':{status:'Occupé',detail:'5 jours',revenue:'720€'},
-  'chalet-huez':{status:'Occupé',detail:'départ dim.',revenue:'2 100€'}
+var propertiesDB={};
 };
 
 function getPropAlerts(propId){
@@ -1413,9 +1404,8 @@ function initCalendarData(){
   var saved=localStorage.getItem('mhk-calendar');
   if(saved){try{calendarData=JSON.parse(saved);}catch(e){}}
   if(Object.keys(calendarData).length===0){
-    [3,4,5,12,13,20,21,22,23,24].forEach(function(d){calendarData['2026-04-'+String(d).padStart(2,'0')]='taken';});
-    [8,9].forEach(function(d){calendarData['2026-04-'+String(d).padStart(2,'0')]='partial';});
-  }
+  // Calendrier vide au démarrage
+}
   var savedEv=localStorage.getItem('mhk-events');
   if(savedEv){try{calEvents=JSON.parse(savedEv);}catch(e){}}
   if(calEvents.length===0){
@@ -1501,16 +1491,16 @@ function deleteEvent(id){calEvents=calEvents.filter(function(e){return e.id!==id
 ================================================================ */
 var revIntelData=[];
 function initRevIntel(){
-  revIntelData=[
-    {id:'ri1',prop:'Villa Nice',priority:'urgent',title:'Festival de Cannes — Prix concurrents +32%',sub:'Vos concurrents ont augmenté leurs prix de 32% pour le week-end 17-18 mai. Recommandation : passer de 185€ à 244€/nuit. Gain estimé +118€ sur 2 nuits.',currentPrice:185,suggestedPrice:244,applied:false,sources:['Airbnb Insights','Actualité locale','Comportements concurrents'],gain:'+118€'},
-    {id:'ri2',prop:'Apt. Lyon',priority:'high',title:'Taux local bas — Ajuster -10% semaine creuse',sub:"Taux d'occupation local à 45% cette semaine. 3 nuits disponibles. Baisser temporairement de 10% pour remplir vs laisser vide.",currentPrice:130,suggestedPrice:117,applied:false,sources:['Booking.com data','Historique local'],gain:'+351€ vs inoccupé'},
-    {id:'ri3',prop:"Chalet Alpe d'Huez",priority:'normal',title:'Haute saison ski — Prix optimal confirmé',sub:'Vos tarifs pour la semaine du 18 avril sont dans la moyenne haute. Taux prévisionnel : 98%.',currentPrice:420,suggestedPrice:420,applied:true,sources:['Saisonnalité','VRBO benchmark'],gain:'Prix optimal'}
-  ];
+  revIntelData=[];
   renderRevIntel();
 }
+
 function renderRevIntel(){
   var list=ge('rev-intel-list');if(!list)return;
-  list.innerHTML=revIntelData.map(function(item){
+  if(!revIntelData.length){
+    list.innerHTML='<div style="text-align:center;padding:48px 0"><div style="font-size:2rem;margin-bottom:12px">📈</div><div style="font-size:.9rem;font-weight:700;color:var(--n);margin-bottom:6px">Revenue Intelligence inactif</div><div style="font-size:.82rem;color:var(--g);margin-bottom:18px;line-height:1.7">Connectez Airbnb ou Booking.com pour activer l\'analyse tarifaire en temps réel.</div><button class="btn-cta" onclick="showInner(\'integrations\')">Connecter une plateforme →</button></div>';
+    return;
+  }  list.innerHTML=revIntelData.map(function(item){
     var priorityLabel={urgent:'Urgent',high:'Important',normal:'Optimisé'}[item.priority]||'';
     var priorityCls={urgent:'chip-red',high:'chip-amber',normal:'chip-green'}[item.priority]||'chip-blue';
     var sourcesHtml=item.sources.map(function(s){return '<span class="rev-source live">'+s+'</span>';}).join('');
@@ -1779,12 +1769,17 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.qu
    PLANS & ADMIN
 ================================================================ */
 var PLAN_CONFIG={
-  starter:{label:'Starter 49€',locked:['messages','revenue'],lockMsg:{messages:{icon:'💬',title:'Messages IA — Plan Pro requis',sub:'Passez en Pro pour accéder aux messages guests automatiques.'},revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro.'}}},
+  starter:{
+    label:'Starter 49€',
+    locked:['revenue'],
+    lockMsg:{
+      revenue:{icon:'📈',title:'Revenue Intelligence — Plan Pro requis',sub:'Optimisation tarifaire IA Live. Disponible sur le plan Pro à 89€/mois.'}
+    }
+  },
   pro:{label:'Pro 89€',locked:[],lockMsg:{}},
   concpro:{label:'Conciergerie Pro',locked:[],lockMsg:{}},
   admin:{label:'🛡 Admin',locked:[],lockMsg:{}}
-};
-function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
+};function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
 function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks(){
   var plan=CURRENT_PLAN,config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
@@ -1854,44 +1849,7 @@ function requestQuote(btn){btn.textContent='Demande envoyée ✓';btn.disabled=t
 /* ================================================================
    STOCKS
 ================================================================ */
-var STOCKS_DEFAULT={
-  'apt-lyon':[
-    {id:'s1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:1,min:3,ref:'CAFE-001'},
-    {id:'s2',name:'Capsules café',icon:'🫘',cat:'Consommables',qty:0,min:10,ref:'CAFE-002'},
-    {id:'s3',name:'Savon liquide',icon:'🧴',cat:'Consommables',qty:2,min:2,ref:'HYG-001'},
-    {id:'s4',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:4,min:6,ref:'HYG-002'},
-    {id:'s5',name:'Gel douche',icon:'🚿',cat:'Consommables',qty:1,min:2,ref:'HYG-003'},
-    {id:'s6',name:'Serviettes de bain',icon:'🏊',cat:'Linge',qty:3,min:4,ref:'LIN-001'},
-    {id:'s7',name:'Draps',icon:'🛏',cat:'Linge',qty:2,min:2,ref:'LIN-002'},
-    {id:'s8',name:'Ampoule E27',icon:'💡',cat:'Équipements',qty:0,min:2,ref:'EQP-001'},
-    {id:'s9',name:'Liquide vaisselle',icon:'🍽',cat:'Entretien',qty:1,min:2,ref:'ENT-001'},
-    {id:'s10',name:'Pastilles lave-vaisselle',icon:'✨',cat:'Entretien',qty:8,min:15,ref:'ENT-002'}
-  ],
-  'villa-nice':[
-    {id:'v1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:2,min:4,ref:'CAFE-001'},
-    {id:'v2',name:'Savon mains',icon:'🧴',cat:'Consommables',qty:0,min:3,ref:'HYG-001'},
-    {id:'v3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:3,min:8,ref:'HYG-002'},
-    {id:'v4',name:'Shampoing',icon:'🫧',cat:'Consommables',qty:1,min:3,ref:'HYG-004'},
-    {id:'v5',name:'Serviettes de bain',icon:'🏊',cat:'Linge',qty:6,min:8,ref:'LIN-001'},
-    {id:'v6',name:'Serviettes plage',icon:'🌊',cat:'Linge',qty:4,min:6,ref:'LIN-003'},
-    {id:'v7',name:'Produit piscine',icon:'🏊',cat:'Entretien',qty:1,min:1,ref:'ENT-003'},
-    {id:'v8',name:'Ampoule LED',icon:'💡',cat:'Équipements',qty:1,min:3,ref:'EQP-001'}
-  ],
-  'studio-bordeaux':[
-    {id:'b1',name:'Café dosettes',icon:'☕',cat:'Consommables',qty:5,min:10,ref:'CAFE-003'},
-    {id:'b2',name:'Savon douche',icon:'🧴',cat:'Consommables',qty:1,min:2,ref:'HYG-003'},
-    {id:'b3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:2,min:4,ref:'HYG-002'},
-    {id:'b4',name:'Serviette de bain',icon:'🏊',cat:'Linge',qty:2,min:2,ref:'LIN-001'},
-    {id:'b5',name:'Capsules expresso',icon:'🫘',cat:'Consommables',qty:0,min:8,ref:'CAFE-004'}
-  ],
-  'chalet-huez':[
-    {id:'c1',name:'Café moulu',icon:'☕',cat:'Consommables',qty:3,min:5,ref:'CAFE-001'},
-    {id:'c2',name:'Chocolat chaud',icon:'🍫',cat:'Consommables',qty:1,min:3,ref:'CAFE-005'},
-    {id:'c3',name:'Papier toilette',icon:'🧻',cat:'Consommables',qty:6,min:10,ref:'HYG-002'},
-    {id:'c4',name:'Serviettes bain',icon:'🏊',cat:'Linge',qty:8,min:10,ref:'LIN-001'},
-    {id:'c5',name:'Produit sauna',icon:'🧖',cat:'Entretien',qty:0,min:1,ref:'ENT-004'},
-    {id:'c6',name:'Piles AA',icon:'🔋',cat:'Équipements',qty:2,min:6,ref:'EQP-002'},
-    {id:'c7',name:'Sel déneigement',icon:'❄',cat:'Entretien',qty:1,min:2,ref:'ENT-005'}
+var STOCKS_DEFAULT={};
   ]
 };
 var stocksDB={},currentStockProp='apt-lyon',orderList=[],orderHistory=[];
