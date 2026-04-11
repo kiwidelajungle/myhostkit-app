@@ -1130,36 +1130,33 @@ function activateDemoBar(){
 }
 
 async function doLogin(){
-  clearAlert();
-  var email=ge('l-email').value.trim(),pass=ge('l-pass').value;
-  if(!email.includes('@')){showAlert('Email invalide.','err');return;}
-  if(!pass){showAlert('Entrez votre mot de passe.','err');return;}
-  setLoading('btn-login',true);
+  const email=gv('login-email').trim(),pass=gv('login-password').trim();
+  if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
+  const btn=ge('login-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Connexion...';}
   try{
-    var result=await sb.auth.signInWithPassword({email:email,password:pass});
-    if(result.error){
-      var msg=result.error.message;
-      if(msg.includes('Invalid login credentials'))msg='Email ou mot de passe incorrect.';
-      else if(msg.includes('Email not confirmed'))msg='Confirmez votre email avant de vous connecter.';
-      else if(msg.includes('Too many requests'))msg='Trop de tentatives. Attendez quelques minutes.';
-      showAlert(msg,'err');
-    }else if(result.data&&result.data.user){loadApp(result.data.user);}
-    else{showAlert('Connexion échouée — réessayez.','err');}
-  }catch(e){showAlert('Erreur réseau : '+e.message,'err');}
-  setLoading('btn-login',false);
+    const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
+    if(error)throw error;
+    if(data?.user)await loadApp(data.user);
+  }catch(e){
+    showToast(e.message.includes('Invalid')?'Email ou mot de passe incorrect':'Erreur : '+e.message,'orange');
+  }finally{if(btn){btn.disabled=false;btn.textContent='Se connecter';}}
 }
 
 async function doSignup(){
-  clearAlert();
-  var prenom=ge('s-prenom').value.trim(),email=ge('s-email').value.trim(),pass=ge('s-pass').value;
-  if(!prenom){showAlert('Entrez votre prénom.','err');return;}
-  if(!email.includes('@')){showAlert('Email invalide.','err');return;}
-  if(pass.length<8){showAlert('Mot de passe : 8 caractères minimum.','err');return;}
-  setLoading('btn-signup',true);
-  var result=await sb.auth.signUp({email:email,password:pass,options:{data:{prenom:prenom,nom:ge('s-nom').value.trim()}}});
-  setLoading('btn-signup',false);
-  if(result.error){showAlert(result.error.message,'err');return;}
-  showAlert('Compte créé ! Vérifiez votre email.','ok');
+  const email=gv('signup-email').trim(),pass=gv('signup-password').trim(),prenom=(gv('signup-prenom')||'').trim();
+  if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
+  if(pass.length<6){showToast('Mot de passe min 6 caractères','orange');return;}
+  const btn=ge('signup-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Création...';}
+  try{
+    const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{prenom}}});
+    if(error)throw error;
+    if(data?.user){
+      await sb.from('profiles').upsert({id:data.user.id,email,prenom:prenom||email.split('@')[0],plan:'free',subscribed:false},{onConflict:'id'});
+      await mhkSendEmail('inscription',email,{prenom:prenom||email.split('@')[0]});
+      showToast('✅ Compte créé ! Vérifiez votre email pour confirmer.','green');
+    }
+  }catch(e){showToast('Erreur : '+e.message,'orange');}
+  finally{if(btn){btn.disabled=false;btn.textContent='Créer mon compte';}}
 }
 async function doGoogle(){clearAlert();var r=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:window.location.href}});if(r.error)showAlert(r.error.message,'err');}
 async function doReset(){
@@ -1174,7 +1171,14 @@ async function doReset(){
 }
 async function doLogout(){if(sb&&!IS_DEMO)await sb.auth.signOut();IS_DEMO=false;var bar=ge('demo-mode-bar');if(bar)bar.style.display='none';showToast('Déconnexion réussie','');showPage('auth');}
 
-function loadApp(user){
+async function loadApp(user){
+  // === SYNC PROFIL SUPABASE ===
+  try{
+    const{data:prof}=await sb.from('profiles').select('plan,prenom,subscribed').eq('id',user.id).single();
+    if(prof){CURRENT_PLAN=prof.plan||'free';if(prof.prenom)CURRENT_USER_NAME=prof.prenom;}
+    else{await sb.from('profiles').upsert({id:user.id,email:user.email,prenom:user.user_metadata?.prenom||user.email.split('@')[0],plan:'free',subscribed:false},{onConflict:'id'});CURRENT_PLAN='free';}
+  }catch(e){console.warn('profil:',e.message);}
+  applyPlanLocks();
   var meta=user.user_metadata||{};
   var prenom=meta.prenom||(user.email||'').split('@')[0];
   var nom=meta.nom||'';
@@ -2095,8 +2099,28 @@ window.addEventListener('load',function(){
   }
 });
 
+
+// ===== HELPERS MYHOSTKIT =====
+async function mhkSendEmail(type,to,data){
+  try{const sess=await sb.auth.getSession();const tok=sess?.data?.session?.access_token;if(!tok)return;
+    await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tok},body:JSON.stringify({type,to,data})});
+  }catch(e){console.warn('email:',e.message);}
+}
+async function doForgotPassword(){
+  const email=gv('login-email')||prompt('Votre adresse email :');if(!email)return;
+  try{const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://app.myhostkit.com/Codage_Authentification_Conciergerie_IA.html?reset=1'});
+    if(error)throw error;showToast('✅ Email de réinitialisation envoyé !','green');
+  }catch(e){showToast('Erreur : '+e.message,'orange');}
+}
+async function syncPlanFromDB(){
+  try{const{data:{user}}=await sb.auth.getUser();if(!user)return;
+    const{data:p}=await sb.from('profiles').select('plan').eq('id',user.id).single();
+    if(p?.plan){CURRENT_PLAN=p.plan;applyPlanLocks();}
+  }catch(e){}
+}
+
 // Retour Stripe
-(function(){var p=new URLSearchParams(window.location.search);if(p.get('success')==='1'){var pl=p.get('plan')||'pro';setTimeout(function(){showToast('🎉 Abonnement activé !','green');CURRENT_PLAN=pl;applyPlanLocks();},800);window.history.replaceState({},'',window.location.pathname);}if(p.get('canceled')==='1'){setTimeout(function(){showToast('Paiement annulé','orange');},800);window.history.replaceState({},'',window.location.pathname);}})();
+(function(){var p=new URLSearchParams(window.location.search);if(p.get('success')==='1'){setTimeout(syncPlanFromDB,2000);var pl=p.get('plan')||'pro';setTimeout(function(){showToast('🎉 Abonnement activé !','green');CURRENT_PLAN=pl;applyPlanLocks();},800);window.history.replaceState({},'',window.location.pathname);}if(p.get('canceled')==='1'){setTimeout(function(){showToast('Paiement annulé','orange');},800);window.history.replaceState({},'',window.location.pathname);}})();
 </script>
 </body>
 </html>
