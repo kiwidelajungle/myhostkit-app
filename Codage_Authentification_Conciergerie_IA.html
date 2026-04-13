@@ -12,7 +12,7 @@
   --bl:#1C5F8A;--bc:#2478A8;--bd:#0F3D5C;--bp:#E8F4FB;--bh:#C8E8F7;
   --w:#fff;--n:#141414;--g:#6A6A72;--cr:#F7F4EE;
   --green:#0FB980;--green-d:#0A9468;--green-l:#E0F7F0;--green-b:#7DD9BD;
-  --or:#C8921A;--or-l:#FDF0D5;--or-d:#9E7210;h
+  --or:#C8921A;--or-l:#FDF0D5;--or-d:#9E7210;
   --purple:#5B4FCF;--purple-l:#EEEDFE;
   --red:#E24B4A;--red-l:#FCEBEB;--red-d:#A32D2D;
   --border:rgba(0,0,0,.07);--radius:11px;
@@ -739,8 +739,8 @@ body{display:flex;flex-direction:column}
         <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:10px">
           <div><div class="settings-row-label">Clé API Claude personnelle</div><div class="settings-row-sub">Optionnel. MyHostKit inclut déjà l'IA. Ajoutez votre propre clé pour un quota dédié.</div></div>
           <div class="api-key-row" style="width:100%">
-            function saveApiKey(k){} 
-function getApiKey(){return null;}
+            <input class="api-key-input" id="anthropic-key" type="password" placeholder="sk-ant-api03-...">
+            <button class="btn-save-key" onclick="saveApiKey()">Sauvegarder</button>
           </div>
           <div id="api-key-status" style="font-size:.75rem;color:var(--green-d)">✦ IA MyHostKit active</div>
         </div>
@@ -1026,9 +1026,9 @@ function getApiKey(){return null;}
 <script>
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='commandes@myhostkit.com';
+var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
 var CURRENT_USER_EMAIL='',CURRENT_PLAN='starter',IMPERSONATE_USER=null;
-var adminAuthenticated=false; // Admin auth handled server-side via Supabase role
+var ADMIN_EMAIL='m.rayane8306@gmail.com',ADMIN_TEAM=[ADMIN_EMAIL],ADMIN_PIN='2727',adminAuthenticated=false;
 
 var DEMO_PROPERTIES={
   'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'4821#',access:'Digicode 4821# puis 2e étage droite.',rules:'Pas de fêtes. Pas de fumée. Animaux non autorisés.',amenities:'WiFi: Freebox-Lyon / mdp: Welcome2024. Parking rue.',contacts:'Ménage: Marie 06 12 34 56 78 · Plombier: 04 72 00 00 00',welcome:'Bienvenue à Lyon ! Le guide est sur la table basse.'},
@@ -1130,7 +1130,7 @@ function activateDemoBar(){
 }
 
 async function doLogin(){
-  const email=ge('login-email').trim(),pass=ge('login-password').trim();
+  const email=gv('login-email').trim(),pass=gv('login-password').trim();
   if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
   const btn=ge('login-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Connexion...';}
   try{
@@ -1143,7 +1143,7 @@ async function doLogin(){
 }
 
 async function doSignup(){
-  const email=ge('signup-email').trim(),pass=ge('signup-password').trim(),prenom=(ge('signup-prenom')||'').trim();
+  const email=gv('signup-email').trim(),pass=gv('signup-password').trim(),prenom=(gv('signup-prenom')||'').trim();
   if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
   if(pass.length<6){showToast('Mot de passe min 6 caractères','orange');return;}
   const btn=ge('signup-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Création...';}
@@ -1174,7 +1174,7 @@ async function doLogout(){if(sb&&!IS_DEMO)await sb.auth.signOut();IS_DEMO=false;
 async function loadApp(user){
   // === SYNC PROFIL SUPABASE ===
   try{
-    const{data:prof}=await sb.from('profiles').select('plan,prenom,subscribed,role').eq('id',user.id).single();
+    const{data:prof}=await sb.from('profiles').select('plan,prenom,subscribed').eq('id',user.id).single();
     if(prof){CURRENT_PLAN=prof.plan||'free';if(prof.prenom)CURRENT_USER_NAME=prof.prenom;}
     else{await sb.from('profiles').upsert({id:user.id,email:user.email,prenom:user.user_metadata?.prenom||user.email.split('@')[0],plan:'free',subscribed:false},{onConflict:'id'});CURRENT_PLAN='free';}
   }catch(e){console.warn('profil:',e.message);}
@@ -1204,8 +1204,8 @@ async function loadApp(user){
   var adminBtn=ge('sb-admin-btn');
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
   if(!IS_DEMO){
-// API key managed server-side via Edge Function secrets
-// API key managed server-side
+    var savedKey=localStorage.getItem('mhk-anthropic-key');
+    if(savedKey&&ge('anthropic-key')){ge('anthropic-key').value=savedKey;if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';}
   }
   initStocks();
   buildCalendar();
@@ -1237,20 +1237,20 @@ async function saveSettings(){
   showToast('Paramètres sauvegardés','green');
 }
 
-function {
+function saveApiKey(){
   var key=ge('anthropic-key').value.trim();
   if(key&&!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
   if(key){
-// API key managed server-side via Edge Function secrets
+    localStorage.setItem('mhk-anthropic-key',key);
     if(ge('api-key-status')){ge('api-key-status').textContent='Clé API personnelle active ✓';ge('api-key-status').style.color='var(--green-d)';}
     showToast('Clé API sauvegardée ✓','green');
   }else{
-// API key managed server-side via Edge Function secrets
+    localStorage.removeItem('mhk-anthropic-key');
     if(ge('api-key-status')){ge('api-key-status').textContent='✦ IA MyHostKit active';ge('api-key-status').style.color='var(--green-d)';}
     showToast('Clé supprimée — moteur IA intégré actif','blue');
   }
 }
-// API key managed server-side via Edge Function secrets
+function getApiKey(){return localStorage.getItem('mhk-anthropic-key')||null;}
 
 function connectPlatform(btn,name){
   btn.textContent='Connexion...';btn.disabled=true;
@@ -1590,7 +1590,7 @@ function applyManualPrice(id){var inp=ge('manual-inp-'+id);if(!inp)return;var va
 
 async function refreshRevIntel(){
   var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse en cours...';btn.disabled=true;
-  var apiKey=null;
+  var apiKey=getApiKey();
   if(IS_DEMO||apiKey){
     if(apiKey&&revIntelData.length){
       try{
@@ -1640,7 +1640,7 @@ function buildPriceRows(){
 
 /* ================================================================ ANTHROPIC API */
 async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
-    const aiResp=await fetch(EDGE_URL+'/ai-concierge',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(sb?.auth?.session?.access_token||'')},body:JSON.stringify({message:userMsg,property_id:currentPropertyId||null})});
+  var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:model,max_tokens:maxTokens,system:system,messages:messages})});
   return response.json();
 }
 
@@ -1718,7 +1718,7 @@ async function sendIaMessage(){
   typingDiv.innerHTML='<div class="chat-bubble ai typing"><span class="ai-dot" style="display:inline-block;margin-right:4px"></span>IA en train de rédiger...</div>';
   container.appendChild(typingDiv);container.scrollTop=container.scrollHeight;
   ge('ia-send-btn').disabled=true;
-  var prop=iaCurrentProp;var apiKey=null;var aiReply='';
+  var prop=iaCurrentProp;var apiKey=getApiKey();var aiReply='';
   if(apiKey){
     var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds en FRANÇAIS sauf si le guest écrit dans une autre langue.\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nAccès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nWiFi/Équipements: '+(prop.amenities||'')+'\nContacts: '+(prop.contacts||'')+'\nBienvenue: '+(prop.welcome||'')+'\n=== FIN ===\nRéponds en 1-3 phrases max.';
     try{
@@ -1749,7 +1749,7 @@ var PLAN_CONFIG={
   concpro:{label:'Conciergerie Pro',locked:[],lockMsg:{}},
   admin:{label:'🛡 Admin',locked:[],lockMsg:{}}
 };
-function isAdmin(e){return CURRENT_PLAN==='admin';}
+function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
 function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks(){
   var plan=CURRENT_PLAN,config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
@@ -1771,12 +1771,18 @@ function applyPlanLocks(){
   else{planBadge.style.background='var(--bp)';planBadge.style.color='var(--bl)';}
 }
 
-var ADMIN_TEAM=[],adminAuthenticated=false;
-function promptAdminPin(callback){callback();}
+function promptAdminPin(callback){if(adminAuthenticated){callback();return;}var pin=window.prompt('🛡 Code PIN Admin :');if(pin===ADMIN_PIN){adminAuthenticated=true;callback();}else if(pin!==null){showToast('PIN incorrect','orange');}}
+function showAdminPanel(){promptAdminPin(function(){if(ge('admin-nav-user'))ge('admin-nav-user').textContent=CURRENT_USER_EMAIL;loadAdminUsers();showPage('admin');});}
 function exitAdmin(){showPage('app');showInner('dashboard');}
 function switchAdminTab(tab){var tabs=['overview','users','logs'];document.querySelectorAll('.admin-tab').forEach(function(t,i){t.classList.toggle('active',tabs[i]===tab);});document.querySelectorAll('.admin-section').forEach(function(s){s.classList.remove('active');});var sec=ge('admin-'+tab);if(sec)sec.classList.add('active');}
 
-var adminUsersData=[];
+var adminUsersData=[
+  {email:'m.rayane8306@gmail.com',prenom:'Rayane',nom:'M.',plan:'admin',created:'2026-01-15',status:'active'},
+  {email:'client.pro@gmail.com',prenom:'Sophie',nom:'Martin',plan:'pro',created:'2026-02-03',status:'active'},
+  {email:'hote.starter@airbnb.fr',prenom:'Thomas',nom:'K.',plan:'starter',created:'2026-03-12',status:'active'},
+  {email:'conciergerie@nice.fr',prenom:'Marie',nom:'D.',plan:'concpro',created:'2026-01-28',status:'active'},
+  {email:'demo@myhostkit.com',prenom:'Demo',nom:'Host',plan:'pro',created:'2026-04-01',status:'active'}
+];
 
 function loadAdminUsers(){
   var total=adminUsersData.length;
@@ -1818,7 +1824,7 @@ function stopImpersonate(){
   showToast('Mode admin normal','');
 }
 function adminChangePlan(email){
-function promptAdminPin(callback){callback();}
+  var newPlan=window.prompt('Plan pour '+email+' :\nstarter / pro / concpro / admin');
   if(!newPlan)return;
   newPlan=newPlan.trim().toLowerCase();
   if(!['starter','pro','concpro','admin'].includes(newPlan)){showToast('Plan invalide','orange');return;}
@@ -1984,7 +1990,7 @@ async function analyseStocksIA(){
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
   var items=stocksDB[currentStockProp]||[];
   var itemsList=items.map(function(i){return i.name+' (stock: '+i.qty+', min: '+i.min+')';}).join(', ');
-  var apiKey=null;var reply='';
+  var apiKey=getApiKey();var reply='';
   if(apiKey){
     try{
       var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,'Tu es un assistant conciergerie. Analyse le rapport post check-out et identifie les articles à réapprovisionner. Réponds en JSON: {"manquants":[{"nom":"...","urgence":"critique|normal","quantite":1}],"resume":"..."}',
@@ -2101,7 +2107,7 @@ async function mhkSendEmail(type,to,data){
   }catch(e){console.warn('email:',e.message);}
 }
 async function doForgotPassword(){
-  const email=ge('login-email')||prompt('Votre adresse email :');if(!email)return;
+  const email=gv('login-email')||prompt('Votre adresse email :');if(!email)return;
   try{const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://app.myhostkit.com/Codage_Authentification_Conciergerie_IA.html?reset=1'});
     if(error)throw error;showToast('✅ Email de réinitialisation envoyé !','green');
   }catch(e){showToast('Erreur : '+e.message,'orange');}
