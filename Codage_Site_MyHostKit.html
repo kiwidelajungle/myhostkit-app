@@ -2129,7 +2129,7 @@ async function participerConcours(){
   if(btn){btn.disabled=true;btn.textContent='⏳ Inscription...';}
   try{await sendEmail(CFG.admin,'[MyHostKit] Concours PS5 - '+email,'Email: '+email+' | Date: '+new Date().toLocaleString('fr-FR'));}catch(ex){}
   var parts=document.querySelector('.concours-parts');
-  if(parts){var n=parseInt(parts.querySelector('span').textContent)||;parts.querySelector('span').textContent=(n+1)+' participants déjà inscrits';}
+  if(parts){var n=parseInt(parts.querySelector('span').textContent)||0;parts.querySelector('span').textContent=(n+1)+' participants déjà inscrits';}
   if(btn){btn.textContent='✅ Inscrit !';setTimeout(function(){btn.disabled=false;btn.textContent='Je participe →';},3000);}
   showToast('🎮 Vous participez ! Bonne chance !',3500);
 }
