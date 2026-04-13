@@ -2,337 +2,289 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>MyHostKit — Assistant</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>MyHostKit — Votre Assistant</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-:root{
-  --bl:#1C5F8A;--bc:#2478A8;--bp:#E8F4FB;
-  --green:#0FB980;--green-d:#0A9468;--green-l:#E0F7F0;
-  --w:#fff;--n:#141414;--g:#6A6A72;--cr:#F7F4EE;
-  --border:rgba(0,0,0,.07);
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--cr)}
-body{display:flex;flex-direction:column}
-
-/* HEADER */
-.header{
-  background:var(--w);border-bottom:1px solid var(--border);
-  padding:14px 20px;display:flex;align-items:center;gap:12px;
-  flex-shrink:0;position:sticky;top:0;z-index:10;
-  box-shadow:0 1px 8px rgba(0,0,0,.04);
-}
-.header-logo{
-  width:34px;height:34px;background:linear-gradient(135deg,#0FB980,#0A9468);
-  border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 2px 8px rgba(15,185,128,.3);
-}
-.header-info{flex:1;min-width:0}
-.header-name{font-size:.92rem;font-weight:700;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.header-status{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--green-d);font-weight:600;margin-top:1px}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(15,185,128,.4)}50%{box-shadow:0 0 0 4px rgba(15,185,128,0)}}
-
-/* LOADING STATE */
-.loading-screen{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 20px;text-align:center;
-}
-.loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:16px}
+:root{--green:#0FB980;--green-d:#0A9468;--green-l:#E8F9F3;--blue:#1C5F8A;--bg:#F7F5F0;--white:#fff;--text:#141414;--muted:#6A7280;--border:rgba(0,0,0,.08);--radius:14px;--radius-lg:20px}
+html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text)}
+body{display:flex;flex-direction:column;max-width:480px;margin:0 auto;min-height:100vh}
+.header{padding:16px 20px;display:flex;align-items:center;gap:12px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.header-logo{width:36px;height:36px;background:linear-gradient(135deg,#0FB980,#0A9468);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-logo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.header-name{font-size:15px;font-weight:600;flex:1}
+.header-status{font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:4px}
+.header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);padding:0 8px}
+.tab{flex:1;padding:10px 4px;text-align:center;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:all .2s}
+.tab.active{color:var(--green-d);border-bottom-color:var(--green);font-weight:600}
+.tab-icon{font-size:18px;display:block;margin-bottom:2px}
+.content{padding:16px;overflow-y:auto}
+.panel{display:none}.panel.active,.panel.flex-active{display:block}
+.hero{background:linear-gradient(135deg,#1C5F8A 0%,#0A9468 100%);border-radius:var(--radius-lg);padding:22px;margin-bottom:14px;color:#fff;overflow:hidden;position:relative}
+.hero::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:rgba(255,255,255,.07);border-radius:50%;pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:6px}
+.hero-title{font-family:'Fraunces',serif;font-size:22px;font-weight:300;line-height:1.2;margin-bottom:4px}
+.hero-sub{font-size:13px;opacity:.7}
+.hero-dates{display:flex;gap:20px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15)}
+.hero-date-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.6;font-weight:700;display:block;margin-bottom:2px}
+.hero-date-val{font-size:15px;font-weight:600}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.card{background:var(--white);border-radius:var(--radius);padding:14px;border:1px solid var(--border)}
+.card-full{grid-column:1/-1}
+.card-icon{font-size:20px;margin-bottom:6px}
+.card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+.card-value{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
+.card-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.btn-copy{font-size:11px;color:var(--green-d);font-weight:600;cursor:pointer;border:none;background:var(--green-l);padding:3px 10px;border-radius:20px;font-family:inherit;flex-shrink:0}
+.section-title{font-family:'Fraunces',serif;font-size:17px;font-weight:300;margin:18px 0 10px}
+.amenities{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.amenity-tag{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;display:flex;align-items:center;gap:5px}
+.rules-list{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
+.rule-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.rule-item:last-child{border-bottom:none}
+.rule-icon{font-size:16px;width:28px;text-align:center;flex-shrink:0}
+.rule-text{font-size:13px;line-height:1.4}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 115px)}
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:82%;padding:11px 14px;border-radius:16px;font-size:13px;line-height:1.5;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg-ai{background:var(--white);border:1px solid var(--border);border-radius:16px 16px 16px 4px;align-self:flex-start}
+.msg-user{background:var(--green);color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end}
+.msg-time{font-size:10px;opacity:.55;margin-top:3px}
+.typing-dots{display:flex;gap:4px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:16px 16px 16px 4px;align-self:flex-start;width:55px}
+.dot{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:bounce .8s infinite}
+.dot:nth-child(2){animation-delay:.13s}.dot:nth-child(3){animation-delay:.26s}
+@keyframes bounce{0%,80%,100%{transform:scale(.75)}40%{transform:scale(1.15)}}
+.quick-actions{display:flex;gap:6px;padding:8px 14px 0;flex-wrap:wrap}
+.quick-btn{font-size:11px;background:var(--white);border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;color:var(--text);font-family:inherit;transition:all .2s;white-space:nowrap}
+.quick-btn:hover{border-color:var(--green);color:var(--green-d)}
+.chat-input-wrap{padding:10px 14px;background:var(--white);border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end}
+.chat-input{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:9px 12px;font-size:13px;font-family:inherit;background:var(--bg);outline:none;resize:none;min-height:40px;max-height:110px;transition:border-color .2s}
+.chat-input:focus{border-color:var(--green)}
+.btn-send{width:40px;height:40px;background:var(--green);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.btn-send:hover{background:var(--green-d)}
+.btn-send svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:14px}
+.spinner{width:36px;height:36px;border:3px solid var(--green-l);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:.88rem;color:var(--g)}
-
-/* ERROR STATE */
-.error-screen{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 20px;text-align:center;
-}
-.error-icon{font-size:2.5rem;margin-bottom:12px}
-.error-title{font-size:1rem;font-weight:700;color:var(--n);margin-bottom:6px}
-.error-sub{font-size:.84rem;color:var(--g);line-height:1.6}
-
-/* CHAT */
-.chat-container{
-  flex:1;display:flex;flex-direction:column;overflow:hidden;
-}
-.chat-messages{
-  flex:1;overflow-y:auto;padding:16px 16px 8px;
-  display:flex;flex-direction:column;gap:10px;
-  -webkit-overflow-scrolling:touch;
-}
-.msg-wrap{display:flex;flex-direction:column}
-.msg-wrap.user{align-items:flex-end}
-.msg-wrap.ai{align-items:flex-start}
-.msg-bubble{
-  max-width:82%;padding:11px 14px;border-radius:16px;
-  font-size:.88rem;line-height:1.6;word-wrap:break-word;
-}
-.msg-bubble.user{
-  background:linear-gradient(135deg,var(--bl),var(--bc));color:#fff;
-  border-bottom-right-radius:4px;
-  box-shadow:0 2px 8px rgba(28,95,138,.2);
-}
-.msg-bubble.ai{
-  background:var(--w);color:var(--n);border:1px solid var(--border);
-  border-bottom-left-radius:4px;
-  box-shadow:0 1px 6px rgba(0,0,0,.04);
-}
-.msg-bubble.ai.typing{opacity:.6;font-style:italic;color:var(--g)}
-.msg-time{font-size:.64rem;color:#B8B5AE;margin-top:3px;padding:0 4px}
-.msg-wrap.user .msg-time{text-align:right}
-
-/* WELCOME */
-.welcome-card{
-  background:linear-gradient(135deg,#E8F8F2,#F0FAF6);
-  border:1px solid #B8EADA;border-radius:14px;
-  padding:16px;margin-bottom:6px;
-}
-.welcome-title{font-size:.82rem;font-weight:700;color:#085041;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.welcome-text{font-size:.82rem;color:#0A9468;line-height:1.6}
-.quick-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.quick-btn{
-  padding:7px 13px;background:var(--w);border:1px solid #C8EDE2;
-  border-radius:20px;font-size:.76rem;color:#085041;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:all .15s;
-  white-space:nowrap;
-}
-.quick-btn:hover{background:#E0F7F0;border-color:var(--green);transform:translateY(-1px)}
-.quick-btn:active{transform:scale(.97)}
-
-/* INPUT BAR */
-.input-bar{
-  padding:10px 12px;background:var(--w);
-  border-top:1px solid var(--border);flex-shrink:0;
-  display:flex;gap:8px;align-items:flex-end;
-  box-shadow:0 -2px 10px rgba(0,0,0,.03);
-}
-.input-field{
-  flex:1;padding:11px 14px;border:1.5px solid var(--border);
-  border-radius:22px;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;
-  color:var(--n);background:var(--cr);outline:none;resize:none;
-  max-height:100px;line-height:1.4;transition:border-color .2s;
-}
-.input-field:focus{border-color:var(--bl)}
-.input-field::placeholder{color:#B8B5AE}
-.send-btn{
-  width:42px;height:42px;border-radius:50%;border:none;
-  background:linear-gradient(135deg,var(--green),var(--green-d));
-  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:all .2s;
-  box-shadow:0 2px 8px rgba(15,185,128,.3);
-}
-.send-btn:hover{transform:scale(1.05);box-shadow:0 4px 14px rgba(15,185,128,.4)}
-.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
-.send-btn svg{width:18px;height:18px}
-
-/* FOOTER */
-.footer{
-  padding:8px;text-align:center;font-size:.62rem;color:#C0BDB6;
-  background:var(--w);border-top:1px solid var(--border);flex-shrink:0;
-}
-.footer a{color:var(--bl);text-decoration:none;font-weight:600}
-
-/* HIDE STATES */
-.hidden{display:none !important}
-
-/* SAFE AREA for iOS */
-@supports(padding-bottom: env(safe-area-inset-bottom)){
-  .input-bar{padding-bottom:calc(10px + env(safe-area-inset-bottom))}
-}
+.error-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:10px;padding:24px;text-align:center}
+.error-icon{font-size:48px}
+.error-title{font-family:'Fraunces',serif;font-size:22px;font-weight:300}
+.error-sub{font-size:14px;color:var(--muted);line-height:1.6}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;font-weight:500;transition:transform .25s;z-index:999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="header-logo">
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
-  </div>
-  <div class="header-info">
-    <div class="header-name" id="prop-name">Chargement...</div>
-    <div class="header-status"><div class="status-dot"></div><span>Assistant en ligne</span></div>
-  </div>
+<div id="app-loading" class="loading">
+  <div class="spinner"></div>
+  <p style="font-size:14px;color:var(--muted)">Chargement de votre logement...</p>
 </div>
-
-<!-- LOADING -->
-<div class="loading-screen" id="screen-loading">
-  <div class="loading-spinner"></div>
-  <div class="loading-text">Chargement de l'assistant...</div>
-</div>
-
-<!-- ERROR -->
-<div class="error-screen hidden" id="screen-error">
+<div id="app-error" class="error-wrap" style="display:none">
   <div class="error-icon">🏠</div>
-  <div class="error-title">Logement introuvable</div>
-  <div class="error-sub">Ce lien ne semble plus valide.<br>Contactez votre hôte pour obtenir un nouveau lien.</div>
+  <h2 class="error-title">Logement introuvable</h2>
+  <p class="error-sub">Ce lien ne semble plus valide.<br>Contactez votre hôte pour un nouveau lien.</p>
 </div>
-
-<!-- CHAT -->
-<div class="chat-container hidden" id="screen-chat">
-  <div class="chat-messages" id="messages"></div>
-  <div class="input-bar">
-    <textarea class="input-field" id="input" rows="1" placeholder="Posez votre question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
-    <button class="send-btn" id="send-btn" onclick="sendMsg()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
+<div id="app-main" style="display:none;flex-direction:column;height:100vh">
+  <div class="header">
+    <div class="header-logo"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div style="flex:1"><div class="header-name" id="prop-name">MyHostKit</div><div style="font-size:11px;color:var(--muted)" id="prop-city"></div></div>
+    <div class="header-status">IA active</div>
   </div>
-  <div class="footer">Propulsé par <a href="https://www.myhostkit.com" target="_blank">MyHostKit</a> · IA Conciergerie</div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('accueil')"><span class="tab-icon">🏡</span>Accueil</button>
+    <button class="tab" onclick="showTab('infos')"><span class="tab-icon">ℹ️</span>Infos</button>
+    <button class="tab" onclick="showTab('chat')"><span class="tab-icon">💬</span>Assistant</button>
+  </div>
+  <div class="content" id="tab-accueil" style="flex:1;overflow-y:auto">
+    <div class="hero">
+      <div class="hero-tag">✦ MyHostKit · Conciergerie IA</div>
+      <h1 class="hero-title" id="welcome-title">Bienvenue !</h1>
+      <p class="hero-sub" id="prop-address">Votre assistant personnel est disponible 24h/24</p>
+      <div class="hero-dates">
+        <div><span class="hero-date-label">Check-in</span><span class="hero-date-val" id="checkin-val">—</span></div>
+        <div><span class="hero-date-label">Check-out</span><span class="hero-date-val" id="checkout-val">—</span></div>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">🔑</div><div class="card-label">Code accès</div><div class="card-row"><div class="card-value" id="access-code">—</div><button class="btn-copy" onclick="copyText('access-code')">Copier</button></div></div>
+      <div class="card"><div class="card-icon">📍</div><div class="card-label">Accès</div><div class="card-value" id="access-info" style="font-size:12px;font-weight:400">—</div></div>
+      <div class="card"><div class="card-icon">📶</div><div class="card-label">WiFi</div><div class="card-value" id="wifi-name">—</div></div>
+      <div class="card"><div class="card-icon">🔒</div><div class="card-label">Mot de passe</div><div class="card-row"><div class="card-value" id="wifi-pass">—</div><button class="btn-copy" onclick="copyText('wifi-pass')">Copier</button></div></div>
+    </div>
+    <div class="section-title">Équipements</div>
+    <div class="amenities" id="amenities-list"></div>
+    <div class="section-title">Règles</div>
+    <div class="rules-list" id="rules-list"></div>
+  </div>
+  <div class="content" id="tab-infos" style="display:none;flex:1;overflow-y:auto">
+    <div class="section-title">Mot de bienvenue</div>
+    <div class="card card-full" style="margin-bottom:14px"><div class="card-value" id="welcome-msg" style="font-size:14px;font-weight:400;line-height:1.7;color:#4a4a4a">—</div></div>
+    <div class="section-title">Votre hôte</div>
+    <div class="card card-full" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;background:linear-gradient(135deg,#0FB980,#0A9468);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px">🏠</div>
+        <div><div style="font-weight:600;font-size:14px" id="host-name">Votre hôte</div><div style="font-size:12px;color:var(--muted)">Disponible via l'assistant IA</div></div>
+      </div>
+    </div>
+    <div class="section-title">Contacts d'urgence</div>
+    <div class="rules-list">
+      <div class="rule-item"><div class="rule-icon">🚨</div><div class="rule-text">Urgences : 15 / 17 / 18</div></div>
+      <div class="rule-item"><div class="rule-icon">🏥</div><div class="rule-text">SAMU : 15</div></div>
+      <div class="rule-item"><div class="rule-icon">🚓</div><div class="rule-text">Police : 17</div></div>
+      <div class="rule-item"><div class="rule-icon">🔥</div><div class="rule-text">Pompiers : 18</div></div>
+    </div>
+  </div>
+  <div id="tab-chat" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg msg-ai">Bonjour ! 👋 Je suis votre assistant IA. Je connais tout sur votre logement — WiFi, accès, règles... Posez-moi n'importe quelle question !<div class="msg-time" id="init-time"></div></div>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-btn" onclick="sendQ('Quel est le code WiFi ?')">📶 WiFi</button>
+      <button class="quick-btn" onclick="sendQ('Comment accéder ?')">🔑 Accès</button>
+      <button class="quick-btn" onclick="sendQ('Heure du check-out ?')">🕐 Check-out</button>
+      <button class="quick-btn" onclick="sendQ('Que faire à proximité ?')">🗺️ Activités</button>
+    </div>
+    <div class="chat-input-wrap">
+      <textarea class="chat-input" id="chat-input" placeholder="Votre question..." rows="1" onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+      <button class="btn-send" onclick="send()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
 </div>
-
+<div class="toast" id="toast"></div>
 <script>
-var SUPA_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
-var EDGE_FN_URL = SUPA_URL + '/functions/v1';
-var propertyData = null;
-var chatMessages = [];
+const SB_URL='https://illovwqvszjuasftwkxh.supabase.co';
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+const EDGE='https://illovwqvszjuasftwkxh.supabase.co/functions/v1';
+const { createClient } = window.supabase;
+const sb = createClient(SB_URL, SB_ANON);
+let prop = null;
+const token = new URLSearchParams(window.location.search).get('token');
 
-function ge(id) { return document.getElementById(id); }
+async function init(){
+  if(!token){return showErr();}
+  try{
+    const {data,error} = await sb.from('properties').select('*').eq('guest_token',token).limit(1);
+    if(error||!data?.length)return showErr();
+    prop=data[0];
+    render();
+    document.getElementById('app-loading').style.display='none';
+    const m=document.getElementById('app-main');
+    m.style.display='flex';
+    document.getElementById('init-time').textContent=now();
+  }catch(e){showErr();}
+}
 
-function showScreen(id) {
-  ['screen-loading','screen-error','screen-chat'].forEach(function(s) {
-    ge(s).classList.toggle('hidden', s !== 'screen-' + id);
+function showErr(){
+  document.getElementById('app-loading').style.display='none';
+  document.getElementById('app-error').style.display='flex';
+}
+
+function now(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+
+function render(){
+  const p=prop;
+  document.title='MyHostKit — '+(p.name||'Votre logement');
+  setText('prop-name',p.name||'Votre logement');
+  setText('prop-city',p.city||'');
+  setText('welcome-title','Bienvenue à '+(p.name||'votre logement')+' !');
+  setText('prop-address',p.address||p.city||'Votre séjour commence ici');
+  setText('checkin-val',p.checkin||'15:00');
+  setText('checkout-val',p.checkout||'11:00');
+  setText('access-code',p.access_code||'—');
+  setText('access-info',p.access_info||'—');
+  setText('wifi-name',p.wifi_name||'—');
+  setText('wifi-pass',p.wifi_password||'—');
+  setText('welcome-msg',p.welcome_message||p.welcome||'Bon séjour !');
+  setText('host-name',p.cleaner_name||'Votre hôte');
+  const amenIcons={'wifi':'📶','piscine':'🏊','parking':'🚗','clim':'❄️','lave':'🫧','vaisselle':'🍽️','télé':'📺','cuisine':'🍳','terrasse':'🌿','jardin':'🌳','barbecue':'🔥','sauna':'🧖','jacuzzi':'🛁','vélo':'🚲'};
+  const amenList=parseList(p.amenities);
+  document.getElementById('amenities-list').innerHTML=amenList.length?amenList.map(a=>{const ic=Object.entries(amenIcons).find(([k])=>a.toLowerCase().includes(k))?.[1]||'✓';return '<div class="amenity-tag">'+ic+' '+a+'</div>';}).join(''):'<div class="amenity-tag">À compléter par votre hôte</div>';
+  const ruleIcons={'fête':'🎉','fumeur':'🚭','animal':'🐾','bruit':'🔇','déchets':'♻️'};
+  const ruleList=parseList(p.rules);
+  document.getElementById('rules-list').innerHTML=ruleList.length?ruleList.map(r=>{const ic=Object.entries(ruleIcons).find(([k])=>r.toLowerCase().includes(k))?.[1]||'📋';return '<div class="rule-item"><div class="rule-icon">'+ic+'</div><div class="rule-text">'+r+'</div></div>';}).join(''):'<div class="rule-item"><div class="rule-text">Merci de respecter le logement et les voisins</div></div>';
+}
+
+function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
+function parseList(str){if(!str)return[];if(str.includes(','))return str.split(',').map(s=>s.trim()).filter(Boolean);if(str.includes('\n'))return str.split('\n').map(s=>s.trim()).filter(Boolean);return[str.trim()].filter(Boolean);}
+
+function showTab(name){
+  ['accueil','infos','chat'].forEach((n,i)=>{
+    document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
+    const el=document.getElementById('tab-'+n);
+    if(!el)return;
+    if(n==='chat'){el.style.display=name===n?'flex':'none';}
+    else{el.style.display=name===n?'block':'none';}
   });
+  if(name==='chat')document.getElementById('chat-input').focus();
 }
 
-function addMessage(role, text) {
-  var container = ge('messages');
-  var wrap = document.createElement('div');
-  wrap.className = 'msg-wrap ' + role;
-  var time = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
-  wrap.innerHTML = '<div class="msg-bubble ' + role + '">' + escapeHtml(text) + '</div><div class="msg-time">' + time + '</div>';
-  container.appendChild(wrap);
-  container.scrollTop = container.scrollHeight;
+function copyText(id){
+  const v=document.getElementById(id)?.textContent||'';
+  navigator.clipboard?.writeText(v).catch(()=>{});
+  toast('✓ Copié dans le presse-papiers');
 }
 
-function escapeHtml(text) {
-  var div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML.replace(/\n/g, '<br>');
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-function showWelcome() {
-  var container = ge('messages');
-  var p = propertyData;
-  var welcomeMsg = p.welcome || p.welcome_message || '';
-  var html = '<div class="welcome-card">';
-  html += '<div class="welcome-title"><svg width="14" height="14" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4v10" stroke="#0A9468" stroke-width="2" stroke-linecap="round"/></svg> ' + (p.name || 'Votre logement') + '</div>';
-  html += '<div class="welcome-text">' + (welcomeMsg ? escapeHtml(welcomeMsg) + '<br><br>' : '') + 'Je suis votre assistant. Posez-moi vos questions sur le logement, les équipements, le check-in, ou les alentours !</div>';
-  html += '<div class="quick-btns">';
-  html += '<button class="quick-btn" onclick="askQuick(this)">Code WiFi ?</button>';
-  html += '<button class="quick-btn" onclick="askQuick(this)">Check-in / check-out ?</button>';
-  html += '<button class="quick-btn" onclick="askQuick(this)">Code d\'accès ?</button>';
-  html += '<button class="quick-btn" onclick="askQuick(this)">Équipements ?</button>';
-  html += '</div></div>';
-  container.innerHTML = html;
-}
+function sendQ(msg){showTab('chat');document.getElementById('chat-input').value=msg;send();}
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function resize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
 
-function askQuick(btn) {
-  var text = btn.textContent.trim();
-  ge('input').value = text;
-  sendMsg();
-}
-
-async function sendMsg() {
-  var input = ge('input');
-  var msg = input.value.trim();
-  if (!msg || !propertyData) return;
-  input.value = '';
-  input.style.height = 'auto';
-  addMessage('user', msg);
-  chatMessages.push({ role: 'user', content: msg });
-
-  // Show typing
-  var container = ge('messages');
-  var typingWrap = document.createElement('div');
-  typingWrap.className = 'msg-wrap ai';
-  typingWrap.id = 'typing';
-  typingWrap.innerHTML = '<div class="msg-bubble ai typing">En train d\'écrire...</div>';
-  container.appendChild(typingWrap);
-  container.scrollTop = container.scrollHeight;
-
-  var sendBtn = ge('send-btn');
-  sendBtn.disabled = true;
-
-  var p = propertyData;
-  try {
-    var response = await fetch(EDGE_FN_URL + '/ai-concierge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y' },
-      body: JSON.stringify({
-        property_id: p.id,
-        messages: chatMessages,
-        property: {
-          name: p.name, city: p.city, type: p.type,
-          address: p.address,
-          checkin: p.checkin || p.check_in_time,
-          checkout: p.checkout || p.check_out_time,
-          access_code: p.access_code,
-          access_info: p.access_info,
-          rules: p.rules, amenities: p.amenities,
-          contacts: p.contacts,
-          welcome: p.welcome || p.welcome_message
-        }
+async function send(){
+  const input=document.getElementById('chat-input');
+  const msg=input.value.trim();
+  if(!msg)return;
+  input.value='';input.style.height='auto';
+  addMsg(msg,'user');
+  const typing=addTyping();
+  try{
+    const res=await fetch(EDGE+'/ai-concierge',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        message:msg,
+        property_id:prop?.id,
+        guest_mode:true,
+        property_context:prop?{name:prop.name,wifi_name:prop.wifi_name,wifi_password:prop.wifi_password,access_code:prop.access_code,access_info:prop.access_info,checkin:prop.checkin,checkout:prop.checkout,rules:prop.rules,amenities:prop.amenities,welcome_message:prop.welcome_message,city:prop.city,address:prop.address}:{}
       })
     });
-
-    var data = await response.json();
-    var el = ge('typing'); if (el) el.remove();
-
-    if (data.error) {
-      addMessage('ai', 'Désolé, une erreur est survenue. Réessayez dans un instant.');
-    } else {
-      var reply = data.reply || 'Réponse reçue.';
-      chatMessages.push({ role: 'assistant', content: reply });
-      addMessage('ai', reply);
-    }
-  } catch(err) {
-    var el2 = ge('typing'); if (el2) el2.remove();
-    addMessage('ai', 'Impossible de joindre l\'assistant. Vérifiez votre connexion.');
-  }
-
-  sendBtn.disabled = false;
-  input.focus();
+    typing.remove();
+    if(res.ok){const d=await res.json();addMsg(d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
+    else{addMsg('Désolé, problème technique. Contactez votre hôte directement.','ai');}
+  }catch(e){typing.remove();addMsg('Je suis temporairement indisponible. Votre hôte est joignable directement.','ai');}
 }
 
-// Auto-resize textarea
-ge('input').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-});
+function addMsg(text,role){
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className='msg msg-'+role;
+  div.innerHTML=text+'<div class="msg-time">'+now()+'</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+  return div;
+}
 
-// Load property from URL param
-(async function() {
-  var params = new URLSearchParams(window.location.search);
-  var propId = params.get('id');
+function addTyping(){
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className='typing-dots';
+  div.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+  return div;
+}
 
-  if (!propId) {
-    showScreen('error');
-    return;
-  }
-
-  try {
-    // Fetch property directly via Supabase REST API (public read via anon key)
-    var response = await fetch(SUPA_URL + '/rest/v1/properties?id=eq.' + propId + '&select=*', {
-      headers: {
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y'
-      }
-    });
-    var data = await response.json();
-
-    if (!data || data.length === 0) {
-      showScreen('error');
-      return;
-    }
-
-    propertyData = data[0];
-    ge('prop-name').textContent = propertyData.name || 'Votre logement';
-    showWelcome();
-    showScreen('chat');
-  } catch(err) {
-    showScreen('error');
-  }
-})();
+init();
 </script>
 </body>
 </html>
