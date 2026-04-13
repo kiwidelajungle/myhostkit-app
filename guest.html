@@ -256,10 +256,11 @@ async function send(){
         property_id:prop?.id,
         guest_mode:true,
         property_context:prop?{name:prop.name,wifi_name:prop.wifi_name,wifi_password:prop.wifi_password,access_code:prop.access_code,access_info:prop.access_info,checkin:prop.checkin,checkout:prop.checkout,rules:prop.rules,amenities:prop.amenities,welcome_message:prop.welcome_message,city:prop.city,address:prop.address}:{}
+        systemPrompt:prop?`Tu es l'assistant IA du logement "${prop.name}" à ${prop.city||''}. WiFi: ${prop.wifi_name||'N/A'} / ${prop.wifi_password||'N/A'}. Check-in: ${prop.checkin||'15:00'} Check-out: ${prop.checkout||'11:00'}. Code accès: ${prop.access_code||'N/A'}. Accès: ${prop.access_info||'N/A'}. Règles: ${prop.rules||'Respecter le logement'}. Réponds UNIQUEMENT en français, brièvement comme un concierge 5 étoiles.`:null,
       })
     });
     typing.remove();
-    if(res.ok){const d=await res.json();addMsg(d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
+    if(res.ok){const d=await res.json();addMsg(d.response||d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
     else{addMsg('Désolé, problème technique. Contactez votre hôte directement.','ai');}
   }catch(e){typing.remove();addMsg('Je suis temporairement indisponible. Votre hôte est joignable directement.','ai');}
 }
