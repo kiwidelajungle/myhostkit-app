@@ -158,18 +158,18 @@ body{display:flex;flex-direction:column;max-width:480px;margin:0 auto;min-height
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const SB_URL='https://illovwqvszjuasftwkxh.supabase.co';
-const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-const EDGE='https://illovwqvszjuasftwkxh.supabase.co/functions/v1';
+window.SB_URL='https://illovwqvszjuasftwkxh.supabase.co';
+window.SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+window.EDGE='https://illovwqvszjuasftwkxh.supabase.co/functions/v1';
 const { createClient } = window.supabase || {};
 const sb = createClient(SB_URL, SB_ANON);
 let prop = null;
-const token = new URLSearchParams(window.location.search).get('token');
+window.token = new URLSearchParams(window.location.search).get('token');
 
 async function init(){
   if(!token){return showErr();}
   try{
-    const {data,error} = await sb.from('properties').select('*').eq('guest_token',token).limit(1);
+    const {data,error} = await window.sb.from('properties').select('*').eq('guest_token',token).limit(1);
     if(error||!data?.length)return showErr();
     prop=data[0];
     render();
