@@ -740,7 +740,7 @@ body{display:flex;flex-direction:column}
           <div><div class="settings-row-label">Clé API Claude personnelle</div><div class="settings-row-sub">Optionnel. MyHostKit inclut déjà l'IA. Ajoutez votre propre clé pour un quota dédié.</div></div>
           <div class="api-key-row" style="width:100%">
             <input class="api-key-input" id="anthropic-key" type="password" placeholder="sk-ant-api03-...">
-            <button class="btn-save-key" onclick="saveApiKey()">Sauvegarder</button>
+            <button class="btn-save-key" onclick="(function(){})()">Sauvegarder</button>
           </div>
           <div id="api-key-status" style="font-size:.75rem;color:var(--green-d)">✦ IA MyHostKit active</div>
         </div>
@@ -1130,7 +1130,7 @@ function activateDemoBar(){
 }
 
 async function doLogin(){
-  const email=gv('login-email').trim(),pass=gv('login-password').trim();
+  const email=ge('login-email').trim(),pass=ge('login-password').trim();
   if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
   const btn=ge('login-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Connexion...';}
   try{
@@ -1143,7 +1143,7 @@ async function doLogin(){
 }
 
 async function doSignup(){
-  const email=gv('signup-email').trim(),pass=gv('signup-password').trim(),prenom=(gv('signup-prenom')||'').trim();
+  const email=ge('signup-email').trim(),pass=ge('signup-password').trim(),prenom=(ge('signup-prenom')||'').trim();
   if(!email||!pass){showToast('Email et mot de passe requis','orange');return;}
   if(pass.length<6){showToast('Mot de passe min 6 caractères','orange');return;}
   const btn=ge('signup-btn');if(btn){btn.disabled=true;btn.textContent='⏳ Création...';}
@@ -1174,7 +1174,7 @@ async function doLogout(){if(sb&&!IS_DEMO)await sb.auth.signOut();IS_DEMO=false;
 async function loadApp(user){
   // === SYNC PROFIL SUPABASE ===
   try{
-    const{data:prof}=await sb.from('profiles').select('plan,prenom,subscribed').eq('id',user.id).single();
+    const{data:prof}=await sb.from('profiles').select('plan,prenom,subscribed,role').eq('id',user.id).single();
     if(prof){CURRENT_PLAN=prof.plan||'free';if(prof.prenom)CURRENT_USER_NAME=prof.prenom;}
     else{await sb.from('profiles').upsert({id:user.id,email:user.email,prenom:user.user_metadata?.prenom||user.email.split('@')[0],plan:'free',subscribed:false},{onConflict:'id'});CURRENT_PLAN='free';}
   }catch(e){console.warn('profil:',e.message);}
@@ -1205,7 +1205,7 @@ async function loadApp(user){
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
   if(!IS_DEMO){
 // API key managed server-side via Edge Function secrets
-    if(savedKey&&ge('anthropic-key')){ge('anthropic-key').value=savedKey;if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';}
+// API key managed server-side
   }
   initStocks();
   buildCalendar();
@@ -1237,7 +1237,7 @@ async function saveSettings(){
   showToast('Paramètres sauvegardés','green');
 }
 
-function saveApiKey(){
+function (function(){})(){
   var key=ge('anthropic-key').value.trim();
   if(key&&!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
   if(key){
@@ -1590,7 +1590,7 @@ function applyManualPrice(id){var inp=ge('manual-inp-'+id);if(!inp)return;var va
 
 async function refreshRevIntel(){
   var btn=ge('btn-refresh-rev');btn.textContent='⏳ Analyse en cours...';btn.disabled=true;
-  var apiKey=getApiKey();
+  var apiKey=null;
   if(IS_DEMO||apiKey){
     if(apiKey&&revIntelData.length){
       try{
@@ -1718,7 +1718,7 @@ async function sendIaMessage(){
   typingDiv.innerHTML='<div class="chat-bubble ai typing"><span class="ai-dot" style="display:inline-block;margin-right:4px"></span>IA en train de rédiger...</div>';
   container.appendChild(typingDiv);container.scrollTop=container.scrollHeight;
   ge('ia-send-btn').disabled=true;
-  var prop=iaCurrentProp;var apiKey=getApiKey();var aiReply='';
+  var prop=iaCurrentProp;var apiKey=null;var aiReply='';
   if(apiKey){
     var systemPrompt='Tu es un assistant de conciergerie IA pour le logement suivant. Réponds en FRANÇAIS sauf si le guest écrit dans une autre langue.\n\n=== FICHE LOGEMENT ===\nNom: '+prop.name+'\nVille: '+(prop.city||'')+'\nCheck-in: '+(prop.checkin||'')+' | Check-out: '+(prop.checkout||'')+'\nCode accès: '+(prop.code||'')+'\nAccès: '+(prop.access||'')+'\nRèglement: '+(prop.rules||'')+'\nWiFi/Équipements: '+(prop.amenities||'')+'\nContacts: '+(prop.contacts||'')+'\nBienvenue: '+(prop.welcome||'')+'\n=== FIN ===\nRéponds en 1-3 phrases max.';
     try{
@@ -1749,7 +1749,7 @@ var PLAN_CONFIG={
   concpro:{label:'Conciergerie Pro',locked:[],lockMsg:{}},
   admin:{label:'🛡 Admin',locked:[],lockMsg:{}}
 };
-function isAdmin(email){return ADMIN_TEAM.indexOf(email)!==-1;}
+function isAdmin(e){return CURRENT_PLAN==='admin';}
 function getPlan(email){if(isAdmin(email))return'admin';return localStorage.getItem('mhk-plan-'+email)||'starter';}
 function applyPlanLocks(){
   var plan=CURRENT_PLAN,config=PLAN_CONFIG[plan]||PLAN_CONFIG['starter'];
@@ -1984,7 +1984,7 @@ async function analyseStocksIA(){
   var propName=(propertiesDB[currentStockProp]||{}).name||currentStockProp;
   var items=stocksDB[currentStockProp]||[];
   var itemsList=items.map(function(i){return i.name+' (stock: '+i.qty+', min: '+i.min+')';}).join(', ');
-  var apiKey=getApiKey();var reply='';
+  var apiKey=null;var reply='';
   if(apiKey){
     try{
       var data=await callAnthropicApi(apiKey,'claude-haiku-4-5-20251001',600,'Tu es un assistant conciergerie. Analyse le rapport post check-out et identifie les articles à réapprovisionner. Réponds en JSON: {"manquants":[{"nom":"...","urgence":"critique|normal","quantite":1}],"resume":"..."}',
@@ -2101,7 +2101,7 @@ async function mhkSendEmail(type,to,data){
   }catch(e){console.warn('email:',e.message);}
 }
 async function doForgotPassword(){
-  const email=gv('login-email')||prompt('Votre adresse email :');if(!email)return;
+  const email=ge('login-email')||prompt('Votre adresse email :');if(!email)return;
   try{const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://app.myhostkit.com/Codage_Authentification_Conciergerie_IA.html?reset=1'});
     if(error)throw error;showToast('✅ Email de réinitialisation envoyé !','green');
   }catch(e){showToast('Erreur : '+e.message,'orange');}
