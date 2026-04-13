@@ -739,8 +739,8 @@ body{display:flex;flex-direction:column}
         <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:10px">
           <div><div class="settings-row-label">Clé API Claude personnelle</div><div class="settings-row-sub">Optionnel. MyHostKit inclut déjà l'IA. Ajoutez votre propre clé pour un quota dédié.</div></div>
           <div class="api-key-row" style="width:100%">
-            <input class="api-key-input" id="anthropic-key" type="password" placeholder="sk-ant-api03-...">
-            <button class="btn-save-key" onclick="(function(){})()">Sauvegarder</button>
+            function saveApiKey(k){} 
+function getApiKey(){return null;}
           </div>
           <div id="api-key-status" style="font-size:.75rem;color:var(--green-d)">✦ IA MyHostKit active</div>
         </div>
@@ -1237,7 +1237,7 @@ async function saveSettings(){
   showToast('Paramètres sauvegardés','green');
 }
 
-function (function(){})(){
+function {
   var key=ge('anthropic-key').value.trim();
   if(key&&!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
   if(key){
