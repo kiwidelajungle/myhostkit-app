@@ -3,290 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>MyHostKit — Votre Assistant</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>MyHostKit</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--green:#0FB980;--green-d:#0A9468;--green-l:#E8F9F3;--blue:#1C5F8A;--bg:#F7F5F0;--white:#fff;--text:#141414;--muted:#6A7280;--border:rgba(0,0,0,.08);--radius:14px;--radius-lg:20px}
-html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text)}
+:root{--g:#0FB980;--gd:#0A9468;--gl:#E8F9F3;--b:#1C5F8A;--bg:#F7F5F0;--w:#fff;--t:#141414;--m:#6A7280;--br:rgba(0,0,0,.08);--r:14px;--rl:20px}
+html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--t)}
 body{display:flex;flex-direction:column;max-width:480px;margin:0 auto;min-height:100vh}
-.header{padding:16px 20px;display:flex;align-items:center;gap:12px;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.header-logo{width:36px;height:36px;background:linear-gradient(135deg,#0FB980,#0A9468);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.header-logo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.header-name{font-size:15px;font-weight:600;flex:1}
-.header-status{font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:4px}
-.header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.hdr{padding:14px 18px;display:flex;align-items:center;gap:12px;background:var(--w);border-bottom:1px solid var(--br);position:sticky;top:0;z-index:100}
+.hlogo{width:36px;height:36px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hlogo svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hname{font-size:15px;font-weight:600;flex:1}.hsub{font-size:11px;color:var(--m)}
+.hstatus{font-size:11px;color:var(--g);font-weight:600;display:flex;align-items:center;gap:4px}
+.hstatus::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--g);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);padding:0 8px}
-.tab{flex:1;padding:10px 4px;text-align:center;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:all .2s}
-.tab.active{color:var(--green-d);border-bottom-color:var(--green);font-weight:600}
-.tab-icon{font-size:18px;display:block;margin-bottom:2px}
-.content{padding:16px;overflow-y:auto}
-.panel{display:none}.panel.active,.panel.flex-active{display:block}
-.hero{background:linear-gradient(135deg,#1C5F8A 0%,#0A9468 100%);border-radius:var(--radius-lg);padding:22px;margin-bottom:14px;color:#fff;overflow:hidden;position:relative}
+.tabs{display:flex;background:var(--w);border-bottom:1px solid var(--br)}
+.tab{flex:1;padding:10px 4px;text-align:center;font-size:11px;font-weight:500;color:var(--m);cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:all .2s}
+.tab.active{color:var(--gd);border-bottom-color:var(--g);font-weight:600}
+.ticon{font-size:18px;display:block;margin-bottom:2px}
+.content{padding:16px;overflow-y:auto;flex:1}
+.hero{background:linear-gradient(135deg,var(--b) 0%,var(--gd) 100%);border-radius:var(--rl);padding:22px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:rgba(255,255,255,.07);border-radius:50%;pointer-events:none}
-.hero-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:6px}
-.hero-title{font-family:'Fraunces',serif;font-size:22px;font-weight:300;line-height:1.2;margin-bottom:4px}
-.hero-sub{font-size:13px;opacity:.7}
-.hero-dates{display:flex;gap:20px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15)}
-.hero-date-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.6;font-weight:700;display:block;margin-bottom:2px}
-.hero-date-val{font-size:15px;font-weight:600}
-.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.card{background:var(--white);border-radius:var(--radius);padding:14px;border:1px solid var(--border)}
-.card-full{grid-column:1/-1}
-.card-icon{font-size:20px;margin-bottom:6px}
-.card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
-.card-value{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
-.card-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.btn-copy{font-size:11px;color:var(--green-d);font-weight:600;cursor:pointer;border:none;background:var(--green-l);padding:3px 10px;border-radius:20px;font-family:inherit;flex-shrink:0}
-.section-title{font-family:'Fraunces',serif;font-size:17px;font-weight:300;margin:18px 0 10px}
-.amenities{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
-.amenity-tag{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;display:flex;align-items:center;gap:5px}
-.rules-list{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
-.rule-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
-.rule-item:last-child{border-bottom:none}
-.rule-icon{font-size:16px;width:28px;text-align:center;flex-shrink:0}
-.rule-text{font-size:13px;line-height:1.4}
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 115px)}
-.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:82%;padding:11px 14px;border-radius:16px;font-size:13px;line-height:1.5;animation:fadeUp .25s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.msg-ai{background:var(--white);border:1px solid var(--border);border-radius:16px 16px 16px 4px;align-self:flex-start}
-.msg-user{background:var(--green);color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end}
-.msg-time{font-size:10px;opacity:.55;margin-top:3px}
-.typing-dots{display:flex;gap:4px;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:16px 16px 16px 4px;align-self:flex-start;width:55px}
-.dot{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:bounce .8s infinite}
+.htag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:6px}
+.htitle{font-family:'Fraunces',serif;font-size:22px;font-weight:300;line-height:1.2;margin-bottom:4px}
+.hsub2{font-size:13px;opacity:.7}
+.hdates{display:flex;gap:20px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15)}
+.dlabel{font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.6;font-weight:700;display:block;margin-bottom:2px}
+.dval{font-size:15px;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.card{background:var(--w);border-radius:var(--r);padding:14px;border:1px solid var(--br)}
+.cicon{font-size:20px;margin-bottom:6px}.clabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--m);margin-bottom:3px}
+.cval{font-size:14px;font-weight:600;line-height:1.4}.crow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.bcopy{font-size:11px;color:var(--gd);font-weight:600;cursor:pointer;border:none;background:var(--gl);padding:3px 10px;border-radius:20px;font-family:inherit;flex-shrink:0}
+.stitle{font-family:'Fraunces',serif;font-size:17px;font-weight:300;margin:18px 0 10px}
+.amen{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.atag{background:var(--w);border:1px solid var(--br);border-radius:20px;padding:5px 12px;font-size:12px;display:flex;align-items:center;gap:5px}
+.rlist{background:var(--w);border-radius:var(--r);border:1px solid var(--br);overflow:hidden;margin-bottom:14px}
+.ritem{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--br)}
+.ritem:last-child{border-bottom:none}.ricon{font-size:16px;width:28px;text-align:center;flex-shrink:0}.rtxt{font-size:13px;line-height:1.4}
+.chatwrap{display:flex;flex-direction:column;height:calc(100vh - 115px)}
+.chatmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:82%;padding:11px 14px;border-radius:16px;font-size:13px;line-height:1.5;animation:fu .25s ease}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.mai{background:var(--w);border:1px solid var(--br);border-radius:16px 16px 16px 4px;align-self:flex-start}
+.muser{background:var(--g);color:#fff;border-radius:16px 16px 4px 16px;align-self:flex-end}
+.mtime{font-size:10px;opacity:.55;margin-top:3px}
+.typing{display:flex;gap:4px;padding:10px 14px;background:var(--w);border:1px solid var(--br);border-radius:16px 16px 16px 4px;align-self:flex-start;width:55px}
+.dot{width:6px;height:6px;background:var(--m);border-radius:50%;animation:bx .8s infinite}
 .dot:nth-child(2){animation-delay:.13s}.dot:nth-child(3){animation-delay:.26s}
-@keyframes bounce{0%,80%,100%{transform:scale(.75)}40%{transform:scale(1.15)}}
-.quick-actions{display:flex;gap:6px;padding:8px 14px 0;flex-wrap:wrap}
-.quick-btn{font-size:11px;background:var(--white);border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;color:var(--text);font-family:inherit;transition:all .2s;white-space:nowrap}
-.quick-btn:hover{border-color:var(--green);color:var(--green-d)}
-.chat-input-wrap{padding:10px 14px;background:var(--white);border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end}
-.chat-input{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:9px 12px;font-size:13px;font-family:inherit;background:var(--bg);outline:none;resize:none;min-height:40px;max-height:110px;transition:border-color .2s}
-.chat-input:focus{border-color:var(--green)}
-.btn-send{width:40px;height:40px;background:var(--green);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
-.btn-send:hover{background:var(--green-d)}
-.btn-send svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes bx{0%,80%,100%{transform:scale(.75)}40%{transform:scale(1.15)}}
+.qa{display:flex;gap:6px;padding:8px 14px 0;flex-wrap:wrap}
+.qbtn{font-size:11px;background:var(--w);border:1px solid var(--br);border-radius:20px;padding:5px 12px;cursor:pointer;color:var(--t);font-family:inherit;white-space:nowrap}
+.cinput-wrap{padding:10px 14px;background:var(--w);border-top:1px solid var(--br);display:flex;gap:8px;align-items:flex-end}
+.cinput{flex:1;border:1.5px solid var(--br);border-radius:12px;padding:9px 12px;font-size:13px;font-family:inherit;background:var(--bg);outline:none;resize:none;min-height:40px;max-height:110px;transition:border-color .2s}
+.cinput:focus{border-color:var(--g)}
+.bsend{width:40px;height:40px;background:var(--g);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bsend svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:14px}
-.spinner{width:36px;height:36px;border:3px solid var(--green-l);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.error-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:10px;padding:24px;text-align:center}
-.error-icon{font-size:48px}
-.error-title{font-family:'Fraunces',serif;font-size:22px;font-weight:300}
-.error-sub{font-size:14px;color:var(--muted);line-height:1.6}
+.spin{width:36px;height:36px;border:3px solid var(--gl);border-top-color:var(--g);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.errwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:10px;padding:24px;text-align:center}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;font-weight:500;transition:transform .25s;z-index:999;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<div id="app-loading" class="loading">
-  <div class="spinner"></div>
-  <p style="font-size:14px;color:var(--muted)">Chargement de votre logement...</p>
-</div>
-<div id="app-error" class="error-wrap" style="display:none">
-  <div class="error-icon">🏠</div>
-  <h2 class="error-title">Logement introuvable</h2>
-  <p class="error-sub">Ce lien ne semble plus valide.<br>Contactez votre hôte pour un nouveau lien.</p>
-</div>
-<div id="app-main" style="display:none;flex-direction:column;height:100vh">
-  <div class="header">
-    <div class="header-logo"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-    <div style="flex:1"><div class="header-name" id="prop-name">MyHostKit</div><div style="font-size:11px;color:var(--muted)" id="prop-city"></div></div>
-    <div class="header-status">IA active</div>
+<div id="loading" class="loading"><div class="spin"></div><p style="font-size:14px;color:var(--m)">Chargement...</p></div>
+<div id="err" class="errwrap" style="display:none"><div style="font-size:48px">🏠</div><h2 style="font-family:'Fraunces',serif;font-size:22px;font-weight:300">Logement introuvable</h2><p style="font-size:14px;color:var(--m);line-height:1.6">Ce lien ne semble plus valide.<br>Contactez votre hôte.</p></div>
+<div id="app" style="display:none;flex-direction:column;height:100vh">
+  <div class="hdr">
+    <div class="hlogo"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <div style="flex:1"><div class="hname" id="pname">MyHostKit</div><div class="hsub" id="pcity"></div></div>
+    <div class="hstatus">IA active</div>
   </div>
   <div class="tabs">
-    <button class="tab active" onclick="showTab('accueil')"><span class="tab-icon">🏡</span>Accueil</button>
-    <button class="tab" onclick="showTab('infos')"><span class="tab-icon">ℹ️</span>Infos</button>
-    <button class="tab" onclick="showTab('chat')"><span class="tab-icon">💬</span>Assistant</button>
+    <button class="tab active" onclick="showTab('home')"><span class="ticon">🏡</span>Accueil</button>
+    <button class="tab" onclick="showTab('info')"><span class="ticon">ℹ️</span>Infos</button>
+    <button class="tab" onclick="showTab('chat')"><span class="ticon">💬</span>Assistant</button>
   </div>
-  <div class="content" id="tab-accueil" style="flex:1;overflow-y:auto">
-    <div class="hero">
-      <div class="hero-tag">✦ MyHostKit · Conciergerie IA</div>
-      <h1 class="hero-title" id="welcome-title">Bienvenue !</h1>
-      <p class="hero-sub" id="prop-address">Votre assistant personnel est disponible 24h/24</p>
-      <div class="hero-dates">
-        <div><span class="hero-date-label">Check-in</span><span class="hero-date-val" id="checkin-val">—</span></div>
-        <div><span class="hero-date-label">Check-out</span><span class="hero-date-val" id="checkout-val">—</span></div>
-      </div>
+  <div class="content" id="tab-home" style="flex:1;overflow-y:auto">
+    <div class="hero"><div class="htag">✦ MyHostKit · Conciergerie IA</div><h1 class="htitle" id="wtitle">Bienvenue !</h1><p class="hsub2" id="waddr"></p><div class="hdates"><div><span class="dlabel">Check-in</span><span class="dval" id="wci">—</span></div><div><span class="dlabel">Check-out</span><span class="dval" id="wco">—</span></div></div></div>
+    <div class="grid">
+      <div class="card"><div class="cicon">🔑</div><div class="clabel">Code accès</div><div class="crow"><div class="cval" id="wacc">—</div><button class="bcopy" onclick="cp('wacc')">Copier</button></div></div>
+      <div class="card"><div class="cicon">📍</div><div class="clabel">Accès</div><div class="cval" id="winfo" style="font-size:12px;font-weight:400">—</div></div>
+      <div class="card"><div class="cicon">📶</div><div class="clabel">WiFi</div><div class="cval" id="wwifi">—</div></div>
+      <div class="card"><div class="cicon">🔒</div><div class="clabel">Mot de passe</div><div class="crow"><div class="cval" id="wpass">—</div><button class="bcopy" onclick="cp('wpass')">Copier</button></div></div>
     </div>
-    <div class="cards-grid">
-      <div class="card"><div class="card-icon">🔑</div><div class="card-label">Code accès</div><div class="card-row"><div class="card-value" id="access-code">—</div><button class="btn-copy" onclick="copyText('access-code')">Copier</button></div></div>
-      <div class="card"><div class="card-icon">📍</div><div class="card-label">Accès</div><div class="card-value" id="access-info" style="font-size:12px;font-weight:400">—</div></div>
-      <div class="card"><div class="card-icon">📶</div><div class="card-label">WiFi</div><div class="card-value" id="wifi-name">—</div></div>
-      <div class="card"><div class="card-icon">🔒</div><div class="card-label">Mot de passe</div><div class="card-row"><div class="card-value" id="wifi-pass">—</div><button class="btn-copy" onclick="copyText('wifi-pass')">Copier</button></div></div>
-    </div>
-    <div class="section-title">Équipements</div>
-    <div class="amenities" id="amenities-list"></div>
-    <div class="section-title">Règles</div>
-    <div class="rules-list" id="rules-list"></div>
+    <div class="stitle">Équipements</div><div class="amen" id="wamen"></div>
+    <div class="stitle">Règles</div><div class="rlist" id="wrules"></div>
   </div>
-  <div class="content" id="tab-infos" style="display:none;flex:1;overflow-y:auto">
-    <div class="section-title">Mot de bienvenue</div>
-    <div class="card card-full" style="margin-bottom:14px"><div class="card-value" id="welcome-msg" style="font-size:14px;font-weight:400;line-height:1.7;color:#4a4a4a">—</div></div>
-    <div class="section-title">Votre hôte</div>
-    <div class="card card-full" style="margin-bottom:14px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;background:linear-gradient(135deg,#0FB980,#0A9468);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px">🏠</div>
-        <div><div style="font-weight:600;font-size:14px" id="host-name">Votre hôte</div><div style="font-size:12px;color:var(--muted)">Disponible via l'assistant IA</div></div>
-      </div>
-    </div>
-    <div class="section-title">Contacts d'urgence</div>
-    <div class="rules-list">
-      <div class="rule-item"><div class="rule-icon">🚨</div><div class="rule-text">Urgences : 15 / 17 / 18</div></div>
-      <div class="rule-item"><div class="rule-icon">🏥</div><div class="rule-text">SAMU : 15</div></div>
-      <div class="rule-item"><div class="rule-icon">🚓</div><div class="rule-text">Police : 17</div></div>
-      <div class="rule-item"><div class="rule-icon">🔥</div><div class="rule-text">Pompiers : 18</div></div>
-    </div>
+  <div id="tab-info" style="display:none;padding:16px;overflow-y:auto;flex:1">
+    <div class="stitle">Message de bienvenue</div>
+    <div class="card" style="margin-bottom:14px"><div class="cval" id="wmsg" style="font-size:14px;font-weight:400;line-height:1.7;color:#4a4a4a">—</div></div>
+    <div class="stitle">Votre hôte</div>
+    <div class="card" style="margin-bottom:14px"><div style="display:flex;align-items:center;gap:12px"><div style="width:42px;height:42px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px">🏠</div><div><div style="font-weight:600;font-size:14px" id="whost">Votre hôte</div><div style="font-size:12px;color:var(--m)">Via l'assistant IA</div></div></div></div>
+    <div class="stitle">Urgences</div>
+    <div class="rlist"><div class="ritem"><div class="ricon">🚨</div><div class="rtxt">Urgences : 15/17/18</div></div><div class="ritem"><div class="ricon">🏥</div><div class="rtxt">SAMU : 15</div></div><div class="ritem"><div class="ricon">🚓</div><div class="rtxt">Police : 17</div></div><div class="ritem"><div class="ricon">🔥</div><div class="rtxt">Pompiers : 18</div></div></div>
   </div>
   <div id="tab-chat" style="display:none;flex-direction:column;flex:1;overflow:hidden">
-    <div class="chat-messages" id="chat-messages">
-      <div class="msg msg-ai">Bonjour ! 👋 Je suis votre assistant IA. Je connais tout sur votre logement — WiFi, accès, règles... Posez-moi n'importe quelle question !<div class="msg-time" id="init-time"></div></div>
-    </div>
-    <div class="quick-actions">
-      <button class="quick-btn" onclick="sendQ('Quel est le code WiFi ?')">📶 WiFi</button>
-      <button class="quick-btn" onclick="sendQ('Comment accéder ?')">🔑 Accès</button>
-      <button class="quick-btn" onclick="sendQ('Heure du check-out ?')">🕐 Check-out</button>
-      <button class="quick-btn" onclick="sendQ('Que faire à proximité ?')">🗺️ Activités</button>
-    </div>
-    <div class="chat-input-wrap">
-      <textarea class="chat-input" id="chat-input" placeholder="Votre question..." rows="1" onkeydown="onKey(event)" oninput="resize(this)"></textarea>
-      <button class="btn-send" onclick="send()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-    </div>
+    <div class="chatmsgs" id="chatmsgs"><div class="msg mai">Bonjour ! 👋 Je connais tout sur votre logement — WiFi, accès, règles... Posez-moi n'importe quelle question !<div class="mtime" id="itime"></div></div></div>
+    <div class="qa"><button class="qbtn" onclick="sq('Quel est le code WiFi ?')">📶 WiFi</button><button class="qbtn" onclick="sq('Comment accéder ?')">🔑 Accès</button><button class="qbtn" onclick="sq('Heure du check-out ?')">🕐 Check-out</button><button class="qbtn" onclick="sq('Que faire à proximité ?')">🗺️ Activités</button></div>
+    <div class="cinput-wrap"><textarea class="cinput" id="cinput" placeholder="Votre question..." rows="1" onkeydown="onk(event)" oninput="rsz(this)"></textarea><button class="bsend" onclick="snd()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-window.SB_URL='https://illovwqvszjuasftwkxh.supabase.co';
-window.SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-window.EDGE='https://illovwqvszjuasftwkxh.supabase.co/functions/v1';
-const { createClient } = window.supabase || {};
-const sb = createClient(SB_URL, SB_ANON);
-let prop = null;
-window.token = new URLSearchParams(window.location.search).get('token');
+var SBURL='https://illovwqvszjuasftwkxh.supabase.co';
+var SBANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+var EDGE='https://illovwqvszjuasftwkxh.supabase.co/functions/v1';
+var TOKEN=new URLSearchParams(window.location.search).get('token');
+var PROP=null;
+var SB=null;
 
-async function init(){
-  if(!token){return showErr();}
+function boot(){
+  if(!window.supabase||!window.supabase.createClient){setTimeout(boot,50);return;}
+  SB=window.supabase.createClient(SBURL,SBANON);
+  loadProp();
+}
+
+async function loadProp(){
+  if(!TOKEN){showErr();return;}
   try{
-    const {data,error} = await window.sb.from('properties').select('*').eq('guest_token',token).limit(1);
-    if(error||!data?.length)return showErr();
-    prop=data[0];
-    render();
-    document.getElementById('app-loading').style.display='none';
-    const m=document.getElementById('app-main');
-    m.style.display='flex';
-    document.getElementById('init-time').textContent=now();
+    var r=await SB.from('properties').select('*').eq('guest_token',TOKEN).limit(1);
+    if(r.error||!r.data||!r.data.length){showErr();return;}
+    PROP=r.data[0];render();
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='flex';
+    document.title='MyHostKit — '+PROP.name;
+    document.getElementById('itime').textContent=now();
   }catch(e){showErr();}
 }
 
-function showErr(){
-  document.getElementById('app-loading').style.display='none';
-  document.getElementById('app-error').style.display='flex';
-}
-
-function now(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+function showErr(){document.getElementById('loading').style.display='none';document.getElementById('err').style.display='flex';}
 
 function render(){
-  const p=prop;
-  document.title='MyHostKit — '+(p.name||'Votre logement');
-  setText('prop-name',p.name||'Votre logement');
-  setText('prop-city',p.city||'');
-  setText('welcome-title','Bienvenue à '+(p.name||'votre logement')+' !');
-  setText('prop-address',p.address||p.city||'Votre séjour commence ici');
-  setText('checkin-val',p.checkin||'15:00');
-  setText('checkout-val',p.checkout||'11:00');
-  setText('access-code',p.access_code||'—');
-  setText('access-info',p.access_info||'—');
-  setText('wifi-name',p.wifi_name||'—');
-  setText('wifi-pass',p.wifi_password||'—');
-  setText('welcome-msg',p.welcome_message||p.welcome||'Bon séjour !');
-  setText('host-name',p.cleaner_name||'Votre hôte');
-  const amenIcons={'wifi':'📶','piscine':'🏊','parking':'🚗','clim':'❄️','lave':'🫧','vaisselle':'🍽️','télé':'📺','cuisine':'🍳','terrasse':'🌿','jardin':'🌳','barbecue':'🔥','sauna':'🧖','jacuzzi':'🛁','vélo':'🚲'};
-  const amenList=parseList(p.amenities);
-  document.getElementById('amenities-list').innerHTML=amenList.length?amenList.map(a=>{const ic=Object.entries(amenIcons).find(([k])=>a.toLowerCase().includes(k))?.[1]||'✓';return '<div class="amenity-tag">'+ic+' '+a+'</div>';}).join(''):'<div class="amenity-tag">À compléter par votre hôte</div>';
-  const ruleIcons={'fête':'🎉','fumeur':'🚭','animal':'🐾','bruit':'🔇','déchets':'♻️'};
-  const ruleList=parseList(p.rules);
-  document.getElementById('rules-list').innerHTML=ruleList.length?ruleList.map(r=>{const ic=Object.entries(ruleIcons).find(([k])=>r.toLowerCase().includes(k))?.[1]||'📋';return '<div class="rule-item"><div class="rule-icon">'+ic+'</div><div class="rule-text">'+r+'</div></div>';}).join(''):'<div class="rule-item"><div class="rule-text">Merci de respecter le logement et les voisins</div></div>';
+  var p=PROP;
+  st('pname',p.name||'MyHostKit');st('pcity',p.city||'');
+  st('wtitle','Bienvenue à '+(p.name||'votre logement')+' !');
+  st('waddr',p.address||p.city||'');
+  st('wci',p.checkin||'15:00');st('wco',p.checkout||'11:00');
+  st('wacc',p.access_code||'—');st('winfo',p.access_info||'—');
+  st('wwifi',p.wifi_name||'—');st('wpass',p.wifi_password||'—');
+  st('wmsg',p.welcome_message||p.welcome||'Bon séjour !');
+  st('whost',p.cleaner_name||'Votre hôte');
+  var al=plist(p.amenities);
+  document.getElementById('wamen').innerHTML=al.length?al.map(function(a){return '<div class="atag">✓ '+a+'</div>';}).join(''):'<div class="atag">Standard</div>';
+  var rl=plist(p.rules);
+  document.getElementById('wrules').innerHTML=rl.length?rl.map(function(r){return '<div class="ritem"><div class="ricon">📋</div><div class="rtxt">'+r+'</div></div>';}).join(''):'<div class="ritem"><div class="rtxt">Merci de respecter le logement.</div></div>';
 }
 
-function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
-function parseList(str){if(!str)return[];if(str.includes(','))return str.split(',').map(s=>s.trim()).filter(Boolean);if(str.includes('\n'))return str.split('\n').map(s=>s.trim()).filter(Boolean);return[str.trim()].filter(Boolean);}
+function st(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+function plist(s){if(!s)return[];if(s.includes(','))return s.split(',').map(function(x){return x.trim();}).filter(Boolean);return[s.trim()].filter(Boolean);}
+function now(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
 
-function showTab(name){
-  ['accueil','infos','chat'].forEach((n,i)=>{
-    document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
-    const el=document.getElementById('tab-'+n);
+function showTab(n){
+  ['home','info','chat'].forEach(function(name,i){
+    document.querySelectorAll('.tab')[i].classList.toggle('active',name===n);
+    var el=document.getElementById('tab-'+name);
     if(!el)return;
-    if(n==='chat'){el.style.display=name===n?'flex':'none';}
-    else{el.style.display=name===n?'block':'none';}
+    el.style.display=name===n?(n==='chat'?'flex':'block'):'none';
   });
-  if(name==='chat')document.getElementById('chat-input').focus();
+  if(n==='chat')document.getElementById('cinput').focus();
 }
 
-function copyText(id){
-  const v=document.getElementById(id)?.textContent||'';
-  navigator.clipboard?.writeText(v).catch(()=>{});
-  toast('✓ Copié dans le presse-papiers');
-}
+function cp(id){var v=document.getElementById(id).textContent;if(navigator.clipboard)navigator.clipboard.writeText(v).catch(function(){});toast('✓ Copié !');}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function sq(msg){showTab('chat');document.getElementById('cinput').value=msg;snd();}
+function onk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();snd();}}
+function rsz(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
 
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
-
-function sendQ(msg){showTab('chat');document.getElementById('chat-input').value=msg;send();}
-function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
-function resize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
-
-async function send(){
-  const input=document.getElementById('chat-input');
-  const msg=input.value.trim();
-  if(!msg)return;
+async function snd(){
+  var input=document.getElementById('cinput');
+  var msg=input.value.trim();if(!msg)return;
   input.value='';input.style.height='auto';
   addMsg(msg,'user');
-  const typing=addTyping();
+  var typing=addTyping();
+  var p=PROP;
+  var sp=p?'Tu es l'assistant IA du logement "'+p.name+'" à '+(p.city||'')+'. WiFi: '+(p.wifi_name||'N/A')+' / '+(p.wifi_password||'N/A')+'. Check-in: '+(p.checkin||'15:00')+' Check-out: '+(p.checkout||'11:00')+'. Code: '+(p.access_code||'N/A')+'. Accès: '+(p.access_info||'N/A')+'. Règles: '+(p.rules||'')+'. Équipements: '+(p.amenities||'')+'. Réponds UNIQUEMENT en français, brièvement comme un concierge 5 étoiles.':'';
   try{
-    const res=await fetch(EDGE+'/ai-concierge',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        message:msg,
-        property_id:prop?.id,
-        guest_mode:true,
-        property_context:prop?{name:prop.name,wifi_name:prop.wifi_name,wifi_password:prop.wifi_password,access_code:prop.access_code,access_info:prop.access_info,checkin:prop.checkin,checkout:prop.checkout,rules:prop.rules,amenities:prop.amenities,welcome_message:prop.welcome_message,city:prop.city,address:prop.address}:{}
-        systemPrompt:prop?`Tu es l'assistant IA du logement "${prop.name}" à ${prop.city||''}. WiFi: ${prop.wifi_name||'N/A'} / ${prop.wifi_password||'N/A'}. Check-in: ${prop.checkin||'15:00'} Check-out: ${prop.checkout||'11:00'}. Code accès: ${prop.access_code||'N/A'}. Accès: ${prop.access_info||'N/A'}. Règles: ${prop.rules||'Respecter le logement'}. Réponds UNIQUEMENT en français, brièvement comme un concierge 5 étoiles.`:null,
-      })
-    });
+    var res=await fetch(EDGE+'/ai-concierge',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+SBANON},body:JSON.stringify({message:msg,systemPrompt:sp,guest_mode:true,property_id:p?p.id:null})});
     typing.remove();
-    if(res.ok){const d=await res.json();addMsg(d.response||d.response||d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
-    else{addMsg('Désolé, problème technique. Contactez votre hôte directement.','ai');}
-  }catch(e){typing.remove();addMsg('Je suis temporairement indisponible. Votre hôte est joignable directement.','ai');}
+    if(res.ok){var d=await res.json();addMsg(d.response||d.reply||d.message||'Désolé, problème technique.','ai');}
+    else{addMsg('Désolé, problème technique.','ai');}
+  }catch(e){typing.remove();addMsg('Je suis temporairement indisponible.','ai');}
 }
 
-function addMsg(text,role){
-  const msgs=document.getElementById('chat-messages');
-  const div=document.createElement('div');
-  div.className='msg msg-'+role;
-  div.innerHTML=text+'<div class="msg-time">'+now()+'</div>';
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
-  return div;
-}
+function addMsg(txt,role){var msgs=document.getElementById('chatmsgs');var div=document.createElement('div');div.className='msg '+(role==='user'?'muser':'mai');div.innerHTML=txt+'<div class="mtime">'+now()+'</div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;return div;}
+function addTyping(){var msgs=document.getElementById('chatmsgs');var div=document.createElement('div');div.className='typing';div.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;return div;}
 
-function addTyping(){
-  const msgs=document.getElementById('chat-messages');
-  const div=document.createElement('div');
-  div.className='typing-dots';
-  div.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
-  return div;
-}
-
-// Safe init — wait for Supabase CDN if not yet loaded
-if(window.supabase){init();}else{document.querySelector('script[src*="supabase"]').addEventListener('load',init);}
+boot();
 </script>
 </body>
 </html>
