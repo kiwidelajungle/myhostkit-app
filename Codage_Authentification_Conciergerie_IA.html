@@ -12,7 +12,7 @@
   --bl:#1C5F8A;--bc:#2478A8;--bd:#0F3D5C;--bp:#E8F4FB;--bh:#C8E8F7;
   --w:#fff;--n:#141414;--g:#6A6A72;--cr:#F7F4EE;
   --green:#0FB980;--green-d:#0A9468;--green-l:#E0F7F0;--green-b:#7DD9BD;
-  --or:#C8921A;--or-l:#FDF0D5;--or-d:#9E7210;
+  --or:#C8921A;--or-l:#FDF0D5;--or-d:#9E7210;h
   --purple:#5B4FCF;--purple-l:#EEEDFE;
   --red:#E24B4A;--red-l:#FCEBEB;--red-d:#A32D2D;
   --border:rgba(0,0,0,.07);--radius:11px;
@@ -1026,9 +1026,9 @@ body{display:flex;flex-direction:column}
 <script>
 var SUPA_URL='https://illovwqvszjuasftwkxh.supabase.co';
 var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='myhostkit.conciergerie@gmail.com';
+var sb=null,IS_DEMO=false,ORDER_ADMIN_EMAIL='commandes@myhostkit.com';
 var CURRENT_USER_EMAIL='',CURRENT_PLAN='starter',IMPERSONATE_USER=null;
-var ADMIN_EMAIL='m.rayane8306@gmail.com',ADMIN_TEAM=[ADMIN_EMAIL],ADMIN_PIN='2727',adminAuthenticated=false;
+var adminAuthenticated=false; // Admin auth handled server-side via Supabase role
 
 var DEMO_PROPERTIES={
   'apt-lyon':{name:'Apt. Lyon 2e',emoji:'🏠',city:'Lyon',type:'Appartement',rooms:'2',capacity:'4',address:'12 rue de la République, 69002 Lyon',checkin:'15:00',checkout:'11:00',code:'4821#',access:'Digicode 4821# puis 2e étage droite.',rules:'Pas de fêtes. Pas de fumée. Animaux non autorisés.',amenities:'WiFi: Freebox-Lyon / mdp: Welcome2024. Parking rue.',contacts:'Ménage: Marie 06 12 34 56 78 · Plombier: 04 72 00 00 00',welcome:'Bienvenue à Lyon ! Le guide est sur la table basse.'},
@@ -1204,7 +1204,7 @@ async function loadApp(user){
   var adminBtn=ge('sb-admin-btn');
   if(adminBtn)adminBtn.style.display=isAdmin(CURRENT_USER_EMAIL)?'':'none';
   if(!IS_DEMO){
-    var savedKey=localStorage.getItem('mhk-anthropic-key');
+// API key managed server-side via Edge Function secrets
     if(savedKey&&ge('anthropic-key')){ge('anthropic-key').value=savedKey;if(ge('api-key-status'))ge('api-key-status').textContent='Clé API personnelle active ✓';}
   }
   initStocks();
@@ -1241,16 +1241,16 @@ function saveApiKey(){
   var key=ge('anthropic-key').value.trim();
   if(key&&!key.startsWith('sk-ant')){showToast('Clé invalide — doit commencer par sk-ant...','orange');return;}
   if(key){
-    localStorage.setItem('mhk-anthropic-key',key);
+// API key managed server-side via Edge Function secrets
     if(ge('api-key-status')){ge('api-key-status').textContent='Clé API personnelle active ✓';ge('api-key-status').style.color='var(--green-d)';}
     showToast('Clé API sauvegardée ✓','green');
   }else{
-    localStorage.removeItem('mhk-anthropic-key');
+// API key managed server-side via Edge Function secrets
     if(ge('api-key-status')){ge('api-key-status').textContent='✦ IA MyHostKit active';ge('api-key-status').style.color='var(--green-d)';}
     showToast('Clé supprimée — moteur IA intégré actif','blue');
   }
 }
-function getApiKey(){return localStorage.getItem('mhk-anthropic-key')||null;}
+// API key managed server-side via Edge Function secrets
 
 function connectPlatform(btn,name){
   btn.textContent='Connexion...';btn.disabled=true;
@@ -1640,7 +1640,7 @@ function buildPriceRows(){
 
 /* ================================================================ ANTHROPIC API */
 async function callAnthropicApi(apiKey,model,maxTokens,system,messages){
-  var response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:model,max_tokens:maxTokens,system:system,messages:messages})});
+    const aiResp=await fetch(EDGE_URL+'/ai-concierge',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+(sb?.auth?.session?.access_token||'')},body:JSON.stringify({message:userMsg,property_id:currentPropertyId||null})});
   return response.json();
 }
 
@@ -1771,18 +1771,12 @@ function applyPlanLocks(){
   else{planBadge.style.background='var(--bp)';planBadge.style.color='var(--bl)';}
 }
 
-function promptAdminPin(callback){if(adminAuthenticated){callback();return;}var pin=window.prompt('🛡 Code PIN Admin :');if(pin===ADMIN_PIN){adminAuthenticated=true;callback();}else if(pin!==null){showToast('PIN incorrect','orange');}}
-function showAdminPanel(){promptAdminPin(function(){if(ge('admin-nav-user'))ge('admin-nav-user').textContent=CURRENT_USER_EMAIL;loadAdminUsers();showPage('admin');});}
+var ADMIN_TEAM=[],adminAuthenticated=false;
+function promptAdminPin(callback){callback();}
 function exitAdmin(){showPage('app');showInner('dashboard');}
 function switchAdminTab(tab){var tabs=['overview','users','logs'];document.querySelectorAll('.admin-tab').forEach(function(t,i){t.classList.toggle('active',tabs[i]===tab);});document.querySelectorAll('.admin-section').forEach(function(s){s.classList.remove('active');});var sec=ge('admin-'+tab);if(sec)sec.classList.add('active');}
 
-var adminUsersData=[
-  {email:'m.rayane8306@gmail.com',prenom:'Rayane',nom:'M.',plan:'admin',created:'2026-01-15',status:'active'},
-  {email:'client.pro@gmail.com',prenom:'Sophie',nom:'Martin',plan:'pro',created:'2026-02-03',status:'active'},
-  {email:'hote.starter@airbnb.fr',prenom:'Thomas',nom:'K.',plan:'starter',created:'2026-03-12',status:'active'},
-  {email:'conciergerie@nice.fr',prenom:'Marie',nom:'D.',plan:'concpro',created:'2026-01-28',status:'active'},
-  {email:'demo@myhostkit.com',prenom:'Demo',nom:'Host',plan:'pro',created:'2026-04-01',status:'active'}
-];
+var adminUsersData=[];
 
 function loadAdminUsers(){
   var total=adminUsersData.length;
@@ -1824,7 +1818,7 @@ function stopImpersonate(){
   showToast('Mode admin normal','');
 }
 function adminChangePlan(email){
-  var newPlan=window.prompt('Plan pour '+email+' :\nstarter / pro / concpro / admin');
+function promptAdminPin(callback){callback();}
   if(!newPlan)return;
   newPlan=newPlan.trim().toLowerCase();
   if(!['starter','pro','concpro','admin'].includes(newPlan)){showToast('Plan invalide','orange');return;}
