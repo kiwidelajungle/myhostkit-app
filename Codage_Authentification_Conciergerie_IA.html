@@ -2085,6 +2085,7 @@ function restoreConnectedPlatforms(){
 /* ================================================================ INIT */
 window.addEventListener('load',function(){
   if(!initSupabase()){showToast('Mode démo actif — Supabase non chargé','orange');}
+  if(new URLSearchParams(window.location.search).get('demo')==='1'){loadDemo();return;}
   if(sb){
     sb.auth.onAuthStateChange(function(event,session){
       if(event==='SIGNED_IN'&&session&&session.user&&!IS_DEMO){
