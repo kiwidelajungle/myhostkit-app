@@ -260,7 +260,7 @@ async function send(){
       })
     });
     typing.remove();
-    if(res.ok){const d=await res.json();addMsg(d.response||d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
+    if(res.ok){const d=await res.json();addMsg(d.response||d.response||d.reply||d.message||d.content||'Je suis là pour vous aider !','ai');}
     else{addMsg('Désolé, problème technique. Contactez votre hôte directement.','ai');}
   }catch(e){typing.remove();addMsg('Je suis temporairement indisponible. Votre hôte est joignable directement.','ai');}
 }
