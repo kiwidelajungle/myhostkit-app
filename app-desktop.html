@@ -4,45 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MyHostKit — Dashboard</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <meta name="application-name" content="MyHostKit">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MyHostKit">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0e13">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTXlIb3N0S2l0IiwiYmFja2dyb3VuZF9jb2xvciI6IiMwYTBlMTMiLCJ0aGVtZV9jb2xvciI6IiNDODk2NUEiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii9hcHAtZGVza3RvcC5odG1sIiwic2hvcnRfbmFtZSI6Ik15SG9zdEtpdCJ9">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--accent:#C8965A;--dark:#0a0e13;--dark2:#111820;--dark3:#1a2030;--bg:#0f1419;--card:#151a22;--border:#1e2830;--text:#e8e6e3;--sub:#8890a0;--muted:#555e6e;--success:#34C759;--error:#FF3B30;--blue:#1C8FCA;--blueD:#1C5F8A;--warn:#FF9500;--purple:#9B59B6}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text)}
-/* AUTH */
+html,body{height:100%;background:var(--bg);font-family:"Plus Jakarta Sans",sans-serif;color:var(--text)}
 .auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 30% 40%,rgba(28,95,138,.1),transparent 60%),var(--bg)}
 .auth-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .auth-logo{text-align:center;margin-bottom:24px}
-.auth-logo svg{height:32px}
 .auth-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
 .auth-sub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:24px}
 .auth-input{width:100%;padding:12px 14px;background:var(--dark2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;margin-bottom:10px;outline:none;font-family:inherit}
 .auth-input:focus{border-color:var(--accent)}
 .auth-input::placeholder{color:var(--muted)}
-.auth-btn{width:100%;padding:13px;background:var(--accent);color:var(--dark);border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px;transition:all .15s}
-.auth-btn:hover{background:#d4a060;transform:translateY(-1px)}
-.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-btn{width:100%;padding:13px;background:var(--accent);color:var(--dark);border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px}
+.auth-btn:hover{background:#d4a060}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed}
 .auth-switch{text-align:center;margin-top:16px;font-size:12px;color:var(--sub)}
 .auth-switch span{color:var(--accent);cursor:pointer;font-weight:600}
 .auth-role{display:flex;gap:6px;margin-bottom:16px}
-.auth-role-btn{flex:1;padding:12px 6px;border-radius:10px;border:2px solid var(--border);background:var(--dark2);text-align:center;cursor:pointer;transition:all .2s}
+.auth-role-btn{flex:1;padding:12px 6px;border-radius:10px;border:2px solid var(--border);background:var(--dark2);text-align:center;cursor:pointer}
 .auth-role-btn.on{border-color:var(--accent);background:rgba(200,150,90,.08)}
 .auth-role-btn .ri{font-size:20px;display:block;margin-bottom:3px}
 .auth-role-btn .rn{font-size:11px;font-weight:700;display:block}
 .auth-role-btn .rd{font-size:8px;color:var(--muted);margin-top:2px;display:block}
 .auth-error{background:rgba(255,59,48,.1);border:1px solid rgba(255,59,48,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--error);margin-bottom:10px;display:none}
-.auth-sep{display:flex;align-items:center;gap:10px;margin:16px 0}
-.auth-sep div{flex:1;height:1px;background:var(--border)}
-.auth-sep span{font-size:10px;color:var(--muted)}
-/* LAYOUT */
 .app{display:flex;height:100vh;overflow:hidden}
 .side{width:240px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
 .side-hd{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
@@ -51,570 +43,195 @@ html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-
 .side-plan{font-size:8px;background:rgba(200,150,90,.12);color:var(--accent);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:auto}
 .side-nav{flex:1;padding:8px;overflow-y:auto}
 .side-sec{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:700;padding:12px 10px 4px}
-.sn{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .12s;margin-bottom:1px}
+.sn{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;margin-bottom:1px}
 .sn:hover{background:rgba(255,255,255,.04);color:var(--text)}
 .sn.on{background:rgba(200,150,90,.1);color:var(--accent);font-weight:600}
 .sn.on-blue{background:rgba(28,95,138,.12);color:var(--blue);font-weight:600}
 .sn-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
-.sn-badge{margin-left:auto;font-size:8px;background:rgba(255,59,48,.15);color:var(--error);padding:2px 7px;border-radius:10px;font-weight:700}
 .side-user{padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .side-av{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700}
 .side-uname{font-size:12px;font-weight:600}
 .side-uemail{font-size:9px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis}
-.side-logout{margin-left:auto;font-size:14px;cursor:pointer;opacity:.4;transition:opacity .2s}
+.side-logout{margin-left:auto;font-size:14px;cursor:pointer;opacity:.4}
 .side-logout:hover{opacity:1}
-/* MAIN */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{height:54px;background:var(--dark);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0}
 .topbar h1{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
-.topbar-sub{font-size:11px;color:var(--muted);margin-left:4px}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.topbar-search{padding:7px 12px 7px 32px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;width:200px;outline:none;font-family:inherit;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555e6e' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:10px center}
-.topbar-btn{padding:6px 12px;background:rgba(200,150,90,.08);border:1px solid rgba(200,150,90,.15);border-radius:7px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.topbar-search{padding:7px 12px 7px 32px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;width:200px;outline:none;font-family:inherit}
 .content{flex:1;overflow-y:auto;padding:20px}
-/* CARDS & UI */
 .row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.row3{grid-template-columns:repeat(3,1fr)}
 .row2{grid-template-columns:1fr 1fr}
 .kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
 .kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
 .kpi-val{font-size:24px;font-weight:800}
 .kpi-delta{font-size:10px;color:var(--success);margin-top:4px}
-.kpi-delta.down{color:var(--error)}
 .crd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
 .crd h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.crd-sub{font-size:10px;color:var(--muted);font-weight:400}
 .tbl{width:100%;border-collapse:collapse}
 .tbl th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
 .tbl td{font-size:12px;color:var(--sub);padding:10px;border-bottom:1px solid rgba(30,40,48,.5)}
 .tbl tr:hover td{background:rgba(255,255,255,.015)}
 .chip{font-size:8px;padding:3px 8px;border-radius:20px;font-weight:700;display:inline-block}
 .cg{background:rgba(52,199,89,.1);color:var(--success)}.ca{background:rgba(200,150,90,.1);color:var(--accent)}.cr{background:rgba(255,59,48,.1);color:var(--error)}.cb{background:rgba(28,143,202,.1);color:var(--blue)}.cp{background:rgba(155,89,182,.1);color:var(--purple)}.cw{background:rgba(255,149,0,.1);color:var(--warn)}
-.btn-p{padding:8px 18px;background:var(--accent);color:var(--dark);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-p{padding:8px 18px;background:var(--accent);color:var(--dark);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-p:hover{background:#d4a060}
 .btn-s{padding:8px 18px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--sub);font-size:12px;cursor:pointer;font-family:inherit}
 .btn-s:hover{border-color:var(--accent);color:var(--accent)}
-.btn-blue{background:var(--blueD);color:#fff}.btn-blue:hover{background:var(--blue)}
 .trial-bar{background:rgba(200,150,90,.06);border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--accent)}
 .empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px}
-.prop{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--dark2);border-radius:8px;margin-bottom:4px;cursor:pointer;transition:background .12s}
+.prop{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--dark2);border-radius:8px;margin-bottom:4px;cursor:pointer}
 .prop:hover{background:var(--dark3)}
 .prop-name{font-size:12px;font-weight:600;color:var(--text)}
 .prop-meta{font-size:10px;color:var(--muted);margin-top:2px}
-.msg-wrap{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 94px)}
-.msg-list{border-right:1px solid var(--border);overflow-y:auto}
-.msg-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
-.msg-item:hover,.msg-item.on{background:rgba(200,150,90,.06)}
-.msg-item.on{border-left:3px solid var(--accent)}
-.msg-chat{display:flex;flex-direction:column;height:100%}
-.msg-body{flex:1;overflow-y:auto;padding:16px}
-.msg-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);align-items:flex-end}
-.msg-input input{flex:1;padding:10px 14px;background:var(--dark2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
-.bubble{max-width:65%;padding:10px 14px;border-radius:12px;margin-bottom:6px;font-size:13px;line-height:1.5}
-.bubble.me{background:var(--accent);color:#fff;margin-left:auto}
-.bubble.other{background:var(--dark3);border:1px solid var(--border)}
-.bubble.ai{background:rgba(200,150,90,.1);border:1px solid rgba(200,150,90,.12);color:var(--text)}
-.btime{font-size:9px;color:var(--muted);margin-top:3px}
 .form-row{display:flex;gap:10px;margin-bottom:10px}
 .form-row>*{flex:1}
 .form-label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block}
 .form-input{width:100%;padding:10px 12px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
 .form-input:focus{border-color:var(--accent)}
 .loading{display:flex;align-items:center;justify-content:center;height:100%;font-size:14px;color:var(--muted)}
-.bar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.bar-label{width:100px;font-size:11px;color:var(--sub);text-align:right;flex-shrink:0}
-.bar-track{flex:1;height:8px;background:var(--dark3);border-radius:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px}
-.bar-val{width:60px;font-size:11px;color:var(--text)}
-
+.bubble{max-width:65%;padding:10px 14px;border-radius:12px;margin-bottom:6px;font-size:13px;line-height:1.5}
+.bubble.ai{background:rgba(200,150,90,.1);border:1px solid rgba(200,150,90,.12);color:var(--text)}
+.btime{font-size:9px;color:var(--muted);margin-top:3px}
 .install-bar{background:linear-gradient(135deg,rgba(200,150,90,.08),rgba(28,95,138,.06));border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;position:relative}
-.install-bar .ib-icon{font-size:24px;flex-shrink:0}
-.install-bar h4{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:2px}
-.install-bar p{font-size:11px;color:var(--sub);line-height:1.6}
 .install-bar .ib-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer}
-.install-bar .ib-btns{display:flex;gap:6px;margin-top:8px}
-.install-bar .ib-btn{padding:5px 12px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;border:none}
-.ib-btn-p{background:var(--accent);color:var(--dark)}
-.ib-btn-s{background:var(--dark3);color:var(--sub);border:1px solid var(--border)!important}
+.step{display:flex;gap:10px;margin-bottom:8px;font-size:13px;color:var(--sub);line-height:1.6}
+.step-n{background:var(--accent);color:var(--dark);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.step-n.ok{background:var(--success);color:#fff}
+.step-n.w{background:var(--warn);color:#fff}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.15)}
 </style>
 </head>
 <body>
-
 <div id="root"></div>
-
 <script>
-var SB_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
-var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
-var sb = supabase.createClient(SB_URL, SB_KEY);
+var SB_URL="https://illovwqvszjuasftwkxh.supabase.co";
+var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y";
+var sb=supabase.createClient(SB_URL,SB_KEY);
+var S={session:null,profile:null,role:null,view:"dashboard",loading:true,properties:[],bookings:[],notifications:[],availability:[]};
+var authMode="login";
 
-var state = {
-  session: null, profile: null, role: null, view: 'dashboard', loading: true,
-  properties: [], cleaners: [], bookings: [], notifications: [], messages: [],
-  inventory: [], reviews: [], team: [], availability: []
-};
+async function init(){var d=await sb.auth.getSession();if(d.data.session){S.session=d.data.session;await loadProfile();}S.loading=false;render();}
+async function loadProfile(){var uid=S.session.user.id;var r=await sb.from("profiles").select("*").eq("id",uid).single();S.profile=r.data;S.role=r.data?r.data.role:"host";}
+async function doLogin(){var e=document.getElementById("ae").value.trim();var p=document.getElementById("ap").value;if(!e||!p)return;document.getElementById("aerr").style.display="none";document.getElementById("abtn").disabled=true;var r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error){document.getElementById("aerr").textContent=r.error.message;document.getElementById("aerr").style.display="block";document.getElementById("abtn").disabled=false;return;}S.session=r.data.session;await loadProfile();S.view=S.role==="cleaner"?"planning":"dashboard";render();}
+async function doSignup(){var e=document.getElementById("ae").value.trim();var p=document.getElementById("ap").value;var role=S.role||"host";if(!e||!p)return;document.getElementById("aerr").style.display="none";document.getElementById("abtn").disabled=true;var r=await sb.auth.signUp({email:e,password:p});if(r.error){document.getElementById("aerr").textContent=r.error.message;document.getElementById("aerr").style.display="block";document.getElementById("abtn").disabled=false;return;}if(r.data.session){await sb.from("profiles").upsert({id:r.data.user.id,email:e,role:role,plan:"trial",full_name:e.split("@")[0]});S.session=r.data.session;await loadProfile();S.view=role==="cleaner"?"planning":"dashboard";render();}else{document.getElementById("aerr").textContent="Verifiez votre email pour confirmer votre compte.";document.getElementById("aerr").style.display="block";document.getElementById("aerr").style.background="rgba(52,199,89,.1)";document.getElementById("aerr").style.color="#34C759";document.getElementById("abtn").disabled=false;}}
+async function doLogout(){await sb.auth.signOut();S.session=null;S.profile=null;S.role=null;render();}
+function toggleAuth(){authMode=authMode==="login"?"signup":"login";render();}
+function selectAuthRole(r){S.role=r;render();}
 
-// ===== AUTH =====
-async function init() {
-  var { data } = await sb.auth.getSession();
-  if (data.session) {
-    state.session = data.session;
-    await loadProfile();
-  }
-  state.loading = false;
-  render();
-}
+async function loadData(){if(!S.session)return;var uid=S.session.user.id;if(S.role==="host"){var r=await Promise.all([sb.from("properties").select("*").eq("user_id",uid),sb.from("cleaning_bookings").select("*").eq("host_id",uid).order("date",{ascending:false}).limit(20),sb.from("notifications").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(20)]);S.properties=r[0].data||[];S.bookings=r[1].data||[];S.notifications=r[2].data||[];}else if(S.role==="cleaner"){var r=await Promise.all([sb.from("cleaner_availability").select("*").eq("cleaner_id",uid),sb.from("cleaning_bookings").select("*").eq("cleaner_id",uid).order("date",{ascending:false}).limit(20),sb.from("notifications").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(20)]);S.availability=r[0].data||[];S.bookings=r[1].data||[];S.notifications=r[2].data||[];}}
 
-async function loadProfile() {
-  var uid = state.session.user.id;
-  var { data: p } = await sb.from('profiles').select('*').eq('id', uid).single();
-  state.profile = p;
-  state.role = p ? p.role : 'host';
-}
+function render(){var root=document.getElementById("root");if(S.loading){root.innerHTML="<div class='loading'>Chargement...</div>";return;}if(!S.session){root.innerHTML=renderAuth();return;}root.innerHTML=renderApp();loadData();}
 
-async function doLogin() {
-  var email = document.getElementById('auth-email').value.trim();
-  var pass = document.getElementById('auth-pass').value;
-  if (!email || !pass) return;
-  document.getElementById('auth-err').style.display = 'none';
-  document.getElementById('auth-submit').disabled = true;
-  var { data, error } = await sb.auth.signInWithPassword({ email: email, password: pass });
-  if (error) {
-    document.getElementById('auth-err').textContent = error.message;
-    document.getElementById('auth-err').style.display = 'block';
-    document.getElementById('auth-submit').disabled = false;
-    return;
-  }
-  state.session = data.session;
-  await loadProfile();
-  state.view = state.role === 'cleaner' ? 'planning' : state.role === 'guest' ? 'home' : 'dashboard';
-  render();
-}
+function renderAuth(){var isL=authMode==="login";return "<div class='auth-wrap'><div class='auth-box'>"+
+"<div class='auth-logo'><svg width='160' height='30' viewBox='0 0 160 30' fill='none'><circle cx='15' cy='15' r='14' fill='#C8965A'/><path d='M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z' fill='#fff'/><text x='35' y='21' font-family='Plus Jakarta Sans,sans-serif' font-size='18' font-weight='800' fill='#fff'>MyHostKit</text><circle cx='148' cy='17' r='3.5' fill='#C8965A'/></svg></div>"+
+"<div class='auth-title'>"+(isL?"Connexion":"Creer un compte")+"</div>"+
+"<div class='auth-sub'>Version desktop</div>"+
+"<div id='aerr' class='auth-error'></div>"+
+(!isL?"<div style='font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px'>Choisir un role</div><div class='auth-role'><div class='auth-role-btn "+(S.role==="host"||!S.role?"on":"")+"' onclick='selectAuthRole(\"host\")'><span class='ri'>🏠</span><span class='rn'>Hote</span></div><div class='auth-role-btn "+(S.role==="cleaner"?"on":"")+"' onclick='selectAuthRole(\"cleaner\")'><span class='ri'>🧹</span><span class='rn'>Menagere</span></div><div class='auth-role-btn "+(S.role==="guest"?"on":"")+"' onclick='selectAuthRole(\"guest\")'><span class='ri'>🌍</span><span class='rn'>Voyageur</span></div></div>":"")+
+"<input class='auth-input' id='ae' type='email' placeholder='Email'>"+
+"<input class='auth-input' id='ap' type='password' placeholder='Mot de passe'>"+
+"<button class='auth-btn' id='abtn' onclick='"+(isL?"doLogin()":"doSignup()")+"'>"+(isL?"Se connecter":"Creer mon compte")+"</button>"+
+"<div class='auth-switch'>"+(isL?"Pas de compte ? <span onclick='toggleAuth()'>Creer un compte</span>":"Deja un compte ? <span onclick='toggleAuth()'>Se connecter</span>")+"</div></div></div>";}
 
-async function doSignup() {
-  var email = document.getElementById('auth-email').value.trim();
-  var pass = document.getElementById('auth-pass').value;
-  var role = state.role || 'host';
-  if (!email || !pass) return;
-  document.getElementById('auth-err').style.display = 'none';
-  document.getElementById('auth-submit').disabled = true;
-  var { data, error } = await sb.auth.signUp({ email: email, password: pass });
-  if (error) {
-    document.getElementById('auth-err').textContent = error.message;
-    document.getElementById('auth-err').style.display = 'block';
-    document.getElementById('auth-submit').disabled = false;
-    return;
-  }
-  if (data.session) {
-    await sb.from('profiles').upsert({ id: data.user.id, email: email, role: role, plan: 'trial', full_name: email.split('@')[0] });
-    state.session = data.session;
-    await loadProfile();
-    state.view = role === 'cleaner' ? 'planning' : 'dashboard';
-    render();
-  } else {
-    document.getElementById('auth-err').textContent = 'Verifiez votre email pour confirmer votre compte.';
-    document.getElementById('auth-err').style.display = 'block';
-    document.getElementById('auth-err').style.background = 'rgba(52,199,89,.1)';
-    document.getElementById('auth-err').style.color = '#34C759';
-    document.getElementById('auth-err').style.borderColor = 'rgba(52,199,89,.2)';
-    document.getElementById('auth-submit').disabled = false;
-  }
-}
+function renderApp(){var r=S.role,isCl=r==="cleaner",isG=r==="guest",v=S.view,ac=isCl?"on-blue":"on";
+var navs=[];
+if(isG){navs=[{s:"SEJOUR"},{id:"home",i:"🏠",l:"Accueil"},{id:"infos",i:"📋",l:"Infos logement"},{id:"concierge",i:"🤖",l:"Concierge IA"},{s:"COMPTE"},{id:"settings",i:"⚙️",l:"Parametres"},{id:"install",i:"📌",l:"Installer"}];}
+else if(isCl){navs=[{s:"PRINCIPAL"},{id:"planning",i:"📋",l:"Planning"},{id:"dispo",i:"📅",l:"Disponibilites"},{id:"rapport",i:"📸",l:"Rapport"},{id:"messages",i:"💬",l:"Messages"},{s:"GESTION"},{id:"team",i:"👥",l:"Equipe"},{id:"notifications",i:"🔔",l:"Notifications"},{id:"settings",i:"⚙️",l:"Profil"},{id:"install",i:"📌",l:"Installer"}];}
+else{navs=[{s:"PRINCIPAL"},{id:"dashboard",i:"📊",l:"Dashboard"},{id:"properties",i:"🏠",l:"Logements"},{id:"menage",i:"🧹",l:"Marketplace"},{id:"bookings",i:"📋",l:"Reservations"},{id:"messages",i:"💬",l:"Messages"},{s:"GESTION"},{id:"stock",i:"📦",l:"Stock"},{id:"notifications",i:"🔔",l:"Notifications"},{id:"settings",i:"⚙️",l:"Parametres"},{id:"install",i:"📌",l:"Installer"}];}
+var nh=navs.map(function(n){if(n.s)return "<div class='side-sec'>"+n.s+"</div>";return "<button class='sn "+(v===n.id?ac:"")+"' onclick='go(\""+n.id+"\")'><span class='sn-icon'>"+n.i+"</span>"+n.l+"</button>";}).join("");
+var email=S.session.user.email,name=S.profile?(S.profile.full_name||email.split("@")[0]):email.split("@")[0],plan=S.profile?(S.profile.plan||"free"):"free";
+var titles={dashboard:"📊 Dashboard",properties:"🏠 Logements",menage:"🧹 Marketplace",bookings:"📋 Reservations",messages:"💬 Messages",stock:"📦 Stock",notifications:"🔔 Notifications",settings:"⚙️ Parametres",planning:"📋 Planning",dispo:"📅 Disponibilites",rapport:"📸 Rapport",team:"👥 Equipe",home:"🏠 Accueil",infos:"📋 Infos",concierge:"🤖 Concierge IA",install:"📌 Installer"};
+return "<div class='app'><div class='side'>"+
+"<div class='side-hd'><div class='side-logo'>M</div><span class='side-name'>MyHostKit</span><span class='side-plan'>"+plan.toUpperCase()+"</span></div>"+
+"<div class='side-nav'>"+nh+"</div>"+
+"<div class='side-user'><div class='side-av'>"+name[0].toUpperCase()+"</div><div><div class='side-uname'>"+name+"</div><div class='side-uemail'>"+email+"</div></div><div class='side-logout' onclick='doLogout()' title='Deconnexion'>🚪</div></div>"+
+"</div><div class='main'>"+
+"<div class='topbar' id='tb'><h1>"+(titles[v]||v)+"</h1><div class='topbar-right'><input class='topbar-search' placeholder='Rechercher...'></div></div>"+
+"<div class='content' id='vc'>"+renderView()+"</div></div></div>";}
 
-async function doLogout() {
-  await sb.auth.signOut();
-  state.session = null; state.profile = null; state.role = null; state.view = 'dashboard';
-  render();
-}
+function go(v){S.view=v;var c=document.getElementById("vc");if(c)c.innerHTML=renderView();var tb=document.getElementById("tb");if(tb){var titles={dashboard:"📊 Dashboard",properties:"🏠 Logements",menage:"🧹 Marketplace",bookings:"📋 Reservations",messages:"💬 Messages",stock:"📦 Stock",notifications:"🔔 Notifications",settings:"⚙️ Parametres",planning:"📋 Planning",dispo:"📅 Disponibilites",rapport:"📸 Rapport",team:"👥 Equipe",home:"🏠 Accueil",infos:"📋 Infos",concierge:"🤖 Concierge IA",install:"📌 Installer"};tb.querySelector("h1").textContent=titles[v]||v;}document.querySelectorAll(".sn").forEach(function(el){el.classList.remove("on","on-blue");});var btn=document.querySelector(".sn[onclick='go(\""+v+"\")']");if(btn)btn.classList.add(S.role==="cleaner"?"on-blue":"on");}
 
-// ===== DATA LOADING =====
-async function loadData() {
-  if (!state.session) return;
-  var uid = state.session.user.id;
-  if (state.role === 'host') {
-    var [props, books, notifs] = await Promise.all([
-      sb.from('properties').select('*').eq('user_id', uid).order('created_at', { ascending: false }),
-      sb.from('cleaning_bookings').select('*,cleaners(name,city)').eq('host_id', uid).order('date', { ascending: false }).limit(20),
-      sb.from('notifications').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(20)
-    ]);
-    state.properties = props.data || [];
-    state.bookings = books.data || [];
-    state.notifications = notifs.data || [];
-  } else if (state.role === 'cleaner') {
-    var [avail, books, notifs] = await Promise.all([
-      sb.from('cleaner_availability').select('*').eq('cleaner_id', uid).order('date', { ascending: true }),
-      sb.from('cleaning_bookings').select('*,properties(name,city,address)').eq('cleaner_id', uid).order('date', { ascending: false }).limit(20),
-      sb.from('notifications').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(20)
-    ]);
-    state.availability = avail.data || [];
-    state.bookings = books.data || [];
-    state.notifications = notifs.data || [];
-  }
-}
+function renderView(){var fns={dashboard:viewDash,properties:viewProps,menage:viewMenage,bookings:viewBook,stock:viewStock,planning:viewPlan,dispo:viewDispo,rapport:viewRapport,team:viewTeam,home:viewHome,infos:viewInfos,concierge:viewConc,messages:viewMsg,notifications:viewNotif,settings:viewSettings,install:viewInstall};return fns[S.view]?fns[S.view]():"<div class='empty'>Vue non trouvee</div>";}
 
-// ===== RENDER =====
-function render() {
-  var root = document.getElementById('root');
-  if (state.loading) { root.innerHTML = '<div class="loading">Chargement...</div>'; return; }
-  if (!state.session) { root.innerHTML = renderAuth(); return; }
-  root.innerHTML = renderApp();
-  loadData();
-}
+function viewDash(){return renderInstallBanner()+"<div class='trial-bar'>🎁 Essai gratuit — Acces complet a toutes les fonctionnalites</div>"+
+"<div class='row'><div class='kpi'><div class='kpi-label'>Logements</div><div class='kpi-val'>"+S.properties.length+"</div></div>"+
+"<div class='kpi'><div class='kpi-label'>Reservations</div><div class='kpi-val'>"+S.bookings.length+"</div></div>"+
+"<div class='kpi'><div class='kpi-label'>Notifications</div><div class='kpi-val'>"+S.notifications.length+"</div></div>"+
+"<div class='kpi'><div class='kpi-label'>Note moyenne</div><div class='kpi-val'>--</div><div class='kpi-delta'>Objectif 4.9</div></div></div>"+
+"<div style='display:grid;grid-template-columns:1fr 1fr;gap:12px'><div class='crd'><h3>📋 Dernieres reservations</h3>"+renderBookTbl()+"</div>"+
+"<div class='crd'><h3>🔔 Notifications</h3>"+renderNotifList()+"</div></div>";}
 
-var authMode = 'login';
-function toggleAuth() { authMode = authMode === 'login' ? 'signup' : 'login'; render(); }
-function selectAuthRole(r) { state.role = r; render(); }
+function viewProps(){var h="<div style='display:flex;justify-content:space-between;margin-bottom:16px'><span style='font-size:13px;color:var(--sub)'>"+S.properties.length+" logement(s)</span><button class='btn-p'>+ Ajouter</button></div>";if(!S.properties.length)return h+"<div class='empty'>Aucun logement.</div>";S.properties.forEach(function(p){h+="<div class='crd'><h3>🏠 "+(p.name||"Sans nom")+"</h3><div style='font-size:12px;color:var(--sub);line-height:2'>📍 "+(p.address||"")+", "+(p.city||"")+"<br>🛏 "+(p.rooms||"?")+" ch · 📶 "+(p.wifi_name||"--")+"<br>🔑 "+(p.access_code||"--")+" · 🕐 In "+(p.checkin||p.check_in_time||"15:00")+" / Out "+(p.checkout||p.check_out_time||"11:00")+(p.ical_url?"<br><span style='color:var(--success)'>📅 iCal ✅</span>":"")+"</div></div>";});return h;}
 
-function renderAuth() {
-  var isLogin = authMode === 'login';
-  return '<div class="auth-wrap"><div class="auth-box">' +
-    '<div class="auth-logo"><svg width="160" height="30" viewBox="0 0 160 30" fill="none"><circle cx="15" cy="15" r="14" fill="#C8965A"/><path d="M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z" fill="#fff"/><path d="M15 10L8.5 14.5H21.5L15 10Z" fill="#fff" opacity=".7"/><text x="35" y="21" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="800" fill="#fff">MyHostKit</text><circle cx="148" cy="17" r="3.5" fill="#C8965A"/></svg></div>' +
-    '<div class="auth-title">' + (isLogin ? 'Connexion' : 'Creer un compte') + '</div>' +
-    '<div class="auth-sub">Version desktop — memes donnees que l\'app mobile</div>' +
-    '<div id="auth-err" class="auth-error"></div>' +
-    (!isLogin ? '<div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Choisir un role</div>' +
-    '<div class="auth-role">' +
-    '<div class="auth-role-btn ' + (state.role === 'host' || !state.role ? 'on' : '') + '" onclick="selectAuthRole(\'host\')"><span class="ri">🏠</span><span class="rn">Hote</span><span class="rd">Conciergerie</span></div>' +
-    '<div class="auth-role-btn ' + (state.role === 'cleaner' ? 'on' : '') + '" onclick="selectAuthRole(\'cleaner\')"><span class="ri">🧹</span><span class="rn">Menagere</span><span class="rd">Menage</span></div>' +
-    '<div class="auth-role-btn ' + (state.role === 'guest' ? 'on' : '') + '" onclick="selectAuthRole(\'guest\')"><span class="ri">🌍</span><span class="rn">Voyageur</span><span class="rd">Sejour</span></div>' +
-    '</div>' : '') +
-    '<input class="auth-input" id="auth-email" type="email" placeholder="Email">' +
-    '<input class="auth-input" id="auth-pass" type="password" placeholder="Mot de passe">' +
-    '<button class="auth-btn" id="auth-submit" onclick="' + (isLogin ? 'doLogin()' : 'doSignup()') + '">' + (isLogin ? 'Se connecter' : 'Creer mon compte') + '</button>' +
-    '<div class="auth-switch">' + (isLogin ? 'Pas de compte ? <span onclick="toggleAuth()">Creer un compte</span>' : 'Deja un compte ? <span onclick="toggleAuth()">Se connecter</span>') + '</div>' +
-    '</div></div>';
-}
+function viewMenage(){return "<div class='crd'><h3>🔍 Rechercher</h3><div class='form-row'><div><label class='form-label'>Ville</label><input class='form-input' id='sc' placeholder='Nice'></div><div><label class='form-label'>Date</label><input class='form-input' id='sd' type='date'></div><div style='display:flex;align-items:flex-end'><button class='btn-p' onclick='searchC()' style='width:100%'>🔍 Rechercher</button></div></div></div><div id='sr'></div>";}
+async function searchC(){var city=document.getElementById("sc").value.trim();if(!city){alert("Entrez une ville");return;}var r=await sb.from("cleaners").select("*").ilike("city","%"+city+"%");var el=document.getElementById("sr");if(!r.data||!r.data.length){el.innerHTML="<div class='empty'>Aucune menagere a "+city+"</div>";return;}var h="<div class='crd'><h3>"+r.data.length+" menagere(s)</h3><table class='tbl'><tr><th>Nom</th><th>Ville</th><th>Prix</th><th>Note</th><th>Badge</th><th></th></tr>";r.data.forEach(function(c){var badge=c.plan==="business"?"<span class='chip cp'>PRIO</span>":c.plan==="pro"?"<span class='chip cb'>BOOSTE</span>":"";h+="<tr><td><strong>"+(c.name||"?")+"</strong></td><td>"+(c.city||"")+"</td><td>"+(c.price_per_hour||"?")+" EUR/h</td><td>⭐ "+(c.rating||"--")+"</td><td>"+badge+"</td><td><button class='btn-p' style='padding:4px 10px;font-size:10px'>Reserver</button></td></tr>";});h+="</table></div>";el.innerHTML=h;}
 
-function renderApp() {
-  var r = state.role;
-  var isCleaner = r === 'cleaner';
-  var isGuest = r === 'guest';
-  var isHost = r === 'host' || r === 'admin';
-  var activeClass = isCleaner ? 'on-blue' : 'on';
-  var v = state.view;
+function viewBook(){return "<div class='crd'><h3>📋 Reservations</h3>"+renderBookTbl()+"</div>";}
+function viewStock(){return "<div class='crd'><h3>📦 Stock</h3><div class='empty'>Selectionnez un logement pour gerer le stock.</div></div>";}
+function viewPlan(){return renderInstallBanner()+"<div class='trial-bar'>🎁 Essai gratuit — Toutes fonctionnalites</div><div class='crd'><h3>📋 Mes reservations</h3>"+renderBookTbl()+"</div>";}
+function viewDispo(){var h="<div class='crd'><h3>📅 Ajouter</h3><div class='form-row'><div><label class='form-label'>Date</label><input class='form-input' type='date'></div><div><label class='form-label'>Debut</label><input class='form-input' value='09:00'></div><div><label class='form-label'>Fin</label><input class='form-input' value='12:00'></div><div><label class='form-label'>Ville</label><input class='form-input' placeholder='Nice'></div></div><button class='btn-p' style='background:var(--blueD)'>✅ Ajouter</button></div>";h+="<div class='crd'><h3>Mes disponibilites</h3>";if(!S.availability.length)h+="<div class='empty'>Aucune disponibilite</div>";S.availability.forEach(function(a){h+="<div class='prop'><div><div class='prop-name'>"+a.date+" · "+(a.start_time||"")+" - "+(a.end_time||"")+"</div><div class='prop-meta'>"+(a.city||"")+"</div></div><span class='chip cg'>"+(a.status||"Libre")+"</span></div>";});return h+"</div>";}
+function viewRapport(){return "<div class='crd'><h3>📸 Rapport</h3><div class='empty'>Les rapports photo sont disponibles dans l&#39;app mobile (camera requise).</div></div>";}
+function viewTeam(){return "<div class='crd'><h3>👥 Equipe</h3><div class='empty'>Gestion d&#39;equipe disponible dans l&#39;app mobile.</div></div>";}
+function viewHome(){return "<div class='crd'><h3>🏠 Bienvenue</h3><p style='font-size:13px;color:var(--sub);line-height:1.8'>Consultez les informations de votre logement et contactez la conciergerie IA.</p></div>";}
+function viewInfos(){return "<div class='crd'><h3>📋 Infos du logement</h3><div class='empty'>Les informations apparaitront quand un hote vous ajoutera.</div></div>";}
+function viewConc(){return "<div class='crd'><h3>🤖 Concierge IA <span class='chip cg'>En ligne</span></h3><div style='margin-top:12px'><div class='bubble ai'><strong>🤖 IA</strong><br>Bonjour ! Comment puis-je vous aider ?<div class='btime'>Automatique</div></div></div><div style='display:flex;gap:8px;margin-top:12px'><input class='form-input' placeholder='Posez votre question...'><button class='btn-p'>Envoyer</button></div></div>";}
+function viewMsg(){return "<div class='crd'><h3>💬 Messages</h3><div class='empty'>Les conversations apparaitront ici.</div></div>";}
+function viewNotif(){var h="<div class='crd'><h3>🔔 Notifications</h3>";if(!S.notifications.length)h+="<div class='empty'>Aucune notification</div>";S.notifications.forEach(function(n){h+="<div class='prop'><div><div class='prop-name'>"+(n.title||"Notification")+"</div><div class='prop-meta'>"+(n.body||"")+" · "+new Date(n.created_at).toLocaleDateString("fr-FR")+"</div></div></div>";});return h+"</div>";}
+function viewSettings(){var p=S.profile||{};return "<div style='display:grid;grid-template-columns:1fr 1fr;gap:12px'><div class='crd'><h3>👤 Profil</h3><div style='text-align:center;padding:16px'><div style='font-size:48px'>👤</div><div style='font-size:16px;font-weight:700'>"+(p.full_name||"--")+"</div><div style='font-size:12px;color:var(--muted)'>"+S.session.user.email+"</div><div style='margin-top:8px'><span class='chip cg'>"+(p.role||"host")+" · "+(p.plan||"free")+"</span></div></div></div>"+
+"<div class='crd'><h3>📋 Informations</h3><div style='font-size:12px;color:var(--sub);line-height:2.2'>🏠 Role : "+(p.role||"host")+"<br>💳 Plan : "+(p.plan||"free")+"<br>🎁 Code : "+(p.referral_code||"--")+"<br>📅 Inscrit : "+(p.created_at?new Date(p.created_at).toLocaleDateString("fr-FR"):"--")+"</div></div></div>"+
+"<div class='crd'><button class='btn-s' style='width:100%;color:var(--error);border-color:rgba(255,59,48,.2)' onclick='doLogout()'>🚪 Deconnexion</button></div>";}
 
-  // Sidebar nav items
-  var navItems = [];
-  if (isHost) {
-    navItems = [
-      { sec: 'PRINCIPAL' },
-      { id: 'dashboard', icon: '📊', label: 'Dashboard' },
-      { id: 'properties', icon: '🏠', label: 'Logements' },
-      { id: 'menage', icon: '🧹', label: 'Marketplace' },
-      { id: 'bookings', icon: '📋', label: 'Reservations' },
-      { id: 'messages', icon: '💬', label: 'Messages' },
-      { sec: 'GESTION' },
-      { id: 'stock', icon: '📦', label: 'Stock' },
-      { id: 'boutique', icon: '🛒', label: 'Boutique' },
-      { id: 'notifications', icon: '🔔', label: 'Notifications' },
-      { id: 'settings', icon: '⚙️', label: 'Parametres' },
-      { id: 'install', icon: '📌', label: 'Installer l\'app' },
-    ];
-  } else if (isCleaner) {
-    navItems = [
-      { sec: 'PRINCIPAL' },
-      { id: 'planning', icon: '📋', label: 'Planning' },
-      { id: 'dispo', icon: '📅', label: 'Disponibilites' },
-      { id: 'rapport', icon: '📸', label: 'Rapport' },
-      { id: 'messages', icon: '💬', label: 'Messages' },
-      { sec: 'GESTION' },
-      { id: 'team', icon: '👥', label: 'Equipe' },
-      { id: 'boutique', icon: '🛒', label: 'Boutique' },
-      { id: 'notifications', icon: '🔔', label: 'Notifications' },
-      { id: 'settings', icon: '⚙️', label: 'Profil' },
-      { id: 'install', icon: '📌', label: 'Installer l\'app' },
-    ];
-  } else {
-    navItems = [
-      { sec: 'SEJOUR' },
-      { id: 'home', icon: '🏠', label: 'Accueil' },
-      { id: 'infos', icon: '📋', label: 'Infos logement' },
-      { id: 'concierge', icon: '🤖', label: 'Concierge IA' },
-      { sec: 'COMPTE' },
-      { id: 'settings', icon: '⚙️', label: 'Parametres' },
-      { id: 'install', icon: '📌', label: 'Installer l\'app' },
-    ];
-  }
+function viewInstall(){
+var isChrome=navigator.userAgent.indexOf("Chrome")!==-1&&navigator.userAgent.indexOf("Edg")===-1;
+var isEdge=navigator.userAgent.indexOf("Edg")!==-1;
+var shortcut=navigator.userAgent.indexOf("Mac")!==-1?"Cmd+D":"Ctrl+D";
+var h="<div class='crd' style='border:1px solid rgba(200,150,90,.2)'><h3>📌 Installer MyHostKit sur votre ordinateur</h3>"+
+"<p style='font-size:13px;color:var(--sub);line-height:1.8;margin-bottom:20px'>Installez MyHostKit comme une application. Elle s&#39;ouvrira dans sa propre fenetre, comme un vrai logiciel.</p>";
 
-  var navHtml = navItems.map(function(n) {
-    if (n.sec) return '<div class="side-sec">' + n.sec + '</div>';
-    return '<button class="sn ' + (v === n.id ? activeClass : '') + '" onclick="go(\'' + n.id + '\')">' +
-      '<span class="sn-icon">' + n.icon + '</span>' + n.label +
-      (n.badge ? '<span class="sn-badge">' + n.badge + '</span>' : '') +
-      '</button>';
-  }).join('');
+if(isChrome){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid #4285F4'>"+
+"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>🌐</span><div><div style='font-size:15px;font-weight:700'>Installer via Google Chrome</div><div style='font-size:11px;color:var(--success)'>● Detecte</div></div></div>"+
+"<div class='step'><span class='step-n'>1</span><span>Cliquez sur les <strong style='color:var(--text)'>3 points ⋮</strong> en haut a droite de Chrome</span></div>"+
+"<div class='step'><span class='step-n'>2</span><span>Cliquez sur <strong style='color:var(--text)'>Caster, enregistrer et partager</strong></span></div>"+
+"<div class='step'><span class='step-n'>3</span><span>Cliquez sur <strong style='color:var(--text)'>Installer la page en tant qu&#39;application...</strong></span></div>"+
+"<div class='step'><span class='step-n'>4</span><span>Cliquez sur <strong style='color:var(--text)'>Installer</strong> dans la fenetre qui apparait</span></div>"+
+"<div class='step'><span class='step-n ok'>✓</span><span style='color:var(--success)'>MyHostKit s&#39;ouvre dans sa propre fenetre + icone sur le bureau et dans le menu Demarrer</span></div>"+
+"</div>";}
 
-  var email = state.session.user.email;
-  var name = state.profile ? (state.profile.full_name || email.split('@')[0]) : email.split('@')[0];
-  var plan = state.profile ? (state.profile.plan || 'free') : 'free';
+if(isEdge){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid #0078D4'>"+
+"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>🌐</span><div><div style='font-size:15px;font-weight:700'>Installer via Microsoft Edge</div><div style='font-size:11px;color:var(--success)'>● Detecte</div></div></div>"+
+"<div class='step'><span class='step-n'>1</span><span>Cliquez sur les <strong style='color:var(--text)'>3 points ···</strong> en haut a droite</span></div>"+
+"<div class='step'><span class='step-n'>2</span><span>Cliquez sur <strong style='color:var(--text)'>Applications</strong></span></div>"+
+"<div class='step'><span class='step-n'>3</span><span>Cliquez sur <strong style='color:var(--text)'>Installer ce site en tant qu&#39;application</strong></span></div>"+
+"<div class='step'><span class='step-n'>4</span><span>Cliquez sur <strong style='color:var(--text)'>Installer</strong></span></div>"+
+"<div class='step'><span class='step-n ok'>✓</span><span style='color:var(--success)'>MyHostKit s&#39;ouvre comme une app avec icone sur le bureau</span></div>"+
+"</div>";}
 
-  return '<div class="app">' +
-    '<div class="side">' +
-      '<div class="side-hd"><div class="side-logo">M</div><span class="side-name">MyHostKit</span><span class="side-plan">' + plan.toUpperCase() + '</span></div>' +
-      '<div class="side-nav">' + navHtml + '</div>' +
-      '<div class="side-user"><div class="side-av">' + name[0].toUpperCase() + '</div><div><div class="side-uname">' + name + '</div><div class="side-uemail">' + email + '</div></div><div class="side-logout" onclick="doLogout()" title="Deconnexion">🚪</div></div>' +
-    '</div>' +
-    '<div class="main">' +
-      renderTopbar() +
-      '<div class="content" id="view-content">' + renderView() + '</div>' +
-    '</div>' +
-  '</div>';
-}
+if(!isChrome&&!isEdge){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--accent)'>"+
+"<div style='font-size:15px;font-weight:700;margin-bottom:10px'>🌐 Navigateur non supporte</div>"+
+"<div style='font-size:13px;color:var(--sub)'>Ouvrez cette page dans <strong style='color:var(--text)'>Google Chrome</strong> ou <strong style='color:var(--text)'>Microsoft Edge</strong> pour installer MyHostKit comme application.</div></div>";}
 
-function go(view) { state.view = view; var c = document.getElementById('view-content'); if (c) { c.innerHTML = renderView(); } document.querySelector('.topbar').outerHTML = renderTopbar(); document.querySelectorAll('.sn').forEach(function(el) { el.classList.remove('on', 'on-blue'); }); var btn = document.querySelector('.sn[onclick="go(\'' + view + '\')"]'); if (btn) btn.classList.add(state.role === 'cleaner' ? 'on-blue' : 'on'); }
+h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--warn)'>"+
+"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>⭐</span><div style='font-size:15px;font-weight:700'>Alternative — Ajouter aux favoris</div></div>"+
+"<div class='step'><span class='step-n w'>1</span><span>Appuyez sur <strong style='color:var(--text)'>"+shortcut+"</strong></span></div>"+
+"<div class='step'><span class='step-n w'>2</span><span>Selectionnez <strong style='color:var(--text)'>Barre de favoris</strong></span></div>"+
+"<div class='step'><span class='step-n w'>3</span><span>Cliquez sur <strong style='color:var(--text)'>OK</strong></span></div>"+
+"</div>";
 
-function renderTopbar() {
-  var titles = { dashboard:'📊 Dashboard',properties:'🏠 Logements',menage:'🧹 Marketplace',bookings:'📋 Reservations',messages:'💬 Messages',stock:'📦 Stock',boutique:'🛒 Boutique',notifications:'🔔 Notifications',settings:'⚙️ Parametres',planning:'📋 Planning',dispo:'📅 Disponibilites',rapport:'📸 Rapport',team:'👥 Equipe',home:'🏠 Accueil',infos:'📋 Infos',concierge:'🤖 Concierge IA' };
-  return '<div class="topbar"><h1>' + (titles[state.view] || state.view) + '</h1><div class="topbar-right"><input class="topbar-search" placeholder="Rechercher..."></div></div>';
-}
+h+="<div style='text-align:center;margin-top:8px'><button class='btn-p' onclick='tryInstall()' style='padding:14px 40px;font-size:15px'>📌 Installer MyHostKit</button></div></div>";
+return h;}
 
-// ===== VIEWS =====
-function renderView() {
-  var v = state.view;
-  var fns = {
-    // HOST
-    dashboard: viewDashboard, properties: viewProperties, menage: viewMenage,
-    bookings: viewBookings, stock: viewStock, boutique: viewBoutique,
-    // CLEANER
-    planning: viewPlanning, dispo: viewDispo, rapport: viewRapport, team: viewTeam,
-    // GUEST
-    home: viewGuestHome, infos: viewGuestInfos, concierge: viewConcierge, install: viewInstall,
-    // SHARED
-    messages: viewMessages, notifications: viewNotifs, settings: viewSettings
-  };
-  return fns[v] ? fns[v]() : '<div class="empty">Vue non trouvee</div>';
-}
+function renderInstallBanner(){if(localStorage.getItem("mhk-dismiss"))return "";var shortcut=navigator.userAgent.indexOf("Mac")!==-1?"Cmd+D":"Ctrl+D";return "<div class='install-bar' id='ib'><button class='ib-close' onclick='dismissInstall()'>✕</button><span style='font-size:24px'>💻</span><div style='flex:1'><div style='font-size:13px;font-weight:700;color:var(--accent);margin-bottom:2px'>Accedez rapidement a MyHostKit</div><div style='font-size:11px;color:var(--sub)'>3 points ⋮ → Caster, enregistrer et partager → Installer la page en tant qu&#39;application. Ou "+shortcut+" pour les favoris.</div><div style='margin-top:8px;display:flex;gap:6px'><button class='btn-p' style='padding:5px 12px;font-size:10px' onclick='go(\"install\")'>Voir comment faire</button><button class='btn-s' style='padding:5px 12px;font-size:10px' onclick='dismissInstall()'>Plus tard</button></div></div></div>";}
 
-function viewDashboard() {
-  return renderInstallBanner() + '<div class="trial-bar">🎁 Essai gratuit — Acces complet a toutes les fonctionnalites</div>' +
-    '<div class="row"><div class="kpi"><div class="kpi-label">Revenus</div><div class="kpi-val">—</div><div class="kpi-delta">Chargement...</div></div>' +
-    '<div class="kpi"><div class="kpi-label">Logements</div><div class="kpi-val">' + state.properties.length + '</div></div>' +
-    '<div class="kpi"><div class="kpi-label">Reservations</div><div class="kpi-val">' + state.bookings.length + '</div></div>' +
-    '<div class="kpi"><div class="kpi-label">Note moyenne</div><div class="kpi-val">—</div><div class="kpi-delta">Objectif 4.9</div></div></div>' +
-    '<div class="row2"><div class="crd"><h3>📋 Dernieres reservations</h3>' + renderBookingsTable() + '</div>' +
-    '<div class="crd"><h3>🔔 Notifications recentes</h3>' + renderNotifsList() + '</div></div>';
-}
+var deferredPrompt=null;
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;});
+function tryInstall(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")dismissInstall();});}else{go("install");}}
+function dismissInstall(){localStorage.setItem("mhk-dismiss","1");var b=document.getElementById("ib");if(b)b.style.display="none";}
 
-function viewProperties() {
-  var html = '<div style="display:flex;justify-content:space-between;margin-bottom:16px"><span style="font-size:13px;color:var(--sub)">' + state.properties.length + ' logement(s)</span><button class="btn-p" onclick="alert(\'Fonctionnalite disponible dans l app mobile\')">+ Ajouter un logement</button></div>';
-  if (state.properties.length === 0) return html + '<div class="empty">Aucun logement. Ajoutez-en un pour commencer.</div>';
-  state.properties.forEach(function(p) {
-    html += '<div class="crd"><h3>🏠 ' + (p.name || 'Sans nom') + '</h3><div style="font-size:12px;color:var(--sub);line-height:2">' +
-      '📍 ' + (p.address || '') + ', ' + (p.city || '') + '<br>' +
-      '🛏 ' + (p.rooms || '?') + ' ch · ' + (p.capacity || '?') + ' pers<br>' +
-      '📶 WiFi : ' + (p.wifi_name || '—') + '<br>' +
-      '🔑 Code : ' + (p.access_code || '—') + '<br>' +
-      '🕐 In ' + (p.checkin || p.check_in_time || '15:00') + ' · Out ' + (p.checkout || p.check_out_time || '11:00') +
-      (p.ical_url ? '<br><span style="color:var(--success)">📅 iCal synchro ✅</span>' : '') +
-      '</div></div>';
-  });
-  return html;
-}
+function renderBookTbl(){if(!S.bookings.length)return "<div class='empty'>Aucune reservation</div>";var h="<table class='tbl'><tr><th>Date</th><th>Statut</th><th>Montant</th></tr>";S.bookings.forEach(function(b){var sc=b.status==="confirmed"?"cg":b.status==="pending"?"ca":"cb";h+="<tr><td>"+(b.date||"--")+"</td><td><span class='chip "+sc+"'>"+(b.status||"?")+"</span></td><td>"+(b.amount||"--")+" EUR</td></tr>";});return h+"</table>";}
+function renderNotifList(){if(!S.notifications.length)return "<div style='font-size:12px;color:var(--muted);padding:8px'>Aucune notification</div>";return S.notifications.slice(0,5).map(function(n){return "<div class='prop'><div><div class='prop-name'>"+(n.title||"--")+"</div><div class='prop-meta'>"+(n.body||"")+"</div></div></div>";}).join("");}
 
-function viewMenage() {
-  return '<div class="crd"><h3>🔍 Rechercher une menagere</h3>' +
-    '<div class="form-row"><div><label class="form-label">Ville</label><input class="form-input" id="search-city" placeholder="Ex: Nice"></div>' +
-    '<div><label class="form-label">Date</label><input class="form-input" id="search-date" type="date"></div>' +
-    '<div style="display:flex;align-items:flex-end"><button class="btn-p" onclick="searchCleaners()" style="width:100%">🔍 Rechercher</button></div></div></div>' +
-    '<div id="search-results"></div>';
-}
-
-async function searchCleaners() {
-  var city = document.getElementById('search-city').value.trim();
-  var date = document.getElementById('search-date').value;
-  if (!city) { alert('Entrez une ville'); return; }
-  var q = sb.from('cleaners').select('*').ilike('city', '%' + city + '%');
-  var { data } = await q;
-  var el = document.getElementById('search-results');
-  if (!data || data.length === 0) { el.innerHTML = '<div class="empty">Aucune menagere trouvee a ' + city + '</div>'; return; }
-  var html = '<div class="crd"><h3>' + data.length + ' menagere(s) a ' + city + '</h3><table class="tbl"><tr><th>Nom</th><th>Ville</th><th>Prix</th><th>Note</th><th>Badge</th><th></th></tr>';
-  data.forEach(function(c) {
-    var badge = c.plan === 'business' ? '<span class="chip cp">⭐ PRIO</span>' : c.plan === 'pro' ? '<span class="chip cb">BOOSTE</span>' : '';
-    html += '<tr><td><strong>' + (c.name || '?') + '</strong></td><td>' + (c.city || '') + '</td><td>' + (c.price_per_hour || '?') + ' EUR/h</td><td>⭐ ' + (c.rating || '—') + '</td><td>' + badge + '</td><td><button class="btn-p" style="padding:4px 10px;font-size:10px" onclick="alert(\'Reservation via l app mobile\')">Reserver</button></td></tr>';
-  });
-  html += '</table></div>';
-  el.innerHTML = html;
-}
-
-function viewBookings() { return '<div class="crd"><h3>📋 Toutes les reservations</h3>' + renderBookingsTable() + '</div>'; }
-function viewStock() { return '<div class="crd"><h3>📦 Gestion du stock</h3><div class="empty">Selectionnez un logement dans l onglet Logements pour gerer le stock.</div></div>'; }
-function viewBoutique() { return '<div class="crd"><h3>🛒 Boutique produits</h3><div class="empty">La boutique est disponible dans l app mobile.</div></div>'; }
-
-// CLEANER VIEWS
-function viewPlanning() {
-  return renderInstallBanner() + '<div class="trial-bar">🎁 Essai gratuit — Toutes fonctionnalites debloquees</div>' +
-    '<div class="crd"><h3>📋 Mes reservations</h3>' + renderBookingsTable() + '</div>';
-}
-function viewDispo() {
-  var html = '<div class="crd"><h3>📅 Ajouter une disponibilite</h3>' +
-    '<div class="form-row"><div><label class="form-label">Date</label><input class="form-input" type="date" id="av-date"></div>' +
-    '<div><label class="form-label">Debut</label><input class="form-input" id="av-start" value="09:00"></div>' +
-    '<div><label class="form-label">Fin</label><input class="form-input" id="av-end" value="12:00"></div>' +
-    '<div><label class="form-label">Ville</label><input class="form-input" id="av-city" placeholder="Nice"></div></div>' +
-    '<button class="btn-p btn-blue" onclick="alert(\'Disponibilite ajoutee\')">✅ Ajouter</button></div>';
-  html += '<div class="crd"><h3>Mes disponibilites</h3>';
-  if (state.availability.length === 0) html += '<div class="empty">Aucune disponibilite enregistree</div>';
-  state.availability.forEach(function(a) {
-    html += '<div class="prop"><div><div class="prop-name">' + a.date + ' · ' + (a.start_time || '') + '-' + (a.end_time || '') + '</div><div class="prop-meta">' + (a.city || '') + '</div></div><span class="chip cg">' + (a.status || 'Libre') + '</span></div>';
-  });
-  html += '</div>';
-  return html;
-}
-function viewRapport() { return '<div class="crd"><h3>📸 Envoyer un rapport</h3><div class="empty">Les rapports photo sont disponibles dans l app mobile (camera requise).</div></div>'; }
-function viewTeam() { return '<div class="crd"><h3>👥 Mon equipe</h3><div class="empty">Gestion d equipe disponible dans l app mobile.</div></div>'; }
-
-// GUEST VIEWS
-function viewGuestHome() { return '<div class="crd"><h3>🏠 Bienvenue</h3><p style="font-size:13px;color:var(--sub);line-height:1.8">Consultez les informations de votre logement et contactez la conciergerie IA.</p></div>'; }
-function viewGuestInfos() { return '<div class="crd"><h3>📋 Informations du logement</h3><div class="empty">Les informations apparaitront quand un hote vous ajoutera a un logement.</div></div>'; }
-function viewConcierge() {
-  return '<div class="crd"><h3>🤖 Concierge IA <span class="chip cg">En ligne</span></h3>' +
-    '<div style="margin-top:12px"><div class="bubble ai"><strong>🤖 IA</strong><br>Bonjour ! Comment puis-je vous aider ?<div class="btime">Automatique</div></div></div>' +
-    '<div class="msg-input" style="border:none;padding:12px 0"><input class="form-input" placeholder="Posez votre question..." id="ai-input"><button class="btn-p" onclick="alert(\'Concierge IA disponible dans l app mobile\')">Envoyer</button></div></div>';
-}
-
-
-function viewInstall() {
-  var os = getOS();
-  var shortcut = os === 'mac' ? 'Cmd+D' : 'Ctrl+D';
-  var isChrome = navigator.userAgent.indexOf('Chrome') !== -1;
-  var isEdge = navigator.userAgent.indexOf('Edg') !== -1;
-  var browser = isEdge ? 'Edge' : isChrome ? 'Chrome' : 'votre navigateur';
-  
-  return '<div class="crd"><h3>📌 Acceder rapidement a MyHostKit</h3>' +
-    '<p style="font-size:13px;color:var(--sub);line-height:1.8;margin-bottom:16px">Plusieurs methodes pour retrouver MyHostKit en un clic depuis votre bureau :</p>' +
-    
-    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--accent)">' +
-      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">⭐ Methode 1 — Ajouter aux favoris</div>' +
-      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
-        '1. Appuyez sur <strong style="color:var(--text)">' + shortcut + '</strong> sur votre clavier<br>' +
-        '2. Choisissez la barre de favoris comme emplacement<br>' +
-        '3. Cliquez sur <strong style="color:var(--text)">Enregistrer</strong><br>' +
-        '→ MyHostKit apparaitra dans votre barre de favoris en haut du navigateur' +
-      '</div>' +
-    '</div>' +
-    
-    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--blue)">' +
-      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">🖥️ Methode 2 — Installer comme application (' + browser + ')</div>' +
-      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
-        '1. Cliquez sur le menu <strong style="color:var(--text)">⋮</strong> (3 points) en haut a droite du navigateur<br>' +
-        '2. Cherchez <strong style="color:var(--text)">"Installer MyHostKit"</strong> ou <strong style="color:var(--text)">"Ajouter au bureau"</strong><br>' +
-        '3. Cliquez sur <strong style="color:var(--text)">Installer</strong><br>' +
-        '→ MyHostKit s\'ouvrira dans sa propre fenetre comme un logiciel classique, avec une icone sur votre bureau' +
-      '</div>' +
-    '</div>' +
-
-    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--success)">' +
-      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">📱 Methode 3 — Raccourci bureau (glisser-deposer)</div>' +
-      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
-        '1. Reduisez la fenetre du navigateur pour voir votre bureau<br>' +
-        '2. Cliquez sur l\'icone 🔒 (ou l\'icone du site) a gauche de la barre d\'adresse<br>' +
-        '3. Glissez-la directement sur votre bureau<br>' +
-        '→ Un raccourci MyHostKit apparait sur votre bureau' +
-      '</div>' +
-    '</div>' +
-    
-    '<div style="margin-top:16px;text-align:center"><button class="btn-p" onclick="tryInstall()" style="padding:12px 32px;font-size:14px">📌 Installer MyHostKit maintenant</button></div>' +
-  '</div>';
-}
-
-// SHARED VIEWS
-function viewMessages() { return '<div class="crd"><h3>💬 Messages</h3><div class="empty">Les conversations apparaitront ici quand vous aurez des reservations en cours.</div></div>'; }
-function viewNotifs() {
-  var html = '<div class="crd"><h3>🔔 Notifications</h3>';
-  if (state.notifications.length === 0) html += '<div class="empty">Aucune notification</div>';
-  state.notifications.forEach(function(n) {
-    html += '<div class="prop"><div><div class="prop-name">' + (n.title || 'Notification') + '</div><div class="prop-meta">' + (n.body || '') + ' · ' + new Date(n.created_at).toLocaleDateString('fr-FR') + '</div></div></div>';
-  });
-  html += '</div>';
-  return html;
-}
-
-function viewSettings() {
-  var p = state.profile || {};
-  return '<div class="row2"><div class="crd"><h3>👤 Profil</h3><div style="text-align:center;padding:16px"><div style="font-size:48px;margin-bottom:8px">👤</div>' +
-    '<div style="font-size:16px;font-weight:700">' + (p.full_name || '—') + '</div>' +
-    '<div style="font-size:12px;color:var(--muted)">' + (state.session.user.email) + '</div>' +
-    '<div style="margin-top:8px"><span class="chip cg">' + (p.role || 'host') + ' · ' + (p.plan || 'free') + '</span></div></div></div>' +
-    '<div class="crd"><h3>📋 Informations</h3><div style="font-size:12px;color:var(--sub);line-height:2.2">' +
-    '🏠 Role : ' + (p.role || 'host') + '<br>' +
-    '💳 Plan : ' + (p.plan || 'free') + '<br>' +
-    '🎁 Code parrainage : ' + (p.referral_code || '—') + '<br>' +
-    '📅 Inscrit le : ' + (p.created_at ? new Date(p.created_at).toLocaleDateString('fr-FR') : '—') +
-    '</div></div></div>' +
-    '<div class="crd"><button class="btn-s" style="width:100%;color:var(--error);border-color:rgba(255,59,48,.2)" onclick="doLogout()">🚪 Deconnexion</button></div>';
-}
-
-// HELPERS
-function renderBookingsTable() {
-  if (state.bookings.length === 0) return '<div class="empty">Aucune reservation</div>';
-  var html = '<table class="tbl"><tr><th>Logement</th><th>Date</th><th>Statut</th><th>Montant</th></tr>';
-  state.bookings.forEach(function(b) {
-    var statusClass = b.status === 'confirmed' ? 'cg' : b.status === 'pending' ? 'ca' : b.status === 'completed' ? 'cb' : 'cw';
-    html += '<tr><td>' + (b.properties ? b.properties.name : (b.property_name || '—')) + '</td><td>' + (b.date || '—') + '</td><td><span class="chip ' + statusClass + '">' + (b.status || '?') + '</span></td><td>' + (b.amount || '—') + ' EUR</td></tr>';
-  });
-  html += '</table>';
-  return html;
-}
-
-function renderNotifsList() {
-  if (state.notifications.length === 0) return '<div style="font-size:12px;color:var(--muted);padding:8px">Aucune notification</div>';
-  return state.notifications.slice(0, 5).map(function(n) {
-    return '<div class="prop"><div><div class="prop-name">' + (n.title || '—') + '</div><div class="prop-meta">' + (n.body || '') + '</div></div></div>';
-  }).join('');
-}
-
-
-function getOS() {
-  var ua = navigator.userAgent;
-  if (ua.indexOf('Mac') !== -1) return 'mac';
-  if (ua.indexOf('Win') !== -1) return 'windows';
-  return 'other';
-}
-
-function renderInstallBanner() {
-  if (localStorage.getItem('mhk-install-dismissed')) return '';
-  var os = getOS();
-  var shortcut = os === 'mac' ? 'Cmd+D' : 'Ctrl+D';
-  var browserName = navigator.userAgent.indexOf('Chrome') !== -1 ? 'Chrome' : navigator.userAgent.indexOf('Firefox') !== -1 ? 'Firefox' : navigator.userAgent.indexOf('Edge') !== -1 ? 'Edge' : 'votre navigateur';
-  
-  return '<div class="install-bar" id="install-banner">' +
-    '<button class="ib-close" onclick="dismissInstall()">✕</button>' +
-    '<div class="ib-icon">💻</div>' +
-    '<div style="flex:1">' +
-      '<h4>Accedez rapidement a MyHostKit depuis votre bureau</h4>' +
-      '<p><strong>Option 1 — Favoris :</strong> Appuyez sur <strong>' + shortcut + '</strong> pour ajouter cette page a vos favoris. Vous retrouverez MyHostKit en un clic dans votre barre de favoris.</p>' +
-      '<p style="margin-top:4px"><strong>Option 2 — Installer comme app :</strong> Dans ' + browserName + ', cliquez sur le menu <strong>⋮</strong> (3 points) en haut a droite → <strong>Installer MyHostKit</strong> ou <strong>Ajouter au bureau</strong>. L\'app s\'ouvrira dans sa propre fenetre, comme un logiciel.</p>' +
-      '<div class="install-bar ib-btns" style="border:none;padding:0;margin:0;background:none">' +
-        '<button class="ib-btn ib-btn-p" onclick="tryInstall()">📌 Installer l\'app</button>' +
-        '<button class="ib-btn ib-btn-s" onclick="dismissInstall()">Plus tard</button>' +
-      '</div>' +
-    '</div>' +
-  '</div>';
-}
-
-var deferredPrompt = null;
-window.addEventListener("beforeinstallprompt", function(e) { e.preventDefault(); deferredPrompt = e; });
-
-function tryInstall() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(r) { if (r.outcome === "accepted") dismissInstall(); });
-  } else {
-    var os = getOS();
-    var shortcut = os === "mac" ? "Cmd+D" : "Ctrl+D";
-    alert("Pour installer :\n\n1. Favoris : " + shortcut + "\n\n2. Chrome/Edge : Menu ⋮ → Installer MyHostKit\n\n3. Ou glissez l\'icone de l\'onglet sur votre bureau");
-  }
-}
-
-function dismissInstall() {
-  localStorage.setItem("mhk-install-dismissed", "1");
-  var b = document.getElementById("install-banner");
-  if (b) b.style.display = "none";
-}
-
-// INIT
 init();
 </script>
 </body>
