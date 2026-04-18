@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1419;color:#e8e6e3;display:flex;height:100vh;overflow:hidden}
+.side{width:220px;background:#0a0e13;border-right:1px solid #1e2328;display:flex;flex-direction:column;flex-shrink:0}
+.side-hd{padding:14px;border-bottom:1px solid #1e2328;display:flex;align-items:center;gap:8px}
+.side-logo{width:28px;height:28px;background:linear-gradient(135deg,#C8965A,#A87A48);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.side-name{font-size:14px;font-weight:700;color:#fff}
+.side-tag{font-size:8px;background:rgba(200,150,90,.15);color:#C8965A;padding:2px 7px;border-radius:20px;font-weight:700;margin-left:auto}
+.side-nav{padding:6px;flex:1;overflow-y:auto}
+.side-sec{font-size:8px;color:#333;padding:8px 10px 3px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.sn{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;font-size:12px;color:#666;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .15s;margin-bottom:1px}
+.sn:hover{background:rgba(255,255,255,.05);color:#aaa}
+.sn.on{background:rgba(200,150,90,.12);color:#C8965A;font-weight:600}
+.sn-icon{font-size:14px;width:20px;text-align:center;flex-shrink:0}
+.sn-badge{margin-left:auto;font-size:8px;background:rgba(255,59,48,.15);color:#FF3B30;padding:1px 6px;border-radius:10px;font-weight:700}
+.side-user{padding:10px 14px;border-top:1px solid #1e2328;display:flex;align-items:center;gap:8px}
+.side-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#C8965A,#A87A48);display:flex;align-items:center;justify-content:center;font-size:12px}
+.side-uname{font-size:11px;font-weight:600;color:#ccc}
+.side-uemail{font-size:9px;color:#555}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:44px;background:#0c1117;border-bottom:1px solid #1e2328;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0}
+.topbar h2{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-btn{padding:5px 10px;background:rgba(200,150,90,.1);border:1px solid rgba(200,150,90,.2);border-radius:5px;color:#C8965A;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit}
+.topbar-search{padding:5px 10px 5px 28px;background:#151a20;border:1px solid #1e2328;border-radius:6px;color:#aaa;font-size:11px;width:160px;outline:none;font-family:inherit;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:8px center}
+.content{flex:1;overflow-y:auto;padding:14px 16px}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.kpi{background:#151a20;border:1px solid #1e2328;border-radius:10px;padding:12px}
+.kpi-l{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.kpi-v{font-size:20px;font-weight:800;color:#fff}
+.kpi-d{font-size:9px;color:#34C759;margin-top:3px}
+.crd{background:#151a20;border:1px solid #1e2328;border-radius:10px;padding:12px;margin-bottom:10px}
+.crd h3{font-size:12px;font-weight:700;margin-bottom:8px;color:#fff;display:flex;align-items:center;gap:6px}
+.crd-sub{font-size:9px;color:#555;font-weight:400}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:6px 8px;border-bottom:1px solid #1e2328}
+.tbl td{font-size:11px;color:#aaa;padding:8px;border-bottom:1px solid rgba(30,35,40,.5)}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+.chip{font-size:8px;padding:2px 7px;border-radius:20px;font-weight:700;display:inline-block}
+.cg{background:rgba(52,199,89,.12);color:#34C759}
+.ca{background:rgba(200,150,90,.12);color:#C8965A}
+.cr{background:rgba(255,59,48,.12);color:#FF3B30}
+.cb{background:rgba(28,95,138,.12);color:#1C8FCA}
+.cp{background:rgba(155,89,182,.12);color:#9B59B6}
+.msg{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}
+.mav{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.bub{background:#1e2328;border-radius:8px;padding:6px 10px;font-size:11px;color:#aaa;line-height:1.5;max-width:70%}
+.bub.ai{background:rgba(200,150,90,.12);border:1px solid rgba(200,150,90,.15);color:#e8d5b8}
+.bt{font-size:8px;color:#444;margin-top:2px}
+.bar{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.bar-l{width:70px;font-size:10px;color:#555;text-align:right;flex-shrink:0}
+.bar-t{flex:1;height:7px;background:#1e2328;border-radius:3px;overflow:hidden}
+.bar-f{height:100%;border-radius:3px}
+.bar-v{width:45px;font-size:10px;color:#888}
+.prop{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#1a1f25;border-radius:7px;margin-bottom:4px}
+.prop:hover{background:#1e2530}
+.prop-name{font-size:11px;font-weight:600;color:#fff}
+.prop-meta{font-size:9px;color:#555;margin-top:1px}
+.btn-a{padding:6px 14px;background:#C8965A;color:#141414;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-a:hover{background:#d4a060}
+.btn-g{padding:6px 14px;background:transparent;border:1px solid #2a2a2e;color:#888;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit}
+.btn-g:hover{border-color:#555;color:#ccc}
+.trial-bar{background:rgba(200,150,90,.08);border:1px solid rgba(200,150,90,.15);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:11px;color:#C8965A}
+.role-tabs{display:flex;gap:3px;margin-bottom:12px}
+.role-tab{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #1e2328;background:transparent;color:#666;font-family:inherit}
+.role-tab.on{background:rgba(200,150,90,.12);border-color:rgba(200,150,90,.25);color:#C8965A}
+</style></head><body>
+<div class="side">
+<div class="side-hd"><div class="side-logo">🏠</div><span class="side-name">MyHostKit</span><span class="side-tag">Pro</span></div>
+<div class="side-nav">
+<div class="side-sec">PRINCIPAL</div>
+<button class="sn on" onclick="pcGo('dash',this)"><span class="sn-icon">📊</span>Dashboard</button>
+<button class="sn" onclick="pcGo('props',this)"><span class="sn-icon">🏠</span>Logements</button>
+<button class="sn" onclick="pcGo('menage',this)"><span class="sn-icon">🧹</span>Marketplace</button>
+<button class="sn" onclick="pcGo('book',this)"><span class="sn-icon">📋</span>Reservations<span class="sn-badge">3</span></button>
+<button class="sn" onclick="pcGo('msgs',this)"><span class="sn-icon">💬</span>Messages<span class="sn-badge">2</span></button>
+<div class="side-sec">GESTION</div>
+<button class="sn" onclick="pcGo('stock',this)"><span class="sn-icon">📦</span>Stock</button>
+<button class="sn" onclick="pcGo('shop',this)"><span class="sn-icon">🛒</span>Boutique</button>
+<button class="sn" onclick="pcGo('team',this)"><span class="sn-icon">👥</span>Equipe</button>
+<button class="sn" onclick="pcGo('notifs',this)"><span class="sn-icon">🔔</span>Notifications</button>
+<button class="sn" onclick="pcGo('settings',this)"><span class="sn-icon">⚙️</span>Parametres</button>
+</div>
+<div class="side-user"><div class="side-av">👤</div><div><div class="side-uname">Demo User</div><div class="side-uemail">demo@myhostkit.com</div></div></div>
+</div>
+<div class="main">
+<div class="topbar"><h2 id="pc-title">📊 Dashboard</h2><div class="topbar-right"><input class="topbar-search" placeholder="Rechercher..."><button class="topbar-btn">🔔 3</button></div></div>
+<div class="content" id="pc-body"></div>
+</div>
+<script>
+function pcGo(v,el){var sn=document.querySelectorAll('.sn');for(var i=0;i<sn.length;i++)sn[i].classList.remove('on');if(el)el.classList.add('on');var b=document.getElementById('pc-body');var t=document.getElementById('pc-title');var V={
+dash:function(){t.innerHTML='📊 Dashboard';return '<div class="trial-bar">🎁 Essai gratuit — 28 jours restants</div><div class="row"><div class="kpi"><div class="kpi-l">Revenus</div><div class="kpi-v">2 840 EUR</div><div class="kpi-d">+22%</div></div><div class="kpi"><div class="kpi-l">Occupation</div><div class="kpi-v">87%</div><div class="kpi-d">+8 pts</div></div><div class="kpi"><div class="kpi-l">Messages IA</div><div class="kpi-v">47</div><div class="kpi-d">0 escalade</div></div><div class="kpi"><div class="kpi-l">Note</div><div class="kpi-v">4.9 ★</div><div class="kpi-d">+0.2</div></div></div><div class="row2"><div class="crd"><h3>💬 Messages <span class="crd-sub">IA Active</span></h3><div class="msg"><div class="mav" style="background:rgba(100,100,200,.15);color:#8888ff">G</div><div><div class="bub">A quelle heure le check-in ?</div><div class="bt">2 min</div></div></div><div class="msg"><div class="mav" style="background:rgba(200,150,90,.15);color:#C8965A">IA</div><div><div class="bub ai">Des 15h ! Code 4821. Parking gratuit 🏠</div><div class="bt">1.1s · Auto</div></div></div></div><div class="crd"><h3>💰 Revenus</h3><div class="bar"><span class="bar-l">Villa ST</span><div class="bar-t"><div class="bar-f" style="width:100%;background:#C8965A"></div></div><span class="bar-v">1 200 EUR</span></div><div class="bar"><span class="bar-l">Appart Nice</span><div class="bar-t"><div class="bar-f" style="width:65%;background:#1C8FCA"></div></div><span class="bar-v">780 EUR</span></div><div class="bar"><span class="bar-l">Studio</span><div class="bar-t"><div class="bar-f" style="width:35%;background:#9B59B6"></div></div><span class="bar-v">420 EUR</span></div></div></div><div class="crd"><h3>✅ Rapports</h3><table class="tbl"><tr><th>Logement</th><th>Menagere</th><th>Date</th><th>Photos</th><th>Statut</th><th></th></tr><tr><td><strong>Villa ST</strong></td><td>Marie D.</td><td>18/04</td><td>6 📸</td><td><span class="chip ca">A valider</span></td><td><button class="btn-a" style="padding:3px 8px;font-size:10px">Valider ✅</button></td></tr><tr><td><strong>Appart Nice</strong></td><td>Sophie L.</td><td>17/04</td><td>4 📸</td><td><span class="chip cg">Valide</span></td><td><span style="font-size:10px;color:#555">Paye</span></td></tr></table></div>';},
+props:function(){t.innerHTML='🏠 Logements';return '<div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="font-size:12px;color:#888">2 logements</span><button class="btn-a">+ Ajouter</button></div><div class="crd"><h3>🏠 Villa Saint Tropez</h3><div style="font-size:11px;color:#666;line-height:1.8">📍 123 rue de la Plage · 🛏 3ch · 📶 MaisonST<br>🔑 4821 · 🕐 In 15h / Out 11h · <span style="color:#34C759">📅 iCal ✅</span></div></div><div class="crd"><h3>🏠 Appart Nice</h3><div style="font-size:11px;color:#666;line-height:1.8">📍 45 prom. Anglais · 🛏 2ch · 📶 AppartNice<br>🔑 9753 · <span style="color:#FF9500">📅 iCal ❌</span></div></div>';},
+menage:function(){t.innerHTML='🧹 Marketplace';return '<div style="display:flex;gap:8px;margin-bottom:12px;align-items:end"><div><div style="font-size:9px;color:#555;margin-bottom:3px">VILLE</div><input class="topbar-search" style="width:160px;padding-left:10px" value="Nice"></div><div><div style="font-size:9px;color:#555;margin-bottom:3px">DATE</div><input class="topbar-search" style="width:140px;padding-left:10px" type="date" value="2026-04-20"></div><button class="btn-a">🔍 Rechercher</button></div><div class="crd"><h3>3 menageres disponibles</h3><table class="tbl"><tr><th>Nom</th><th>Ville</th><th>Prix</th><th>Note</th><th>Badge</th><th></th></tr><tr style="border-left:3px solid #9B59B6"><td><strong>Marie Propre</strong></td><td>Nice</td><td>18 EUR/h</td><td>⭐ 4.9</td><td><span class="chip cp">⭐ PRIO</span> <span class="chip cb">✓</span></td><td><button class="btn-a" style="padding:3px 8px;font-size:10px">Reserver</button></td></tr><tr style="border-left:3px solid #1C8FCA"><td><strong>Clean Express</strong></td><td>Nice</td><td>15 EUR/h</td><td>⭐ 4.7</td><td><span class="chip cb">BOOSTE</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:10px">Reserver</button></td></tr><tr><td>Sophie Menage</td><td>Nice</td><td>14 EUR/h</td><td>⭐ 4.5</td><td></td><td><button class="btn-g" style="padding:3px 8px;font-size:10px">Reserver</button></td></tr></table></div>';},
+book:function(){t.innerHTML='📋 Reservations';return '<div class="role-tabs"><button class="role-tab on">Toutes (3)</button><button class="role-tab">Attente (1)</button><button class="role-tab">Confirmees (1)</button><button class="role-tab">Rapport (1)</button></div><div class="crd"><table class="tbl"><tr><th>Logement</th><th>Menagere</th><th>Date</th><th>Montant</th><th>Statut</th><th></th></tr><tr><td>Villa ST</td><td>Marie D.</td><td>18/04</td><td>36 EUR</td><td><span class="chip ca">Rapport</span></td><td><button class="btn-a" style="padding:3px 8px;font-size:10px">Valider</button></td></tr><tr><td>Appart Nice</td><td>Sophie L.</td><td>20/04</td><td>30 EUR</td><td><span class="chip cg">Confirme</span></td><td>—</td></tr><tr><td>Villa ST</td><td>Marie D.</td><td>22/04</td><td>36 EUR</td><td><span class="chip cb">Attente</span></td><td>—</td></tr></table></div>';},
+msgs:function(){t.innerHTML='💬 Messages';return '<div style="display:grid;grid-template-columns:240px 1fr;gap:0;height:calc(100vh - 100px)"><div style="border-right:1px solid #1e2328;overflow-y:auto"><div class="prop" style="background:rgba(200,150,90,.08);border-left:3px solid #C8965A"><div><div class="prop-name">Marie D.</div><div class="prop-meta">Rapport · 2h</div></div><span class="chip ca">2</span></div><div class="prop"><div><div class="prop-name">Sophie L.</div><div class="prop-meta">OK demain · 5h</div></div></div><div class="prop"><div><div class="prop-name">🤖 IA</div><div class="prop-meta">47 msg geres</div></div><span class="chip cg">Auto</span></div></div><div style="padding:14px;display:flex;flex-direction:column"><div style="flex:1;overflow-y:auto"><div class="msg"><div class="mav" style="background:rgba(200,150,90,.15);color:#C8965A">MD</div><div><div class="bub">Menage OK ! 6 photos 📸</div><div class="bt">14h32</div></div></div><div class="msg" style="justify-content:flex-end"><div><div class="bub ai" style="margin-left:auto">Merci, je valide.</div><div class="bt" style="text-align:right">14h45</div></div></div><div class="msg"><div class="mav" style="background:rgba(200,150,90,.15);color:#C8965A">MD</div><div><div class="bub">Stock PQ bas.</div><div class="bt">14h48</div></div></div></div><div style="display:flex;gap:6px;padding-top:10px;border-top:1px solid #1e2328"><input class="topbar-search" style="flex:1;padding-left:10px" placeholder="Ecrire..."><button class="btn-a">Envoyer</button></div></div></div>';},
+stock:function(){t.innerHTML='📦 Stock';return '<div class="crd"><h3>🏠 Villa ST</h3><table class="tbl"><tr><th>Produit</th><th>Stock</th><th>Statut</th></tr><tr><td>🧴 Multi-surface</td><td>2</td><td><span class="chip cg">OK</span></td></tr><tr><td>🧻 PQ x6</td><td>1</td><td><span class="chip cr">⚠ Bas</span></td></tr><tr><td>☕ Capsules</td><td>0</td><td><span class="chip cr">Vide</span></td></tr><tr><td>🧼 Savon</td><td>3</td><td><span class="chip cg">OK</span></td></tr></table><button class="btn-a" style="margin-top:10px">📦 Commander</button></div>';},
+shop:function(){t.innerHTML='🛒 Boutique (15%)';return '<div class="role-tabs"><button class="role-tab on">Tout</button><button class="role-tab">Nettoyage</button><button class="role-tab">Conso</button><button class="role-tab">Hygiene</button><button class="role-tab">Linge</button><button class="role-tab">Accueil</button></div><div class="crd"><table class="tbl"><tr><th></th><th>Produit</th><th>Prix</th><th>Cat.</th><th></th></tr><tr><td>🧴</td><td>Multi-surface</td><td>4.50 EUR</td><td><span class="chip cb">Nettoyage</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:9px">+ Panier</button></td></tr><tr><td>🧻</td><td>PQ x6</td><td>4.00 EUR</td><td><span class="chip ca">Conso</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:9px">+ Panier</button></td></tr><tr><td>☕</td><td>Capsules x10</td><td>5.00 EUR</td><td><span class="chip cg">Accueil</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:9px">+ Panier</button></td></tr><tr><td>🛏</td><td>Draps 2pl</td><td>20.00 EUR</td><td><span class="chip cp">Linge</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:9px">+ Panier</button></td></tr><tr><td>🎁</td><td>Kit bienvenue</td><td>9.00 EUR</td><td><span class="chip cg">Accueil</span></td><td><button class="btn-g" style="padding:3px 8px;font-size:9px">+ Panier</button></td></tr></table></div><div class="crd"><h3>✏️ Commande perso</h3><div style="display:flex;gap:6px"><input class="topbar-search" style="flex:2;padding-left:10px" placeholder="Produit"><input class="topbar-search" style="flex:1;padding-left:10px" placeholder="Prix"><input class="topbar-search" style="width:50px;padding-left:10px" placeholder="Qty" value="1"><button class="btn-a">+</button></div></div>';},
+team:function(){t.innerHTML='👥 Equipe';return '<div style="display:flex;justify-content:space-between;margin-bottom:12px"><div class="role-tabs"><button class="role-tab on">Membres</button><button class="role-tab">Groupes</button><button class="role-tab">Prive</button><button class="role-tab">Missions</button></div><button class="btn-a">+ Ajouter</button></div><div class="crd"><table class="tbl"><tr><th>Nom</th><th>Email</th><th>Statut</th><th>Chat</th></tr><tr><td><strong>Sophie L.</strong></td><td>sophie@mail.fr</td><td><span class="chip cg">✓ Inscrit</span></td><td>💬</td></tr><tr><td><strong>Julie M.</strong></td><td>julie@clean.fr</td><td><span class="chip ca">⚠ Pas inscrit</span></td><td style="opacity:.3">💬</td></tr></table></div>';},
+notifs:function(){t.innerHTML='🔔 Notifications';return '<div class="crd"><div class="prop"><div><div class="prop-name">📸 Rapport recu</div><div class="prop-meta">Villa ST · Marie D. · 2h</div></div><span class="chip ca">New</span></div><div class="prop"><div><div class="prop-name">💬 Message voyageur</div><div class="prop-meta">Check-in ? · 5h</div></div><span class="chip cg">IA</span></div><div class="prop"><div><div class="prop-name">💰 Paiement 45 EUR</div><div class="prop-meta">hier</div></div></div><div class="prop"><div><div class="prop-name">⭐ Avis 5★</div><div class="prop-meta">Impeccable ! · 2j</div></div></div></div>';},
+settings:function(){t.innerHTML='⚙️ Parametres';return '<div class="row2"><div class="crd"><h3>👤 Profil</h3><div style="text-align:center;padding:12px"><div style="font-size:40px">👤</div><div style="font-size:14px;font-weight:700;color:#fff;margin-top:6px">Demo User</div><div style="font-size:11px;color:#666">demo@myhostkit.com</div><div style="margin-top:6px"><span class="chip cg">Pro · 89 EUR</span></div></div></div><div class="crd"><h3>📋 Infos</h3><div style="font-size:11px;color:#888;line-height:2">🏠 Role : Hote<br>💳 Plan : Pro · 89 EUR/mois<br>🎁 Code : MHK-DEMO01<br>📋 CGU : v2.0 ✅<br>🔔 Notifs : On</div></div></div>';}
+};var fn=V[v];if(fn)b.innerHTML=fn();}
+pcGo('dash',document.querySelector('.sn.on'));
+</script></body></html>
