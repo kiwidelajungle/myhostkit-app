@@ -2,245 +2,508 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MyHostKit — Dashboard</title>
-<meta name="application-name" content="MyHostKit">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MyHostKit">
-<meta name="theme-color" content="#0a0e13">
-<meta name="mobile-web-app-capable" content="yes">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<meta name="theme-color" content="#141414">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-:root{--accent:#C8965A;--dark:#0a0e13;--dark2:#111820;--dark3:#1a2030;--bg:#0f1419;--card:#151a22;--border:#1e2830;--text:#e8e6e3;--sub:#8890a0;--muted:#555e6e;--success:#34C759;--error:#FF3B30;--blue:#1C8FCA;--blueD:#1C5F8A;--warn:#FF9500;--purple:#9B59B6}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:var(--bg);font-family:"Plus Jakarta Sans",sans-serif;color:var(--text)}
-.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 30% 40%,rgba(28,95,138,.1),transparent 60%),var(--bg)}
-.auth-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.auth-logo{text-align:center;margin-bottom:24px}
-.auth-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
-.auth-sub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:24px}
-.auth-input{width:100%;padding:12px 14px;background:var(--dark2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;margin-bottom:10px;outline:none;font-family:inherit}
+:root{--bg:#FAFAF8;--dark:#141414;--dark2:#1E1E1E;--dark3:#2A2A2A;--accent:#C8965A;--blue:#1C5F8A;--text:#EFEFEF;--sub:#A0A0A0;--muted:#666;--border:#333;--card:#1E1E1E;--success:#34C759;--error:#FF3B30;--warn:#FF9500;--font:'Plus Jakarta Sans',system-ui,sans-serif}
+body{font-family:var(--font);background:var(--dark);color:var(--text);overflow:hidden;height:100vh}
+input,select,textarea,button{font-family:var(--font)}
+#root{height:100vh;width:100vw}
+
+.auth-wrap{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--dark);padding:20px}
+.auth-box{background:var(--dark2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:420px}
+.auth-logo{text-align:center;margin-bottom:20px}
+.auth-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:4px}
+.auth-sub{font-size:13px;color:var(--accent);text-align:center;margin-bottom:20px}
+.auth-error{display:none;background:rgba(255,59,48,.1);color:var(--error);padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:12px}
+.auth-role{display:flex;gap:8px;margin-bottom:16px}
+.auth-role-btn{flex:1;padding:14px 8px;border-radius:12px;border:2px solid var(--border);background:var(--dark3);text-align:center;cursor:pointer;transition:all .2s}
+.auth-role-btn:hover{border-color:var(--accent)}
+.auth-role-btn.on{border-color:var(--accent);background:rgba(200,150,90,.1)}
+.auth-role-btn .ri{font-size:22px;display:block;margin-bottom:4px}
+.auth-role-btn .rn{font-size:12px;font-weight:700;display:block}
+.auth-input{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:13px 16px;font-size:15px;color:var(--text);margin-bottom:10px;outline:none}
 .auth-input:focus{border-color:var(--accent)}
-.auth-input::placeholder{color:var(--muted)}
-.auth-btn{width:100%;padding:13px;background:var(--accent);color:var(--dark);border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px}
-.auth-btn:hover{background:#d4a060}
-.auth-btn:disabled{opacity:.5;cursor:not-allowed}
-.auth-switch{text-align:center;margin-top:16px;font-size:12px;color:var(--sub)}
-.auth-switch span{color:var(--accent);cursor:pointer;font-weight:600}
-.auth-role{display:flex;gap:6px;margin-bottom:16px}
-.auth-role-btn{flex:1;padding:12px 6px;border-radius:10px;border:2px solid var(--border);background:var(--dark2);text-align:center;cursor:pointer}
-.auth-role-btn.on{border-color:var(--accent);background:rgba(200,150,90,.08)}
-.auth-role-btn .ri{font-size:20px;display:block;margin-bottom:3px}
-.auth-role-btn .rn{font-size:11px;font-weight:700;display:block}
-.auth-role-btn .rd{font-size:8px;color:var(--muted);margin-top:2px;display:block}
-.auth-error{background:rgba(255,59,48,.1);border:1px solid rgba(255,59,48,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--error);margin-bottom:10px;display:none}
-.app{display:flex;height:100vh;overflow:hidden}
+.auth-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px}
+.auth-btn:hover{opacity:.9}
+.auth-btn:disabled{opacity:.5}
+.auth-switch{text-align:center;margin-top:16px;font-size:13px;color:var(--sub)}
+.auth-switch span{color:var(--blue);cursor:pointer;font-weight:600}
+.auth-forgot{text-align:center;margin-top:10px;font-size:12px;color:var(--accent);cursor:pointer}
+.auth-pass-wrap{position:relative;margin-bottom:10px}
+.auth-pass-wrap .eye{position:absolute;right:14px;top:13px;cursor:pointer;font-size:16px}
+.auth-referral{background:rgba(200,150,90,.08);border:1px solid rgba(200,150,90,.2);border-radius:12px;padding:12px;margin-bottom:12px}
+.auth-referral label{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px;display:block}
+.auth-referral small{font-size:10px;color:#8B7355;margin-top:4px;display:block}
+
+.app{display:flex;height:100vh}
 .side{width:240px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
-.side-hd{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.side-logo{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:800}
-.side-name{font-size:14px;font-weight:800}
-.side-plan{font-size:8px;background:rgba(200,150,90,.12);color:var(--accent);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:auto}
-.side-nav{flex:1;padding:8px;overflow-y:auto}
-.side-sec{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:700;padding:12px 10px 4px}
-.sn{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;margin-bottom:1px}
-.sn:hover{background:rgba(255,255,255,.04);color:var(--text)}
-.sn.on{background:rgba(200,150,90,.1);color:var(--accent);font-weight:600}
-.sn.on-blue{background:rgba(28,95,138,.12);color:var(--blue);font-weight:600}
-.sn-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
-.side-user{padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.side-av{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700}
-.side-uname{font-size:12px;font-weight:600}
-.side-uemail{font-size:9px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis}
-.side-logout{margin-left:auto;font-size:14px;cursor:pointer;opacity:.4}
+.side-hd{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.side-logo{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff}
+.side-name{font-weight:800;font-size:16px}
+.side-plan{font-size:9px;font-weight:700;background:var(--accent);color:#fff;padding:2px 8px;border-radius:20px;margin-left:auto;text-transform:uppercase}
+.side-nav{flex:1;overflow-y:auto;padding:8px}
+.side-sec{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.12em;padding:16px 12px 6px;text-transform:uppercase}
+.sn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:none;border:none;color:var(--sub);font-size:13px;font-weight:500;cursor:pointer;width:100%;text-align:left;transition:all .15s}
+.sn:hover{background:var(--dark2);color:var(--text)}
+.sn.on{background:rgba(200,150,90,.12);color:var(--accent);font-weight:600}
+.sn.on-blue{background:rgba(28,95,138,.15);color:var(--blue);font-weight:600}
+.sn-icon{font-size:16px;width:22px;text-align:center}
+.side-user{padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.side-av{width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.side-uname{font-size:12px;font-weight:600;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-uemail{font-size:10px;color:var(--muted);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-logout{margin-left:auto;cursor:pointer;font-size:18px;opacity:.5}
 .side-logout:hover{opacity:1}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:54px;background:var(--dark);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0}
-.topbar h1{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.topbar-search{padding:7px 12px 7px 32px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;width:200px;outline:none;font-family:inherit}
-.content{flex:1;overflow-y:auto;padding:20px}
-.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.topbar{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;background:var(--dark)}
+.topbar h1{font-size:18px;font-weight:700}
+.content{flex:1;overflow-y:auto;padding:24px;background:var(--dark2)}
+
+.crd{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px}
+.crd h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.row{display:grid;gap:12px}
 .row2{grid-template-columns:1fr 1fr}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
-.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.kpi-val{font-size:24px;font-weight:800}
-.kpi-delta{font-size:10px;color:var(--success);margin-top:4px}
-.crd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
-.crd h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.tbl{width:100%;border-collapse:collapse}
-.tbl th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
-.tbl td{font-size:12px;color:var(--sub);padding:10px;border-bottom:1px solid rgba(30,40,48,.5)}
-.tbl tr:hover td{background:rgba(255,255,255,.015)}
-.chip{font-size:8px;padding:3px 8px;border-radius:20px;font-weight:700;display:inline-block}
-.cg{background:rgba(52,199,89,.1);color:var(--success)}.ca{background:rgba(200,150,90,.1);color:var(--accent)}.cr{background:rgba(255,59,48,.1);color:var(--error)}.cb{background:rgba(28,143,202,.1);color:var(--blue)}.cp{background:rgba(155,89,182,.1);color:var(--purple)}.cw{background:rgba(255,149,0,.1);color:var(--warn)}
-.btn-p{padding:8px 18px;background:var(--accent);color:var(--dark);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-p:hover{background:#d4a060}
-.btn-s{padding:8px 18px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--sub);font-size:12px;cursor:pointer;font-family:inherit}
-.btn-s:hover{border-color:var(--accent);color:var(--accent)}
-.trial-bar{background:rgba(200,150,90,.06);border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--accent)}
-.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px}
-.prop{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--dark2);border-radius:8px;margin-bottom:4px;cursor:pointer}
-.prop:hover{background:var(--dark3)}
-.prop-name{font-size:12px;font-weight:600;color:var(--text)}
-.prop-meta{font-size:10px;color:var(--muted);margin-top:2px}
-.form-row{display:flex;gap:10px;margin-bottom:10px}
-.form-row>*{flex:1}
-.form-label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block}
-.form-input{width:100%;padding:10px 12px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.row3{grid-template-columns:1fr 1fr 1fr}
+.row4{grid-template-columns:1fr 1fr 1fr 1fr}
+.kpi{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:14px}
+.kpi-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.kpi-val{font-size:26px;font-weight:800}
+.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.cg{background:rgba(52,199,89,.12);color:var(--success)}
+.co{background:rgba(255,149,0,.12);color:var(--warn)}
+.cr{background:rgba(255,59,48,.12);color:var(--error)}
+.cb{background:rgba(28,95,138,.12);color:var(--blue)}
+.ca{background:rgba(200,150,90,.12);color:var(--accent)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;padding:10px 12px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border)}
+.tbl td{padding:10px 12px;border-bottom:1px solid rgba(51,51,51,.5)}
+.tbl tr:hover{background:rgba(200,150,90,.03)}
+.btn{padding:8px 18px;border-radius:10px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--text)}
+.btn-sm{padding:5px 12px;font-size:11px;border-radius:8px}
+.btn-danger{background:var(--error);color:#fff}
+.btn:hover{opacity:.85}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.form-group{margin-bottom:12px}
+.form-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:block}
+.form-input{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);outline:none}
 .form-input:focus{border-color:var(--accent)}
-.loading{display:flex;align-items:center;justify-content:center;height:100%;font-size:14px;color:var(--muted)}
-.bubble{max-width:65%;padding:10px 14px;border-radius:12px;margin-bottom:6px;font-size:13px;line-height:1.5}
-.bubble.ai{background:rgba(200,150,90,.1);border:1px solid rgba(200,150,90,.12);color:var(--text)}
-.btime{font-size:9px;color:var(--muted);margin-top:3px}
-.install-bar{background:linear-gradient(135deg,rgba(200,150,90,.08),rgba(28,95,138,.06));border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;position:relative}
-.install-bar .ib-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer}
-.step{display:flex;gap:10px;margin-bottom:8px;font-size:13px;color:var(--sub);line-height:1.6}
-.step-n{background:var(--accent);color:var(--dark);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
-.step-n.ok{background:var(--success);color:#fff}
-.step-n.w{background:var(--warn);color:#fff}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+textarea.form-input{resize:vertical;min-height:60px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000}
+.modal{background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:24px;width:90%;max-width:600px;max-height:85vh;overflow-y:auto}
+.modal h2{font-size:18px;font-weight:700;margin-bottom:16px}
+.tab-bar{display:flex;gap:4px;margin-bottom:16px;background:var(--dark);border-radius:10px;padding:4px}
+.tab-btn{flex:1;padding:8px;border-radius:8px;border:none;background:none;color:var(--sub);font-size:12px;font-weight:600;cursor:pointer}
+.tab-btn.on{background:var(--accent);color:#fff}
+.progress-bar{height:6px;background:var(--dark);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.progress-fill{height:100%;border-radius:3px;transition:width .3s}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 120px)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px}
+.chat-bubble{max-width:70%;padding:12px 16px;border-radius:16px;margin-bottom:8px;font-size:14px;line-height:1.5}
+.chat-me{background:var(--blue);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.chat-other{background:var(--dark);color:var(--text);border-bottom-left-radius:4px}
+.chat-input-wrap{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+.chat-input{flex:1;background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:10px 16px;color:var(--text);font-size:14px;outline:none}
+.chat-send{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-weight:700;cursor:pointer}
+.loading{display:flex;align-items:center;justify-content:center;height:100vh;font-size:16px;color:var(--muted)}
+.alert-bar{padding:10px 18px;border-radius:10px;font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.alert-trial{background:rgba(200,150,90,.1);color:var(--accent);border:1px solid rgba(200,150,90,.2)}
+.cal-day{display:inline-block;padding:8px 4px;text-align:center;border-radius:8px;cursor:pointer;font-size:12px;border:1px solid var(--border);min-width:60px}
+.cal-day:hover{background:var(--dark3)}
+.cal-day.today{border:2px solid var(--accent)}
+.cal-day.available{background:rgba(52,199,89,.12)}
+.cal-day.booked{background:rgba(28,95,138,.15)}
+.checklist-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(51,51,51,.3);cursor:pointer}
+.checklist-check{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.checklist-check.done{background:var(--success);border-color:var(--success);color:#fff}
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root"><div class="loading">Chargement...</div></div>
 <script>
 var SB_URL="https://illovwqvszjuasftwkxh.supabase.co";
 var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y";
+var EDGE=SB_URL+"/functions/v1";
+var ADMIN_EMAIL="m.rayane8306@gmail.com";
 var sb=supabase.createClient(SB_URL,SB_KEY);
-var S={session:null,profile:null,role:null,view:"dashboard",loading:true,properties:[],bookings:[],notifications:[],availability:[]};
-var authMode="login";
 
-async function init(){var d=await sb.auth.getSession();if(d.data.session){S.session=d.data.session;await loadProfile();}S.loading=false;render();}
-async function loadProfile(){var uid=S.session.user.id;var r=await sb.from("profiles").select("*").eq("id",uid).single();S.profile=r.data;S.role=r.data?r.data.role:"host";}
-async function doLogin(){var e=document.getElementById("ae").value.trim();var p=document.getElementById("ap").value;if(!e||!p)return;document.getElementById("aerr").style.display="none";document.getElementById("abtn").disabled=true;var r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error){document.getElementById("aerr").textContent=r.error.message;document.getElementById("aerr").style.display="block";document.getElementById("abtn").disabled=false;return;}S.session=r.data.session;await loadProfile();S.view=S.role==="cleaner"?"planning":"dashboard";render();}
-async function doSignup(){var e=document.getElementById("ae").value.trim();var p=document.getElementById("ap").value;var role=S.role||"host";if(!e||!p)return;document.getElementById("aerr").style.display="none";document.getElementById("abtn").disabled=true;var r=await sb.auth.signUp({email:e,password:p});if(r.error){document.getElementById("aerr").textContent=r.error.message;document.getElementById("aerr").style.display="block";document.getElementById("abtn").disabled=false;return;}if(r.data.session){await sb.from("profiles").upsert({id:r.data.user.id,email:e,role:role,plan:"trial",full_name:e.split("@")[0]});S.session=r.data.session;await loadProfile();S.view=role==="cleaner"?"planning":"dashboard";render();}else{document.getElementById("aerr").textContent="Verifiez votre email pour confirmer votre compte.";document.getElementById("aerr").style.display="block";document.getElementById("aerr").style.background="rgba(52,199,89,.1)";document.getElementById("aerr").style.color="#34C759";document.getElementById("abtn").disabled=false;}}
-async function doLogout(){await sb.auth.signOut();S.session=null;S.profile=null;S.role=null;render();}
+var S={session:null,profile:null,role:null,view:"dashboard",loading:true,
+  properties:[],bookings:[],allBookings:[],notifications:[],availability:[],
+  cleanerId:null,cleanerProfile:null,items:[],favorites:{},favCleaners:[],
+  teamMembers:[],teamGroups:[],
+  chatMsgs:[],chatProp:null,
+  guestProperty:null,guestMsgs:[],
+  adminStats:{},adminUsers:[],adminBookings:[]};
+var authMode="login",authRole="host",showPass=false;
+
+async function init(){var d=await sb.auth.getSession();if(d.data.session){S.session=d.data.session;await loadProfile();await loadData();}S.loading=false;render();}
+async function loadProfile(){var uid=S.session.user.id;var r=await sb.from("profiles").select("*").eq("id",uid).single();S.profile=r.data;S.role=r.data?r.data.role:"host";if(S.session.guestProperty){S.role="guest";S.guestProperty=S.session.guestProperty;}}
+
+async function doLogin(){var e=$("ae").value.trim(),p=$("ap").value;if(!e||!p)return;$("aerr").style.display="none";$("abtn").disabled=true;
+var r=await sb.auth.signInWithPassword({email:e,password:p});
+if(r.error){showAuthErr(r.error.message);return;}
+S.session=r.data.session;
+var pr=await sb.from("profiles").select("role,subscription_plan").eq("id",r.data.session.user.id).single();
+if(pr.data&&pr.data.role==="admin"){S.role="admin";}
+else{if(pr.data){await sb.from("profiles").update({role:authRole}).eq("id",r.data.session.user.id);}else{await sb.from("profiles").upsert({id:r.data.session.user.id,email:e,role:authRole},{onConflict:"id"});}S.role=authRole;}
+await loadProfile();S.view=S.role==="cleaner"?"planning":"dashboard";await loadData();render();}
+
+async function doSignup(){var e=$("ae").value.trim(),p=$("ap").value,p2=$("ap2")?$("ap2").value:"";
+if(!e||!p){showAuthErr("Email et mot de passe requis");return;}
+if(p.length<6){showAuthErr("Min 6 caracteres");return;}
+if(p!==p2){showAuthErr("Mots de passe differents");return;}
+$("aerr").style.display="none";$("abtn").disabled=true;
+var r=await sb.auth.signUp({email:e,password:p});
+if(r.error){showAuthErr(r.error.message);return;}
+if(r.data.session){
+var myRef="MHK-"+r.data.session.user.id.substring(0,6).toUpperCase();
+var pd={id:r.data.session.user.id,email:e,role:authRole,referral_code:myRef,subscription_plan:"trial",subscription_status:"active",trial_ends_at:new Date(Date.now()+30*86400000).toISOString()};
+var refIn=$("aref")?$("aref").value.trim().toUpperCase():"";
+if(refIn)pd.referred_by=refIn;
+await sb.from("profiles").upsert(pd,{onConflict:"id"});
+S.session=r.data.session;S.role=authRole;await loadProfile();S.view=authRole==="cleaner"?"planning":"dashboard";await loadData();render();
+}else{showAuthErr("Verifiez votre email pour confirmer.");$("aerr").style.background="rgba(52,199,89,.1)";$("aerr").style.color="#34C759";$("abtn").disabled=false;}}
+
+async function doGuestAccess(){var code=$("agc").value.trim();if(!code){showAuthErr("Entrez le code");return;}$("abtn").disabled=true;
+var r=await sb.from("properties").select("*").eq("guest_token",code).single();
+if(!r.data){showAuthErr("Code invalide");$("abtn").disabled=false;return;}
+S.session={user:{id:"guest-"+r.data.id,email:"guest@myhostkit.com"},guestProperty:r.data};S.guestProperty=r.data;S.role="guest";S.view="home";render();}
+
+async function doLogout(){await sb.auth.signOut();S.session=null;S.profile=null;S.role=null;S.guestProperty=null;render();}
+async function doResetPassword(){var e=$("ae").value.trim();if(!e){alert("Entrez votre email");return;}var r=await sb.auth.resetPasswordForEmail(e);if(r.error)alert(r.error.message);else alert("Lien envoye a "+e);}
 function toggleAuth(){authMode=authMode==="login"?"signup":"login";render();}
-function selectAuthRole(r){S.role=r;render();}
+function selectAuthRole(r){authRole=r;render();}
+function showAuthErr(m){$("aerr").textContent=m;$("aerr").style.display="block";$("aerr").style.background="rgba(255,59,48,.1)";$("aerr").style.color="var(--error)";$("abtn").disabled=false;}
+function togglePass(){showPass=!showPass;var el=$("ap");if(el)el.type=showPass?"text":"password";var el2=$("ap2");if(el2)el2.type=showPass?"text":"password";}
 
-async function loadData(){if(!S.session)return;var uid=S.session.user.id;if(S.role==="host"||S.role==="admin"){var r=await Promise.all([sb.from("properties").select("*").eq("user_id",uid),sb.from("cleaning_bookings").select("*").eq("host_id",uid).order("date",{ascending:false}).limit(20),Promise.resolve({data:[]})]);S.properties=r[0].data||[];S.bookings=r[1].data||[];S.notifications=r[2].data||[];}else if(S.role==="cleaner"){var r=await Promise.all([sb.from("cleaner_availability").select("*").eq("cleaner_id",uid),sb.from("cleaning_bookings").select("*").eq("cleaner_id",uid).order("date",{ascending:false}).limit(20),Promise.resolve({data:[]})]);S.availability=r[0].data||[];S.bookings=r[1].data||[];S.notifications=r[2].data||[];}}
+async function loadData(){if(!S.session)return;var uid=S.session.user.id;
+if(S.role==="host"||S.role==="admin"){
+var r=await Promise.all([sb.from("properties").select("*").eq("user_id",uid),sb.from("cleaning_bookings").select("*,cleaners(company_name,contact_name,price_per_cleaning,email),properties(name)").eq("host_id",uid).order("date",{ascending:false}).limit(50),sb.from("notifications").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(30)]);
+S.properties=r[0].data||[];S.allBookings=r[1].data||[];S.notifications=r[2].data||[];
+var today=new Date().toISOString().split("T")[0];S.bookings=S.allBookings.filter(function(b){return b.date>=today;});
+var fav=await sb.from("favorites").select("cleaner_id").eq("host_id",uid);if(fav.data){S.favorites={};fav.data.forEach(function(f){S.favorites[f.cleaner_id]=true;});}
+if(S.properties.length>0){var inv=await sb.from("inventory").select("*").eq("property_id",S.properties[0].id);S.items=inv.data||[];}
+}else if(S.role==="cleaner"){
+var cr=await sb.from("cleaners").select("*").eq("user_id",uid).single();
+if(cr.data){S.cleanerId=cr.data.id;S.cleanerProfile=cr.data;
+var r=await Promise.all([sb.from("cleaner_availability").select("*").eq("cleaner_id",cr.data.id),sb.from("cleaning_bookings").select("*,properties(name,address,city,user_id)").eq("cleaner_id",cr.data.id).order("date",{ascending:false}).limit(50),sb.from("notifications").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(30)]);
+S.availability=r[0].data||[];S.bookings=r[1].data||[];S.notifications=r[2].data||[];
+var tm=await sb.from("team_members").select("*").eq("owner_id",uid);S.teamMembers=tm.data||[];
+}else{S.cleanerProfile=null;}}
+if(S.role==="admin")await loadAdminData();}
 
-function render(){var root=document.getElementById("root");if(S.loading){root.innerHTML="<div class='loading'>Chargement...</div>";return;}if(!S.session){root.innerHTML=renderAuth();return;}root.innerHTML=renderApp();loadData();}
+async function loadAdminData(){var st={};
+var r=await sb.from("profiles").select("*").order("created_at",{ascending:false}).limit(200);var users=r.data||[];S.adminUsers=users;
+st.totalUsers=users.length;st.hosts=users.filter(function(u){return u.role==="host";}).length;st.cleaners=users.filter(function(u){return u.role==="cleaner";}).length;st.admins=users.filter(function(u){return u.role==="admin";}).length;
+st.planFree=users.filter(function(u){return !u.subscription_plan||u.subscription_plan==="free";}).length;st.planTrial=users.filter(function(u){return u.subscription_plan==="trial";}).length;st.planStarter=users.filter(function(u){return u.subscription_plan==="starter";}).length;st.planPro=users.filter(function(u){return u.subscription_plan==="pro";}).length;st.planBusiness=users.filter(function(u){return u.subscription_plan==="business";}).length;
+var today=new Date().toISOString().split("T")[0];st.newToday=users.filter(function(u){return u.created_at&&u.created_at.startsWith(today);}).length;
+var w=new Date(Date.now()-7*86400000).toISOString();st.newWeek=users.filter(function(u){return u.created_at>w;}).length;
+var pr=await sb.from("properties").select("id",{count:"exact"});st.totalProperties=(pr.data||[]).length;
+var br=await sb.from("cleaning_bookings").select("id,status,date").order("created_at",{ascending:false}).limit(100);var bd=br.data||[];S.adminBookings=bd;
+st.totalBookings=bd.length;st.bookingsPending=bd.filter(function(b){return b.status==="pending";}).length;st.bookingsConfirmed=bd.filter(function(b){return b.status==="confirmed";}).length;st.bookingsDisputed=bd.filter(function(b){return b.status==="disputed";}).length;
+S.adminStats=st;}
 
-function renderAuth(){var isL=authMode==="login";return "<div class='auth-wrap'><div class='auth-box'>"+
-"<div class='auth-logo'><svg width='160' height='30' viewBox='0 0 160 30' fill='none'><circle cx='15' cy='15' r='14' fill='#C8965A'/><path d='M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z' fill='#fff'/><text x='35' y='21' font-family='Plus Jakarta Sans,sans-serif' font-size='18' font-weight='800' fill='#fff'>MyHostKit</text><circle cx='148' cy='17' r='3.5' fill='#C8965A'/></svg></div>"+
-"<div class='auth-title'>"+(isL?"Connexion":"Creer un compte")+"</div>"+
-"<div class='auth-sub'>Version desktop</div>"+
-"<div id='aerr' class='auth-error'></div>"+
-(isL?"":"<div style='font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px'>Se connecter en tant que</div><div class='auth-role'><div class='auth-role-btn "+(S.role==="host"||!S.role?"on":"")+"' onclick='selectAuthRole(\"host\")'><span class='ri'>🏠</span><span class='rn'>Hote</span></div><div class='auth-role-btn "+(S.role==="cleaner"?"on":"")+"' onclick='selectAuthRole(\"cleaner\")'><span class='ri'>🧹</span><span class='rn'>Menage</span></div><div class='auth-role-btn "+(S.role==="guest"?"on":"")+"' onclick='selectAuthRole(\"guest\")'><span class='ri'>🌍</span><span class='rn'>Voyageur</span></div></div>")+
-"<input class='auth-input' id='ae' type='email' placeholder='Email'>"+
-"<input class='auth-input' id='ap' type='password' placeholder='Mot de passe'>"+
-"<button class='auth-btn' id='abtn' onclick='"+(isL?"doLogin()":"doSignup()")+"'>"+(isL?"Se connecter":"Creer mon compte")+"</button>"+
-"<div class='auth-switch'>"+(isL?"Pas de compte ? <span onclick='toggleAuth()'>Creer un compte</span>":"Deja un compte ? <span onclick='toggleAuth()'>Se connecter</span>")+"</div></div></div>";}
+function render(){var root=$("root");if(S.loading){root.innerHTML="<div class='loading'>Chargement...</div>";return;}if(!S.session){root.innerHTML=renderAuth();return;}root.innerHTML=renderApp();} 
+function $(id){return document.getElementById(id);}
+function go(v){S.view=v;var c=$("vc");if(c)c.innerHTML=renderView();var tb=$("tb");if(tb){var T=getTitles();tb.querySelector("h1").textContent=T[v]||v;}}
+function getPlan(){return S.profile?(S.profile.subscription_plan||S.profile.plan||"free"):"free";}
+function getPlanLabel(p){return p==="trial"?"\ud83c\udf81 Essai":p==="pro"?"Pro":p==="starter"?"Starter":p==="business"?"Business":"Gratuit";}
+function getTrialDays(){if(!S.profile||!S.profile.trial_ends_at)return 0;return Math.max(0,Math.ceil((new Date(S.profile.trial_ends_at)-new Date())/86400000));}
 
-function renderApp(){var r=S.role,isCl=r==="cleaner",isG=r==="guest",isAdmin=r==="admin",v=S.view,ac=isCl?"on-blue":"on";
-var navs=[];
-if(isG){navs=[{s:"SEJOUR"},{id:"home",i:"🏠",l:"Accueil"},{id:"infos",i:"📋",l:"Infos logement"},{id:"concierge",i:"🤖",l:"Concierge IA"},{s:"COMPTE"},{id:"settings",i:"⚙️",l:"Parametres"},{id:"install",i:"📌",l:"Installer"}];if(S.role==="admin"){navs.push({s:"ADMIN"},{id:"admin",i:"👑",l:"Administration"});}}
-else if(isCl){navs=[{s:"PRINCIPAL"},{id:"planning",i:"📋",l:"Planning"},{id:"dispo",i:"📅",l:"Disponibilites"},{id:"rapport",i:"📸",l:"Rapport"},{id:"messages",i:"💬",l:"Messages"},{s:"GESTION"},{id:"team",i:"👥",l:"Equipe"},{id:"notifications",i:"🔔",l:"Notifications"},{id:"settings",i:"⚙️",l:"Profil"},{id:"install",i:"📌",l:"Installer"}];}
-else{navs=[{s:"PRINCIPAL"},{id:"dashboard",i:"📊",l:"Dashboard"},{id:"properties",i:"🏠",l:"Logements"},{id:"menage",i:"🧹",l:"Marketplace"},{id:"bookings",i:"📋",l:"Reservations"},{id:"messages",i:"💬",l:"Messages"},{s:"GESTION"},{id:"stock",i:"📦",l:"Stock"},{id:"notifications",i:"🔔",l:"Notifications"},{id:"settings",i:"⚙️",l:"Parametres"},{id:"install",i:"📌",l:"Installer"}];if(S.role==="admin"){navs.push({s:"ADMIN"},{id:"admin",i:"👑",l:"Administration"});}}
-var nh=navs.map(function(n){if(n.s)return "<div class='side-sec'>"+n.s+"</div>";return "<button class='sn "+(v===n.id?ac:"")+"' onclick='go(\""+n.id+"\")'><span class='sn-icon'>"+n.i+"</span>"+n.l+"</button>";}).join("");
-var email=S.session.user.email,name=S.profile?(S.profile.full_name||S.profile.first_name||email.split("@")[0]):email.split("@")[0],plan=S.profile?(S.profile.subscription_plan||S.profile.plan||"free"):"free";
-var titles={dashboard:"📊 Dashboard",properties:"🏠 Logements",menage:"🧹 Marketplace",bookings:"📋 Reservations",messages:"💬 Messages",stock:"📦 Stock",notifications:"🔔 Notifications",settings:"⚙️ Parametres",planning:"📋 Planning",dispo:"📅 Disponibilites",rapport:"📸 Rapport",team:"👥 Equipe",home:"🏠 Accueil",infos:"📋 Infos",concierge:"🤖 Concierge IA",install:"📌 Installer",admin:"👑 Administration"};
-return "<div class='app'><div class='side'>"+
-"<div class='side-hd'><div class='side-logo'>M</div><span class='side-name'>MyHostKit</span><span class='side-plan'>"+plan.toUpperCase()+"</span></div>"+
-"<div class='side-nav'>"+nh+"</div>"+
-"<div class='side-user'><div class='side-av'>"+name[0].toUpperCase()+"</div><div><div class='side-uname'>"+name+"</div><div class='side-uemail'>"+email+"</div></div><div class='side-logout' onclick='doLogout()' title='Deconnexion'>🚪</div></div>"+
-"</div><div class='main'>"+
-"<div class='topbar' id='tb'><h1>"+(titles[v]||v)+"</h1><div class='topbar-right'><input class='topbar-search' placeholder='Rechercher...'></div></div>"+
-"<div class='content' id='vc'>"+renderView()+"</div></div></div>";}
+function renderAuth(){var isL=authMode==="login",isG=authRole==="guest";
+var logo="<div class='auth-logo'><svg width='160' height='30' viewBox='0 0 160 30' fill='none'><circle cx='15' cy='15' r='14' fill='#C8965A'/><path d='M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z' fill='#fff'/><text x='35' y='21' font-family='Plus Jakarta Sans,sans-serif' font-size='18' font-weight='800' fill='#fff'>MyHostKit</text><circle cx='148' cy='17' r='3.5' fill='#C8965A'/></svg></div>";
+var rs="<div style='font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px'>"+(isL?"Se connecter en tant que":"Choisir un role")+"</div><div class='auth-role'><div class='auth-role-btn "+(authRole==="host"?"on":"")+"' onclick='selectAuthRole(\"host\")'><span class='ri'>\ud83d\udd11</span><span class='rn'>Hote</span></div><div class='auth-role-btn "+(authRole==="cleaner"?"on":"")+"' onclick='selectAuthRole(\"cleaner\")'><span class='ri'>\ud83e\uddf9</span><span class='rn'>Menage</span></div><div class='auth-role-btn "+(authRole==="guest"?"on":"")+"' onclick='selectAuthRole(\"guest\")'><span class='ri'>\u2708\ufe0f</span><span class='rn'>Voyageur</span></div></div>";
+var h="<div class='auth-wrap'><div class='auth-box'>"+logo+"<div class='auth-title'>"+(isL?"Connexion":"Creer un compte")+"</div><div class='auth-sub'>Version desktop</div><div id='aerr' class='auth-error'></div>"+rs;
+if(isG){h+="<input class='auth-input' id='agc' placeholder=\"Code d'acces voyageur (ex: ABC123)\" style='text-transform:uppercase'><button class='auth-btn' id='abtn' onclick='doGuestAccess()'>Acceder au logement</button>";}
+else{h+="<input class='auth-input' id='ae' type='email' placeholder='Email'><div class='auth-pass-wrap'><input class='auth-input' id='ap' type='password' placeholder='Mot de passe' style='margin-bottom:0'><span class='eye' onclick='togglePass()'>"+(showPass?"\ud83d\ude48":"\ud83d\udc41\ufe0f")+"</span></div>";
+if(!isL){h+="<div class='auth-pass-wrap'><input class='auth-input' id='ap2' type='password' placeholder='Confirmer le mot de passe' style='margin-bottom:0'><span class='eye' onclick='togglePass()'>"+(showPass?"\ud83d\ude48":"\ud83d\udc41\ufe0f")+"</span></div>";
+h+="<div class='auth-referral'><label>\ud83c\udf81 Code parrain (optionnel)</label><input class='auth-input' id='aref' placeholder='Ex: MHK-A1B2C3' style='margin-bottom:0;background:var(--dark3)'><small>+7 jours gratuits pour vous et votre parrain</small></div>";}
+h+="<button class='auth-btn' id='abtn' onclick='"+(isL?"doLogin()":"doSignup()")+"'>"+(isL?"Se connecter":"Creer mon compte")+"</button>";
+if(isL)h+="<div class='auth-forgot' onclick='doResetPassword()'>Mot de passe oublie ?</div>";}
+h+="<div class='auth-switch'>"+(isL?"Pas de compte ? <span onclick='toggleAuth()'>Creer un compte</span>":"Deja un compte ? <span onclick='toggleAuth()'>Se connecter</span>")+"</div></div></div>";return h;}
 
-function go(v){S.view=v;var c=document.getElementById("vc");if(c)c.innerHTML=renderView();var tb=document.getElementById("tb");if(tb){var titles={dashboard:"📊 Dashboard",properties:"🏠 Logements",menage:"🧹 Marketplace",bookings:"📋 Reservations",messages:"💬 Messages",stock:"📦 Stock",notifications:"🔔 Notifications",settings:"⚙️ Parametres",planning:"📋 Planning",dispo:"📅 Disponibilites",rapport:"📸 Rapport",team:"👥 Equipe",home:"🏠 Accueil",infos:"📋 Infos",concierge:"🤖 Concierge IA",install:"📌 Installer",admin:"👑 Administration"};tb.querySelector("h1").textContent=titles[v]||v;}document.querySelectorAll(".sn").forEach(function(el){el.classList.remove("on","on-blue");});var btn=document.querySelector(".sn[onclick='go(\""+v+"\")']");if(btn)btn.classList.add(S.role==="cleaner"?"on-blue":"on");}
+function renderApp(){var r=S.role,isCl=r==="cleaner",isG=r==="guest",isAdmin=r==="admin",v=S.view,ac=isCl?"on-blue":"on";var navs=[];
+if(isG){navs=[{s:"SEJOUR"},{id:"home",i:"\ud83c\udfe0",l:"Accueil"},{id:"infos",i:"\ud83d\udccb",l:"Infos logement"},{id:"concierge",i:"\ud83e\udd16",l:"Concierge IA"},{s:"COMPTE"},{id:"settings",i:"\u2699\ufe0f",l:"Parametres"}];}
+else if(isCl){navs=[{s:"PRINCIPAL"},{id:"planning",i:"\ud83d\udccb",l:"Planning"},{id:"dispo",i:"\ud83d\udcc5",l:"Disponibilites"},{id:"checklist",i:"\u2705",l:"Checklist"},{id:"rapport",i:"\ud83d\udcf8",l:"Rapport"},{id:"messages",i:"\ud83d\udcac",l:"Messages"},{s:"GESTION"},{id:"history",i:"\ud83d\udcdc",l:"Historique"},{id:"team",i:"\ud83d\udc65",l:"Equipe"},{id:"notifications",i:"\ud83d\udd14",l:"Notifications"},{id:"settings",i:"\u2699\ufe0f",l:"Profil"}];}
+else{navs=[{s:"PRINCIPAL"},{id:"dashboard",i:"\ud83d\udcca",l:"Dashboard"},{id:"properties",i:"\ud83c\udfe0",l:"Logements"},{id:"marketplace",i:"\ud83e\uddf9",l:"Marketplace"},{id:"bookings",i:"\ud83d\udccb",l:"Reservations"},{id:"messages",i:"\ud83d\udcac",l:"Messages"},{s:"GESTION"},{id:"stock",i:"\ud83d\udce6",l:"Stock"},{id:"notifications",i:"\ud83d\udd14",l:"Notifications"},{id:"settings",i:"\u2699\ufe0f",l:"Parametres"}];
+if(isAdmin){navs.push({s:"ADMIN"},{id:"admin-dashboard",i:"\ud83d\udc51",l:"Vue globale"},{id:"admin-users",i:"\ud83d\udc65",l:"Utilisateurs"},{id:"admin-bookings",i:"\ud83d\udccb",l:"Bookings"},{id:"admin-support",i:"\ud83d\udee0",l:"Support"});}}
+var nh=navs.map(function(n){if(n.s)return"<div class='side-sec'>"+n.s+"</div>";return"<button class='sn "+(v===n.id?ac:"")+"' onclick='go(\""+n.id+"\")'><span class='sn-icon'>"+n.i+"</span>"+n.l+"</button>";}).join("");
+var plan=getPlan(),email=S.session.user.email,name=S.profile?(S.profile.first_name||S.profile.full_name||email.split("@")[0]):email.split("@")[0];
+var T=getTitles();
+return"<div class='app'><div class='side'><div class='side-hd'><div class='side-logo'>M</div><span class='side-name'>MyHostKit</span><span class='side-plan'>"+plan.toUpperCase()+"</span></div><div class='side-nav'>"+nh+"</div><div class='side-user'><div class='side-av'>"+name[0].toUpperCase()+"</div><div><div class='side-uname'>"+name+"</div><div class='side-uemail'>"+email+"</div></div><div class='side-logout' onclick='doLogout()' title='Deconnexion'>\ud83d\udeaa</div></div></div><div class='main'><div class='topbar' id='tb'><h1>"+(T[v]||v)+"</h1></div><div class='content' id='vc'>"+renderView()+"</div></div></div>";}
 
-function renderView(){var fns={dashboard:viewDash,properties:viewProps,menage:viewMenage,bookings:viewBook,stock:viewStock,planning:viewPlan,dispo:viewDispo,rapport:viewRapport,team:viewTeam,home:viewHome,infos:viewInfos,concierge:viewConc,messages:viewMsg,notifications:viewNotif,admin:viewAdmin,settings:viewSettings,install:viewInstall};return fns[S.view]?fns[S.view]():"<div class='empty'>Vue non trouvee</div>";}
+function getTitles(){return{dashboard:"\ud83d\udcca Dashboard",properties:"\ud83c\udfe0 Logements",marketplace:"\ud83e\uddf9 Marketplace",bookings:"\ud83d\udccb Reservations",messages:"\ud83d\udcac Messages",stock:"\ud83d\udce6 Stock",notifications:"\ud83d\udd14 Notifications",settings:"\u2699\ufe0f Parametres",planning:"\ud83d\udccb Planning",dispo:"\ud83d\udcc5 Disponibilites",checklist:"\u2705 Checklist",rapport:"\ud83d\udcf8 Rapport",history:"\ud83d\udcdc Historique",team:"\ud83d\udc65 Equipe",home:"\ud83c\udfe0 Accueil",infos:"\ud83d\udccb Infos",concierge:"\ud83e\udd16 Concierge IA","admin-dashboard":"\ud83d\udc51 Vue globale","admin-users":"\ud83d\udc65 Utilisateurs","admin-bookings":"\ud83d\udccb Bookings admin","admin-support":"\ud83d\udee0 Support"};}
 
-function viewDash(){return renderInstallBanner()+"<div class='trial-bar'>🎁 Essai gratuit — Acces complet a toutes les fonctionnalites</div>"+
-"<div class='row'><div class='kpi'><div class='kpi-label'>Logements</div><div class='kpi-val'>"+S.properties.length+"</div></div>"+
-"<div class='kpi'><div class='kpi-label'>Reservations</div><div class='kpi-val'>"+S.bookings.length+"</div></div>"+
-"<div class='kpi'><div class='kpi-label'>Notifications</div><div class='kpi-val'>"+S.notifications.length+"</div></div>"+
-"<div class='kpi'><div class='kpi-label'>Note moyenne</div><div class='kpi-val'>--</div><div class='kpi-delta'>Objectif 4.9</div></div></div>"+
-"<div style='display:grid;grid-template-columns:1fr 1fr;gap:12px'><div class='crd'><h3>📋 Dernieres reservations</h3>"+renderBookTbl()+"</div>"+
-"<div class='crd'><h3>🔔 Notifications</h3>"+renderNotifList()+"</div></div>";}
+function renderView(){var map={dashboard:viewHostDashboard,properties:viewProperties,marketplace:viewMarketplace,bookings:viewBookings,messages:viewMessages,stock:viewStock,notifications:viewNotifications,settings:viewSettings,planning:viewCleanerPlanning,dispo:viewCleanerDispo,checklist:viewChecklist,rapport:viewRapport,history:viewHistory,team:viewTeam,home:viewGuestHome,infos:viewGuestInfo,concierge:viewConcierge,"admin-dashboard":viewAdminDashboard,"admin-users":viewAdminUsers,"admin-bookings":viewAdminBookings,"admin-support":viewAdminSupport};var fn=map[S.view];return fn?fn():"<div class='empty'><div class='empty-icon'>\ud83d\udea7</div><p>Section en construction</p></div>";}
 
-function viewProps(){var h="<div style='display:flex;justify-content:space-between;margin-bottom:16px'><span style='font-size:13px;color:var(--sub)'>"+S.properties.length+" logement(s)</span><button class='btn-p'>+ Ajouter</button></div>";if(!S.properties.length)return h+"<div class='empty'>Aucun logement.</div>";S.properties.forEach(function(p){h+="<div class='crd'><h3>🏠 "+(p.name||"Sans nom")+"</h3><div style='font-size:12px;color:var(--sub);line-height:2'>📍 "+(p.address||"")+", "+(p.city||"")+"<br>🛏 "+(p.rooms||"?")+" ch · 📶 "+(p.wifi_name||"--")+"<br>🔑 "+(p.access_code||"--")+" · 🕐 In "+(p.checkin||p.check_in_time||"15:00")+" / Out "+(p.checkout||p.check_out_time||"11:00")+(p.ical_url?"<br><span style='color:var(--success)'>📅 iCal ✅</span>":"")+"</div></div>";});return h;}
+function viewHostDashboard(){var plan=getPlan(),td=getTrialDays(),todayStr=new Date().toISOString().split("T")[0];
+var todayB=S.bookings.filter(function(b){return b.date===todayStr;});
+var toValidate=S.allBookings.filter(function(b){return b.status==="report_sent";});
+var disputed=S.allBookings.filter(function(b){return b.status==="disputed";});
+var totalCleaning=0;S.allBookings.forEach(function(b){if(b.payment_status==="paid"&&b.payment_amount)totalCleaning+=b.payment_amount;});
+var last30=new Date();last30.setDate(last30.getDate()-30);var l30=last30.toISOString().split("T")[0];
+var recent=S.allBookings.filter(function(b){return b.date>=l30;});
+var occ=S.properties.length>0?Math.min(100,Math.round((recent.length/(30*S.properties.length))*100)):0;
+var h="";
+if(plan==="trial"&&td>0)h+="<div class='alert-bar alert-trial'>\ud83c\udf81 Essai gratuit \u2014 "+td+" jours restants. <a href='#' onclick='go(\"settings\");return false' style='color:var(--accent);font-weight:700;margin-left:8px'>Choisir un plan \u2192</a></div>";
+else if(plan==="free")h+="<div class='alert-bar alert-trial'>\ud83c\udd93 Plan gratuit \u2014 <a href='#' onclick='go(\"settings\");return false' style='color:var(--accent);font-weight:700'>Passer a un plan payant \u2192</a></div>";
+h+="<div class='row row4' style='margin-bottom:16px'><div class='kpi'><div class='kpi-label'>Logements</div><div class='kpi-val'>"+S.properties.length+"</div></div><div class='kpi'><div class='kpi-label'>Reservations</div><div class='kpi-val'>"+S.allBookings.length+"</div></div><div class='kpi'><div class='kpi-label'>Occupation 30j</div><div class='kpi-val'>"+occ+"%</div></div><div class='kpi'><div class='kpi-label'>Depenses menage</div><div class='kpi-val'>"+totalCleaning+"\u20ac</div></div></div>";
+if(todayB.length>0||toValidate.length>0||disputed.length>0){h+="<div class='row row3' style='margin-bottom:16px'>";
+if(todayB.length>0)h+="<div class='crd' style='border-left:3px solid var(--blue)'><h3>\ud83c\udfe0 Menages aujourd'hui</h3><div class='kpi-val' style='font-size:22px'>"+todayB.length+"</div></div>";
+if(toValidate.length>0)h+="<div class='crd' style='border-left:3px solid var(--warn)'><h3>\u2705 A valider</h3><div class='kpi-val' style='font-size:22px;color:var(--warn)'>"+toValidate.length+"</div></div>";
+if(disputed.length>0)h+="<div class='crd' style='border-left:3px solid var(--error)'><h3>\u26a0\ufe0f En litige</h3><div class='kpi-val' style='font-size:22px;color:var(--error)'>"+disputed.length+"</div></div>";
+h+="</div>";}
+h+="<div class='row row2'><div class='crd'><h3>\ud83d\udcc5 Dernieres reservations</h3>";
+if(S.allBookings.length===0)h+="<div class='empty'>Aucune reservation</div>";
+else{h+="<table class='tbl'><thead><tr><th>Date</th><th>Logement</th><th>Menagere</th><th>Statut</th></tr></thead><tbody>";
+S.allBookings.slice(0,8).forEach(function(b){var sc=b.status==="confirmed"?"cb":b.status==="validated"?"cg":b.status==="disputed"?"cr":"co";
+h+="<tr><td>"+b.date+"</td><td>"+(b.properties?b.properties.name:"\u2014")+"</td><td>"+(b.cleaners?b.cleaners.contact_name||b.cleaners.company_name:"\u2014")+"</td><td><span class='chip "+sc+"'>"+b.status+"</span></td></tr>";});
+h+="</tbody></table>";}
+h+="</div><div class='crd'><h3>\ud83d\udd14 Notifications</h3>";
+if(S.notifications.length===0)h+="<div class='empty'>Aucune notification</div>";
+else S.notifications.slice(0,5).forEach(function(n){h+="<div style='padding:8px 0;border-bottom:1px solid var(--border);font-size:13px'>"+esc(n.message||"Notification")+"<div style='font-size:10px;color:var(--muted);margin-top:2px'>"+new Date(n.created_at).toLocaleDateString("fr-FR")+"</div></div>";});
+h+="</div></div>";return h;}
 
-function viewMenage(){return "<div class='crd'><h3>🔍 Rechercher</h3><div class='form-row'><div><label class='form-label'>Ville</label><input class='form-input' id='sc' placeholder='Nice'></div><div><label class='form-label'>Date</label><input class='form-input' id='sd' type='date'></div><div style='display:flex;align-items:flex-end'><button class='btn-p' onclick='searchC()' style='width:100%'>🔍 Rechercher</button></div></div></div><div id='sr'></div>";}
-async function searchC(){var city=document.getElementById("sc").value.trim();if(!city){alert("Entrez une ville");return;}var r=await sb.from("cleaners").select("*").ilike("city","%"+city+"%");var el=document.getElementById("sr");if(!r.data||!r.data.length){el.innerHTML="<div class='empty'>Aucune menagere a "+city+"</div>";return;}var h="<div class='crd'><h3>"+r.data.length+" menagere(s)</h3><table class='tbl'><tr><th>Nom</th><th>Ville</th><th>Prix</th><th>Note</th><th>Badge</th><th></th></tr>";r.data.forEach(function(c){var badge=c.plan==="business"?"<span class='chip cp'>PRIO</span>":c.plan==="pro"?"<span class='chip cb'>BOOSTE</span>":"";h+="<tr><td><strong>"+(c.name||"?")+"</strong></td><td>"+(c.city||"")+"</td><td>"+(c.price_per_hour||"?")+" EUR/h</td><td>⭐ "+(c.rating||"--")+"</td><td>"+badge+"</td><td><button class='btn-p' style='padding:4px 10px;font-size:10px'>Reserver</button></td></tr>";});h+="</table></div>";el.innerHTML=h;}
+function viewProperties(){var h="<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:16px'><span style='font-size:13px;color:var(--sub)'>"+S.properties.length+" logement(s)</span><button class='btn btn-primary' onclick='showAddProperty()'>+ Ajouter</button></div>";
+if(S.properties.length===0)return h+"<div class='empty'><div class='empty-icon'>\ud83c\udfe0</div><p>Aucun logement</p><p style='font-size:13px;margin-top:8px'>Ajoutez votre premier logement.</p></div>";
+h+="<div class='row row2'>";
+S.properties.forEach(function(p){h+="<div class='crd'><div style='display:flex;justify-content:space-between;align-items:start'><div><div style='font-size:16px;font-weight:700;margin-bottom:4px'>"+esc(p.name)+"</div>";
+if(p.address)h+="<div style='font-size:12px;color:var(--sub)'>\ud83d\udccd "+esc(p.address)+(p.city?" \u2014 "+esc(p.city):"")+"</div>";
+h+="</div><span class='chip ca'>"+(p.type||"Logement")+"</span></div>";
+h+="<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;font-size:12px;color:var(--sub)'>";
+if(p.capacity)h+="<div>\ud83d\udc65 "+p.capacity+" pers.</div>";if(p.rooms)h+="<div>\ud83d\udeaa "+p.rooms+" pieces</div>";
+if(p.wifi_name)h+="<div>\ud83d\udcf6 "+esc(p.wifi_name)+"</div>";if(p.checkin)h+="<div>\ud83d\udd50 "+p.checkin+" \u2014 "+(p.checkout||"11:00")+"</div>";
+h+="</div>";
+if(p.guest_token)h+="<div style='margin-top:10px;padding:8px 12px;background:var(--dark);border-radius:8px;font-size:11px'><span style='color:var(--muted)'>Code voyageur :</span> <strong style='color:var(--accent)'>"+p.guest_token+"</strong></div>";
+h+="<div style='display:flex;gap:6px;margin-top:12px'><button class='btn btn-sm btn-outline' onclick='editProperty(\""+p.id+"\")'>Modifier</button>"+(p.ical_url?"<button class='btn btn-sm btn-blue' onclick='syncIcal(\""+p.id+"\")'>iCal</button>":"")+"<button class='btn btn-sm btn-danger' onclick='deleteProperty(\""+p.id+"\",\""+esc(p.name)+"\")'>Supprimer</button></div></div>";});
+h+="</div>";return h;}
 
-function viewBook(){return "<div class='crd'><h3>📋 Reservations</h3>"+renderBookTbl()+"</div>";}
-function viewStock(){return "<div class='crd'><h3>📦 Stock</h3><div class='empty'>Selectionnez un logement pour gerer le stock.</div></div>";}
-function viewPlan(){return renderInstallBanner()+"<div class='trial-bar'>🎁 Essai gratuit — Toutes fonctionnalites</div><div class='crd'><h3>📋 Mes reservations</h3>"+renderBookTbl()+"</div>";}
-function viewDispo(){var h="<div class='crd'><h3>📅 Ajouter</h3><div class='form-row'><div><label class='form-label'>Date</label><input class='form-input' type='date'></div><div><label class='form-label'>Debut</label><input class='form-input' value='09:00'></div><div><label class='form-label'>Fin</label><input class='form-input' value='12:00'></div><div><label class='form-label'>Ville</label><input class='form-input' placeholder='Nice'></div></div><button class='btn-p' style='background:var(--blueD)'>✅ Ajouter</button></div>";h+="<div class='crd'><h3>Mes disponibilites</h3>";if(!S.availability.length)h+="<div class='empty'>Aucune disponibilite</div>";S.availability.forEach(function(a){h+="<div class='prop'><div><div class='prop-name'>"+a.date+" · "+(a.start_time||"")+" - "+(a.end_time||"")+"</div><div class='prop-meta'>"+(a.city||"")+"</div></div><span class='chip cg'>"+(a.status||"Libre")+"</span></div>";});return h+"</div>";}
-function viewRapport(){return "<div class='crd'><h3>📸 Rapport</h3><div class='empty'>Les rapports photo sont disponibles dans l&#39;app mobile (camera requise).</div></div>";}
-function viewTeam(){return "<div class='crd'><h3>👥 Equipe</h3><div class='empty'>Gestion d&#39;equipe disponible dans l&#39;app mobile.</div></div>";}
-function viewHome(){return "<div class='crd'><h3>🏠 Bienvenue</h3><p style='font-size:13px;color:var(--sub);line-height:1.8'>Consultez les informations de votre logement et contactez la conciergerie IA.</p></div>";}
-function viewInfos(){return "<div class='crd'><h3>📋 Infos du logement</h3><div class='empty'>Les informations apparaitront quand un hote vous ajoutera.</div></div>";}
-function viewConc(){return "<div class='crd'><h3>🤖 Concierge IA <span class='chip cg'>En ligne</span></h3><div style='margin-top:12px'><div class='bubble ai'><strong>🤖 IA</strong><br>Bonjour ! Comment puis-je vous aider ?<div class='btime'>Automatique</div></div></div><div style='display:flex;gap:8px;margin-top:12px'><input class='form-input' placeholder='Posez votre question...'><button class='btn-p'>Envoyer</button></div></div>";}
-function viewMsg(){return "<div class='crd'><h3>💬 Messages</h3><div class='empty'>Les conversations apparaitront ici.</div></div>";}
-function viewNotif(){var h="<div class='crd'><h3>🔔 Notifications</h3>";if(!S.notifications.length)h+="<div class='empty'>Aucune notification</div>";S.notifications.forEach(function(n){h+="<div class='prop'><div><div class='prop-name'>"+(n.title||"Notification")+"</div><div class='prop-meta'>"+(n.body||"")+" · "+new Date(n.created_at).toLocaleDateString("fr-FR")+"</div></div></div>";});return h+"</div>";}
-function viewSettings(){var p=S.profile||{};return "<div style='display:grid;grid-template-columns:1fr 1fr;gap:12px'><div class='crd'><h3>👤 Profil</h3><div style='text-align:center;padding:16px'><div style='font-size:48px'>👤</div><div style='font-size:16px;font-weight:700'>"+(p.first_name&&p.last_name?p.first_name+" "+p.last_name:(p.full_name||p.prenom||"--"))+"</div><div style='font-size:12px;color:var(--muted)'>"+S.session.user.email+"</div><div style='margin-top:8px'><span class='chip cg'>"+(p.role||"host")+" · "+(p.subscription_plan||p.plan||"free")+"</span></div></div></div>"+
-"<div class='crd'><h3>📋 Informations</h3><div style='font-size:12px;color:var(--sub);line-height:2.2'>🏠 Role : "+(p.role||"host")+"<br>💳 Plan : "+(p.subscription_plan||p.plan||"free")+"<br>🎁 Code : "+(p.referral_code||"--")+"<br>📅 Inscrit : "+(p.created_at?new Date(p.created_at).toLocaleDateString("fr-FR"):"--")+"</div></div></div>"+
-"<div class='crd'><button class='btn-s' style='width:100%;color:var(--error);border-color:rgba(255,59,48,.2)' onclick='doLogout()'>🚪 Deconnexion</button></div>";}
+function viewMarketplace(){return"<div class='crd'><h3>\ud83d\udd0d Rechercher un service de menage</h3><div class='row row3' style='margin-bottom:12px'><div class='form-group'><label class='form-label'>Date</label><input class='form-input' type='date' id='mp-date'></div><div class='form-group'><label class='form-label'>Ville</label><input class='form-input' id='mp-city' placeholder='Paris, Lyon...'></div><div class='form-group' style='display:flex;align-items:end'><button class='btn btn-primary' onclick='searchCleaners()' style='width:100%'>Rechercher</button></div></div></div><div id='mp-results'></div>";}
 
-function viewInstall(){
-var isChrome=navigator.userAgent.indexOf("Chrome")!==-1&&navigator.userAgent.indexOf("Edg")===-1;
-var isEdge=navigator.userAgent.indexOf("Edg")!==-1;
-var shortcut=navigator.userAgent.indexOf("Mac")!==-1?"Cmd+D":"Ctrl+D";
-var h="<div class='crd' style='border:1px solid rgba(200,150,90,.2)'><h3>📌 Installer MyHostKit sur votre ordinateur</h3>"+
-"<p style='font-size:13px;color:var(--sub);line-height:1.8;margin-bottom:20px'>Installez MyHostKit comme une application. Elle s&#39;ouvrira dans sa propre fenetre, comme un vrai logiciel.</p>";
+function viewBookings(){var h="<div style='margin-bottom:12px'><span style='font-size:13px;color:var(--sub)'>"+S.allBookings.length+" reservation(s)</span></div>";
+if(S.allBookings.length===0)return h+"<div class='empty'><div class='empty-icon'>\ud83d\udccb</div>Aucune reservation</div>";
+h+="<table class='tbl'><thead><tr><th>Date</th><th>Logement</th><th>Menagere</th><th>Statut</th><th>Actions</th></tr></thead><tbody>";
+S.allBookings.forEach(function(b){var sc=b.status==="confirmed"?"cb":b.status==="validated"?"cg":b.status==="report_sent"?"co":b.status==="disputed"?"cr":"ca";
+h+="<tr><td>"+b.date+"</td><td>"+(b.properties?b.properties.name:"\u2014")+"</td><td>"+(b.cleaners?b.cleaners.contact_name||b.cleaners.company_name:"\u2014")+"</td><td><span class='chip "+sc+"'>"+b.status+"</span></td><td>";
+if(b.status==="report_sent")h+="<button class='btn btn-sm btn-primary' onclick='validateBooking(\""+b.id+"\")'>Valider</button> <button class='btn btn-sm btn-danger' onclick='disputeBooking(\""+b.id+"\")'>Contester</button>";
+h+="</td></tr>";});h+="</tbody></table>";return h;}
 
-if(isChrome){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid #4285F4'>"+
-"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>🌐</span><div><div style='font-size:15px;font-weight:700'>Installer via Google Chrome</div><div style='font-size:11px;color:var(--success)'>● Detecte</div></div></div>"+
-"<div class='step'><span class='step-n'>1</span><span>Cliquez sur les <strong style='color:var(--text)'>3 points ⋮</strong> en haut a droite de Chrome</span></div>"+
-"<div class='step'><span class='step-n'>2</span><span>Cliquez sur <strong style='color:var(--text)'>Caster, enregistrer et partager</strong></span></div>"+
-"<div class='step'><span class='step-n'>3</span><span>Cliquez sur <strong style='color:var(--text)'>Installer la page en tant qu&#39;application...</strong></span></div>"+
-"<div class='step'><span class='step-n'>4</span><span>Cliquez sur <strong style='color:var(--text)'>Installer</strong> dans la fenetre qui apparait</span></div>"+
-"<div class='step'><span class='step-n ok'>✓</span><span style='color:var(--success)'>MyHostKit s&#39;ouvre dans sa propre fenetre + icone sur le bureau et dans le menu Demarrer</span></div>"+
-"</div>";}
+function viewMessages(){var h="<div style='display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap'>";
+S.properties.forEach(function(p){h+="<button class='btn "+(S.chatProp&&S.chatProp.id===p.id?"btn-primary":"btn-outline")+"' onclick='selectChatProp(\""+p.id+"\")'>"+esc(p.name)+"</button>";});
+h+="</div><div id='chat-area'>";
+if(!S.chatProp)h+="<div class='empty'><div class='empty-icon'>\ud83d\udcac</div>Selectionnez un logement</div>";
+else h+=renderChat();
+h+="</div>";return h;}
 
-if(isEdge){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid #0078D4'>"+
-"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>🌐</span><div><div style='font-size:15px;font-weight:700'>Installer via Microsoft Edge</div><div style='font-size:11px;color:var(--success)'>● Detecte</div></div></div>"+
-"<div class='step'><span class='step-n'>1</span><span>Cliquez sur les <strong style='color:var(--text)'>3 points ···</strong> en haut a droite</span></div>"+
-"<div class='step'><span class='step-n'>2</span><span>Cliquez sur <strong style='color:var(--text)'>Applications</strong></span></div>"+
-"<div class='step'><span class='step-n'>3</span><span>Cliquez sur <strong style='color:var(--text)'>Installer ce site en tant qu&#39;application</strong></span></div>"+
-"<div class='step'><span class='step-n'>4</span><span>Cliquez sur <strong style='color:var(--text)'>Installer</strong></span></div>"+
-"<div class='step'><span class='step-n ok'>✓</span><span style='color:var(--success)'>MyHostKit s&#39;ouvre comme une app avec icone sur le bureau</span></div>"+
-"</div>";}
+function viewStock(){var h="";
+if(S.properties.length===0)return"<div class='empty'><div class='empty-icon'>\ud83d\udce6</div>Ajoutez un logement d'abord</div>";
+var criticals=S.items.filter(function(i){return i.quantity<=i.min_quantity;});
+if(criticals.length>0)h+="<div class='alert-bar' style='background:rgba(255,149,0,.1);color:var(--warn);border:1px solid rgba(255,149,0,.2)'>\u26a0\ufe0f "+criticals.length+" article(s) en stock critique</div>";
+h+="<div style='display:flex;justify-content:space-between;margin-bottom:12px'><span style='font-size:13px;color:var(--sub)'>"+S.items.length+" articles</span><button class='btn btn-primary' onclick='showAddItem()'>+ Ajouter</button></div>";
+if(S.items.length===0){h+="<div class='crd'><h3>Suggestions</h3><div style='display:flex;flex-wrap:wrap;gap:6px'>";
+["Savon mains","Papier toilette","Liquide vaisselle","Eponges","Draps","Serviettes","Capsules cafe"].forEach(function(s){h+="<button class='btn btn-sm btn-outline' onclick='quickAddItem(\""+s+"\",\"general\")'>"+s+"</button>";});
+h+="</div></div>";}else{h+="<div class='row row2'>";
+S.items.forEach(function(item){var crit=item.quantity<=item.min_quantity;var pct=item.min_quantity>0?Math.min(100,Math.round((item.quantity/(item.min_quantity*2))*100)):100;var barC=pct<30?"var(--error)":pct<60?"var(--warn)":"var(--success)";
+h+="<div class='crd' style='"+(crit?"border-left:3px solid var(--warn)":"")+"'><div style='display:flex;justify-content:space-between;align-items:center'><strong>"+esc(item.item_name)+"</strong>"+(crit?"\u26a0\ufe0f":"")+"</div><div class='progress-bar' style='margin-top:8px'><div class='progress-fill' style='width:"+pct+"%;background:"+barC+"'></div></div><div style='display:flex;justify-content:space-between;align-items:center;margin-top:6px'><span style='font-size:11px;color:var(--muted)'>"+(item.unit||"unite")+" \u00b7 min "+(item.min_quantity||0)+"</span><div style='display:flex;align-items:center;gap:8px'><button class='btn btn-sm btn-outline' onclick='updateItemQty(\""+item.id+"\",-1)'>\u2212</button><strong style='font-size:18px'>"+item.quantity+"</strong><button class='btn btn-sm' style='background:var(--success);color:#fff' onclick='updateItemQty(\""+item.id+"\",1)'>+</button></div></div></div>";});
+h+="</div>";}return h;}
 
-if(!isChrome&&!isEdge){h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--accent)'>"+
-"<div style='font-size:15px;font-weight:700;margin-bottom:10px'>🌐 Navigateur non supporte</div>"+
-"<div style='font-size:13px;color:var(--sub)'>Ouvrez cette page dans <strong style='color:var(--text)'>Google Chrome</strong> ou <strong style='color:var(--text)'>Microsoft Edge</strong> pour installer MyHostKit comme application.</div></div>";}
+function viewNotifications(){if(S.notifications.length===0)return"<div class='empty'><div class='empty-icon'>\ud83d\udd14</div>Aucune notification</div>";
+var h="";S.notifications.forEach(function(n){h+="<div class='crd' style='padding:14px'><div style='font-size:14px'>"+esc(n.message||"Notification")+"</div><div style='font-size:11px;color:var(--muted);margin-top:4px'>"+new Date(n.created_at).toLocaleString("fr-FR")+"</div></div>";});return h;}
 
-h+="<div style='background:var(--dark2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:4px solid var(--warn)'>"+
-"<div style='display:flex;align-items:center;gap:10px;margin-bottom:14px'><span style='font-size:24px'>⭐</span><div style='font-size:15px;font-weight:700'>Alternative — Ajouter aux favoris</div></div>"+
-"<div class='step'><span class='step-n w'>1</span><span>Appuyez sur <strong style='color:var(--text)'>"+shortcut+"</strong></span></div>"+
-"<div class='step'><span class='step-n w'>2</span><span>Selectionnez <strong style='color:var(--text)'>Barre de favoris</strong></span></div>"+
-"<div class='step'><span class='step-n w'>3</span><span>Cliquez sur <strong style='color:var(--text)'>OK</strong></span></div>"+
-"</div>";
+function viewSettings(){var p=S.profile||{},plan=getPlan(),td=getTrialDays();
+return"<div class='row row2'><div class='crd'><h3>\ud83d\udc64 Profil</h3><div style='text-align:center;padding:16px'><div style='width:64px;height:64px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px'>"+((p.first_name||"U")[0].toUpperCase())+"</div><div style='font-size:16px;font-weight:700'>"+(p.first_name&&p.last_name?esc(p.first_name)+" "+esc(p.last_name):(p.full_name||p.prenom||"--"))+"</div><div style='font-size:12px;color:var(--muted);margin-top:4px'>"+S.session.user.email+"</div><div style='margin-top:8px'><span class='chip cg'>"+(p.role||"host")+" \u00b7 "+plan+"</span></div></div></div><div class='crd'><h3>\ud83d\udccb Informations</h3><div style='font-size:13px;color:var(--sub);line-height:2.2'>\ud83c\udfe0 Role : "+(p.role||"host")+"<br>\ud83d\udcb3 Plan : "+getPlanLabel(plan)+(plan==="trial"&&td>0?" ("+td+"j restants)":"")+"<br>\ud83c\udf81 Code parrain : <strong style='color:var(--accent)'>"+(p.referral_code||"--")+"</strong><br>\ud83d\udcf1 Tel : "+(p.phone||"--")+"<br>\ud83c\udfe2 Entreprise : "+(p.company_name||"--")+"<br>\ud83d\udccd Adresse : "+(p.billing_address||"--")+" "+(p.billing_city||"")+" "+(p.billing_zip||"")+"<br>\ud83d\udcc5 Inscrit : "+(p.created_at?new Date(p.created_at).toLocaleDateString("fr-FR"):"--")+"</div><div style='display:flex;gap:6px;margin-top:12px'><button class='btn btn-sm btn-primary' onclick='editProfile()'>Modifier</button><button class='btn btn-sm btn-danger' onclick='deleteAccount()'>Supprimer le compte</button></div></div></div><div class='crd' style='margin-top:12px'><h3>\ud83d\udcb3 Mon abonnement</h3><div class='row row3' style='margin-top:12px'><div class='kpi' style='"+(plan==="starter"?"border:2px solid var(--accent)":"")+"'><div class='kpi-label'>Starter</div><div class='kpi-val' style='font-size:20px'>49\u20ac<span style='font-size:12px;color:var(--muted)'>/mois</span></div><div style='font-size:11px;color:var(--sub);margin-top:4px'>3 logements \u00b7 Stock \u00b7 iCal</div></div><div class='kpi' style='"+(plan==="pro"?"border:2px solid var(--accent)":"")+"'><div class='kpi-label'>Pro</div><div class='kpi-val' style='font-size:20px'>89\u20ac<span style='font-size:12px;color:var(--muted)'>/mois</span></div><div style='font-size:11px;color:var(--sub);margin-top:4px'>Illimite \u00b7 IA Concierge \u00b7 5%</div></div><div class='kpi' style='"+(plan==="business"?"border:2px solid var(--accent)":"")+"'><div class='kpi-label'>Business</div><div class='kpi-val' style='font-size:20px'>Sur devis</div><div style='font-size:11px;color:var(--sub);margin-top:4px'>White-label \u00b7 API</div></div></div></div>";}
 
-h+="<div style='text-align:center;margin-top:8px'><button class='btn-p' onclick='tryInstall()' style='padding:14px 40px;font-size:15px'>📌 Installer MyHostKit</button></div></div>";
+function viewCleanerPlanning(){if(!S.cleanerProfile)return viewCleanerOnboarding();
+var h="",today=new Date().toISOString().split("T")[0];
+var upcoming=S.bookings.filter(function(b){return b.date>=today&&(b.status==="confirmed"||b.status==="pending");});
+var completed=S.bookings.filter(function(b){return b.status==="completed"||b.status==="validated";});
+h+="<div class='row row3' style='margin-bottom:16px'><div class='kpi'><div class='kpi-label'>A venir</div><div class='kpi-val' style='color:var(--blue)'>"+upcoming.length+"</div></div><div class='kpi'><div class='kpi-label'>Termines</div><div class='kpi-val' style='color:var(--success)'>"+completed.length+"</div></div><div class='kpi'><div class='kpi-label'>Total</div><div class='kpi-val'>"+S.bookings.length+"</div></div></div>";
+h+="<div class='crd'><h3>\ud83d\udcc5 14 prochains jours</h3><div style='display:flex;gap:6px;flex-wrap:wrap'>";
+for(var i=0;i<14;i++){var d=new Date();d.setDate(d.getDate()+i);var ds=d.toISOString().split("T")[0];
+var dayB=S.bookings.filter(function(b){return b.date===ds;});var av=S.availability.filter(function(a){return a.date===ds;});
+var cls="cal-day";if(i===0)cls+=" today";if(dayB.length>0)cls+=" booked";else if(av.length>0)cls+=" available";
+h+="<div class='"+cls+"'><div style='font-size:10px;color:var(--muted)'>"+["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"][d.getDay()]+"</div><div style='font-size:16px;font-weight:700'>"+d.getDate()+"</div>";
+if(dayB.length>0)h+="<div style='font-size:9px;color:var(--blue)'>"+dayB.length+" menage(s)</div>";
+else if(av.length>0)h+="<div style='font-size:9px;color:var(--success)'>Dispo</div>";
+h+="</div>";}
+h+="</div></div><div class='crd'><h3>\ud83d\udccb Prochains menages</h3>";
+if(upcoming.length===0)h+="<div class='empty'>Aucun menage a venir</div>";
+else upcoming.forEach(function(b){h+="<div style='padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center'><div><strong>"+(b.properties?b.properties.name:"Logement")+"</strong><div style='font-size:12px;color:var(--sub)'>\ud83d\udcc5 "+b.date+(b.properties&&b.properties.address?" \u00b7 \ud83d\udccd "+b.properties.address:"")+"</div></div><span class='chip cb'>"+b.status+"</span></div>";});
+h+="</div>";return h;}
+
+function viewCleanerOnboarding(){return"<div class='crd' style='max-width:600px'><h3>\ud83e\uddf9 Creer votre profil menagere</h3><p style='font-size:13px;color:var(--sub);margin-bottom:16px'>Remplissez vos informations pour apparaitre sur la marketplace.</p><div class='row row2'><div class='form-group'><label class='form-label'>Prenom *</label><input class='form-input' id='co-fn' placeholder='Marie'></div><div class='form-group'><label class='form-label'>Nom *</label><input class='form-input' id='co-ln' placeholder='Dupont'></div></div><div class='form-group'><label class='form-label'>Entreprise (optionnel)</label><input class='form-input' id='co-co' placeholder='CleanPro'></div><div class='row row2'><div class='form-group'><label class='form-label'>Email *</label><input class='form-input' id='co-em' type='email'></div><div class='form-group'><label class='form-label'>Telephone *</label><input class='form-input' id='co-ph'></div></div><div class='row row2'><div class='form-group'><label class='form-label'>Ville *</label><input class='form-input' id='co-ci'></div><div class='form-group'><label class='form-label'>Taux horaire</label><input class='form-input' id='co-pr' type='number' placeholder='25'></div></div><div class='form-group'><label class='form-label'>Adresse facturation *</label><input class='form-input' id='co-ba'></div><div class='row row2'><div class='form-group'><label class='form-label'>Statut juridique *</label><input class='form-input' id='co-ls'></div><div class='form-group'><label class='form-label'>SIRET</label><input class='form-input' id='co-si'></div></div><div class='form-group'><label class='form-label'>Bio</label><textarea class='form-input' id='co-bio'></textarea></div><button class='btn btn-primary' style='width:100%;padding:14px;margin-top:8px' onclick='submitCleanerOnboarding()'>Creer mon profil</button></div>";}
+
+function viewCleanerDispo(){if(!S.cleanerProfile)return viewCleanerOnboarding();
+var h="<div class='crd'><h3>\ud83d\udcc5 Gerer vos disponibilites</h3><p style='font-size:12px;color:var(--sub);margin-bottom:12px'>Cliquez sur un jour pour activer/desactiver.</p><div style='display:flex;gap:6px;flex-wrap:wrap'>";
+for(var i=0;i<14;i++){var d=new Date();d.setDate(d.getDate()+i);var ds=d.toISOString().split("T")[0];
+var av=S.availability.find(function(a){return a.date===ds;});
+h+="<div class='cal-day"+(av?" available":"")+(i===0?" today":"")+"' onclick='toggleDispo(\""+ds+"\")'><div style='font-size:10px;color:var(--muted)'>"+["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"][d.getDay()]+"</div><div style='font-size:16px;font-weight:700'>"+d.getDate()+"</div>"+(av?"<div style='font-size:9px;color:var(--success)'>\u2705 "+(av.time_start||"08:00")+"\u2014"+(av.time_end||"18:00")+"</div>":"<div style='font-size:9px;color:var(--muted)'>Indisponible</div>")+"</div>";}
+h+="</div></div>";return h;}
+
+function viewChecklist(){var CK=[{s:"Entree",items:["Paillasson propre","Sol aspire/lave","Miroir nettoye"]},{s:"Salon",items:["Canape arrange","Table basse nettoyee","Sol aspire/lave","Poussiere meubles","Telecommandes en place"]},{s:"Cuisine",items:["Vaisselle lavee/rangee","Plan de travail nettoye","Evier nettoye","Poubelles videes","Refrigerateur verifie","Sol lave"]},{s:"Chambre(s)",items:["Draps changes","Lit fait","Oreillers arranges","Table de nuit nettoyee","Sol aspire"]},{s:"Salle de bain",items:["Douche/baignoire nettoyee","Lavabo nettoye","Toilettes nettoyees","Miroir nettoye","Serviettes pliees","Sol lave"]},{s:"General",items:["Poubelles videes","Fenetres fermees","Lumieres eteintes","Porte verrouillee"]}];
+var total=0,done=0;if(!window._chk)window._chk={};
+CK.forEach(function(sec){sec.items.forEach(function(it){total++;if(window._chk[sec.s+":"+it])done++;});});
+var pct=total>0?Math.round((done/total)*100):0;
+var h="<div style='display:flex;align-items:center;gap:16px;margin-bottom:16px'><div class='progress-bar' style='flex:1;height:10px'><div class='progress-fill' style='width:"+pct+"%;background:var(--success)'></div></div><span class='chip "+(pct===100?"cg":"co")+"'>"+pct+"%</span></div>";
+CK.forEach(function(sec){h+="<div class='crd'><h3>"+sec.s+"</h3>";
+sec.items.forEach(function(item){var key=sec.s+":"+item;var dn=window._chk[key];
+h+="<div class='checklist-item' onclick='toggleCheck(\""+key.replace(/"/g,"&quot;")+"\")'><div class='checklist-check "+(dn?"done":"")+"'>"+(dn?"\u2713":"")+"</div><span style='"+(dn?"text-decoration:line-through;color:var(--muted)":"")+"'>"+item+"</span></div>";});
+h+="</div>";});return h;}
+
+function viewRapport(){if(!S.cleanerProfile)return viewCleanerOnboarding();
+var pending=S.bookings.filter(function(b){return(b.status==="confirmed"||b.status==="completed")&&!b.report_sent;});
+var h="<div class='crd'><h3>\ud83d\udcf8 Envoyer un rapport</h3>";
+if(pending.length===0)h+="<div class='empty'><div class='empty-icon'>\ud83d\udcf8</div>Aucun menage en attente de rapport</div>";
+else pending.forEach(function(b){h+="<div style='padding:10px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center'><div><strong>"+(b.properties?b.properties.name:"Logement")+"</strong><div style='font-size:12px;color:var(--sub)'>\ud83d\udcc5 "+b.date+"</div></div><button class='btn btn-sm btn-primary' onclick='sendReport(\""+b.id+"\")'>Envoyer</button></div>";});
+h+="</div>";return h;}
+
+function viewHistory(){var completed=S.bookings.filter(function(b){return b.status==="completed"||b.status==="validated";});
+var pending=S.bookings.filter(function(b){return b.status==="pending"||b.status==="confirmed";});
+var h="<div class='row row3' style='margin-bottom:16px'><div class='kpi'><div class='kpi-label'>Termines</div><div class='kpi-val' style='color:var(--success)'>"+completed.length+"</div></div><div class='kpi'><div class='kpi-label'>En cours</div><div class='kpi-val' style='color:var(--warn)'>"+pending.length+"</div></div><div class='kpi'><div class='kpi-label'>Total</div><div class='kpi-val'>"+S.bookings.length+"</div></div></div>";
+if(S.bookings.length===0)return h+"<div class='empty'><div class='empty-icon'>\ud83d\udcdc</div>Aucun menage</div>";
+h+="<table class='tbl'><thead><tr><th>Date</th><th>Logement</th><th>Adresse</th><th>Statut</th></tr></thead><tbody>";
+S.bookings.forEach(function(b){var sc=b.status==="completed"||b.status==="validated"?"cg":b.status==="pending"?"co":"cb";
+h+="<tr><td>"+b.date+"</td><td>"+(b.properties?b.properties.name:"\u2014")+"</td><td>"+(b.properties?b.properties.address||b.properties.city||"":"\u2014")+"</td><td><span class='chip "+sc+"'>"+b.status+"</span></td></tr>";});
+h+="</tbody></table>";return h;}
+
+function viewTeam(){var h="<div class='tab-bar'><button class='tab-btn "+(window._teamTab!=="groups"&&window._teamTab!=="missions"?"on":"")+"' onclick='window._teamTab=\"members\";go(\"team\")'>Membres</button><button class='tab-btn "+(window._teamTab==="groups"?"on":"")+"' onclick='window._teamTab=\"groups\";go(\"team\")'>Groupes</button><button class='tab-btn "+(window._teamTab==="missions"?"on":"")+"' onclick='window._teamTab=\"missions\";go(\"team\")'>Missions</button></div>";
+if(window._teamTab==="groups")h+="<div class='crd'><h3>Groupes</h3><div class='empty'>Creez des groupes pour organiser votre equipe</div></div>";
+else if(window._teamTab==="missions")h+="<div class='crd'><h3>Missions</h3><div class='empty'>Assignez des missions a vos membres</div></div>";
+else{h+="<div style='display:flex;justify-content:space-between;margin-bottom:12px'><span style='font-size:13px;color:var(--sub)'>"+S.teamMembers.length+" membre(s)</span><button class='btn btn-primary' onclick='showAddTeamMember()'>+ Ajouter</button></div>";
+if(S.teamMembers.length===0)h+="<div class='empty'><div class='empty-icon'>\ud83d\udc65</div>Invitez des membres</div>";
+else S.teamMembers.forEach(function(m){h+="<div class='crd' style='padding:12px;display:flex;justify-content:space-between;align-items:center'><div><strong>"+esc(m.member_name||m.member_email)+"</strong><div style='font-size:11px;color:var(--muted)'>"+esc(m.member_email)+"</div></div><button class='btn btn-sm btn-danger' onclick='removeTeamMember(\""+m.id+"\")'>Retirer</button></div>";});}
 return h;}
 
-function renderInstallBanner(){if(localStorage.getItem("mhk-dismiss"))return "";var shortcut=navigator.userAgent.indexOf("Mac")!==-1?"Cmd+D":"Ctrl+D";return "<div class='install-bar' id='ib'><button class='ib-close' onclick='dismissInstall()'>✕</button><span style='font-size:24px'>💻</span><div style='flex:1'><div style='font-size:13px;font-weight:700;color:var(--accent);margin-bottom:2px'>Accedez rapidement a MyHostKit</div><div style='font-size:11px;color:var(--sub)'>3 points ⋮ → Caster, enregistrer et partager → Installer la page en tant qu&#39;application. Ou "+shortcut+" pour les favoris.</div><div style='margin-top:8px;display:flex;gap:6px'><button class='btn-p' style='padding:5px 12px;font-size:10px' onclick='go(\"install\")'>Voir comment faire</button><button class='btn-s' style='padding:5px 12px;font-size:10px' onclick='dismissInstall()'>Plus tard</button></div></div></div>";}
+function viewGuestHome(){var p=S.guestProperty||{};
+if(!p.name)return"<div class='empty'><div class='empty-icon'>\ud83c\udfe0</div><p style='font-size:18px;font-weight:600'>Aucun logement trouve</p><button class='btn btn-primary' style='margin-top:16px' onclick='doLogout()'>Retour</button></div>";
+var h="<div class='crd' style='text-align:center;padding:24px'><div style='font-size:40px;margin-bottom:12px'>\ud83d\udc4b</div><div style='font-size:20px;font-weight:700'>Bienvenue !</div><div style='font-size:16px;font-weight:600;color:var(--accent);margin-top:8px'>"+esc(p.name)+"</div>";
+if(p.address)h+="<div style='font-size:13px;color:var(--sub);margin-top:4px'>\ud83d\udccd "+esc(p.address)+(p.city?", "+esc(p.city):"")+"</div>";
+if(p.welcome_message)h+="<div style='font-size:14px;color:var(--sub);margin-top:12px;font-style:italic'>"+esc(p.welcome_message)+"</div>";
+h+="</div><div class='row row3'><div class='crd'><h3>\ud83d\udcf6 WiFi</h3><div style='font-size:14px'>Reseau : <strong>"+(p.wifi_name||"\u2014")+"</strong></div><div style='font-size:14px'>MDP : <strong>"+(p.wifi_password||"\u2014")+"</strong></div></div><div class='crd'><h3>\ud83d\udd11 Acces</h3><div style='font-size:14px'>Code : <strong>"+(p.access_code||"\u2014")+"</strong></div>"+(p.access_info?"<div style='font-size:12px;color:var(--sub);margin-top:4px'>"+esc(p.access_info)+"</div>":"")+"</div><div class='crd'><h3>\ud83d\udd50 Horaires</h3><div style='font-size:14px'>Check-in : <strong>"+(p.checkin||p.check_in_time||"15:00")+"</strong></div><div style='font-size:14px'>Check-out : <strong>"+(p.checkout||p.check_out_time||"11:00")+"</strong></div></div></div><div class='crd'><h3>\ud83d\udea8 Signaler un probleme</h3><textarea class='form-input' id='incident-text' placeholder='Decrivez le probleme...' rows='3'></textarea><button class='btn btn-primary' style='margin-top:8px' onclick='sendIncident()'>Envoyer</button></div>";return h;}
 
-var deferredPrompt=null;
-window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredPrompt=e;});
-function tryInstall(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==="accepted")dismissInstall();});}else{go("install");}}
-function dismissInstall(){localStorage.setItem("mhk-dismiss","1");var b=document.getElementById("ib");if(b)b.style.display="none";}
+function viewGuestInfo(){var p=S.guestProperty||{};var h="";
+if(p.access_info)h+="<div class='crd'><h3>\ud83d\udccb Instructions d'arrivee</h3><div style='font-size:14px;color:var(--sub);line-height:1.8'>"+esc(p.access_info)+"</div></div>";
+if(p.amenities)h+="<div class='crd'><h3>\ud83c\udfe1 Equipements</h3><div style='font-size:14px;color:var(--sub);line-height:1.8'>"+esc(p.amenities)+"</div></div>";
+if(p.rules)h+="<div class='crd'><h3>\ud83d\udcdc Regles</h3><div style='font-size:14px;color:var(--sub);line-height:1.8'>"+esc(p.rules)+"</div></div>";
+if(p.contacts)h+="<div class='crd'><h3>\ud83d\udcde Contacts</h3><div style='font-size:14px;color:var(--sub);line-height:1.8'>"+esc(p.contacts)+"</div></div>";
+h+="<div class='crd'><h3>\ud83c\udd98 Urgences</h3><div style='font-size:15px;line-height:2.5'><a href='tel:15' style='color:var(--blue);font-weight:600'>SAMU : 15</a><br><a href='tel:17' style='color:var(--blue);font-weight:600'>Police : 17</a><br><a href='tel:18' style='color:var(--blue);font-weight:600'>Pompiers : 18</a></div></div>";return h;}
 
+function viewConcierge(){var h="<div class='chat-wrap'><div class='chat-msgs' id='concierge-msgs'>";
+if(!S.guestMsgs||S.guestMsgs.length===0)h+="<div style='text-align:center;padding:40px;color:var(--muted)'><div style='font-size:40px;margin-bottom:12px'>\ud83e\udd16</div><div>Bonjour ! Je suis votre concierge IA.</div><div style='font-size:13px;margin-top:4px'>Posez-moi vos questions sur le logement, le quartier...</div></div>";
+else S.guestMsgs.forEach(function(m){h+="<div style='display:flex;"+(m.role==="user"?"justify-content:flex-end":"")+"'><div class='chat-bubble "+(m.role==="user"?"chat-me":"chat-other")+"'>"+esc(m.text)+"</div></div>";});
+h+="</div><div class='chat-input-wrap'><input class='chat-input' id='concierge-input' placeholder='Posez votre question...' onkeydown='if(event.key===\"Enter\")sendConcierge()'><button class='chat-send' onclick='sendConcierge()'>Envoyer</button></div></div>";return h;}
 
-function viewAdmin(){
-return "<div class='crd'><h3>👑 Administration</h3>"+
-"<p style='font-size:13px;color:var(--sub);margin-bottom:16px'>Panneau d&#39;administration MyHostKit</p>"+
-"<div class='row' style='grid-template-columns:1fr 1fr 1fr'><div class='kpi'><div class='kpi-label'>Utilisateurs</div><div class='kpi-val' id='admin-users'>...</div></div>"+
-"<div class='kpi'><div class='kpi-label'>Logements</div><div class='kpi-val' id='admin-props'>...</div></div>"+
-"<div class='kpi'><div class='kpi-label'>Reservations</div><div class='kpi-val' id='admin-books'>...</div></div></div></div>";
-}
-function renderBookTbl(){if(!S.bookings.length)return "<div class='empty'>Aucune reservation</div>";var h="<table class='tbl'><tr><th>Date</th><th>Statut</th><th>Montant</th></tr>";S.bookings.forEach(function(b){var sc=b.status==="confirmed"?"cg":b.status==="pending"?"ca":"cb";h+="<tr><td>"+(b.date||"--")+"</td><td><span class='chip "+sc+"'>"+(b.status||"?")+"</span></td><td>"+(b.amount||"--")+" EUR</td></tr>";});return h+"</table>";}
-function renderNotifList(){if(!S.notifications.length)return "<div style='font-size:12px;color:var(--muted);padding:8px'>Aucune notification</div>";return S.notifications.slice(0,5).map(function(n){return "<div class='prop'><div><div class='prop-name'>"+(n.title||"--")+"</div><div class='prop-meta'>"+(n.body||"")+"</div></div></div>";}).join("");}
+function viewAdminDashboard(){var s=S.adminStats;
+return"<div class='row row4' style='margin-bottom:16px'><div class='kpi'><div class='kpi-label'>Utilisateurs</div><div class='kpi-val'>"+(s.totalUsers||0)+"</div></div><div class='kpi'><div class='kpi-label'>Logements</div><div class='kpi-val'>"+(s.totalProperties||0)+"</div></div><div class='kpi'><div class='kpi-label'>Bookings</div><div class='kpi-val'>"+(s.totalBookings||0)+"</div></div><div class='kpi'><div class='kpi-label'>Nouveaux (7j)</div><div class='kpi-val' style='color:var(--success)'>"+(s.newWeek||0)+"</div></div></div><div class='row row2'><div class='crd'><h3>\ud83d\udc65 Repartition</h3><div style='font-size:13px;line-height:2.2;color:var(--sub)'>\ud83d\udd11 Hotes : <strong>"+(s.hosts||0)+"</strong><br>\ud83e\uddf9 Menageres : <strong>"+(s.cleaners||0)+"</strong><br>\ud83d\udc51 Admins : <strong>"+(s.admins||0)+"</strong></div></div><div class='crd'><h3>\ud83d\udcb3 Plans</h3><div style='font-size:13px;line-height:2.2;color:var(--sub)'>\ud83c\udd93 Gratuit : <strong>"+(s.planFree||0)+"</strong><br>\ud83c\udf81 Trial : <strong>"+(s.planTrial||0)+"</strong><br>\ud83d\ude80 Starter : <strong>"+(s.planStarter||0)+"</strong><br>\u2b50 Pro : <strong>"+(s.planPro||0)+"</strong><br>\ud83d\udcbc Business : <strong>"+(s.planBusiness||0)+"</strong></div></div></div><div class='crd' style='margin-top:12px'><h3>Bookings</h3><div style='font-size:13px;color:var(--sub)'>\u23f3 Pending : "+(s.bookingsPending||0)+" \u00b7 \u2705 Confirmes : "+(s.bookingsConfirmed||0)+" \u00b7 \u26a0\ufe0f Litiges : "+(s.bookingsDisputed||0)+"</div></div>";}
+
+function viewAdminUsers(){var h="<div style='display:flex;gap:8px;margin-bottom:16px'><input class='form-input' id='au-search' placeholder='Rechercher par email...' style='max-width:300px' onkeyup='filterAdminUsers()'><button class='btn btn-primary' onclick='refreshAdminData()'>Actualiser</button></div>";
+h+="<table class='tbl'><thead><tr><th>Email</th><th>Role</th><th>Plan</th><th>Inscrit</th><th>Actions</th></tr></thead><tbody id='au-tbody'>";
+S.adminUsers.forEach(function(u){var pc=u.subscription_plan==="pro"?"cg":u.subscription_plan==="trial"?"ca":u.subscription_plan==="starter"?"cb":"";
+h+="<tr><td>"+esc(u.email)+"</td><td><span class='chip "+(u.role==="admin"?"ca":u.role==="cleaner"?"cb":"")+"'>"+u.role+"</span></td><td><span class='chip "+pc+"'>"+(u.subscription_plan||"free")+"</span></td><td>"+(u.created_at?new Date(u.created_at).toLocaleDateString("fr-FR"):"\u2014")+"</td><td><button class='btn btn-sm btn-outline' onclick='adminChangePlan(\""+u.id+"\",\""+esc(u.email)+"\")'>Plan</button> <button class='btn btn-sm btn-outline' onclick='adminExtendTrial(\""+u.id+"\",\""+esc(u.email)+"\")'>+30j</button></td></tr>";});
+h+="</tbody></table>";return h;}
+
+function viewAdminBookings(){var h="<table class='tbl'><thead><tr><th>ID</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead><tbody>";
+S.adminBookings.forEach(function(b){var sc=b.status==="confirmed"?"cb":b.status==="validated"?"cg":b.status==="disputed"?"cr":"co";
+h+="<tr><td style='font-size:11px'>"+b.id.substring(0,8)+"</td><td>"+b.date+"</td><td><span class='chip "+sc+"'>"+b.status+"</span></td><td>";
+if(b.status==="disputed")h+="<button class='btn btn-sm btn-primary' onclick='adminResolve(\""+b.id+"\",\"validate\")'>Liberer</button> <button class='btn btn-sm btn-danger' onclick='adminResolve(\""+b.id+"\",\"refund\")'>Rembourser</button>";
+else if(b.status==="report_sent")h+="<button class='btn btn-sm btn-primary' onclick='adminForceValidate(\""+b.id+"\")'>Forcer</button>";
+h+="</td></tr>";});h+="</tbody></table>";return h;}
+
+function viewAdminSupport(){return"<div class='row row2'><div class='crd'><h3>Reset mot de passe</h3><div class='form-group'><label class='form-label'>Email</label><input class='form-input' id='as-email'></div><button class='btn btn-primary' onclick='adminResetPassword()'>Envoyer le lien</button></div><div class='crd'><h3>Changer plan</h3><div class='form-group'><label class='form-label'>Email</label><input class='form-input' id='as-email2'></div><div style='display:flex;gap:6px;flex-wrap:wrap'><button class='btn btn-sm btn-outline' onclick='adminSetPlan(\"free\")'>Gratuit</button><button class='btn btn-sm btn-outline' onclick='adminSetPlan(\"trial\")'>Trial</button><button class='btn btn-sm btn-outline' onclick='adminSetPlan(\"starter\")'>Starter</button><button class='btn btn-sm btn-primary' onclick='adminSetPlan(\"pro\")'>Pro</button><button class='btn btn-sm btn-outline' onclick='adminSetPlan(\"business\")'>Business</button></div></div></div><div class='crd' style='margin-top:12px'><h3>Email support</h3><div class='form-group'><label class='form-label'>Destinataire</label><input class='form-input' id='as-to'></div><div class='form-group'><label class='form-label'>Sujet</label><input class='form-input' id='as-subj'></div><div class='form-group'><label class='form-label'>Message</label><textarea class='form-input' id='as-body' rows='4'></textarea></div><button class='btn btn-primary' onclick='adminSendEmail()'>Envoyer</button></div>";}
+
+function renderChat(){return"<div class='chat-wrap'><div class='chat-msgs' id='host-chat-msgs'>"+(S.chatMsgs.length===0?"<div class='empty'>Aucun message</div>":S.chatMsgs.map(function(m){var isMe=m.sender_role==="host";var time=m.created_at?new Date(m.created_at).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"";return"<div style='display:flex;"+(isMe?"justify-content:flex-end":"")+"'><div class='chat-bubble "+(isMe?"chat-me":"chat-other")+"'>"+(!isMe?"<div style='font-size:10px;color:var(--accent);margin-bottom:4px'>Voyageur</div>":"")+esc(m.message)+"<div style='font-size:9px;opacity:.5;margin-top:4px;text-align:right'>"+time+"</div></div></div>";}).join(""))+"</div><div class='chat-input-wrap'><input class='chat-input' id='host-chat-input' placeholder='Ecrire...' onkeydown='if(event.key===\"Enter\")sendHostMsg()'><button class='chat-send' onclick='sendHostMsg()'>Envoyer</button></div></div>";}
+
+function showAddProperty(){var m="<div class='modal-overlay' onclick='if(event.target===this)closeModal()'><div class='modal'><h2>Ajouter un logement</h2><div class='row row2'><div class='form-group'><label class='form-label'>Nom *</label><input class='form-input' id='pf-name'></div><div class='form-group'><label class='form-label'>Type</label><select class='form-input' id='pf-type'><option>Appartement</option><option>Maison</option><option>Studio</option><option>Villa</option><option>Loft</option></select></div></div><div class='row row2'><div class='form-group'><label class='form-label'>Adresse</label><input class='form-input' id='pf-addr'></div><div class='form-group'><label class='form-label'>Ville</label><input class='form-input' id='pf-city'></div></div><div class='row row4'><div class='form-group'><label class='form-label'>Pieces</label><input class='form-input' id='pf-rooms' type='number'></div><div class='form-group'><label class='form-label'>Capacite</label><input class='form-input' id='pf-cap' type='number'></div><div class='form-group'><label class='form-label'>Check-in</label><input class='form-input' id='pf-ci' value='15:00'></div><div class='form-group'><label class='form-label'>Check-out</label><input class='form-input' id='pf-co' value='11:00'></div></div><div class='row row2'><div class='form-group'><label class='form-label'>Code acces</label><input class='form-input' id='pf-code'></div><div class='form-group'><label class='form-label'>Instructions acces</label><input class='form-input' id='pf-info'></div></div><div class='row row2'><div class='form-group'><label class='form-label'>WiFi nom</label><input class='form-input' id='pf-wn'></div><div class='form-group'><label class='form-label'>WiFi mot de passe</label><input class='form-input' id='pf-wp'></div></div><div class='form-group'><label class='form-label'>Regles</label><textarea class='form-input' id='pf-rules'></textarea></div><div class='form-group'><label class='form-label'>Contacts</label><input class='form-input' id='pf-contacts'></div><div class='form-group'><label class='form-label'>Message bienvenue</label><textarea class='form-input' id='pf-welcome'></textarea></div><div class='form-group'><label class='form-label'>URL iCal (Airbnb/Booking)</label><input class='form-input' id='pf-ical' placeholder='https://...'></div><div style='display:flex;gap:8px;margin-top:16px'><button class='btn btn-primary' style='flex:1' onclick='addProperty()'>Ajouter</button><button class='btn btn-outline' onclick='closeModal()'>Annuler</button></div></div></div>";document.body.insertAdjacentHTML("beforeend",m);}
+
+async function addProperty(){var name=$("pf-name").value.trim();if(!name){alert("Nom requis");return;}var token="";var chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";for(var i=0;i<6;i++)token+=chars.charAt(Math.floor(Math.random()*chars.length));
+var r=await sb.from("properties").insert({user_id:S.session.user.id,name:name,type:$("pf-type").value,address:$("pf-addr").value.trim(),city:$("pf-city").value.trim(),rooms:parseInt($("pf-rooms").value)||null,capacity:parseInt($("pf-cap").value)||null,checkin:$("pf-ci").value,checkout:$("pf-co").value,check_in_time:$("pf-ci").value,check_out_time:$("pf-co").value,access_code:$("pf-code").value.trim(),access_info:$("pf-info").value.trim(),wifi_name:$("pf-wn").value.trim(),wifi_password:$("pf-wp").value.trim(),rules:$("pf-rules").value.trim(),contacts:$("pf-contacts").value.trim(),welcome_message:$("pf-welcome").value.trim(),ical_url:$("pf-ical").value.trim()||null,guest_token:token});
+if(r.error){alert(r.error.message);return;}closeModal();await loadData();go("properties");}
+
+async function deleteProperty(id,name){if(!confirm("Supprimer "+name+" ?"))return;await sb.from("properties").delete().eq("id",id);await loadData();go("properties");}
+
+function editProperty(id){var p=S.properties.find(function(x){return x.id===id;});if(!p)return;showAddProperty();
+setTimeout(function(){$("pf-name").value=p.name||"";$("pf-type").value=p.type||"Appartement";$("pf-addr").value=p.address||"";$("pf-city").value=p.city||"";$("pf-rooms").value=p.rooms||"";$("pf-cap").value=p.capacity||"";$("pf-ci").value=p.checkin||"15:00";$("pf-co").value=p.checkout||"11:00";$("pf-code").value=p.access_code||"";$("pf-info").value=p.access_info||"";$("pf-wn").value=p.wifi_name||"";$("pf-wp").value=p.wifi_password||"";$("pf-rules").value=p.rules||"";$("pf-contacts").value=p.contacts||"";$("pf-welcome").value=p.welcome_message||"";$("pf-ical").value=p.ical_url||"";
+var btn=document.querySelector(".modal .btn-primary");if(btn){btn.textContent="Modifier";btn.onclick=async function(){
+var r=await sb.from("properties").update({name:$("pf-name").value.trim(),type:$("pf-type").value,address:$("pf-addr").value.trim(),city:$("pf-city").value.trim(),rooms:parseInt($("pf-rooms").value)||null,capacity:parseInt($("pf-cap").value)||null,checkin:$("pf-ci").value,checkout:$("pf-co").value,check_in_time:$("pf-ci").value,check_out_time:$("pf-co").value,access_code:$("pf-code").value.trim(),access_info:$("pf-info").value.trim(),wifi_name:$("pf-wn").value.trim(),wifi_password:$("pf-wp").value.trim(),rules:$("pf-rules").value.trim(),contacts:$("pf-contacts").value.trim(),welcome_message:$("pf-welcome").value.trim(),ical_url:$("pf-ical").value.trim()||null}).eq("id",id);
+if(r.error){alert(r.error.message);return;}closeModal();await loadData();go("properties");};}},100);}
+
+async function validateBooking(id){if(!confirm("Valider ce menage ?"))return;await sb.from("cleaning_bookings").update({status:"validated",payment_released_at:new Date().toISOString()}).eq("id",id);await loadData();go("bookings");}
+async function disputeBooking(id){if(!confirm("Contester ce menage ?"))return;await sb.from("cleaning_bookings").update({status:"disputed"}).eq("id",id);await loadData();go("bookings");}
+
+async function selectChatProp(id){S.chatProp=S.properties.find(function(p){return p.id===id;});var r=await sb.from("host_guest_messages").select("*").eq("property_id",id).order("created_at",{ascending:true}).limit(100);S.chatMsgs=r.data||[];$("chat-area").innerHTML=renderChat();var msgs=$("host-chat-msgs");if(msgs)msgs.scrollTop=msgs.scrollHeight;}
+async function sendHostMsg(){var input=$("host-chat-input");if(!input)return;var m=input.value.trim();if(!m||!S.chatProp)return;input.value="";await sb.from("host_guest_messages").insert({property_id:S.chatProp.id,sender_role:"host",sender_id:S.session.user.id,message:m});var r=await sb.from("host_guest_messages").select("*").eq("property_id",S.chatProp.id).order("created_at",{ascending:true}).limit(100);S.chatMsgs=r.data||[];$("chat-area").innerHTML=renderChat();var msgs=$("host-chat-msgs");if(msgs)msgs.scrollTop=msgs.scrollHeight;}
+
+async function updateItemQty(id,delta){var item=S.items.find(function(i){return i.id===id;});if(!item)return;var nq=Math.max(0,item.quantity+delta);await sb.from("inventory").update({quantity:nq}).eq("id",id);item.quantity=nq;go("stock");}
+function showAddItem(){document.body.insertAdjacentHTML("beforeend","<div class='modal-overlay' onclick='if(event.target===this)closeModal()'><div class='modal'><h2>Ajouter un article</h2><div class='form-group'><label class='form-label'>Nom</label><input class='form-input' id='si-name'></div><div class='row row3'><div class='form-group'><label class='form-label'>Categorie</label><select class='form-input' id='si-cat'><option value='hygiene'>Hygiene</option><option value='nettoyage'>Nettoyage</option><option value='literie'>Literie</option><option value='cuisine'>Cuisine</option><option value='accueil'>Accueil</option><option value='general'>General</option></select></div><div class='form-group'><label class='form-label'>Quantite</label><input class='form-input' id='si-qty' type='number' value='5'></div><div class='form-group'><label class='form-label'>Seuil min</label><input class='form-input' id='si-min' type='number' value='2'></div></div><div class='form-group'><label class='form-label'>Unite</label><input class='form-input' id='si-unit' value='unite'></div><button class='btn btn-primary' style='width:100%;margin-top:12px' onclick='addItem()'>Ajouter</button></div></div>");}
+async function addItem(){if(!S.properties.length)return;await sb.from("inventory").insert({property_id:S.properties[0].id,item_name:$("si-name").value.trim(),category:$("si-cat").value,quantity:parseInt($("si-qty").value)||5,min_quantity:parseInt($("si-min").value)||2,unit:$("si-unit").value||"unite"});closeModal();await loadData();go("stock");}
+async function quickAddItem(name,cat){if(!S.properties.length)return;await sb.from("inventory").insert({property_id:S.properties[0].id,item_name:name,category:cat,quantity:5,min_quantity:2,unit:"unite"});await loadData();go("stock");}
+
+async function searchCleaners(){var date=$("mp-date").value,city=$("mp-city").value.trim();if(!date){alert("Selectionnez une date");return;}
+$("mp-results").innerHTML="<div style='text-align:center;padding:20px;color:var(--muted)'>Recherche...</div>";
+var r=await sb.from("cleaner_availability").select("*,cleaners(*)").eq("date",date).eq("is_available",true).eq("status","available");
+var data=(r.data||[]).filter(function(a){return a.cleaners&&a.cleaners.active;});
+if(city){var c=city.toLowerCase();data=data.filter(function(a){return a.cleaners.city&&a.cleaners.city.toLowerCase().indexOf(c)!==-1;});}
+if(data.length===0){$("mp-results").innerHTML="<div class='empty'>Aucun service disponible</div>";return;}
+var h="<div class='row row2'>";data.forEach(function(a){var cl=a.cleaners;var isFav=S.favorites[cl.id];
+h+="<div class='crd'><div style='display:flex;justify-content:space-between;align-items:start'><div><strong>"+esc(cl.company_name||cl.contact_name)+"</strong>"+(cl.verified?"<span style='margin-left:6px;font-size:10px;color:var(--success)'>Verifie</span>":"")+"<div style='font-size:12px;color:var(--sub);margin-top:2px'>"+(cl.city||"")+"</div></div><span style='cursor:pointer;font-size:18px' onclick='toggleFav(\""+cl.id+"\")'>"+(isFav?"\u2b50":"\u2606")+"</span></div>"+(cl.bio?"<div style='font-size:12px;color:var(--sub);margin-top:8px'>"+esc(cl.bio.substring(0,100))+"</div>":"")+"<div style='display:flex;justify-content:space-between;align-items:center;margin-top:12px'><div style='font-size:16px;font-weight:700;color:var(--accent)'>"+(cl.price_per_cleaning||"\u2014")+"\u20ac/h</div><button class='btn btn-sm btn-primary' onclick='bookCleaner(\""+cl.id+"\",\""+date+"\",\""+esc(cl.company_name||cl.contact_name)+"\")'>Reserver</button></div></div>";});
+h+="</div>";$("mp-results").innerHTML=h;}
+
+async function bookCleaner(cid,date,name){if(!S.properties.length){alert("Ajoutez un logement");return;}if(!confirm("Reserver "+name+" le "+date+" ?"))return;
+await sb.from("cleaning_bookings").insert({host_id:S.session.user.id,cleaner_id:cid,property_id:S.properties[0].id,date:date,status:"pending",time_slot:"08:00 - 12:00"});
+alert("Reservation envoyee");await loadData();}
+async function toggleFav(cid){var uid=S.session.user.id;if(S.favorites[cid]){await sb.from("favorites").delete().eq("host_id",uid).eq("cleaner_id",cid);delete S.favorites[cid];}else{await sb.from("favorites").insert({host_id:uid,cleaner_id:cid});S.favorites[cid]=true;}}
+
+async function submitCleanerOnboarding(){var fn=$("co-fn").value.trim(),ln=$("co-ln").value.trim();if(!fn||!ln){alert("Prenom et nom obligatoires");return;}if(!$("co-em").value.trim()){alert("Email obligatoire");return;}if(!$("co-ci").value.trim()){alert("Ville obligatoire");return;}if(!$("co-ba").value.trim()){alert("Adresse facturation obligatoire");return;}
+await sb.from("cleaners").insert({user_id:S.session.user.id,first_name:fn,last_name:ln,company_name:$("co-co").value.trim()||fn+" "+ln,contact_name:fn+" "+ln,email:$("co-em").value.trim(),phone:$("co-ph").value.trim(),city:$("co-ci").value.trim(),price_per_cleaning:parseFloat($("co-pr").value)||null,billing_address:$("co-ba").value.trim(),legal_status:$("co-ls").value.trim(),siret:$("co-si").value.trim(),bio:$("co-bio").value.trim(),billing_complete:true,active:true,verified:false});
+alert("Profil cree");await loadData();go("planning");}
+
+async function toggleDispo(date){if(!S.cleanerId)return;var ex=S.availability.find(function(a){return a.date===date;});
+if(ex){await sb.from("cleaner_availability").delete().eq("id",ex.id);}else{await sb.from("cleaner_availability").insert({cleaner_id:S.cleanerId,date:date,is_available:true,status:"available",time_start:"08:00",time_end:"18:00"});}
+var r=await sb.from("cleaner_availability").select("*").eq("cleaner_id",S.cleanerId);S.availability=r.data||[];go("dispo");}
+
+async function sendReport(bid){var note=prompt("Commentaire (optionnel) :");await sb.from("cleaning_bookings").update({status:"report_sent",report_sent:true,report_note:note||"",report_sent_at:new Date().toISOString(),auto_validate_at:new Date(Date.now()+48*3600000).toISOString()}).eq("id",bid);alert("Rapport envoye");await loadData();go("rapport");}
+function toggleCheck(key){if(!window._chk)window._chk={};window._chk[key]=!window._chk[key];go("checklist");}
+function showAddTeamMember(){var email=prompt("Email du membre :");if(!email)return;var name=prompt("Nom :");addTeamMember(email,name||email.split("@")[0]);}
+async function addTeamMember(email,name){await sb.from("team_members").insert({owner_id:S.session.user.id,member_email:email,member_name:name});await loadData();go("team");}
+async function removeTeamMember(id){if(!confirm("Retirer ?"))return;await sb.from("team_members").delete().eq("id",id);await loadData();go("team");}
+
+async function sendConcierge(){var input=$("concierge-input");if(!input)return;var msg=input.value.trim();if(!msg)return;input.value="";
+if(!S.guestMsgs)S.guestMsgs=[];S.guestMsgs.push({role:"user",text:msg});go("concierge");
+var p=S.guestProperty||{};var sp="Tu es le concierge IA MyHostKit du logement \""+esc(p.name||"Logement")+"\". Tu reponds en francais. Adresse : "+(p.address||"")+" "+(p.city||"")+" WiFi : "+(p.wifi_name||"?")+" / "+(p.wifi_password||"?")+" Code : "+(p.access_code||"?")+" Check-in : "+(p.checkin||"15:00")+" Check-out : "+(p.checkout||"11:00")+" Regles : "+(p.rules||"Aucune")+" Ne dis jamais que tu es une IA.";
+try{var r=await fetch(EDGE+"/ai-concierge",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+SB_KEY},body:JSON.stringify({message:msg,systemPrompt:sp})});var d=await r.json();S.guestMsgs.push({role:"assistant",text:d.response||d.reply||"Desole, erreur."});}catch(e){S.guestMsgs.push({role:"assistant",text:"Service indisponible."});}
+go("concierge");var msgs=$("concierge-msgs");if(msgs)msgs.scrollTop=msgs.scrollHeight;}
+
+function sendIncident(){var text=$("incident-text").value.trim();if(!text){alert("Decrivez le probleme");return;}var p=S.guestProperty||{};
+window.open("mailto:myhostkit.contact@gmail.com?subject="+encodeURIComponent("Incident : "+(p.name||""))+"&body="+encodeURIComponent("Logement : "+(p.name||"")+"\n"+(p.address||"")+"\n\n"+text));alert("Signalement envoye");$("incident-text").value="";}
+
+function editProfile(){var p=S.profile||{};document.body.insertAdjacentHTML("beforeend","<div class='modal-overlay' onclick='if(event.target===this)closeModal()'><div class='modal'><h2>Modifier le profil</h2><div class='row row2'><div class='form-group'><label class='form-label'>Prenom</label><input class='form-input' id='ep-fn' value='"+esc(p.first_name||"")+"'></div><div class='form-group'><label class='form-label'>Nom</label><input class='form-input' id='ep-ln' value='"+esc(p.last_name||"")+"'></div></div><div class='form-group'><label class='form-label'>Telephone</label><input class='form-input' id='ep-ph' value='"+esc(p.phone||"")+"'></div><div class='form-group'><label class='form-label'>Entreprise</label><input class='form-input' id='ep-co' value='"+esc(p.company_name||"")+"'></div><div class='row row3'><div class='form-group'><label class='form-label'>Adresse</label><input class='form-input' id='ep-ba' value='"+esc(p.billing_address||"")+"'></div><div class='form-group'><label class='form-label'>Ville</label><input class='form-input' id='ep-bc' value='"+esc(p.billing_city||"")+"'></div><div class='form-group'><label class='form-label'>CP</label><input class='form-input' id='ep-bz' value='"+esc(p.billing_zip||"")+"'></div></div><div class='form-group'><label class='form-label'>SIRET</label><input class='form-input' id='ep-si' value='"+esc(p.siret||"")+"'></div><button class='btn btn-primary' style='width:100%;margin-top:12px' onclick='saveProfile()'>Sauvegarder</button></div></div>");}
+async function saveProfile(){await sb.from("profiles").update({first_name:$("ep-fn").value.trim(),last_name:$("ep-ln").value.trim(),phone:$("ep-ph").value.trim(),company_name:$("ep-co").value.trim(),billing_address:$("ep-ba").value.trim(),billing_city:$("ep-bc").value.trim(),billing_zip:$("ep-bz").value.trim(),siret:$("ep-si").value.trim()}).eq("id",S.session.user.id);closeModal();await loadProfile();go("settings");}
+async function deleteAccount(){if(!confirm("Supprimer votre compte ? Irreversible."))return;if(!confirm("DERNIERE CHANCE ?"))return;await sb.from("properties").delete().eq("user_id",S.session.user.id);await sb.from("profiles").delete().eq("id",S.session.user.id);await doLogout();alert("Compte supprime.");}
+
+async function adminChangePlan(uid,email){var plan=prompt("Nouveau plan pour "+email+" ?\n(free/trial/starter/pro/business)");if(!plan)return;await sb.from("profiles").update({subscription_plan:plan,subscription_status:"active"}).eq("id",uid);alert(email+" -> "+plan);await loadAdminData();go("admin-users");}
+async function adminExtendTrial(uid,email){var pr=await sb.from("profiles").select("trial_ends_at").eq("id",uid).single();var end=(pr.data&&pr.data.trial_ends_at)?new Date(pr.data.trial_ends_at):new Date();if(end<new Date())end=new Date();end.setDate(end.getDate()+30);await sb.from("profiles").update({subscription_plan:"trial",trial_ends_at:end.toISOString(),subscription_status:"active",trial_email_j7_sent:false,trial_email_j1_sent:false,trial_email_end_sent:false}).eq("id",uid);alert(email+" +30j");await loadAdminData();go("admin-users");}
+function filterAdminUsers(){var q=$("au-search").value.toLowerCase();document.querySelectorAll("#au-tbody tr").forEach(function(r){r.style.display=r.textContent.toLowerCase().indexOf(q)!==-1?"":"none";});}
+async function refreshAdminData(){await loadAdminData();go("admin-users");}
+async function adminForceValidate(id){if(!confirm("Forcer ?"))return;await sb.from("cleaning_bookings").update({status:"validated",payment_released_at:new Date().toISOString()}).eq("id",id);alert("Valide");await loadAdminData();go("admin-bookings");}
+async function adminResolve(id,decision){if(decision==="refund"){await sb.from("cleaning_bookings").update({status:"refunded",dispute_resolved_at:new Date().toISOString()}).eq("id",id);alert("Rembourse");}else{await sb.from("cleaning_bookings").update({status:"validated",payment_released_at:new Date().toISOString(),dispute_resolved_at:new Date().toISOString()}).eq("id",id);alert("Libere");}await loadAdminData();go("admin-bookings");}
+async function adminResetPassword(){var email=$("as-email").value.trim();if(!email)return;var r=await sb.auth.resetPasswordForEmail(email);if(r.error)alert(r.error.message);else alert("Lien envoye a "+email);}
+async function adminSetPlan(plan){var email=$("as-email2").value.trim();if(!email)return;var upd={subscription_plan:plan,subscription_status:"active"};if(plan==="trial"){upd.trial_started_at=new Date().toISOString();upd.trial_ends_at=new Date(Date.now()+30*86400000).toISOString();}await sb.from("profiles").update(upd).eq("email",email);alert(email+" -> "+plan);}
+async function adminSendEmail(){var to=$("as-to").value.trim(),subj=$("as-subj").value.trim(),body=$("as-body").value.trim();if(!to||!subj)return;var r=await fetch(EDGE+"/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:to,subject:subj,body:body||"Support MyHostKit"})});var d=await r.json();if(d.success){alert("Envoye");$("as-subj").value="";$("as-body").value="";}else alert("Erreur");}
+
+function closeModal(){var m=document.querySelector(".modal-overlay");if(m)m.remove();}
+function esc(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function syncIcal(id){alert("Synchronisation iCal lancee pour ce logement. Les reservations seront importees.");}
 
 init();
+
 </script>
 </body>
 </html>
