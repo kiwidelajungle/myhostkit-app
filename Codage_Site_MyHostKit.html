@@ -3,589 +3,619 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MyHostKit — App Conciergerie IA · Marketplace Ménage · Kits Superhôte</title>
-<meta name="description" content="MyHostKit : app mobile pour hôtes Airbnb et ménagères. Conciergerie IA, marketplace ménage avec notation, boutique produits, paiement sécurisé. 30 jours gratuits.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>MyHostKit — Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<meta name="application-name" content="MyHostKit">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MyHostKit">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0e13">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTXlIb3N0S2l0IiwiYmFja2dyb3VuZF9jb2xvciI6IiMwYTBlMTMiLCJ0aGVtZV9jb2xvciI6IiNDODk2NUEiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii9hcHAtZGVza3RvcC5odG1sIiwic2hvcnRfbmFtZSI6Ik15SG9zdEtpdCJ9">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bl:#1B5E7B;--bc:#2E7FA0;--bp:#EBF4F8;--bf:#0D3A50;--cr:#F8F5EF;--w:#fff;--n:#1A1A1A;--g:#6B6B6B;--or:#C4922A;--accent:#C8965A;--dark:#141414}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--n);background:var(--w);overflow-x:hidden}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.07);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between}
-nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.nav-logo svg{height:30px}
-.nav-links{display:flex;align-items:center;gap:18px}
-.nav-links a{font-size:.8rem;font-weight:500;color:var(--g);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--bl)}
-.nav-cta{background:var(--bl)!important;color:#fff!important;padding:9px 18px;border-radius:7px;font-weight:700!important}
-@media(max-width:960px){.nav-links{display:none}nav{padding:0 20px}}
-/* HERO */
-.hero{margin-top:64px;background:var(--bf);padding:80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;min-height:520px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(46,127,160,.15),transparent 60%)}
-.tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 15px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:22px}
-.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0)}}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#fff;line-height:1.08;margin-bottom:18px}
-.hero h1 em{font-style:italic;color:#A8D8EA}
-.hero-sub{font-size:.95rem;color:rgba(255,255,255,.52);line-height:1.85;margin-bottom:32px;max-width:480px}
-.btn-p{background:var(--bl);color:#fff;padding:13px 28px;border-radius:7px;font-size:.88rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
-.btn-p:hover{background:var(--bc);transform:translateY(-1px)}
-.btn-o{background:transparent;color:rgba(255,255,255,.65);padding:13px 24px;border-radius:7px;font-size:.88rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(255,255,255,.18);transition:all .2s}
-.btn-o:hover{border-color:rgba(255,255,255,.45);color:#fff}
-.stats{display:flex;gap:36px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.09);flex-wrap:wrap}
-.st-n{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:300;color:#fff}
-.st-l{font-size:.7rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.hero-img{width:100%;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
-@media(max-width:900px){.hero{grid-template-columns:1fr;padding:60px 20px}.hero>div:last-child{display:none}}
-/* SECTIONS */
-.sl{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--bl);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.st{font-family:'Fraunces',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:300;line-height:1.1}
-.st em{font-style:italic;color:var(--bl)}
-section{padding:80px}
-@media(max-width:900px){section{padding:50px 20px}}
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}.reveal.visible{opacity:1;transform:none}
-.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
-/* FEATURE GRID */
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
-.fc{background:var(--w);border:1px solid rgba(0,0,0,.07);border-radius:14px;padding:28px;transition:transform .3s,box-shadow .3s}
-.fc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
-.fi{width:48px;height:48px;border-radius:12px;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px;border:1px solid rgba(27,94,123,.12)}
-.ft{font-size:.95rem;font-weight:700;margin-bottom:6px}
-.fd{font-size:.82rem;color:var(--g);line-height:1.7}
-@media(max-width:900px){.fg{grid-template-columns:1fr}}
-/* PRICING */
-.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1100px;margin:0 auto}
-.pg3{grid-template-columns:repeat(3,1fr);max-width:900px}
-.pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:32px 22px;position:relative;transition:background .3s}
-.pc:hover{background:rgba(255,255,255,.07)}
-.pc.hi{background:rgba(27,94,123,.18);border-color:rgba(46,127,160,.45)}
-.pb{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--bc);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;white-space:nowrap}
-.pn{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:10px}
-.pp{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
-.pp sup{font-size:1rem;vertical-align:super;color:rgba(255,255,255,.45)}
-.pp span{font-size:.82rem;color:rgba(255,255,255,.32);font-family:'Plus Jakarta Sans',sans-serif}
-.pd{font-size:.73rem;color:rgba(255,255,255,.26);margin-bottom:18px}
-.ph{height:1px;background:rgba(255,255,255,.07);margin-bottom:16px}
-.pf{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.52);margin-bottom:9px;line-height:1.5}
-.pf::before{content:"✓";color:var(--or);font-weight:800;flex-shrink:0}
-.pf.no{opacity:.25}.pf.no::before{content:"✕";color:rgba(255,255,255,.3)}
-.pbtn{width:100%;padding:12px;border:none;border-radius:5px;font-size:.82rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .25s;margin-top:6px}
-.pbtn.g{background:var(--or);color:#0A0A0A}.pbtn.g:hover{background:#d4a030;transform:translateY(-2px)}
-.pbtn.o{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.18)}.pbtn.o:hover{border-color:rgba(255,255,255,.45);color:#fff}
-@media(max-width:1100px){.pg{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.pg{grid-template-columns:1fr}}
-/* PRODUCTS */
-.prg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.prc{background:var(--w);border-radius:14px;border:1px solid rgba(0,0,0,.07);overflow:hidden;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column}
-.prc:hover{box-shadow:0 16px 48px rgba(0,0,0,.1);transform:translateY(-4px)}
-.pri{position:relative;aspect-ratio:1;overflow:hidden;background:var(--cr)}
-.pri img{width:100%;height:100%;object-fit:cover}
-.prb{position:absolute;top:10px;left:10px;background:var(--bl);color:#fff;font-size:.63rem;font-weight:700;padding:3px 10px;border-radius:100px}
-.prb.gd{background:var(--or)}
-.prbd{padding:16px;display:flex;flex-direction:column;flex:1}
-.prn{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;margin-bottom:5px}
-.prd{font-size:.78rem;color:var(--g);line-height:1.6;margin-bottom:12px;flex:1}
-.pt{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
-.ptr{padding:8px 12px;border:1.5px solid rgba(0,0,0,.1);border-radius:7px;cursor:pointer;transition:all .2s}
-.ptr:hover,.ptr.sel{border-color:var(--bl);background:var(--bp)}
-.ptr-n{font-size:.78rem;font-weight:600}.ptr-p{font-size:.82rem;font-weight:700;color:var(--bl)}
-.ptr-o{font-size:.7rem;color:var(--g);text-decoration:line-through}
-.ptr-d{font-size:.72rem;color:var(--g);line-height:1.5;margin-top:3px}
-.pra{width:100%;padding:12px;background:var(--bl);color:#fff;border:none;border-radius:7px;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px}
-.pra:hover{background:var(--bc)}
-@media(max-width:1100px){.prg{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.prg{grid-template-columns:1fr}}
-/* DEMO */
-.demo-phone{width:375px;height:740px;border-radius:40px;border:3px solid #333;background:#141414;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.4);position:relative;margin:0 auto}
-.demo-phone::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#141414;border-radius:0 0 16px 16px;z-index:10}
-.demo-pc{width:100%;max-width:1000px;border-radius:12px;border:2px solid rgba(255,255,255,.1);background:#141414;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.4);margin:0 auto;height:560px}
-.demo-frame{width:100%;height:100%;border:none}
-/* FAQ */
-.faq-w{max-width:660px;margin:40px auto 0}
-.faq-i{border-bottom:1px solid rgba(0,0,0,.08)}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;font-size:.9rem;font-weight:600;gap:16px;user-select:none}
-.faq-q:hover{color:var(--bl)}
-.faq-q svg{width:16px;height:16px;color:var(--bl);transition:transform .3s}
-.faq-i.open .faq-q svg{transform:rotate(45deg)}
-.faq-a{font-size:.84rem;color:var(--g);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s,padding .3s}
-.faq-i.open .faq-a{max-height:400px;padding-bottom:20px}
-/* FOOTER */
-footer{background:#0A0A0A;padding:56px 80px 32px}
-.fg2{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px}
-.fl{height:28px;filter:brightness(0) invert(1);margin-bottom:12px;display:block}
-.ftl{font-size:.79rem;color:rgba(255,255,255,.32);line-height:1.75;max-width:240px}
-.fch h5{font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px}
-.fch a{display:block;font-size:.79rem;color:rgba(255,255,255,.42);text-decoration:none;margin-bottom:8px}
-.fch a:hover{color:#A8D8EA}
-.fb{font-size:.71rem;color:rgba(255,255,255,.18);text-align:center}
-@media(max-width:900px){.fg2{grid-template-columns:1fr 1fr}footer{padding:40px 20px 24px}}
-/* MODAL */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
-.modal-box{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-width:760px;max-height:88vh;overflow-y:auto;padding:44px}
+:root{--accent:#C8965A;--dark:#0a0e13;--dark2:#111820;--dark3:#1a2030;--bg:#0f1419;--card:#151a22;--border:#1e2830;--text:#e8e6e3;--sub:#8890a0;--muted:#555e6e;--success:#34C759;--error:#FF3B30;--blue:#1C8FCA;--blueD:#1C5F8A;--warn:#FF9500;--purple:#9B59B6}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text)}
+/* AUTH */
+.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:radial-gradient(ellipse at 30% 40%,rgba(28,95,138,.1),transparent 60%),var(--bg)}
+.auth-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{text-align:center;margin-bottom:24px}
+.auth-logo svg{height:32px}
+.auth-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
+.auth-sub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:24px}
+.auth-input{width:100%;padding:12px 14px;background:var(--dark2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;margin-bottom:10px;outline:none;font-family:inherit}
+.auth-input:focus{border-color:var(--accent)}
+.auth-input::placeholder{color:var(--muted)}
+.auth-btn{width:100%;padding:13px;background:var(--accent);color:var(--dark);border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px;transition:all .15s}
+.auth-btn:hover{background:#d4a060;transform:translateY(-1px)}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-switch{text-align:center;margin-top:16px;font-size:12px;color:var(--sub)}
+.auth-switch span{color:var(--accent);cursor:pointer;font-weight:600}
+.auth-role{display:flex;gap:6px;margin-bottom:16px}
+.auth-role-btn{flex:1;padding:12px 6px;border-radius:10px;border:2px solid var(--border);background:var(--dark2);text-align:center;cursor:pointer;transition:all .2s}
+.auth-role-btn.on{border-color:var(--accent);background:rgba(200,150,90,.08)}
+.auth-role-btn .ri{font-size:20px;display:block;margin-bottom:3px}
+.auth-role-btn .rn{font-size:11px;font-weight:700;display:block}
+.auth-role-btn .rd{font-size:8px;color:var(--muted);margin-top:2px;display:block}
+.auth-error{background:rgba(255,59,48,.1);border:1px solid rgba(255,59,48,.2);border-radius:8px;padding:10px;font-size:12px;color:var(--error);margin-bottom:10px;display:none}
+.auth-sep{display:flex;align-items:center;gap:10px;margin:16px 0}
+.auth-sep div{flex:1;height:1px;background:var(--border)}
+.auth-sep span{font-size:10px;color:var(--muted)}
+/* LAYOUT */
+.app{display:flex;height:100vh;overflow:hidden}
+.side{width:240px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.side-hd{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.side-logo{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:800}
+.side-name{font-size:14px;font-weight:800}
+.side-plan{font-size:8px;background:rgba(200,150,90,.12);color:var(--accent);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:auto}
+.side-nav{flex:1;padding:8px;overflow-y:auto}
+.side-sec{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:700;padding:12px 10px 4px}
+.sn{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--sub);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .12s;margin-bottom:1px}
+.sn:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.sn.on{background:rgba(200,150,90,.1);color:var(--accent);font-weight:600}
+.sn.on-blue{background:rgba(28,95,138,.12);color:var(--blue);font-weight:600}
+.sn-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.sn-badge{margin-left:auto;font-size:8px;background:rgba(255,59,48,.15);color:var(--error);padding:2px 7px;border-radius:10px;font-weight:700}
+.side-user{padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.side-av{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700}
+.side-uname{font-size:12px;font-weight:600}
+.side-uemail{font-size:9px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.side-logout{margin-left:auto;font-size:14px;cursor:pointer;opacity:.4;transition:opacity .2s}
+.side-logout:hover{opacity:1}
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:54px;background:var(--dark);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0}
+.topbar h1{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.topbar-sub{font-size:11px;color:var(--muted);margin-left:4px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topbar-search{padding:7px 12px 7px 32px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;width:200px;outline:none;font-family:inherit;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555e6e' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:10px center}
+.topbar-btn{padding:6px 12px;background:rgba(200,150,90,.08);border:1px solid rgba(200,150,90,.15);border-radius:7px;color:var(--accent);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.content{flex:1;overflow-y:auto;padding:20px}
+/* CARDS & UI */
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.row3{grid-template-columns:repeat(3,1fr)}
+.row2{grid-template-columns:1fr 1fr}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.kpi-val{font-size:24px;font-weight:800}
+.kpi-delta{font-size:10px;color:var(--success);margin-top:4px}
+.kpi-delta.down{color:var(--error)}
+.crd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.crd h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.crd-sub{font-size:10px;color:var(--muted);font-weight:400}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tbl td{font-size:12px;color:var(--sub);padding:10px;border-bottom:1px solid rgba(30,40,48,.5)}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.chip{font-size:8px;padding:3px 8px;border-radius:20px;font-weight:700;display:inline-block}
+.cg{background:rgba(52,199,89,.1);color:var(--success)}.ca{background:rgba(200,150,90,.1);color:var(--accent)}.cr{background:rgba(255,59,48,.1);color:var(--error)}.cb{background:rgba(28,143,202,.1);color:var(--blue)}.cp{background:rgba(155,89,182,.1);color:var(--purple)}.cw{background:rgba(255,149,0,.1);color:var(--warn)}
+.btn-p{padding:8px 18px;background:var(--accent);color:var(--dark);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-p:hover{background:#d4a060}
+.btn-s{padding:8px 18px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--sub);font-size:12px;cursor:pointer;font-family:inherit}
+.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+.btn-blue{background:var(--blueD);color:#fff}.btn-blue:hover{background:var(--blue)}
+.trial-bar{background:rgba(200,150,90,.06);border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--accent)}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px}
+.prop{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--dark2);border-radius:8px;margin-bottom:4px;cursor:pointer;transition:background .12s}
+.prop:hover{background:var(--dark3)}
+.prop-name{font-size:12px;font-weight:600;color:var(--text)}
+.prop-meta{font-size:10px;color:var(--muted);margin-top:2px}
+.msg-wrap{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 94px)}
+.msg-list{border-right:1px solid var(--border);overflow-y:auto}
+.msg-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.msg-item:hover,.msg-item.on{background:rgba(200,150,90,.06)}
+.msg-item.on{border-left:3px solid var(--accent)}
+.msg-chat{display:flex;flex-direction:column;height:100%}
+.msg-body{flex:1;overflow-y:auto;padding:16px}
+.msg-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);align-items:flex-end}
+.msg-input input{flex:1;padding:10px 14px;background:var(--dark2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.bubble{max-width:65%;padding:10px 14px;border-radius:12px;margin-bottom:6px;font-size:13px;line-height:1.5}
+.bubble.me{background:var(--accent);color:#fff;margin-left:auto}
+.bubble.other{background:var(--dark3);border:1px solid var(--border)}
+.bubble.ai{background:rgba(200,150,90,.1);border:1px solid rgba(200,150,90,.12);color:var(--text)}
+.btime{font-size:9px;color:var(--muted);margin-top:3px}
+.form-row{display:flex;gap:10px;margin-bottom:10px}
+.form-row>*{flex:1}
+.form-label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block}
+.form-input{width:100%;padding:10px 12px;background:var(--dark2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.form-input:focus{border-color:var(--accent)}
+.loading{display:flex;align-items:center;justify-content:center;height:100%;font-size:14px;color:var(--muted)}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.bar-label{width:100px;font-size:11px;color:var(--sub);text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:8px;background:var(--dark3);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.bar-val{width:60px;font-size:11px;color:var(--text)}
 
-@keyframes slideScreens{0%,22%{transform:translateX(0)}25%,47%{transform:translateX(-25%)}50%,72%{transform:translateX(-50%)}75%,97%{transform:translateX(-75%)}100%{transform:translateX(0)}}
-@keyframes floatUp{0%,100%{opacity:0;transform:translateY(10px)}10%,90%{opacity:1;transform:translateY(0)}95%{opacity:0}}
+.install-bar{background:linear-gradient(135deg,rgba(200,150,90,.08),rgba(28,95,138,.06));border:1px solid rgba(200,150,90,.12);border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px;position:relative}
+.install-bar .ib-icon{font-size:24px;flex-shrink:0}
+.install-bar h4{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:2px}
+.install-bar p{font-size:11px;color:var(--sub);line-height:1.6}
+.install-bar .ib-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer}
+.install-bar .ib-btns{display:flex;gap:6px;margin-top:8px}
+.install-bar .ib-btn{padding:5px 12px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;border:none}
+.ib-btn-p{background:var(--accent);color:var(--dark)}
+.ib-btn-s{background:var(--dark3);color:var(--sub);border:1px solid var(--border)!important}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.15)}
 </style>
 </head>
 <body>
 
-<nav id="mn"><a href="#" class="nav-logo"><svg width="160" height="30" viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" fill="#C8965A"/><path d="M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z" fill="#fff"/><path d="M15 10L8.5 14.5H21.5L15 10Z" fill="#fff" opacity=".7"/><text x="35" y="21" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="800" fill="#1A1A1A">MyHostKit</text><circle cx="148" cy="17" r="3.5" fill="#C8965A"/></svg></a><div class="nav-links"><a href="#app">App</a><a href="#conciergerie">Conciergerie IA</a><a href="#marketplace">Marketplace</a><a href="#plans-hotes">Hôtes</a><a href="#plans-menageres">Ménagères</a><a href="#kits">Comment ça marche</a><a href="#demo">Démo</a><a href="#faq">FAQ</a><a href="#demo" class="nav-cta">Télécharger</a></div></nav>
-
-<section class="hero">
-<div style="position:relative;z-index:1">
-  <div class="tag reveal"><div class="dot"></div>App Mobile · Conciergerie IA · Marketplace Ménage</div>
-  <h1 class="reveal rd1">Gagnez du temps.<br>Gagnez de l'argent.<br><em>Automatisez tout.</em></h1>
-  <p class="hero-sub reveal rd2">Vous êtes hôte Airbnb ? Trouvez une ménagère en 2 clics, recevez un rapport photo après chaque ménage, laissez l'IA répondre à vos voyageurs 24h/24. Vous êtes ménagère ? Recevez des réservations, gérez votre équipe, développez votre activité.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center" class="reveal rd2">
-    <a href="#demo" class="btn-p" style="font-size:.92rem;padding:14px 32px">Découvrir l'app →</a>
-    <a href="#app" class="btn-o">Pourquoi MyHostKit ?</a>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap" class="reveal rd3">
-    <a href="#" onclick="alert('Bientôt disponible sur l\'App Store !');return false"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="App Store" style="height:40px;border-radius:7px"></a>
-    <a href="#" onclick="alert('Bientôt disponible sur Google Play !');return false"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Google Play" style="height:40px"></a>
-  </div>
-  <div class="stats reveal rd3">
-    <div><div class="st-n">3 rôles</div><div class="st-l">Hôte · Ménagère · Voyageur</div></div>
-    <div><div class="st-n">&lt;2min</div><div class="st-l">Réponse IA</div></div>
-    <div><div class="st-n">30j</div><div class="st-l">Essai gratuit</div></div>
-  </div>
-</div>
-<div style="display:flex;justify-content:center;position:relative">
-  <div style="width:280px;position:relative">
-    <!-- iPhone frame -->
-    <div style="background:linear-gradient(145deg,#48484a,#3a3a3c,#2c2c2e);border-radius:42px;padding:3px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05)">
-      <div style="background:#1c1c1e;border-radius:39px;overflow:hidden;position:relative;height:580px">
-        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#000;border-radius:16px;z-index:20"></div>
-        <div style="position:absolute;top:12px;left:24px;font-size:12px;font-weight:600;color:#fff;z-index:15;font-family:-apple-system,sans-serif">9:41</div>
-        <div style="position:absolute;right:-3px;top:120px;width:3px;height:55px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:0 2px 2px 0"></div>
-        <!-- Animated app content -->
-        <div style="position:absolute;inset:0;overflow:hidden">
-          <div id="hero-screens" style="display:flex;width:400%;height:100%;animation:slideScreens 12s ease-in-out infinite">
-            <!-- Screen 1: Notifications / Revenue -->
-            <div style="width:25%;height:100%;background:#FAFAF8;padding:50px 14px 0;flex-shrink:0">
-              <div style="text-align:center;margin-bottom:12px"><div style="font-size:32px;margin-bottom:4px">💰</div><div style="font-size:22px;font-weight:800;color:#141414">2 840 EUR</div><div style="font-size:10px;color:#34C759;font-weight:700">▲ +22% ce mois</div></div>
-              <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:6px;border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:rgba(52,199,89,.12);display:flex;align-items:center;justify-content:center;font-size:12px">📸</div><div style="flex:1"><div style="font-size:10px;font-weight:700">Rapport recu — Villa ST</div><div style="font-size:8px;color:#9B9B9B">Marie D. · 6 photos · il y a 2h</div></div></div>
-              <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:6px;border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:rgba(200,150,90,.12);display:flex;align-items:center;justify-content:center;font-size:12px">💬</div><div style="flex:1"><div style="font-size:10px;font-weight:700">IA a repondu au voyageur</div><div style="font-size:8px;color:#9B9B9B">"Check-in 15h, code 4821" · 1.1s</div></div></div>
-              <div style="background:#fff;border-radius:10px;padding:10px;border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:rgba(28,95,138,.12);display:flex;align-items:center;justify-content:center;font-size:12px">🧹</div><div style="flex:1"><div style="font-size:10px;font-weight:700">Menage planifie auto</div><div style="font-size:8px;color:#9B9B9B">Sophie · demain 10h · Appart Nice</div></div></div>
-              <div style="text-align:center;margin-top:12px;font-size:9px;color:#C8965A;font-weight:700">Vous ne faites rien. L'app fait tout. ✨</div>
-            </div>
-            <!-- Screen 2: Marketplace search results -->
-            <div style="width:25%;height:100%;background:#FAFAF8;padding:50px 14px 0;flex-shrink:0">
-              <div style="background:#fff;border-radius:12px;padding:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:13px;font-weight:700;color:#C8965A">🧹 3 menageres a Nice</div><div style="font-size:9px;color:#9B9B9B">20 avril · Triees par note</div></div>
-              <div style="display:flex;align-items:center;gap:8px;background:#fff;border-radius:10px;padding:8px;margin-bottom:5px;border:2px solid #C8965A">
-                <div style="width:32px;height:32px;border-radius:50%;background:#9B59B6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700">⭐</div>
-                <div style="flex:1"><div style="font-size:11px;font-weight:600">Marie Propre ★ 4.9</div><div style="font-size:9px;color:#9B9B9B">18 EUR/h · <span style="font-size:7px;background:rgba(155,89,182,.12);color:#9B59B6;padding:1px 4px;border-radius:10px;font-weight:700">⭐ PRIO</span> <span style="font-size:7px;background:rgba(28,95,138,.12);color:#1C5F8A;padding:1px 4px;border-radius:10px;font-weight:700">✓</span></div></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;background:#fff;border-radius:10px;padding:8px;margin-bottom:5px;border:1px solid rgba(0,0,0,.06)">
-                <div style="width:32px;height:32px;border-radius:50%;background:#1C5F8A;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px">🧹</div>
-                <div><div style="font-size:11px;font-weight:600">Clean Express ★ 4.7</div><div style="font-size:9px;color:#9B9B9B">15 EUR/h · <span style="font-size:7px;background:rgba(28,95,138,.12);color:#1C5F8A;padding:1px 4px;border-radius:10px;font-weight:700">BOOSTE</span></div></div>
-              </div>
-              <div style="background:#C8965A;border-radius:10px;padding:10px;margin-top:8px;text-align:center"><div style="font-size:11px;font-weight:700;color:#fff">📋 Reserver en 1 clic</div></div>
-              <div style="text-align:center;margin-top:8px;font-size:9px;color:#C8965A;font-weight:700">Fini les appels et les recherches. ✨</div>
-            </div>
-            <!-- Screen 3: Menagere view - earnings -->
-            <div style="width:25%;height:100%;background:#FAFAF8;padding:50px 14px 0;flex-shrink:0">
-              <div style="background:#1C5F8A;border-radius:12px;padding:14px;margin-bottom:8px;text-align:center"><div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em">Vos revenus ce mois</div><div style="font-size:26px;font-weight:800;color:#fff;margin-top:4px">1 450 EUR</div><div style="font-size:10px;color:#34C759;font-weight:600;margin-top:2px">▲ +35% vs le mois dernier</div></div>
-              <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:6px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:10px;font-weight:700;margin-bottom:4px">📋 Prochaines missions</div><div style="display:flex;align-items:center;gap:6px"><div style="width:24px;height:24px;border-radius:50%;background:rgba(52,199,89,.12);display:flex;align-items:center;justify-content:center;font-size:10px">✅</div><div><div style="font-size:9px;font-weight:600">Villa ST · Demain 14h</div><div style="font-size:8px;color:#9B9B9B">36 EUR · Confirme</div></div></div></div>
-              <div style="background:#fff;border-radius:10px;padding:10px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:10px;font-weight:700;margin-bottom:4px">👥 Mon equipe</div><div style="font-size:9px;color:#6B6B6B">3 membres · 2 missions en cours</div></div>
-              <div style="text-align:center;margin-top:8px;font-size:9px;color:#1C5F8A;font-weight:700">Developpez votre activite. 📈</div>
-            </div>
-            <!-- Screen 4: IA Concierge chat -->
-            <div style="width:25%;height:100%;background:#FAFAF8;padding:50px 14px 0;flex-shrink:0">
-              <div style="background:#fff;border-radius:12px;padding:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:13px;font-weight:700;color:#C8965A">🤖 Concierge IA</div><div style="font-size:9px;color:#34C759;font-weight:600">● Repond en 1.1 seconde</div></div>
-              <div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:8px;margin-bottom:5px;max-width:82%"><div style="font-size:9px;color:#C8965A;font-weight:600">Voyageur</div><div style="font-size:10px;color:#141414">Le wifi ne marche pas 😢</div></div>
-              <div style="background:#C8965A;border-radius:12px;padding:8px;margin-bottom:5px;max-width:85%;margin-left:auto"><div style="font-size:10px;color:#fff">Le WiFi est <strong>MaisonST</strong>, mdp: <strong>soleil2024</strong>. Redemarrez la box si besoin 📶</div><div style="font-size:7px;color:rgba(255,255,255,.7);margin-top:2px">Auto · 1.1s</div></div>
-              <div style="background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:8px;max-width:60%"><div style="font-size:10px;color:#141414">Ca marche merci ! 🙏</div></div>
-              <div style="text-align:center;margin-top:10px;font-size:9px;color:#C8965A;font-weight:700">Dormez tranquille. L'IA veille. 🌙</div>
-            </div>
-          </div>
-        </div>
-        <!-- Tab bar -->
-        <div style="position:absolute;bottom:0;left:0;right:0;background:#141414;padding:6px 0 20px;display:flex;z-index:5">
-          <div style="flex:1;text-align:center"><div style="font-size:14px;opacity:.8">📊</div><div style="font-size:7px;color:#C8965A;margin-top:1px">Accueil</div></div>
-          <div style="flex:1;text-align:center"><div style="font-size:14px;opacity:.3">🏠</div><div style="font-size:7px;color:#9B9B9B;margin-top:1px">Logts</div></div>
-          <div style="flex:1;text-align:center"><div style="font-size:14px;opacity:.3">🧹</div><div style="font-size:7px;color:#9B9B9B;margin-top:1px">Menage</div></div>
-          <div style="flex:1;text-align:center"><div style="font-size:14px;opacity:.3">🔔</div><div style="font-size:7px;color:#9B9B9B;margin-top:1px">Notifs</div></div>
-          <div style="flex:1;text-align:center"><div style="font-size:14px;opacity:.3">⚙️</div><div style="font-size:7px;color:#9B9B9B;margin-top:1px">Profil</div></div>
-        </div>
-        <div style="position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:100px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;z-index:15"></div>
-      </div>
-    </div>
-    <!-- Floating notifications -->
-    <div style="position:absolute;top:40px;right:-60px;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.15);animation:floatUp 12s ease-in-out infinite;font-size:10px;white-space:nowrap">
-      <span style="font-size:14px">💰</span> <strong>+45 EUR</strong> recu
-    </div>
-    <div style="position:absolute;bottom:120px;left:-70px;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.15);animation:floatUp 12s 4s ease-in-out infinite;font-size:10px;white-space:nowrap">
-      <span style="font-size:14px">⭐</span> Note <strong>5/5</strong>
-    </div>
-    <div style="position:absolute;top:200px;right:-80px;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.15);animation:floatUp 12s 8s ease-in-out infinite;font-size:10px;white-space:nowrap">
-      <span style="font-size:14px">🤖</span> IA: repondu <strong>1.1s</strong>
-    </div>
-    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;height:400px;background:radial-gradient(ellipse,rgba(200,150,90,.12),transparent 70%);z-index:-1;pointer-events:none"></div>
-  </div>
-</div>
-
-</section>
-
-<!-- APP -->
-<section id="app" style="background:var(--cr)">
-<div style="text-align:center;margin-bottom:48px"><div class="sl reveal" style="justify-content:center">Application Mobile</div><h2 class="st reveal">Pourquoi <em>MyHostKit ?</em></h2></div>
-<div class="fg">
-  <div class="fc reveal"><div class="fi">⏱️</div><div class="ft">5h/semaine recuperees</div><div class="fd"><strong>Hotes :</strong> Plus besoin de repondre aux voyageurs, coordonner le menage, verifier le stock. L'IA et la marketplace font tout. Vous recuperez vos soirees.</div></div>
-  <div class="fc reveal rd1"><div class="fi">💰</div><div class="ft">+35% de revenus menageres</div><div class="fd"><strong>Menageres :</strong> Recevez des reservations sans prospecter. Badge PRIORITAIRE = position n1 dans les resultats. Gerez votre equipe et developpez votre activite.</div></div>
-  <div class="fc reveal rd2"><div class="fi">🤖</div><div class="ft">IA qui repond en 1 seconde</div><div class="fd"><strong>Hotes :</strong> Votre IA repond aux voyageurs 24h/24 avec les infos exactes du logement (WiFi, codes, regles). Meme a 3h du matin. Note Airbnb qui monte.</div></div>
-  <div class="fc reveal"><div class="fi">📸</div><div class="ft">Rapports photo + facture auto</div><div class="fd"><strong>Hotes & Menageres :</strong> Apres chaque menage, la menagere envoie un rapport photo. Facture PDF generee automatiquement. Vous validez, le paiement est libere.</div></div>
-  <div class="fc reveal rd1"><div class="fi">⭐</div><div class="ft">Notation = confiance</div><div class="fd"><strong>Tout le monde :</strong> Les hotes notent les menageres, les menageres notent les hotes. Les meilleures notes = plus de reservations. Cercle vertueux.</div></div>
-  <div class="fc reveal rd2"><div class="fi">🔒</div><div class="ft">Paiement securise Stripe</div><div class="fd"><strong>Zero risque :</strong> Le paiement n'est confirme qu'apres verification Stripe. Pas de paiement = pas de confirmation. Commission transparente 15/10/5%.</div></div>
-</div>
-<div style="display:flex;justify-content:center;gap:12px;margin-top:36px;flex-wrap:wrap" class="reveal">
-  <a href="#" onclick="alert('Bientot disponible sur l App Store !');return false" style="display:inline-block"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="App Store" style="height:44px;border-radius:8px"></a>
-  <a href="#" onclick="alert('Bientot disponible sur Google Play !');return false" style="display:inline-block"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Google Play" style="height:44px"></a>
-</div>
-</section>
-
-<!-- CONCIERGERIE -->
-<section id="conciergerie" style="background:var(--w);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
-<div class="reveal">
-  <div class="sl">Conciergerie IA</div>
-  <h2 class="st">Votre IA répond, coordonne, <em>commande.</em></h2>
-  <p style="font-size:.93rem;color:var(--g);line-height:1.85;max-width:460px;margin-top:12px">L'IA répond aux voyageurs en moins de 2 minutes avec les informations exactes du logement, coordonne le ménage et commande les consommables.</p>
-  <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
-    <div style="display:flex;gap:12px"><div class="fi" style="width:36px;height:36px;margin-bottom:0;font-size:1.1rem">🤖</div><div><div style="font-size:.86rem;font-weight:700">Réponses automatiques 24h/24</div><div style="font-size:.78rem;color:var(--g)">L'IA analyse et répond en &lt;2 min avec WiFi, codes, règles, contacts d'urgence.</div></div></div>
-    <div style="display:flex;gap:12px"><div class="fi" style="width:36px;height:36px;margin-bottom:0;font-size:1.1rem">🧹</div><div><div style="font-size:.86rem;font-weight:700">Coordination ménage automatisée</div><div style="font-size:.78rem;color:var(--g)">Email au prestataire dès le départ confirmé. GPS navigation Waze/Maps intégré dans l'app.</div></div></div>
-    <div style="display:flex;gap:12px"><div class="fi" style="width:36px;height:36px;margin-bottom:0;font-size:1.1rem">📦</div><div><div style="font-size:.86rem;font-weight:700">Boutique 25+ produits</div><div style="font-size:.78rem;color:var(--g)">6 catégories (Nettoyage, Accessoires, Consommables, Hygiène, Linge, Accueil) + commande personnalisée libre. Commission 15%.</div></div></div>
-    <div style="display:flex;gap:12px"><div class="fi" style="width:36px;height:36px;margin-bottom:0;font-size:1.1rem">👥</div><div><div style="font-size:.86rem;font-weight:700">Gestion d'équipe (Business)</div><div style="font-size:.78rem;color:var(--g)">Chat privé + groupes, missions, ajout de membres par email, vérification de compte MyHostKit.</div></div></div>
-  </div>
-</div>
-<div class="reveal" style="background:var(--bf);border-radius:14px;padding:22px;box-shadow:0 32px 64px rgba(13,58,80,.2)">
-  <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px"><div class="dot"></div><span style="font-size:.68rem;font-weight:700;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.1em">IA Active</span></div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
-    <div style="background:rgba(255,255,255,.06);border-radius:7px;padding:10px;text-align:center"><div style="font-family:Fraunces,serif;font-size:1.4rem;color:#fff">100%</div><div style="font-size:.59rem;color:rgba(255,255,255,.3);text-transform:uppercase">Taux réponse</div></div>
-    <div style="background:rgba(255,255,255,.06);border-radius:7px;padding:10px;text-align:center"><div style="font-family:Fraunces,serif;font-size:1.4rem;color:var(--or)">&lt;2min</div><div style="font-size:.59rem;color:rgba(255,255,255,.3);text-transform:uppercase">Délai moyen</div></div>
-    <div style="background:rgba(255,255,255,.06);border-radius:7px;padding:10px;text-align:center"><div style="font-family:Fraunces,serif;font-size:1.4rem;color:#22c55e">4.9★</div><div style="font-size:.59rem;color:rgba(255,255,255,.3);text-transform:uppercase">Objectif</div></div>
-  </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:12px;margin-bottom:10px">
-    <div style="font-size:.6rem;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:8px">Conversation en direct</div>
-    <div style="padding:7px 11px;border-radius:9px;font-size:.75rem;margin-bottom:5px;max-width:84%;background:rgba(255,255,255,.07);color:rgba(255,255,255,.72)">À quelle heure puis-je arriver demain ?</div>
-    <div style="padding:7px 11px;border-radius:9px;font-size:.75rem;max-width:84%;background:rgba(27,94,123,.55);color:#fff;margin-left:auto;text-align:right">Arrivée dès 15h ! Code d'entrée : 4821. Parking gratuit 🏠</div>
-    <div style="font-size:.58rem;color:rgba(255,255,255,.2);text-align:right;margin-top:3px">Réponse automatique · 11 secondes</div>
-  </div>
-  <div style="background:rgba(45,122,94,.2);border:1px solid rgba(45,122,94,.3);border-radius:7px;padding:9px 12px;font-size:.74rem;color:#6fcca0">✅ Ménage planifié — Marie D. notifiée · Rapport photo attendu après prestation</div>
-</div>
-</section>
-
-<!-- MARKETPLACE -->
-<section id="marketplace" style="background:var(--cr)">
-<div style="text-align:center;margin-bottom:48px"><div class="sl reveal" style="justify-content:center">Marketplace Ménage</div><h2 class="st reveal">Trouvez, réservez, <em>notez.</em></h2><p style="font-size:.9rem;color:var(--g);margin-top:10px">Le flow complet dans l'app : recherche → réservation → paiement Stripe → rapport photo → notation.</p></div>
-<div class="fg">
-  <div class="fc reveal"><div class="fi">🔍</div><div class="ft">1. Rechercher</div><div class="fd">L'hôte sélectionne une date et une ville. Les ménagères disponibles apparaissent triées par plan : PRIORITAIRE (Business) en premier, BOOSTÉ (Pro) ensuite, puis les profils gratuits. Note moyenne, prix/h et badge vérifié visibles.</div></div>
-  <div class="fc reveal rd1"><div class="fi">📋</div><div class="ft">2. Réserver & Payer</div><div class="fd">L'hôte sélectionne son logement, ajoute des instructions et réserve. La ménagère valide. Le paiement Stripe est vérifié AVANT confirmation (verify_payment) — aucune fraude possible. Commission 15%/10%/5%.</div></div>
-  <div class="fc reveal rd2"><div class="fi">📸</div><div class="ft">3. Rapport & Notation</div><div class="fd">Après le ménage, la ménagère envoie un rapport photo + note sur la prestation. L'hôte valide, libère le paiement et note la ménagère. Facture PDF auto-générée. Auto-validation après 48h si pas de réponse.</div></div>
-</div>
-<div style="text-align:center;margin-top:36px" class="reveal"><div style="display:inline-flex;align-items:center;gap:10px;background:var(--bf);border-radius:12px;padding:16px 28px"><span style="font-size:1.3rem">💰</span><div style="text-align:left"><div style="font-size:.88rem;font-weight:700;color:#fff">Commission MyHostKit sur chaque prestation</div><div style="font-size:.78rem;color:rgba(255,255,255,.55)">Gratuit : 15% · Pro : 10% · Business : 5% — prélevée automatiquement via Stripe</div></div></div></div>
-</section>
-
-<!-- PLANS HÔTES -->
-<section id="plans-hotes" style="background:linear-gradient(180deg,var(--bf),#071824)">
-<div style="text-align:center;margin-bottom:48px" class="reveal"><div class="sl" style="justify-content:center;color:var(--or)">Plans Hôtes</div><h2 class="st" style="color:#fff">Simple. <em>Transparent.</em></h2><p style="color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px">30 jours gratuits sur tous les plans · Telechargez l'app · Annulation en 1 clic</p></div>
-<div class="pg reveal">
-  <div class="pc"><div class="pn">Free</div><div class="pp" style="font-size:2rem">FREE</div><div class="pd">1 logement</div><div class="ph"></div><div class="pf">1 logement</div><div class="pf">Marketplace ménage</div><div class="pf">Réservation & paiement</div><div class="pf">Notifications</div><div class="pf no">Sync iCal Airbnb/Booking</div><div class="pf no">Conciergerie IA</div><div class="pf no">Rapport hebdomadaire</div><div class="pf">Commission 15%</div><button class="pbtn o">Télécharger l'app →</button></div>
-  <div class="pc"><div class="pn">Starter</div><div class="pp"><sup>€</sup>49<span>/mois</span></div><div class="pd">Jusqu'à 3 logements · 30j gratuits</div><div class="ph"></div><div class="pf">Jusqu'à 3 logements</div><div class="pf">Gestion du stock</div><div class="pf">Sync iCal Airbnb/Booking</div><div class="pf">Notifications push</div><div class="pf no">Conciergerie IA</div><div class="pf no">Revenue Intelligence</div><div class="pf">Commission 10%</div><button class="pbtn g" onclick="alert('Téléchargez l\'app pour souscrire au plan Starter')">Télécharger l'app →</button></div>
-  <div class="pc hi"><div class="pb">⭐ Le plus populaire</div><div class="pn">Pro</div><div class="pp"><sup>€</sup>89<span>/mois</span></div><div class="pd">Logements illimités · 30j gratuits</div><div class="ph"></div><div class="pf">Logements illimités</div><div class="pf">Tout Starter inclus</div><div class="pf">Conciergerie IA 24h/24</div><div class="pf">Vision IA (analyse photos)</div><div class="pf">Revenue Intelligence</div><div class="pf">Rapport hebdomadaire</div><div class="pf">Commission 5%</div><button class="pbtn g" onclick="alert('Téléchargez l\'app pour souscrire au plan Pro')">Télécharger l'app →</button></div>
-  <div class="pc"><div class="pn">Conciergerie Pro</div><div class="pp" style="font-size:1.5rem;padding-top:8px">Sur devis</div><div class="pd">Multi-logements · Illimité</div><div class="ph"></div><div class="pf">Tout Pro inclus</div><div class="pf">Logements illimités</div><div class="pf">Dashboard marque blanche</div><div class="pf">Account manager dédié</div><div class="pf">Formation équipe</div><div class="pf">API & intégrations</div><button class="pbtn o" onclick="location.href='mailto:myhostkit.conciergerie@gmail.com?subject=Devis Conciergerie Pro'">Nous contacter →</button></div>
-</div>
-<div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:28px;font-size:.73rem;color:rgba(255,255,255,.28)" class="reveal">
-  <span>🔒 Paiement Stripe sécurisé</span><span>✓ 30j gratuits</span><span>✓ Annulation 1 clic</span><span>✓ Plan gelé si impayé (données conservées)</span>
-</div>
-</section>
-
-<!-- PLANS MÉNAGÈRES -->
-<section id="plans-menageres" style="background:linear-gradient(180deg,#0A1520,#071824)">
-<div style="text-align:center;margin-bottom:48px" class="reveal"><div class="sl" style="justify-content:center;color:var(--or)">Plans Ménagères</div><h2 class="st" style="color:#fff">Boostez votre <em>visibilité.</em></h2><p style="color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px">Badge visible · Priorité dans les résultats · Commission réduite</p></div>
-<div class="pg pg3 reveal">
-  <div class="pc"><div class="pn">Free</div><div class="pp" style="font-size:2rem">FREE</div><div class="pd">Fonctionnalités de base</div><div class="ph"></div><div class="pf">Profil visible dans la marketplace</div><div class="pf">Accepter les réservations</div><div class="pf">Envoyer des rapports photo</div><div class="pf">Facture PDF auto-générée</div><div class="pf no">Badge BOOSTÉ</div><div class="pf no">Gestion d'équipe</div><div class="pf">Commission 15%</div><button class="pbtn o">Télécharger l'app →</button></div>
-  <div class="pc hi"><div class="pb">⭐ Recommandé</div><div class="pn">Pro</div><div class="pp"><sup>€</sup>19<span>/mois</span></div><div class="pd">Visibilité boostée</div><div class="ph"></div><div class="pf">Tout Gratuit inclus</div><div class="pf">Badge BOOSTÉ visible</div><div class="pf">Bordure dorée sur le profil</div><div class="pf">Priorité dans les résultats</div><div class="pf no">Badge ✓ Vérifié</div><div class="pf no">Gestion d'équipe</div><div class="pf">Commission 10% (-2%)</div><button class="pbtn g">Télécharger l'app →</button></div>
-  <div class="pc"><div class="pn">Business</div><div class="pp"><sup>€</sup>39<span>/mois</span></div><div class="pd">Tout inclus</div><div class="ph"></div><div class="pf">Tout Pro inclus</div><div class="pf">Badge ⭐ PRIORITAIRE</div><div class="pf">Badge ✓ Vérifié</div><div class="pf">Position n°1 dans les résultats</div><div class="pf">Gestion d'équipe (chat + missions)</div><div class="pf">Boutique produits</div><div class="pf">Commission 5% seulement (-5%)</div><button class="pbtn g">Télécharger l'app →</button></div>
-</div>
-</section>
-
-<section id="kits" style="background:var(--w)">
-<div style="text-align:center;margin-bottom:48px"><div class="sl reveal" style="justify-content:center">Comment ca marche</div><h2 class="st reveal">3 etapes. <em>C'est tout.</em></h2><p style="font-size:.9rem;color:var(--g);margin-top:10px">Que vous soyez hote ou menagere, vous etes operationnel en 2 minutes.</p></div>
-
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;margin:0 auto">
-  <div class="reveal" style="text-align:center">
-    <div style="width:72px;height:72px;border-radius:50%;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;border:1px solid rgba(27,94,123,.12)">📲</div>
-    <div style="font-size:1.6rem;font-weight:800;color:var(--bl);margin-bottom:6px">1</div>
-    <div style="font-size:.95rem;font-weight:700;margin-bottom:6px">Telechargez l'app</div>
-    <div style="font-size:.82rem;color:var(--g);line-height:1.7">Creez votre compte en 30 secondes. Choisissez votre role : Hote, Menagere ou Voyageur. Essai gratuit 30 jours, sans carte bancaire.</div>
-  </div>
-  <div class="reveal rd1" style="text-align:center">
-    <div style="width:72px;height:72px;border-radius:50%;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;border:1px solid rgba(27,94,123,.12)">⚙️</div>
-    <div style="font-size:1.6rem;font-weight:800;color:var(--bl);margin-bottom:6px">2</div>
-    <div style="font-size:.95rem;font-weight:700;margin-bottom:6px">Configurez en 2 min</div>
-    <div style="font-size:.82rem;color:var(--g);line-height:1.7"><strong>Hotes :</strong> ajoutez vos logements, synchronisez vos calendriers Airbnb/Booking, activez l'IA.<br><strong>Menageres :</strong> renseignez vos disponibilites, votre zone et votre tarif.</div>
-  </div>
-  <div class="reveal rd2" style="text-align:center">
-    <div style="width:72px;height:72px;border-radius:50%;background:var(--bp);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;border:1px solid rgba(27,94,123,.12)">🚀</div>
-    <div style="font-size:1.6rem;font-weight:800;color:var(--bl);margin-bottom:6px">3</div>
-    <div style="font-size:.95rem;font-weight:700;margin-bottom:6px">L'app travaille pour vous</div>
-    <div style="font-size:.82rem;color:var(--g);line-height:1.7"><strong>Hotes :</strong> l'IA repond aux voyageurs, le menage est reserve automatiquement, les rapports photo arrivent.<br><strong>Menageres :</strong> les reservations tombent, vous gerez votre equipe, votre chiffre monte.</div>
-  </div>
-</div>
-
-<div style="text-align:center;margin-top:48px" class="reveal">
-  <div style="display:inline-flex;align-items:center;gap:16px;background:var(--bf);border-radius:14px;padding:20px 36px">
-    <span style="font-size:2rem">🎁</span>
-    <div style="text-align:left">
-      <div style="font-size:.95rem;font-weight:700;color:#fff">30 jours gratuits · Sans carte bancaire</div>
-      <div style="font-size:.8rem;color:rgba(255,255,255,.5)">Essai complet sur tous les plans. Resiliation en 1 clic.</div>
-    </div>
-  </div>
-</div>
-
-<div style="display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap" class="reveal">
-  <a href="#" onclick="alert('Bientot disponible sur l\'App Store !');return false"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="App Store" style="height:44px;border-radius:8px"></a>
-  <a href="#" onclick="alert('Bientot disponible sur Google Play !');return false"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Google Play" style="height:44px"></a>
-</div>
-</section>
-
-<!-- DÉMO INTERACTIVE -->
-<section id="demo" style="background:#030C14;padding:60px 20px 80px;text-align:center;overflow:hidden">
-<div class="sl reveal" style="justify-content:center;color:var(--or)">Demo Interactive</div>
-<h2 class="st reveal" style="color:#fff">Testez l'app <em>maintenant.</em></h2>
-<p style="color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px;margin-bottom:24px">Donnees fictives — cliquez partout, tout fonctionne</p>
-<div style="display:inline-flex;gap:4px;margin-bottom:36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:4px">
-  <button onclick="showDemo('phone')" id="dBtn1" style="padding:9px 22px;border-radius:7px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit">📱 Téléphone</button>
-  <button onclick="showDemo('pc')" id="dBtn2" style="padding:9px 22px;border-radius:7px;border:none;background:transparent;color:rgba(255,255,255,.35);font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit">💻 PC</button>
-</div>
-
-<div id="dPhone" style="display:flex;justify-content:center">
-  <div style="width:340px;position:relative">
-    <div style="background:linear-gradient(145deg,#48484a,#3a3a3c,#2c2c2e);border-radius:44px;padding:3px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)">
-      <div style="background:#1c1c1e;border-radius:41px;overflow:hidden;position:relative;height:710px">
-        <!-- Dynamic Island -->
-        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:17px;z-index:20"></div>
-        <!-- Side buttons -->
-        <div style="position:absolute;right:-3px;top:130px;width:3px;height:60px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:0 2px 2px 0"></div>
-        <div style="position:absolute;left:-3px;top:110px;width:3px;height:26px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
-        <div style="position:absolute;left:-3px;top:148px;width:3px;height:46px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
-        <!-- App content via iframe -->
-        <iframe src="demo.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:41px;z-index:1"></iframe>
-        <!-- Home indicator -->
-        <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:110px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;z-index:15"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="dPC" style="display:none;max-width:1060px;margin:0 auto">
-  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:12px 12px 0 0;padding:6px 6px 0">
-    <div style="text-align:center;height:16px;display:flex;align-items:center;justify-content:center"><div style="width:6px;height:6px;border-radius:50%;background:#111;border:1px solid #555"></div></div>
-    <div style="background:#000;border-radius:2px 2px 0 0;overflow:hidden;height:540px">
-      <iframe src="demo-pc.html" style="width:100%;height:100%;border:none"></iframe>
-    </div>
-  </div>
-  <div style="height:8px;background:linear-gradient(180deg,#666,#3d3d3f);border-radius:0 0 2px 2px"></div>
-  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:0 0 8px 8px;padding:5px 28px 4px">
-    <svg viewBox="0 0 600 55" style="width:100%;display:block;opacity:.5">
-      <rect x="0" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="40" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="80" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="120" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="160" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="200" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="240" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="280" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="320" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="360" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="400" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="440" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="520" y="0" width="80" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="11" width="55" height="9" rx="1.5" fill="#555"/><rect x="57" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="97" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="137" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="177" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="217" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="257" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="297" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="337" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="377" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="417" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="457" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="497" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="537" y="11" width="63" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="22" width="65" height="9" rx="1.5" fill="#555"/><rect x="67" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="107" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="147" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="187" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="227" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="267" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="307" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="347" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="387" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="427" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="467" y="22" width="133" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="33" width="50" height="9" rx="1.5" fill="#555"/><rect x="52" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="92" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="132" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="172" y="33" width="220" height="9" rx="1.5" fill="#555"/><rect x="394" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="434" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="33" width="28" height="9" rx="1.5" fill="#555"/><rect x="540" y="33" width="28" height="9" rx="1.5" fill="#555"/>
-      <rect x="190" y="46" width="220" height="8" rx="3" fill="#444" stroke="#555" stroke-width=".5"/>
-    </svg>
-  </div>
-  <div style="height:3px;background:linear-gradient(180deg,rgba(100,100,100,.15),transparent);border-radius:0 0 8px 8px;margin:0 60px"></div>
-</div>
-
-<div style="margin-top:40px" class="reveal">
-  <p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-bottom:16px">Bientot disponible sur</p>
-  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-    <a href="#" onclick="alert('Bientot disponible sur l App Store !');return false" style="display:inline-block"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="Telecharger sur l App Store" style="height:44px;border-radius:8px"></a>
-    <a href="#" onclick="alert('Bientot disponible sur Google Play !');return false" style="display:inline-block"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Disponible sur Google Play" style="height:44px"></a>
-  </div>
-</div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" style="background:var(--cr)">
-<div style="text-align:center"><div class="sl" style="justify-content:center">FAQ</div><h2 class="st reveal">Questions <em>fréquentes</em></h2></div>
-<div class="faq-w">
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">Comment fonctionne l'essai gratuit ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">30 jours d'accès complet à toutes les fonctionnalités. Aucun paiement automatique — votre plan passe en gratuit si vous ne souscrivez pas. Badge ⭐ PRIORITAIRE + ✓ Vérifié pendant l'essai.</div></div>
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">Comment fonctionne la commission ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">MyHostKit prélève 15% (Gratuit), 10% (Pro) ou 5% (Business) sur chaque prestation de ménage via Stripe. Le paiement est vérifié avant toute confirmation (action verify_payment). Sans Stripe Connect : 100% arrive sur le compte MyHostKit, reversement manuel. Avec Stripe Connect : split automatique.</div></div>
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">Comment synchroniser Airbnb/Booking ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Dans l'app → Logement → collez le lien iCalendar. Airbnb : Annonce → Disponibilité → "Exporter le calendrier". Booking : admin.booking.com → Chambre → Calendrier → "Exporter". Un bouton d'aide avec instructions pas-à-pas est intégré dans l'app.</div></div>
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">Si mon paiement est refusé ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Votre plan est temporairement gelé — vous passez en FREE mais vos données sont conservées (logements, historique, avis). Bannière rouge "⚠️ Abonnement suspendu". Dès que le paiement est régularisé → plan réactivé.</div></div>
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">La sécurité des paiements ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">Tous les paiements passent par Stripe (navigateur in-app). Le statut ne change que si Stripe confirme (verify_payment). Pas de mise à jour avant paiement réel — aucune fraude possible. Edge Function manage-subscription déployée sur Supabase.</div></div>
-  <div class="faq-i"><div class="faq-q" onclick="this.closest('.faq-i').classList.toggle('open')">Qu'est-ce que la boutique produits ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="faq-a">25 produits dans 6 catégories (Nettoyage, Accessoires, Consommables, Hygiène, Linge, Accueil) + commande personnalisée libre (nom + prix + quantité). Commission 15% prélevée automatiquement. Paiement vérifié par Stripe avant confirmation.</div></div>
-</div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" style="background:var(--w)">
-<div style="text-align:center;margin-bottom:48px"><div class="sl" style="justify-content:center">Contact</div><h2 class="st reveal">Une question ? <em>On est là.</em></h2></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:900px;margin:0 auto">
-  <div class="reveal" style="display:flex;flex-direction:column;gap:20px">
-    <div style="display:flex;gap:14px"><div class="fi" style="width:42px;height:42px;margin:0;font-size:1.1rem">📧</div><div><div style="font-size:.84rem;font-weight:700">Email</div><a href="mailto:myhostkit.contact@gmail.com" style="font-size:.84rem;color:var(--bl);text-decoration:none">myhostkit.contact@gmail.com</a></div></div>
-    <div style="display:flex;gap:14px"><div class="fi" style="width:42px;height:42px;margin:0;font-size:1.1rem">📞</div><div><div style="font-size:.84rem;font-weight:700">Téléphone</div><a href="tel:0699348951" style="font-size:.84rem;color:var(--bl);text-decoration:none">06 99 34 89 51</a></div></div>
-    <div style="display:flex;gap:14px"><div class="fi" style="width:42px;height:42px;margin:0;font-size:1.1rem">📍</div><div><div style="font-size:.84rem;font-weight:700">Siège</div><div style="font-size:.84rem;color:var(--g)">60 rue François 1er, 75008 Paris</div></div></div>
-  </div>
-  <div class="reveal rd1" style="background:var(--bf);border-radius:14px;padding:24px;color:#fff;font-size:.82rem;line-height:2;color:rgba(255,255,255,.65)">
-    <div style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px">Informations légales</div>
-    <div><strong style="color:#fff">MyHostKit</strong> · Auto-entrepreneur</div>
-    <div>SIRET : 10032406000019</div>
-    <div>60 rue François 1er, 75008 Paris</div>
-    <div>Email : <a href="mailto:myhostkit.contact@gmail.com" style="color:#A8D8EA">myhostkit.contact@gmail.com</a></div>
-  </div>
-</div>
-</section>
-
-<!-- CTA -->
-<div style="background:var(--bf);padding:80px;text-align:center;position:relative;overflow:hidden">
-<h2 class="st" style="color:#fff;position:relative">Prêt à passer au<br><em>niveau supérieur ?</em></h2>
-<p style="color:rgba(255,255,255,.48);font-size:.94rem;max-width:460px;margin:14px auto 36px;line-height:1.8;position:relative">Rejoignez les hôtes et ménagères qui utilisent MyHostKit pour gérer leurs logements.</p>
-<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative"><a href="#demo" class="btn-p" style="font-size:.95rem;padding:15px 36px">Découvrir l'app →</a><a href="#kits" class="btn-o">Comment ça marche</a></div>
-</div>
-
-<footer>
-<div class="fg2">
-  <div><div style="margin-bottom:12px"><svg width="140" height="26" viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" fill="#C8965A"/><path d="M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z" fill="#fff"/><path d="M15 10L8.5 14.5H21.5L15 10Z" fill="#fff" opacity=".7"/><text x="35" y="21" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="800" fill="#fff">MyHostKit</text><circle cx="148" cy="17" r="3.5" fill="#C8965A"/></svg></div><p class="ftl">App mobile pour hôtes Airbnb et ménagères. Conciergerie IA, marketplace ménage, kits superhôte, paiement sécurisé Stripe.</p></div>
-  <div class="fch"><h5>App</h5><a href="#app">Fonctionnalités</a><a href="#marketplace">Marketplace</a><a href="#conciergerie">Conciergerie IA</a><a href="#demo">Démo interactive</a></div>
-  <div class="fch"><h5>Tarifs</h5><a href="#plans-hotes">Plans Hôtes</a><a href="#plans-menageres">Plans Ménagères</a><a href="#kits">Kits Superhôte</a></div>
-  <div class="fch"><h5>Aide</h5><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="mailto:myhostkit.contact@gmail.com">Support</a>
-      <a href="javascript:openLegal('cgv')">CGV</a>
-      <a href="javascript:openLegal('mentions')">Mentions legales</a>
-      <a href="javascript:openLegal('confidentialite')">Confidentialite</a>
-      <a href="javascript:openLegal('retours')">Retours 14j</a></div>
-</div>
-<div class="fb" style="margin-bottom:16px">© 2026 MyHostKit · Auto-entrepreneur · SIRET 10032406000019 · 60 rue Francois 1er, 75008 Paris · 06 99 34 89 51
-  <div style="margin-top:10px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
-    <a href="javascript:openLegal('cgv')" style="color:rgba(255,255,255,.3);text-decoration:none;font-size:.71rem">CGV</a>
-    <a href="javascript:openLegal('mentions')" style="color:rgba(255,255,255,.3);text-decoration:none;font-size:.71rem">Mentions legales</a>
-    <a href="javascript:openLegal('confidentialite')" style="color:rgba(255,255,255,.3);text-decoration:none;font-size:.71rem">Confidentialite</a>
-    <a href="javascript:openLegal('retours')" style="color:rgba(255,255,255,.3);text-decoration:none;font-size:.71rem">Retours</a>
-  </div>
-  <div style="margin-top:8px;font-size:.65rem;color:rgba(255,255,255,.12)">TVA non applicable (art. 293 B du CGI) · Heberge par Vercel + Cloudflare · Donnees protegees par le RGPD · Toute reproduction interdite</div></div>
-</footer>
-
-<!-- MENTIONS LEGALES COMPLETES -->
-<div id="modal-mentions" class="modal" onclick="if(event.target===this)closeLegal('mentions')">
-<div class="modal-box">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Mentions legales</h2><button onclick="closeLegal('mentions')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
-<div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">1. Editeur du site</h3>
-<p><strong>MyHostKit</strong><br>Micro-entreprise (auto-entrepreneur)<br>SIRET : 10032406000019<br>Siege : 60 rue Francois 1er, 75008 Paris, France<br>Responsable de la publication : Rayane<br>Telephone : 06 99 34 89 51<br>Email : myhostkit.contact@gmail.com<br>Site : www.myhostkit.com</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">2. Hebergement</h3>
-<p>Site heberge par <strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, USA.<br>DNS et protection par <strong>Cloudflare Inc.</strong>, 101 Townsend St, San Francisco, CA 94107, USA.<br>Code source : <strong>GitHub Inc.</strong> (Microsoft), deploiement automatique via Vercel.<br>Application mobile : <strong>Supabase</strong> (base de donnees PostgreSQL) + <strong>Vercel</strong> (API et deploiement).<br>Paiements : <strong>Stripe</strong> — aucune donnee bancaire stockee sur nos serveurs.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">3. Propriete intellectuelle</h3>
-<p>L'ensemble des contenus du site www.myhostkit.com et de l'application MyHostKit (textes, images, logos, graphismes, icones, code source, bases de donnees, logiciels, design UI/UX) sont la propriete exclusive de MyHostKit et proteges par le droit francais et les conventions internationales relatives a la propriete intellectuelle (Code de la propriete intellectuelle, Convention de Berne, Directive 2001/29/CE).</p>
-<p><strong>Toute reproduction, representation, modification, publication, adaptation, traduction ou exploitation non autorisee de tout ou partie de ces elements est strictement interdite</strong> et constitue une contrefacon sanctionnee par les articles L.335-2 et suivants du Code de la propriete intellectuelle. Les contrevenants s'exposent a des poursuites penales et civiles.</p>
-<p>La marque MyHostKit, le logo et les noms de produits sont des marques deposees ou en cours de depot. Leur utilisation sans autorisation ecrite prealable est interdite.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">4. Protection des donnees personnelles (RGPD)</h3>
-<p><strong>Responsable du traitement :</strong> MyHostKit, 60 rue Francois 1er, 75008 Paris.<br>
-<strong>Donnees collectees :</strong> nom, prenom, email, telephone, adresse, donnees de reservation, donnees de paiement (traitees par Stripe), photos de rapports de menage.<br>
-<strong>Finalites :</strong> execution des services (conciergerie IA, marketplace menage, boutique produits), gestion de la relation client, facturation, amelioration du service.<br>
-<strong>Base legale :</strong> execution du contrat (Art. 6.1.b RGPD) et consentement (Art. 6.1.a RGPD) pour les communications marketing.<br>
-<strong>Duree de conservation :</strong> 3 ans apres la derniere utilisation du service. Donnees de facturation : 10 ans (obligation legale).<br>
-<strong>Destinataires :</strong> les donnees sont accessibles aux prestataires techniques (Supabase, Stripe, Vercel, Cloudflare, GitHub) dans le strict cadre de leurs missions. Aucune vente de donnees a des tiers.<br>
-<strong>Transferts hors UE :</strong> certains prestataires sont situes aux USA (Stripe, Supabase, Vercel, Cloudflare, GitHub). Les transferts sont encadres par les Clauses Contractuelles Types (CCT) de la Commission europeenne et/ou le Data Privacy Framework (DPF) UE-USA.<br>
-<strong>Vos droits :</strong> acces, rectification, effacement, portabilite, limitation, opposition — exercables par email a myhostkit.contact@gmail.com. Reponse sous 30 jours. Reclamation aupres de la CNIL (www.cnil.fr).</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">5. Cookies</h3>
-<p>Ce site utilise des cookies techniques strictement necessaires au fonctionnement (session, preferences). Cookies analytiques anonymises via Vercel/Cloudflare. Aucun cookie publicitaire tiers sans consentement explicite. Vous pouvez configurer votre navigateur pour refuser les cookies.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">6. Mediation et litiges</h3>
-<p>En cas de litige, vous pouvez recourir gratuitement au mediateur de la consommation : plateforme europeenne ODR https://ec.europa.eu/consumers/odr/. Droit francais applicable. Tribunal competent : Paris.</p>
-</div>
-</div>
-</div>
-
-<div id="modal-cgv" class="modal" onclick="if(event.target===this)closeLegal('cgv')">
-<div class="modal-box">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Conditions Generales de Vente</h2><button onclick="closeLegal('cgv')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
-<div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 1 — Vendeur</h3>
-<p><strong>MyHostKit</strong> — Micro-entreprise (auto-entrepreneur)<br>SIRET : 10032406000019<br>60 rue Francois 1er, 75008 Paris<br>Tel : 06 99 34 89 51 · Email : myhostkit.contact@gmail.com<br>TVA non applicable (article 293 B du CGI)</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 2 — Services et produits</h3>
-<p>MyHostKit propose : (a) des abonnements de conciergerie IA pour hotes Airbnb (FREE, Starter 49 EUR/mois, Pro 89 EUR/mois, Conciergerie Pro sur devis), (b) des abonnements pour menageres (FREE, Pro 19 EUR/mois, Business 39 EUR/mois), (c) des kits physiques superhote, (d) une marketplace de mise en relation hotes/menageres avec commission (15%, 10% ou 5% selon le plan). Les prix sont indiques TTC en euros.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 3 — Commission et paiement</h3>
-<p>Paiement securise par Stripe. Aucune donnee bancaire stockee sur nos serveurs. Commission prelevee automatiquement sur chaque prestation de menage : 15% (plan Gratuit), 10% (plan Pro), 5% (plan Business). Le paiement n'est confirme qu'apres verification Stripe (verify_payment). Pour les abonnements, le premier prelevement intervient apres la periode d'essai de 30 jours.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 4 — Livraison (kits physiques)</h3>
-<p>Livraison Colissimo avec suivi sous 48h ouvrees en France metropolitaine. Commandes avant 14h expediees le jour meme.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 5 — Droit de retractation</h3>
-<p>Conformement a l'article L221-18 du Code de la consommation, delai de 14 jours a compter de la reception pour les produits physiques. Pour les abonnements numeriques, le droit de retractation ne s'applique pas une fois le service active (art. L221-28). Retours : myhostkit.contact@gmail.com</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 6 — Abonnements</h3>
-<p>Plans Starter et Pro hotes, Pro et Business menageres : sans engagement, resiliation a tout moment avec effet a la fin du mois en cours. 30 jours d'essai gratuit — aucun prelevement pendant cette periode. En cas d'impaye, le plan est gele (donnees conservees) jusqu'a regularisation.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 7 — Responsabilite</h3>
-<p>MyHostKit agit en tant que plateforme de mise en relation entre hotes et menageres. MyHostKit n'est pas partie au contrat de prestation de menage et ne saurait etre tenu responsable de la qualite des prestations. Les avis et notations sont publies sous la responsabilite de leurs auteurs.</p>
-
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 8 — Droit applicable</h3>
-<p>Droit francais applicable. Mediation consommateur : plateforme ODR https://ec.europa.eu/consumers/odr/. Tribunal competent : Paris.</p>
-</div>
-</div>
-</div>
-
-<div id="modal-confidentialite" class="modal" onclick="if(event.target===this)closeLegal('confidentialite')">
-<div class="modal-box">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Politique de confidentialite</h2><button onclick="closeLegal('confidentialite')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
-<div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<p>Derniere mise a jour : avril 2026</p>
-<p>MyHostKit (micro-entreprise, SIRET 10032406000019) s'engage a proteger vos donnees personnelles conformement au Reglement General sur la Protection des Donnees (RGPD) et a la loi Informatique et Libertes.</p>
-<p><strong>Donnees collectees :</strong> identite (nom, email, telephone), donnees de reservation, photos de rapports de menage, donnees de paiement (traitees exclusivement par Stripe), donnees de navigation (cookies techniques).</p>
-<p><strong>Utilisation :</strong> fourniture du service, gestion des reservations, traitement des paiements, communications liees au service, amelioration de l'application.</p>
-<p><strong>Partage :</strong> vos donnees ne sont jamais vendues. Elles sont partagees uniquement avec nos prestataires techniques (Supabase, Stripe, Vercel, Cloudflare, GitHub) dans le strict cadre necessaire au fonctionnement du service.</p>
-<p><strong>Securite :</strong> chiffrement des donnees en transit (TLS/SSL), authentification securisee, acces restreint aux donnees. Paiements traites par Stripe (certifie PCI DSS niveau 1).</p>
-<p><strong>Vos droits :</strong> acces, rectification, effacement, portabilite, limitation, opposition. Contact : myhostkit.contact@gmail.com. Autorite de controle : CNIL, 3 Place de Fontenoy, 75007 Paris (www.cnil.fr).</p>
-</div>
-</div>
-</div>
-
-<div id="modal-retours" class="modal" onclick="if(event.target===this)closeLegal('retours')">
-<div class="modal-box">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Retours et remboursements</h2><button onclick="closeLegal('retours')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
-<div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<p><strong>Kits physiques :</strong> retour sous 14 jours (Art. L221-18 Code de la consommation). Produits non utilises, emballage d'origine. Frais de retour a la charge du client sauf produit defectueux. Remboursement sous 14 jours apres reception.</p>
-<p><strong>Abonnements :</strong> essai gratuit 30 jours — aucun debit. Resiliation a tout moment depuis l'app. Aucun remboursement pour les mois entames.</p>
-<p><strong>Contact :</strong> myhostkit.contact@gmail.com · 06 99 34 89 51</p>
-</div>
-</div>
-</div>
+<div id="root"></div>
 
 <script>
-// NAV SCROLL
-window.addEventListener('scroll',function(){var n=document.getElementById('mn');if(n)n.classList.toggle('scrolled',window.scrollY>60);});
-// REVEAL
-document.addEventListener('DOMContentLoaded',function(){
-  var els=document.querySelectorAll('.reveal');
-  if(typeof IntersectionObserver!=='undefined'){var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08});els.forEach(function(el){obs.observe(el);});}
-  else els.forEach(function(el){el.classList.add('visible');});
-  });
-// TIER SELECT
-function selT(el){el.closest('.pt').querySelectorAll('.ptr').forEach(function(t){t.classList.remove('sel');});el.classList.add('sel');}
+var SB_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+var sb = supabase.createClient(SB_URL, SB_KEY);
 
-function showDemo(t){
-  var ph=document.getElementById('dPhone');
-  var pc=document.getElementById('dPC');
-  var b1=document.getElementById('dBtn1');
-  var b2=document.getElementById('dBtn2');
-  if(ph)ph.style.display=t==='phone'?'flex':'none';
-  if(pc)pc.style.display=t==='pc'?'block':'none';
-  if(b1){b1.style.background=t==='phone'?'rgba(255,255,255,.1)':'transparent';b1.style.color=t==='phone'?'#fff':'rgba(255,255,255,.35)';}
-  if(b2){b2.style.background=t==='pc'?'rgba(255,255,255,.1)':'transparent';b2.style.color=t==='pc'?'#fff':'rgba(255,255,255,.35)';}
+var state = {
+  session: null, profile: null, role: null, view: 'dashboard', loading: true,
+  properties: [], cleaners: [], bookings: [], notifications: [], messages: [],
+  inventory: [], reviews: [], team: [], availability: []
+};
+
+// ===== AUTH =====
+async function init() {
+  var { data } = await sb.auth.getSession();
+  if (data.session) {
+    state.session = data.session;
+    await loadProfile();
+  }
+  state.loading = false;
+  render();
 }
 
-function openLegal(id){var el=document.getElementById('modal-'+id);if(el)el.style.display='flex';document.body.style.overflow='hidden';}
-function closeLegal(id){var el=document.getElementById('modal-'+id);if(el)el.style.display='none';document.body.style.overflow='';}
+async function loadProfile() {
+  var uid = state.session.user.id;
+  var { data: p } = await sb.from('profiles').select('*').eq('id', uid).single();
+  state.profile = p;
+  state.role = p ? p.role : 'host';
+}
+
+async function doLogin() {
+  var email = document.getElementById('auth-email').value.trim();
+  var pass = document.getElementById('auth-pass').value;
+  if (!email || !pass) return;
+  document.getElementById('auth-err').style.display = 'none';
+  document.getElementById('auth-submit').disabled = true;
+  var { data, error } = await sb.auth.signInWithPassword({ email: email, password: pass });
+  if (error) {
+    document.getElementById('auth-err').textContent = error.message;
+    document.getElementById('auth-err').style.display = 'block';
+    document.getElementById('auth-submit').disabled = false;
+    return;
+  }
+  state.session = data.session;
+  await loadProfile();
+  state.view = state.role === 'cleaner' ? 'planning' : state.role === 'guest' ? 'home' : 'dashboard';
+  render();
+}
+
+async function doSignup() {
+  var email = document.getElementById('auth-email').value.trim();
+  var pass = document.getElementById('auth-pass').value;
+  var role = state.role || 'host';
+  if (!email || !pass) return;
+  document.getElementById('auth-err').style.display = 'none';
+  document.getElementById('auth-submit').disabled = true;
+  var { data, error } = await sb.auth.signUp({ email: email, password: pass });
+  if (error) {
+    document.getElementById('auth-err').textContent = error.message;
+    document.getElementById('auth-err').style.display = 'block';
+    document.getElementById('auth-submit').disabled = false;
+    return;
+  }
+  if (data.session) {
+    await sb.from('profiles').upsert({ id: data.user.id, email: email, role: role, plan: 'trial', full_name: email.split('@')[0] });
+    state.session = data.session;
+    await loadProfile();
+    state.view = role === 'cleaner' ? 'planning' : 'dashboard';
+    render();
+  } else {
+    document.getElementById('auth-err').textContent = 'Verifiez votre email pour confirmer votre compte.';
+    document.getElementById('auth-err').style.display = 'block';
+    document.getElementById('auth-err').style.background = 'rgba(52,199,89,.1)';
+    document.getElementById('auth-err').style.color = '#34C759';
+    document.getElementById('auth-err').style.borderColor = 'rgba(52,199,89,.2)';
+    document.getElementById('auth-submit').disabled = false;
+  }
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  state.session = null; state.profile = null; state.role = null; state.view = 'dashboard';
+  render();
+}
+
+// ===== DATA LOADING =====
+async function loadData() {
+  if (!state.session) return;
+  var uid = state.session.user.id;
+  if (state.role === 'host') {
+    var [props, books, notifs] = await Promise.all([
+      sb.from('properties').select('*').eq('user_id', uid).order('created_at', { ascending: false }),
+      sb.from('cleaning_bookings').select('*,cleaners(name,city)').eq('host_id', uid).order('date', { ascending: false }).limit(20),
+      sb.from('notifications').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(20)
+    ]);
+    state.properties = props.data || [];
+    state.bookings = books.data || [];
+    state.notifications = notifs.data || [];
+  } else if (state.role === 'cleaner') {
+    var [avail, books, notifs] = await Promise.all([
+      sb.from('cleaner_availability').select('*').eq('cleaner_id', uid).order('date', { ascending: true }),
+      sb.from('cleaning_bookings').select('*,properties(name,city,address)').eq('cleaner_id', uid).order('date', { ascending: false }).limit(20),
+      sb.from('notifications').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(20)
+    ]);
+    state.availability = avail.data || [];
+    state.bookings = books.data || [];
+    state.notifications = notifs.data || [];
+  }
+}
+
+// ===== RENDER =====
+function render() {
+  var root = document.getElementById('root');
+  if (state.loading) { root.innerHTML = '<div class="loading">Chargement...</div>'; return; }
+  if (!state.session) { root.innerHTML = renderAuth(); return; }
+  root.innerHTML = renderApp();
+  loadData();
+}
+
+var authMode = 'login';
+function toggleAuth() { authMode = authMode === 'login' ? 'signup' : 'login'; render(); }
+function selectAuthRole(r) { state.role = r; render(); }
+
+function renderAuth() {
+  var isLogin = authMode === 'login';
+  return '<div class="auth-wrap"><div class="auth-box">' +
+    '<div class="auth-logo"><svg width="160" height="30" viewBox="0 0 160 30" fill="none"><circle cx="15" cy="15" r="14" fill="#C8965A"/><path d="M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z" fill="#fff"/><path d="M15 10L8.5 14.5H21.5L15 10Z" fill="#fff" opacity=".7"/><text x="35" y="21" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="800" fill="#fff">MyHostKit</text><circle cx="148" cy="17" r="3.5" fill="#C8965A"/></svg></div>' +
+    '<div class="auth-title">' + (isLogin ? 'Connexion' : 'Creer un compte') + '</div>' +
+    '<div class="auth-sub">Version desktop — memes donnees que l\'app mobile</div>' +
+    '<div id="auth-err" class="auth-error"></div>' +
+    (!isLogin ? '<div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Choisir un role</div>' +
+    '<div class="auth-role">' +
+    '<div class="auth-role-btn ' + (state.role === 'host' || !state.role ? 'on' : '') + '" onclick="selectAuthRole(\'host\')"><span class="ri">🏠</span><span class="rn">Hote</span><span class="rd">Conciergerie</span></div>' +
+    '<div class="auth-role-btn ' + (state.role === 'cleaner' ? 'on' : '') + '" onclick="selectAuthRole(\'cleaner\')"><span class="ri">🧹</span><span class="rn">Menagere</span><span class="rd">Menage</span></div>' +
+    '<div class="auth-role-btn ' + (state.role === 'guest' ? 'on' : '') + '" onclick="selectAuthRole(\'guest\')"><span class="ri">🌍</span><span class="rn">Voyageur</span><span class="rd">Sejour</span></div>' +
+    '</div>' : '') +
+    '<input class="auth-input" id="auth-email" type="email" placeholder="Email">' +
+    '<input class="auth-input" id="auth-pass" type="password" placeholder="Mot de passe">' +
+    '<button class="auth-btn" id="auth-submit" onclick="' + (isLogin ? 'doLogin()' : 'doSignup()') + '">' + (isLogin ? 'Se connecter' : 'Creer mon compte') + '</button>' +
+    '<div class="auth-switch">' + (isLogin ? 'Pas de compte ? <span onclick="toggleAuth()">Creer un compte</span>' : 'Deja un compte ? <span onclick="toggleAuth()">Se connecter</span>') + '</div>' +
+    '</div></div>';
+}
+
+function renderApp() {
+  var r = state.role;
+  var isCleaner = r === 'cleaner';
+  var isGuest = r === 'guest';
+  var isHost = r === 'host' || r === 'admin';
+  var activeClass = isCleaner ? 'on-blue' : 'on';
+  var v = state.view;
+
+  // Sidebar nav items
+  var navItems = [];
+  if (isHost) {
+    navItems = [
+      { sec: 'PRINCIPAL' },
+      { id: 'dashboard', icon: '📊', label: 'Dashboard' },
+      { id: 'properties', icon: '🏠', label: 'Logements' },
+      { id: 'menage', icon: '🧹', label: 'Marketplace' },
+      { id: 'bookings', icon: '📋', label: 'Reservations' },
+      { id: 'messages', icon: '💬', label: 'Messages' },
+      { sec: 'GESTION' },
+      { id: 'stock', icon: '📦', label: 'Stock' },
+      { id: 'boutique', icon: '🛒', label: 'Boutique' },
+      { id: 'notifications', icon: '🔔', label: 'Notifications' },
+      { id: 'settings', icon: '⚙️', label: 'Parametres' },
+      { id: 'install', icon: '📌', label: 'Installer l\'app' },
+    ];
+  } else if (isCleaner) {
+    navItems = [
+      { sec: 'PRINCIPAL' },
+      { id: 'planning', icon: '📋', label: 'Planning' },
+      { id: 'dispo', icon: '📅', label: 'Disponibilites' },
+      { id: 'rapport', icon: '📸', label: 'Rapport' },
+      { id: 'messages', icon: '💬', label: 'Messages' },
+      { sec: 'GESTION' },
+      { id: 'team', icon: '👥', label: 'Equipe' },
+      { id: 'boutique', icon: '🛒', label: 'Boutique' },
+      { id: 'notifications', icon: '🔔', label: 'Notifications' },
+      { id: 'settings', icon: '⚙️', label: 'Profil' },
+      { id: 'install', icon: '📌', label: 'Installer l\'app' },
+    ];
+  } else {
+    navItems = [
+      { sec: 'SEJOUR' },
+      { id: 'home', icon: '🏠', label: 'Accueil' },
+      { id: 'infos', icon: '📋', label: 'Infos logement' },
+      { id: 'concierge', icon: '🤖', label: 'Concierge IA' },
+      { sec: 'COMPTE' },
+      { id: 'settings', icon: '⚙️', label: 'Parametres' },
+      { id: 'install', icon: '📌', label: 'Installer l\'app' },
+    ];
+  }
+
+  var navHtml = navItems.map(function(n) {
+    if (n.sec) return '<div class="side-sec">' + n.sec + '</div>';
+    return '<button class="sn ' + (v === n.id ? activeClass : '') + '" onclick="go(\'' + n.id + '\')">' +
+      '<span class="sn-icon">' + n.icon + '</span>' + n.label +
+      (n.badge ? '<span class="sn-badge">' + n.badge + '</span>' : '') +
+      '</button>';
+  }).join('');
+
+  var email = state.session.user.email;
+  var name = state.profile ? (state.profile.full_name || email.split('@')[0]) : email.split('@')[0];
+  var plan = state.profile ? (state.profile.plan || 'free') : 'free';
+
+  return '<div class="app">' +
+    '<div class="side">' +
+      '<div class="side-hd"><div class="side-logo">M</div><span class="side-name">MyHostKit</span><span class="side-plan">' + plan.toUpperCase() + '</span></div>' +
+      '<div class="side-nav">' + navHtml + '</div>' +
+      '<div class="side-user"><div class="side-av">' + name[0].toUpperCase() + '</div><div><div class="side-uname">' + name + '</div><div class="side-uemail">' + email + '</div></div><div class="side-logout" onclick="doLogout()" title="Deconnexion">🚪</div></div>' +
+    '</div>' +
+    '<div class="main">' +
+      renderTopbar() +
+      '<div class="content" id="view-content">' + renderView() + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function go(view) { state.view = view; var c = document.getElementById('view-content'); if (c) { c.innerHTML = renderView(); } document.querySelector('.topbar').outerHTML = renderTopbar(); document.querySelectorAll('.sn').forEach(function(el) { el.classList.remove('on', 'on-blue'); }); var btn = document.querySelector('.sn[onclick="go(\'' + view + '\')"]'); if (btn) btn.classList.add(state.role === 'cleaner' ? 'on-blue' : 'on'); }
+
+function renderTopbar() {
+  var titles = { dashboard:'📊 Dashboard',properties:'🏠 Logements',menage:'🧹 Marketplace',bookings:'📋 Reservations',messages:'💬 Messages',stock:'📦 Stock',boutique:'🛒 Boutique',notifications:'🔔 Notifications',settings:'⚙️ Parametres',planning:'📋 Planning',dispo:'📅 Disponibilites',rapport:'📸 Rapport',team:'👥 Equipe',home:'🏠 Accueil',infos:'📋 Infos',concierge:'🤖 Concierge IA' };
+  return '<div class="topbar"><h1>' + (titles[state.view] || state.view) + '</h1><div class="topbar-right"><input class="topbar-search" placeholder="Rechercher..."></div></div>';
+}
+
+// ===== VIEWS =====
+function renderView() {
+  var v = state.view;
+  var fns = {
+    // HOST
+    dashboard: viewDashboard, properties: viewProperties, menage: viewMenage,
+    bookings: viewBookings, stock: viewStock, boutique: viewBoutique,
+    // CLEANER
+    planning: viewPlanning, dispo: viewDispo, rapport: viewRapport, team: viewTeam,
+    // GUEST
+    home: viewGuestHome, infos: viewGuestInfos, concierge: viewConcierge, install: viewInstall,
+    // SHARED
+    messages: viewMessages, notifications: viewNotifs, settings: viewSettings
+  };
+  return fns[v] ? fns[v]() : '<div class="empty">Vue non trouvee</div>';
+}
+
+function viewDashboard() {
+  return renderInstallBanner() + '<div class="trial-bar">🎁 Essai gratuit — Acces complet a toutes les fonctionnalites</div>' +
+    '<div class="row"><div class="kpi"><div class="kpi-label">Revenus</div><div class="kpi-val">—</div><div class="kpi-delta">Chargement...</div></div>' +
+    '<div class="kpi"><div class="kpi-label">Logements</div><div class="kpi-val">' + state.properties.length + '</div></div>' +
+    '<div class="kpi"><div class="kpi-label">Reservations</div><div class="kpi-val">' + state.bookings.length + '</div></div>' +
+    '<div class="kpi"><div class="kpi-label">Note moyenne</div><div class="kpi-val">—</div><div class="kpi-delta">Objectif 4.9</div></div></div>' +
+    '<div class="row2"><div class="crd"><h3>📋 Dernieres reservations</h3>' + renderBookingsTable() + '</div>' +
+    '<div class="crd"><h3>🔔 Notifications recentes</h3>' + renderNotifsList() + '</div></div>';
+}
+
+function viewProperties() {
+  var html = '<div style="display:flex;justify-content:space-between;margin-bottom:16px"><span style="font-size:13px;color:var(--sub)">' + state.properties.length + ' logement(s)</span><button class="btn-p" onclick="alert(\'Fonctionnalite disponible dans l app mobile\')">+ Ajouter un logement</button></div>';
+  if (state.properties.length === 0) return html + '<div class="empty">Aucun logement. Ajoutez-en un pour commencer.</div>';
+  state.properties.forEach(function(p) {
+    html += '<div class="crd"><h3>🏠 ' + (p.name || 'Sans nom') + '</h3><div style="font-size:12px;color:var(--sub);line-height:2">' +
+      '📍 ' + (p.address || '') + ', ' + (p.city || '') + '<br>' +
+      '🛏 ' + (p.rooms || '?') + ' ch · ' + (p.capacity || '?') + ' pers<br>' +
+      '📶 WiFi : ' + (p.wifi_name || '—') + '<br>' +
+      '🔑 Code : ' + (p.access_code || '—') + '<br>' +
+      '🕐 In ' + (p.checkin || p.check_in_time || '15:00') + ' · Out ' + (p.checkout || p.check_out_time || '11:00') +
+      (p.ical_url ? '<br><span style="color:var(--success)">📅 iCal synchro ✅</span>' : '') +
+      '</div></div>';
+  });
+  return html;
+}
+
+function viewMenage() {
+  return '<div class="crd"><h3>🔍 Rechercher une menagere</h3>' +
+    '<div class="form-row"><div><label class="form-label">Ville</label><input class="form-input" id="search-city" placeholder="Ex: Nice"></div>' +
+    '<div><label class="form-label">Date</label><input class="form-input" id="search-date" type="date"></div>' +
+    '<div style="display:flex;align-items:flex-end"><button class="btn-p" onclick="searchCleaners()" style="width:100%">🔍 Rechercher</button></div></div></div>' +
+    '<div id="search-results"></div>';
+}
+
+async function searchCleaners() {
+  var city = document.getElementById('search-city').value.trim();
+  var date = document.getElementById('search-date').value;
+  if (!city) { alert('Entrez une ville'); return; }
+  var q = sb.from('cleaners').select('*').ilike('city', '%' + city + '%');
+  var { data } = await q;
+  var el = document.getElementById('search-results');
+  if (!data || data.length === 0) { el.innerHTML = '<div class="empty">Aucune menagere trouvee a ' + city + '</div>'; return; }
+  var html = '<div class="crd"><h3>' + data.length + ' menagere(s) a ' + city + '</h3><table class="tbl"><tr><th>Nom</th><th>Ville</th><th>Prix</th><th>Note</th><th>Badge</th><th></th></tr>';
+  data.forEach(function(c) {
+    var badge = c.plan === 'business' ? '<span class="chip cp">⭐ PRIO</span>' : c.plan === 'pro' ? '<span class="chip cb">BOOSTE</span>' : '';
+    html += '<tr><td><strong>' + (c.name || '?') + '</strong></td><td>' + (c.city || '') + '</td><td>' + (c.price_per_hour || '?') + ' EUR/h</td><td>⭐ ' + (c.rating || '—') + '</td><td>' + badge + '</td><td><button class="btn-p" style="padding:4px 10px;font-size:10px" onclick="alert(\'Reservation via l app mobile\')">Reserver</button></td></tr>';
+  });
+  html += '</table></div>';
+  el.innerHTML = html;
+}
+
+function viewBookings() { return '<div class="crd"><h3>📋 Toutes les reservations</h3>' + renderBookingsTable() + '</div>'; }
+function viewStock() { return '<div class="crd"><h3>📦 Gestion du stock</h3><div class="empty">Selectionnez un logement dans l onglet Logements pour gerer le stock.</div></div>'; }
+function viewBoutique() { return '<div class="crd"><h3>🛒 Boutique produits</h3><div class="empty">La boutique est disponible dans l app mobile.</div></div>'; }
+
+// CLEANER VIEWS
+function viewPlanning() {
+  return renderInstallBanner() + '<div class="trial-bar">🎁 Essai gratuit — Toutes fonctionnalites debloquees</div>' +
+    '<div class="crd"><h3>📋 Mes reservations</h3>' + renderBookingsTable() + '</div>';
+}
+function viewDispo() {
+  var html = '<div class="crd"><h3>📅 Ajouter une disponibilite</h3>' +
+    '<div class="form-row"><div><label class="form-label">Date</label><input class="form-input" type="date" id="av-date"></div>' +
+    '<div><label class="form-label">Debut</label><input class="form-input" id="av-start" value="09:00"></div>' +
+    '<div><label class="form-label">Fin</label><input class="form-input" id="av-end" value="12:00"></div>' +
+    '<div><label class="form-label">Ville</label><input class="form-input" id="av-city" placeholder="Nice"></div></div>' +
+    '<button class="btn-p btn-blue" onclick="alert(\'Disponibilite ajoutee\')">✅ Ajouter</button></div>';
+  html += '<div class="crd"><h3>Mes disponibilites</h3>';
+  if (state.availability.length === 0) html += '<div class="empty">Aucune disponibilite enregistree</div>';
+  state.availability.forEach(function(a) {
+    html += '<div class="prop"><div><div class="prop-name">' + a.date + ' · ' + (a.start_time || '') + '-' + (a.end_time || '') + '</div><div class="prop-meta">' + (a.city || '') + '</div></div><span class="chip cg">' + (a.status || 'Libre') + '</span></div>';
+  });
+  html += '</div>';
+  return html;
+}
+function viewRapport() { return '<div class="crd"><h3>📸 Envoyer un rapport</h3><div class="empty">Les rapports photo sont disponibles dans l app mobile (camera requise).</div></div>'; }
+function viewTeam() { return '<div class="crd"><h3>👥 Mon equipe</h3><div class="empty">Gestion d equipe disponible dans l app mobile.</div></div>'; }
+
+// GUEST VIEWS
+function viewGuestHome() { return '<div class="crd"><h3>🏠 Bienvenue</h3><p style="font-size:13px;color:var(--sub);line-height:1.8">Consultez les informations de votre logement et contactez la conciergerie IA.</p></div>'; }
+function viewGuestInfos() { return '<div class="crd"><h3>📋 Informations du logement</h3><div class="empty">Les informations apparaitront quand un hote vous ajoutera a un logement.</div></div>'; }
+function viewConcierge() {
+  return '<div class="crd"><h3>🤖 Concierge IA <span class="chip cg">En ligne</span></h3>' +
+    '<div style="margin-top:12px"><div class="bubble ai"><strong>🤖 IA</strong><br>Bonjour ! Comment puis-je vous aider ?<div class="btime">Automatique</div></div></div>' +
+    '<div class="msg-input" style="border:none;padding:12px 0"><input class="form-input" placeholder="Posez votre question..." id="ai-input"><button class="btn-p" onclick="alert(\'Concierge IA disponible dans l app mobile\')">Envoyer</button></div></div>';
+}
+
+
+function viewInstall() {
+  var os = getOS();
+  var shortcut = os === 'mac' ? 'Cmd+D' : 'Ctrl+D';
+  var isChrome = navigator.userAgent.indexOf('Chrome') !== -1;
+  var isEdge = navigator.userAgent.indexOf('Edg') !== -1;
+  var browser = isEdge ? 'Edge' : isChrome ? 'Chrome' : 'votre navigateur';
+  
+  return '<div class="crd"><h3>📌 Acceder rapidement a MyHostKit</h3>' +
+    '<p style="font-size:13px;color:var(--sub);line-height:1.8;margin-bottom:16px">Plusieurs methodes pour retrouver MyHostKit en un clic depuis votre bureau :</p>' +
+    
+    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--accent)">' +
+      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">⭐ Methode 1 — Ajouter aux favoris</div>' +
+      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
+        '1. Appuyez sur <strong style="color:var(--text)">' + shortcut + '</strong> sur votre clavier<br>' +
+        '2. Choisissez la barre de favoris comme emplacement<br>' +
+        '3. Cliquez sur <strong style="color:var(--text)">Enregistrer</strong><br>' +
+        '→ MyHostKit apparaitra dans votre barre de favoris en haut du navigateur' +
+      '</div>' +
+    '</div>' +
+    
+    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--blue)">' +
+      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">🖥️ Methode 2 — Installer comme application (' + browser + ')</div>' +
+      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
+        '1. Cliquez sur le menu <strong style="color:var(--text)">⋮</strong> (3 points) en haut a droite du navigateur<br>' +
+        '2. Cherchez <strong style="color:var(--text)">"Installer MyHostKit"</strong> ou <strong style="color:var(--text)">"Ajouter au bureau"</strong><br>' +
+        '3. Cliquez sur <strong style="color:var(--text)">Installer</strong><br>' +
+        '→ MyHostKit s\'ouvrira dans sa propre fenetre comme un logiciel classique, avec une icone sur votre bureau' +
+      '</div>' +
+    '</div>' +
+
+    '<div style="background:var(--dark2);border-radius:10px;padding:16px;margin-bottom:12px;border-left:3px solid var(--success)">' +
+      '<div style="font-size:14px;font-weight:700;margin-bottom:6px">📱 Methode 3 — Raccourci bureau (glisser-deposer)</div>' +
+      '<div style="font-size:12px;color:var(--sub);line-height:1.8">' +
+        '1. Reduisez la fenetre du navigateur pour voir votre bureau<br>' +
+        '2. Cliquez sur l\'icone 🔒 (ou l\'icone du site) a gauche de la barre d\'adresse<br>' +
+        '3. Glissez-la directement sur votre bureau<br>' +
+        '→ Un raccourci MyHostKit apparait sur votre bureau' +
+      '</div>' +
+    '</div>' +
+    
+    '<div style="margin-top:16px;text-align:center"><button class="btn-p" onclick="tryInstall()" style="padding:12px 32px;font-size:14px">📌 Installer MyHostKit maintenant</button></div>' +
+  '</div>';
+}
+
+// SHARED VIEWS
+function viewMessages() { return '<div class="crd"><h3>💬 Messages</h3><div class="empty">Les conversations apparaitront ici quand vous aurez des reservations en cours.</div></div>'; }
+function viewNotifs() {
+  var html = '<div class="crd"><h3>🔔 Notifications</h3>';
+  if (state.notifications.length === 0) html += '<div class="empty">Aucune notification</div>';
+  state.notifications.forEach(function(n) {
+    html += '<div class="prop"><div><div class="prop-name">' + (n.title || 'Notification') + '</div><div class="prop-meta">' + (n.body || '') + ' · ' + new Date(n.created_at).toLocaleDateString('fr-FR') + '</div></div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function viewSettings() {
+  var p = state.profile || {};
+  return '<div class="row2"><div class="crd"><h3>👤 Profil</h3><div style="text-align:center;padding:16px"><div style="font-size:48px;margin-bottom:8px">👤</div>' +
+    '<div style="font-size:16px;font-weight:700">' + (p.full_name || '—') + '</div>' +
+    '<div style="font-size:12px;color:var(--muted)">' + (state.session.user.email) + '</div>' +
+    '<div style="margin-top:8px"><span class="chip cg">' + (p.role || 'host') + ' · ' + (p.plan || 'free') + '</span></div></div></div>' +
+    '<div class="crd"><h3>📋 Informations</h3><div style="font-size:12px;color:var(--sub);line-height:2.2">' +
+    '🏠 Role : ' + (p.role || 'host') + '<br>' +
+    '💳 Plan : ' + (p.plan || 'free') + '<br>' +
+    '🎁 Code parrainage : ' + (p.referral_code || '—') + '<br>' +
+    '📅 Inscrit le : ' + (p.created_at ? new Date(p.created_at).toLocaleDateString('fr-FR') : '—') +
+    '</div></div></div>' +
+    '<div class="crd"><button class="btn-s" style="width:100%;color:var(--error);border-color:rgba(255,59,48,.2)" onclick="doLogout()">🚪 Deconnexion</button></div>';
+}
+
+// HELPERS
+function renderBookingsTable() {
+  if (state.bookings.length === 0) return '<div class="empty">Aucune reservation</div>';
+  var html = '<table class="tbl"><tr><th>Logement</th><th>Date</th><th>Statut</th><th>Montant</th></tr>';
+  state.bookings.forEach(function(b) {
+    var statusClass = b.status === 'confirmed' ? 'cg' : b.status === 'pending' ? 'ca' : b.status === 'completed' ? 'cb' : 'cw';
+    html += '<tr><td>' + (b.properties ? b.properties.name : (b.property_name || '—')) + '</td><td>' + (b.date || '—') + '</td><td><span class="chip ' + statusClass + '">' + (b.status || '?') + '</span></td><td>' + (b.amount || '—') + ' EUR</td></tr>';
+  });
+  html += '</table>';
+  return html;
+}
+
+function renderNotifsList() {
+  if (state.notifications.length === 0) return '<div style="font-size:12px;color:var(--muted);padding:8px">Aucune notification</div>';
+  return state.notifications.slice(0, 5).map(function(n) {
+    return '<div class="prop"><div><div class="prop-name">' + (n.title || '—') + '</div><div class="prop-meta">' + (n.body || '') + '</div></div></div>';
+  }).join('');
+}
+
+
+function getOS() {
+  var ua = navigator.userAgent;
+  if (ua.indexOf('Mac') !== -1) return 'mac';
+  if (ua.indexOf('Win') !== -1) return 'windows';
+  return 'other';
+}
+
+function renderInstallBanner() {
+  if (localStorage.getItem('mhk-install-dismissed')) return '';
+  var os = getOS();
+  var shortcut = os === 'mac' ? 'Cmd+D' : 'Ctrl+D';
+  var browserName = navigator.userAgent.indexOf('Chrome') !== -1 ? 'Chrome' : navigator.userAgent.indexOf('Firefox') !== -1 ? 'Firefox' : navigator.userAgent.indexOf('Edge') !== -1 ? 'Edge' : 'votre navigateur';
+  
+  return '<div class="install-bar" id="install-banner">' +
+    '<button class="ib-close" onclick="dismissInstall()">✕</button>' +
+    '<div class="ib-icon">💻</div>' +
+    '<div style="flex:1">' +
+      '<h4>Accedez rapidement a MyHostKit depuis votre bureau</h4>' +
+      '<p><strong>Option 1 — Favoris :</strong> Appuyez sur <strong>' + shortcut + '</strong> pour ajouter cette page a vos favoris. Vous retrouverez MyHostKit en un clic dans votre barre de favoris.</p>' +
+      '<p style="margin-top:4px"><strong>Option 2 — Installer comme app :</strong> Dans ' + browserName + ', cliquez sur le menu <strong>⋮</strong> (3 points) en haut a droite → <strong>Installer MyHostKit</strong> ou <strong>Ajouter au bureau</strong>. L\'app s\'ouvrira dans sa propre fenetre, comme un logiciel.</p>' +
+      '<div class="install-bar ib-btns" style="border:none;padding:0;margin:0;background:none">' +
+        '<button class="ib-btn ib-btn-p" onclick="tryInstall()">📌 Installer l\'app</button>' +
+        '<button class="ib-btn ib-btn-s" onclick="dismissInstall()">Plus tard</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+var deferredPrompt = null;
+window.addEventListener("beforeinstallprompt", function(e) { e.preventDefault(); deferredPrompt = e; });
+
+function tryInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(r) { if (r.outcome === "accepted") dismissInstall(); });
+  } else {
+    var os = getOS();
+    var shortcut = os === "mac" ? "Cmd+D" : "Ctrl+D";
+    alert("Pour installer :\n\n1. Favoris : " + shortcut + "\n\n2. Chrome/Edge : Menu ⋮ → Installer MyHostKit\n\n3. Ou glissez l\'icone de l\'onglet sur votre bureau");
+  }
+}
+
+function dismissInstall() {
+  localStorage.setItem("mhk-install-dismissed", "1");
+  var b = document.getElementById("install-banner");
+  if (b) b.style.display = "none";
+}
+
+// INIT
+init();
 </script>
 </body>
 </html>
