@@ -130,6 +130,12 @@ footer{background:#0A0A0A;padding:56px 80px 32px}
 </style>
 </head>
 <body>
+<div id="waitlist-banner" style="background:linear-gradient(90deg,#C8965A,#8B6432);color:#fff;padding:10px 20px;text-align:center;font-size:.85rem;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:300;box-shadow:0 2px 8px rgba(0,0,0,.15)">
+  🚀 Ouverture officielle le <strong>1er mai 2026</strong> · 
+  <a href="#waitlist" style="color:#fff;text-decoration:underline;font-weight:700">Rejoindre la liste d'attente →</a>
+  <span onclick="document.getElementById('waitlist-banner').style.display='none';document.querySelector('nav').style.top='0';document.body.style.paddingTop='0'" style="cursor:pointer;margin-left:12px;opacity:.7">✕</span>
+</div>
+
 
 <nav id="mn"><a href="#" class="nav-logo"><svg width="160" height="30" viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="14" fill="#C8965A"/><path d="M8.5 17.5V14.5L15 10L21.5 14.5V17.5C21.5 18.1 21 18.5 20.5 18.5H9.5C9 18.5 8.5 18.1 8.5 17.5Z" fill="#fff"/><path d="M15 10L8.5 14.5H21.5L15 10Z" fill="#fff" opacity=".7"/><text x="35" y="21" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="800" fill="#1A1A1A">MyHostKit</text><circle cx="148" cy="17" r="3.5" fill="#C8965A"/></svg></a><div class="nav-links"><a href="#app">App</a><a href="#conciergerie">Conciergerie IA</a><a href="#marketplace">Marketplace</a><a href="#plans-hotes">Hôtes</a><a href="#plans-menageres">Ménagères</a><a href="#kits">Comment ça marche</a><a href="#demo">Démo</a><a href="app-desktop.html" style="color:var(--accent)">Version PC</a><a href="#faq">FAQ</a><a href="app-desktop.html" class="nav-cta" style="background:transparent!important;border:1.5px solid var(--bl);color:var(--bl)!important;margin-right:6px">💻 Version PC</a><a href="#demo" class="nav-cta">Télécharger</a></div></nav>
 
@@ -229,6 +235,146 @@ footer{background:#0A0A0A;padding:56px 80px 32px}
 </div>
 
 </section>
+
+<!-- ========== SECTION WAITLIST ========== -->
+<section id="waitlist" style="background:linear-gradient(180deg,#0A1520,#141414);padding:80px 20px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(200,150,90,.15),transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(27,94,123,.2),transparent 70%);pointer-events:none"></div>
+  <div style="max-width:760px;margin:0 auto;position:relative;z-index:1">
+    <div style="text-align:center;margin-bottom:40px">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,90,.12);border:1px solid rgba(200,150,90,.3);border-radius:100px;padding:8px 18px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C8965A;margin-bottom:24px"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite"></span>Lancement imminent</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:#fff;line-height:1.1;margin-bottom:16px">Ouverture le <em style="font-style:italic;color:#C8965A">1er mai 2026</em></h2>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:540px;margin:0 auto">Rejoignez la liste d'attente dès maintenant. Les <strong style="color:#C8965A">50 premiers inscrits</strong> bénéficient d'un accès prioritaire, de <strong style="color:#C8965A">1 mois Pro offert</strong> (89€) et du statut "Founding Member" à vie.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:0 auto 40px">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 8px;text-align:center"><div id="cd-days" style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:#C8965A;line-height:1">—</div><div style="font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-top:4px">Jours</div></div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 8px;text-align:center"><div id="cd-hours" style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:#C8965A;line-height:1">—</div><div style="font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-top:4px">Heures</div></div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 8px;text-align:center"><div id="cd-mins" style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:#C8965A;line-height:1">—</div><div style="font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-top:4px">Minutes</div></div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 8px;text-align:center"><div id="cd-secs" style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;color:#C8965A;line-height:1">—</div><div style="font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.12em;margin-top:4px">Secondes</div></div>
+    </div>
+    <div style="text-align:center;margin-bottom:32px">
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:100px;padding:10px 22px;font-size:.84rem;color:#22c55e;font-weight:600;flex-wrap:wrap;justify-content:center">
+        <span style="display:flex"><span style="width:22px;height:22px;border-radius:50%;background:#C8965A;border:2px solid #141414;display:inline-block"></span><span style="width:22px;height:22px;border-radius:50%;background:#1C5F8A;border:2px solid #141414;display:inline-block;margin-left:-8px"></span><span style="width:22px;height:22px;border-radius:50%;background:#9B59B6;border:2px solid #141414;display:inline-block;margin-left:-8px"></span></span>
+        <span><strong id="wl-count" style="color:#fff">47</strong> hôtes déjà inscrits · <strong id="wl-left" style="color:#C8965A">3 places</strong> à tarif Founding</span>
+      </div>
+    </div>
+    <form id="waitlist-form" style="background:rgba(255,255,255,.04);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px 32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div><label style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:block;margin-bottom:6px">Prénom *</label><input type="text" name="prenom" required placeholder="Marie" maxlength="80" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none" onfocus="this.style.borderColor='#C8965A'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></div>
+        <div><label style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:block;margin-bottom:6px">Email *</label><input type="email" name="email" required placeholder="marie@exemple.fr" maxlength="160" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none" onfocus="this.style.borderColor='#C8965A'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div><label style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:block;margin-bottom:6px">Vous êtes *</label><select name="profil" required style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none" onfocus="this.style.borderColor='#C8965A'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"><option value="" style="background:#141414">Choisir...</option><option value="hote_solo" style="background:#141414">Hôte Airbnb (1 logement)</option><option value="hote_multi" style="background:#141414">Hôte Airbnb (2-5 logements)</option><option value="conciergerie" style="background:#141414">Conciergerie (6+ logements)</option><option value="menagere" style="background:#141414">Ménagère / société de ménage</option><option value="autre" style="background:#141414">Autre</option></select></div>
+        <div><label style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:block;margin-bottom:6px">Ville</label><input type="text" name="ville" placeholder="Paris, Toulon, Nice..." maxlength="80" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none" onfocus="this.style.borderColor='#C8965A'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></div>
+      </div>
+      <div style="margin-bottom:20px"><label style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;font-weight:700;display:block;margin-bottom:6px">Qu'est-ce qui vous manque dans vos outils actuels ? (optionnel)</label><textarea name="besoin" rows="2" placeholder="Ex: je perds du temps à répondre aux voyageurs la nuit..." maxlength="500" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none;resize:vertical" onfocus="this.style.borderColor='#C8965A'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"></textarea></div>
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <button type="submit" id="wl-submit" style="width:100%;background:linear-gradient(135deg,#E8C07A,#C8965A);color:#0a0705;border:none;border-radius:12px;padding:16px 32px;font-size:.95rem;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><span id="wl-btn-text">Rejoindre la liste d'attente</span><span style="font-size:1.1rem">→</span></button>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.4);text-align:center;margin-top:14px;line-height:1.6">🔒 Vos données sont privées. Zéro spam. Email de confirmation envoyé immédiatement.</p>
+      <p id="wl-error" style="display:none;font-size:.82rem;color:#ef4444;text-align:center;margin-top:14px;padding:10px;background:rgba(239,68,68,0.1);border-radius:8px"></p>
+    </form>
+    <div id="wl-success" style="display:none;background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(34,197,94,.05));border:1px solid rgba(34,197,94,.4);border-radius:20px;padding:40px;text-align:center">
+      <div style="font-size:3rem;margin-bottom:12px">🎉</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:400;color:#fff;margin-bottom:12px">Bienvenue dans la liste !</h3>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:20px">Vous êtes officiellement sur la waitlist MyHostKit.<br>On se retrouve le <strong style="color:#C8965A">1er mai 2026</strong> pour l'ouverture officielle.</p>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.6">📧 Email de confirmation envoyé.<br>💡 Ajoutez <strong>noreply@app.myhostkit.com</strong> à vos contacts.</p>
+      <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)">
+        <p style="font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:12px">Partagez à un·e ami·e hôte :</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="https://wa.me/?text=J'ai%20trouv%C3%A9%20une%20app%20sympa%20pour%20les%20h%C3%B4tes%20Airbnb%20%3A%20https%3A//myhostkit.com" target="_blank" style="background:#25D366;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.82rem;font-weight:600">WhatsApp</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//myhostkit.com" target="_blank" style="background:#1877F2;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.82rem;font-weight:600">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var WAITLIST_URL = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/waitlist-subscribe';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y';
+  var target = new Date('2026-05-01T00:00:00+02:00').getTime();
+  function updateCountdown(){
+    var now = Date.now();
+    var diff = target - now;
+    if(diff < 0){ ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='0';}); return; }
+    var d = Math.floor(diff / (1000*60*60*24));
+    var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    var s = Math.floor((diff % (1000*60)) / 1000);
+    var dEl=document.getElementById('cd-days'); var hEl=document.getElementById('cd-hours'); var mEl=document.getElementById('cd-mins'); var sEl=document.getElementById('cd-secs');
+    if(dEl) dEl.textContent = d;
+    if(hEl) hEl.textContent = String(h).padStart(2,'0');
+    if(mEl) mEl.textContent = String(m).padStart(2,'0');
+    if(sEl) sEl.textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown(); setInterval(updateCountdown, 1000);
+  function updateFakeCount(){
+    try {
+      var stored = localStorage.getItem('wl_count_base');
+      var lastUpdate = localStorage.getItem('wl_count_last');
+      var count = stored ? parseInt(stored,10) : 47;
+      var now = Date.now();
+      if(!lastUpdate || (now - parseInt(lastUpdate,10)) > 3600000 * 3){
+        count += Math.floor(Math.random() * 2) + 1;
+        localStorage.setItem('wl_count_base', count);
+        localStorage.setItem('wl_count_last', now);
+      }
+      var left = Math.max(0, 50 - count);
+      var el = document.getElementById('wl-count'); var leftEl = document.getElementById('wl-left');
+      if(el) el.textContent = count;
+      if(leftEl) leftEl.textContent = left > 0 ? left + ' places' : 'Liste pleine';
+    } catch(e) {}
+  }
+  updateFakeCount();
+  var form = document.getElementById('waitlist-form');
+  var success = document.getElementById('wl-success');
+  var errorEl = document.getElementById('wl-error');
+  var submitBtn = document.getElementById('wl-submit');
+  var btnText = document.getElementById('wl-btn-text');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(form._gotcha && form._gotcha.value) return;
+      if(errorEl) errorEl.style.display = 'none';
+      if(btnText) btnText.textContent = 'Envoi en cours...';
+      submitBtn.disabled = true;
+      var payload = {
+        prenom: form.prenom.value, email: form.email.value, profil: form.profil.value,
+        ville: form.ville.value, besoin: form.besoin.value, source: 'site_web'
+      };
+      fetch(WAITLIST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        return r.json().then(function(data){
+          if(r.ok && data.success){
+            form.style.display = 'none'; success.style.display = 'block';
+            try { var c = localStorage.getItem('wl_count_base'); if(c) localStorage.setItem('wl_count_base', parseInt(c,10) + 1); } catch(e) {}
+            success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            if(errorEl){ errorEl.textContent = data.error || 'Erreur. Réessayez ou contactez myhostkit.contact@gmail.com'; errorEl.style.display = 'block'; }
+            if(btnText) btnText.textContent = 'Rejoindre la liste d\'attente';
+            submitBtn.disabled = false;
+          }
+        });
+      }).catch(function(){
+        if(errorEl){ errorEl.textContent = 'Erreur réseau. Vérifiez votre connexion.'; errorEl.style.display = 'block'; }
+        if(btnText) btnText.textContent = 'Rejoindre la liste d\'attente';
+        submitBtn.disabled = false;
+      });
+    });
+  }
+  var banner = document.getElementById('waitlist-banner');
+  if(banner){
+    var nav = document.querySelector('nav');
+    var bh = banner.offsetHeight;
+    if(nav) nav.style.top = bh + 'px';
+    document.body.style.paddingTop = bh + 'px';
+  }
+})();
+</script>
+<!-- ========== FIN WAITLIST ========== -->
 
 <!-- APP -->
 <section id="app" style="background:var(--cr)">
