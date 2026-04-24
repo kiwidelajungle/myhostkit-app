@@ -40,67 +40,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .hero-img{width:100%;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
 @media(max-width:900px){.hero{grid-template-columns:1fr;padding:60px 20px}.hero>div:last-child{display:none}}
 
-<!-- DÉMO INTERACTIVE -->
-<section id="demo" style="background:linear-gradient(180deg,#0D3A50 0%,#071824 30%,#030C14 100%);padding:70px 20px 90px;text-align:center;overflow:hidden;border-top:1px solid rgba(200,150,90,.15)">
-<p style="color:rgba(255,255,255,.55);font-size:.82rem;margin:0 auto 16px;max-width:520px;font-style:italic;font-family:'Fraunces',serif">Avant de parler tarifs ou fonctionnalités, voyez par vous-même.</p>
-  <div class="sl reveal" style="justify-content:center;color:var(--or)">Demo Interactive</div>
-<h2 class="st reveal" style="color:#fff">Testez l'app <em>maintenant.</em></h2>
-<p style="color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px;margin-bottom:24px">Donnees fictives — cliquez partout, tout fonctionne</p>
-<div style="display:inline-flex;gap:4px;margin-bottom:36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:4px">
-  <button onclick="showDemo('phone')" id="dBtn1" style="padding:9px 22px;border-radius:7px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit">📱 Téléphone</button>
-  <button onclick="showDemo('pc')" id="dBtn2" style="padding:9px 22px;border-radius:7px;border:none;background:transparent;color:rgba(255,255,255,.35);font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit">💻 PC</button>
-</div>
-
-<div id="dPhone" style="display:flex;justify-content:center">
-  <div style="width:340px;position:relative">
-    <div style="background:linear-gradient(145deg,#48484a,#3a3a3c,#2c2c2e);border-radius:44px;padding:3px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)">
-      <div style="background:#1c1c1e;border-radius:41px;overflow:hidden;position:relative;height:710px">
-        <!-- Dynamic Island -->
-        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:17px;z-index:20"></div>
-        <!-- Side buttons -->
-        <div style="position:absolute;right:-3px;top:130px;width:3px;height:60px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:0 2px 2px 0"></div>
-        <div style="position:absolute;left:-3px;top:110px;width:3px;height:26px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
-        <div style="position:absolute;left:-3px;top:148px;width:3px;height:46px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
-        <!-- App content via iframe -->
-        <iframe src="demo.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:41px;z-index:1"></iframe>
-        <!-- Home indicator -->
-        <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:110px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;z-index:15"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="dPC" style="display:none;max-width:1060px;margin:0 auto">
-  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:12px 12px 0 0;padding:6px 6px 0">
-    <div style="text-align:center;height:16px;display:flex;align-items:center;justify-content:center"><div style="width:6px;height:6px;border-radius:50%;background:#111;border:1px solid #555"></div></div>
-    <div style="background:#000;border-radius:2px 2px 0 0;overflow:hidden;height:540px">
-      <iframe src="demo-pc.html" style="width:100%;height:100%;border:none"></iframe>
-    </div>
-  </div>
-  <div style="height:8px;background:linear-gradient(180deg,#666,#3d3d3f);border-radius:0 0 2px 2px"></div>
-  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:0 0 8px 8px;padding:5px 28px 4px">
-    <svg viewBox="0 0 600 55" style="width:100%;display:block;opacity:.5">
-      <rect x="0" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="40" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="80" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="120" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="160" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="200" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="240" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="280" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="320" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="360" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="400" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="440" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="520" y="0" width="80" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="11" width="55" height="9" rx="1.5" fill="#555"/><rect x="57" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="97" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="137" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="177" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="217" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="257" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="297" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="337" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="377" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="417" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="457" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="497" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="537" y="11" width="63" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="22" width="65" height="9" rx="1.5" fill="#555"/><rect x="67" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="107" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="147" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="187" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="227" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="267" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="307" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="347" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="387" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="427" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="467" y="22" width="133" height="9" rx="1.5" fill="#555"/>
-      <rect x="0" y="33" width="50" height="9" rx="1.5" fill="#555"/><rect x="52" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="92" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="132" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="172" y="33" width="220" height="9" rx="1.5" fill="#555"/><rect x="394" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="434" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="33" width="28" height="9" rx="1.5" fill="#555"/><rect x="540" y="33" width="28" height="9" rx="1.5" fill="#555"/>
-      <rect x="190" y="46" width="220" height="8" rx="3" fill="#444" stroke="#555" stroke-width=".5"/>
-    </svg>
-  </div>
-  <div style="height:3px;background:linear-gradient(180deg,rgba(100,100,100,.15),transparent);border-radius:0 0 8px 8px;margin:0 60px"></div>
-</div>
-
-<div style="margin-top:40px" class="reveal">
-  <p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-bottom:16px">Bientot disponible sur</p>
-  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-    <a href="#" onclick="alert('Bientot disponible sur l App Store !');return false" style="display:inline-block"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="Telecharger sur l App Store" style="height:44px;border-radius:8px"></a>
-    <a href="#" onclick="alert('Bientot disponible sur Google Play !');return false" style="display:inline-block"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Disponible sur Google Play" style="height:44px"></a>
-    <a href="app-desktop.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bf);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:.82rem;font-weight:700;height:44px;transition:all .2s">💻 Version PC</a>
-  </div>
-</div>
-</section>
-  
-  /* SECTIONS */
+/* SECTIONS */
 .sl{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--bl);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .st{font-family:'Fraunces',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:300;line-height:1.1}
 .st em{font-style:italic;color:var(--bl)}
@@ -296,6 +236,67 @@ footer{background:#0A0A0A;padding:56px 80px 32px}
 </div>
 
 </section>
+
+<!-- DÉMO INTERACTIVE -->
+<section id="demo" style="background:linear-gradient(180deg,#0D3A50 0%,#071824 30%,#030C14 100%);padding:70px 20px 90px;text-align:center;overflow:hidden;border-top:1px solid rgba(200,150,90,.15)">
+<p style="color:rgba(255,255,255,.55);font-size:.82rem;margin:0 auto 16px;max-width:520px;font-style:italic;font-family:'Fraunces',serif">Avant de parler tarifs ou fonctionnalités, voyez par vous-même.</p>
+  <div class="sl reveal" style="justify-content:center;color:var(--or)">Demo Interactive</div>
+<h2 class="st reveal" style="color:#fff">Testez l'app <em>maintenant.</em></h2>
+<p style="color:rgba(255,255,255,.48);font-size:.92rem;margin-top:10px;margin-bottom:24px">Donnees fictives — cliquez partout, tout fonctionne</p>
+<div style="display:inline-flex;gap:4px;margin-bottom:36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:4px">
+  <button onclick="showDemo('phone')" id="dBtn1" style="padding:9px 22px;border-radius:7px;border:none;background:rgba(255,255,255,.1);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;font-family:inherit">📱 Téléphone</button>
+  <button onclick="showDemo('pc')" id="dBtn2" style="padding:9px 22px;border-radius:7px;border:none;background:transparent;color:rgba(255,255,255,.35);font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit">💻 PC</button>
+</div>
+
+<div id="dPhone" style="display:flex;justify-content:center">
+  <div style="width:340px;position:relative">
+    <div style="background:linear-gradient(145deg,#48484a,#3a3a3c,#2c2c2e);border-radius:44px;padding:3px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)">
+      <div style="background:#1c1c1e;border-radius:41px;overflow:hidden;position:relative;height:710px">
+        <!-- Dynamic Island -->
+        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#000;border-radius:17px;z-index:20"></div>
+        <!-- Side buttons -->
+        <div style="position:absolute;right:-3px;top:130px;width:3px;height:60px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:0 2px 2px 0"></div>
+        <div style="position:absolute;left:-3px;top:110px;width:3px;height:26px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
+        <div style="position:absolute;left:-3px;top:148px;width:3px;height:46px;background:linear-gradient(180deg,#555,#3a3a3c,#555);border-radius:2px 0 0 2px"></div>
+        <!-- App content via iframe -->
+        <iframe src="demo.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:41px;z-index:1"></iframe>
+        <!-- Home indicator -->
+        <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:110px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;z-index:15"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="dPC" style="display:none;max-width:1060px;margin:0 auto">
+  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:12px 12px 0 0;padding:6px 6px 0">
+    <div style="text-align:center;height:16px;display:flex;align-items:center;justify-content:center"><div style="width:6px;height:6px;border-radius:50%;background:#111;border:1px solid #555"></div></div>
+    <div style="background:#000;border-radius:2px 2px 0 0;overflow:hidden;height:540px">
+      <iframe src="demo-pc.html" style="width:100%;height:100%;border:none"></iframe>
+    </div>
+  </div>
+  <div style="height:8px;background:linear-gradient(180deg,#666,#3d3d3f);border-radius:0 0 2px 2px"></div>
+  <div style="background:linear-gradient(180deg,#3d3d3f,#2d2d30);border-radius:0 0 8px 8px;padding:5px 28px 4px">
+    <svg viewBox="0 0 600 55" style="width:100%;display:block;opacity:.5">
+      <rect x="0" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="40" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="80" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="120" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="160" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="200" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="240" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="280" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="320" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="360" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="400" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="440" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="0" width="38" height="9" rx="1.5" fill="#555"/><rect x="520" y="0" width="80" height="9" rx="1.5" fill="#555"/>
+      <rect x="0" y="11" width="55" height="9" rx="1.5" fill="#555"/><rect x="57" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="97" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="137" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="177" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="217" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="257" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="297" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="337" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="377" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="417" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="457" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="497" y="11" width="38" height="9" rx="1.5" fill="#555"/><rect x="537" y="11" width="63" height="9" rx="1.5" fill="#555"/>
+      <rect x="0" y="22" width="65" height="9" rx="1.5" fill="#555"/><rect x="67" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="107" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="147" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="187" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="227" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="267" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="307" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="347" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="387" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="427" y="22" width="38" height="9" rx="1.5" fill="#555"/><rect x="467" y="22" width="133" height="9" rx="1.5" fill="#555"/>
+      <rect x="0" y="33" width="50" height="9" rx="1.5" fill="#555"/><rect x="52" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="92" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="132" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="172" y="33" width="220" height="9" rx="1.5" fill="#555"/><rect x="394" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="434" y="33" width="38" height="9" rx="1.5" fill="#555"/><rect x="480" y="33" width="28" height="9" rx="1.5" fill="#555"/><rect x="540" y="33" width="28" height="9" rx="1.5" fill="#555"/>
+      <rect x="190" y="46" width="220" height="8" rx="3" fill="#444" stroke="#555" stroke-width=".5"/>
+    </svg>
+  </div>
+  <div style="height:3px;background:linear-gradient(180deg,rgba(100,100,100,.15),transparent);border-radius:0 0 8px 8px;margin:0 60px"></div>
+</div>
+
+<div style="margin-top:40px" class="reveal">
+  <p style="color:rgba(255,255,255,.4);font-size:.85rem;margin-bottom:16px">Bientot disponible sur</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a href="#" onclick="alert('Bientot disponible sur l App Store !');return false" style="display:inline-block"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83" alt="Telecharger sur l App Store" style="height:44px;border-radius:8px"></a>
+    <a href="#" onclick="alert('Bientot disponible sur Google Play !');return false" style="display:inline-block"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png" alt="Disponible sur Google Play" style="height:44px"></a>
+    <a href="app-desktop.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bf);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:.82rem;font-weight:700;height:44px;transition:all .2s">💻 Version PC</a>
+  </div>
+</div>
+</section>
+
 
 <!-- ========== SECTION WAITLIST ========== -->
 <section id="waitlist" style="background:linear-gradient(180deg,#0A1520,#141414);padding:80px 20px;position:relative;overflow:hidden">
