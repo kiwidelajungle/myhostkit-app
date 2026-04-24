@@ -1014,5 +1014,255 @@ function showDemo(t){
 function openLegal(id){var el=document.getElementById('modal-'+id);if(el)el.style.display='flex';document.body.style.overflow='hidden';}
 function closeLegal(id){var el=document.getElementById('modal-'+id);if(el)el.style.display='none';document.body.style.overflow='';}
 </script>
+
+<!-- ========== MODALE WAITLIST ========== -->
+<div id="mhk-waitlist-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(3,12,20,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;animation:mhkFadeIn .3s ease-out">
+  <div id="mhk-waitlist-box" style="background:linear-gradient(145deg,#141414 0%,#1a1a1a 100%);border:1px solid rgba(200,150,90,.25);border-radius:24px;padding:36px 32px;max-width:460px;width:100%;max-height:92vh;overflow-y:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(200,150,90,.1),inset 0 1px 0 rgba(255,255,255,.04);animation:mhkSlideUp .4s cubic-bezier(.16,1,.3,1);font-family:inherit">
+    <!-- Bouton fermer -->
+    <button onclick="mhkCloseModal()" aria-label="Fermer" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.6);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit" onmouseover="this.style.background='rgba(255,255,255,.12)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.color='rgba(255,255,255,.6)'">✕</button>
+    
+    <!-- Badge "Bientôt" -->
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,90,.12);border:1px solid rgba(200,150,90,.3);color:#E8C07A;padding:6px 14px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px">
+      <span style="width:8px;height:8px;background:#E8C07A;border-radius:50%;animation:mhkPulse 2s ease-in-out infinite"></span>
+      Ouverture imminente
+    </div>
+    
+    <!-- Titre -->
+    <h2 style="font-family:'DM Serif Display',Georgia,serif;color:#fff;font-size:1.85rem;line-height:1.15;margin:0 0 10px 0;font-weight:400;letter-spacing:-.02em">Rejoignez la <em style="color:#E8C07A;font-style:italic">liste d’attente.</em></h2>
+    
+    <!-- Sous-titre -->
+    <p style="color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.6;margin:0 0 22px 0">Ouverture officielle le <strong style="color:#fff">1er mai 2026</strong>. Inscrivez-vous pour être parmi les premiers à accéder à MyHostKit.</p>
+    
+    <!-- FORMULAIRE -->
+    <form id="mhk-waitlist-form" onsubmit="return mhkSubmitWaitlist(event)" style="display:flex;flex-direction:column;gap:12px">
+      <!-- Prénom -->
+      <div>
+        <input type="text" id="mhk-prenom" name="prenom" required maxlength="50" placeholder="Votre prénom *" autocomplete="given-name" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:14px 16px;border-radius:12px;font-size:.95rem;font-family:inherit;outline:none;transition:all .2s;box-sizing:border-box" onfocus="this.style.borderColor='rgba(200,150,90,.5)';this.style.background='rgba(255,255,255,.06)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.background='rgba(255,255,255,.04)'">
+      </div>
+      <!-- Email -->
+      <div>
+        <input type="email" id="mhk-email" name="email" required maxlength="120" placeholder="Votre adresse email *" autocomplete="email" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;padding:14px 16px;border-radius:12px;font-size:.95rem;font-family:inherit;outline:none;transition:all .2s;box-sizing:border-box" onfocus="this.style.borderColor='rgba(200,150,90,.5)';this.style.background='rgba(255,255,255,.06)'" onblur="this.style.borderColor='rgba(255,255,255,.1)';this.style.background='rgba(255,255,255,.04)'">
+      </div>
+      <!-- Profil -->
+      <div>
+        <label style="color:rgba(255,255,255,.55);font-size:.78rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;display:block;margin:4px 0 8px 4px">Je suis... *</label>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <label class="mhk-profil-option" style="cursor:pointer">
+            <input type="radio" name="profil" value="hote" required style="display:none" onchange="mhkUpdateProfil(this)">
+            <div class="mhk-profil-label" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:11px 6px;border-radius:10px;text-align:center;font-size:.78rem;font-weight:600;transition:all .2s">
+              <div style="font-size:1.2rem;margin-bottom:3px">👤</div>Hôte
+            </div>
+          </label>
+          <label class="mhk-profil-option" style="cursor:pointer">
+            <input type="radio" name="profil" value="menagere" style="display:none" onchange="mhkUpdateProfil(this)">
+            <div class="mhk-profil-label" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:11px 6px;border-radius:10px;text-align:center;font-size:.78rem;font-weight:600;transition:all .2s">
+              <div style="font-size:1.2rem;margin-bottom:3px">🧹</div>Ménagère
+            </div>
+          </label>
+          <label class="mhk-profil-option" style="cursor:pointer">
+            <input type="radio" name="profil" value="voyageur" style="display:none" onchange="mhkUpdateProfil(this)">
+            <div class="mhk-profil-label" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:11px 6px;border-radius:10px;text-align:center;font-size:.78rem;font-weight:600;transition:all .2s">
+              <div style="font-size:1.2rem;margin-bottom:3px">🧳</div>Voyageur
+            </div>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Message d'erreur -->
+      <div id="mhk-error" style="display:none;background:rgba(220,50,50,.1);border:1px solid rgba(220,50,50,.3);color:#ff8a8a;padding:10px 14px;border-radius:10px;font-size:.82rem;margin-top:2px"></div>
+      
+      <!-- Bouton CTA -->
+      <button type="submit" id="mhk-submit" style="margin-top:8px;background:linear-gradient(135deg,#E8C07A 0%,#C8965A 100%);color:#141414;border:none;padding:15px;border-radius:12px;font-size:.95rem;font-weight:800;letter-spacing:.02em;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 8px 24px rgba(200,150,90,.3)" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 12px 28px rgba(200,150,90,.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(200,150,90,.3)'">
+        🎯 Réserver ma place
+      </button>
+    </form>
+    
+    <!-- Bouton discret "Continuer sans s'inscrire" -->
+    <div style="text-align:center;margin-top:16px">
+      <button onclick="mhkCloseModal(true)" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:.82rem;cursor:pointer;font-family:inherit;text-decoration:underline;padding:6px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.75)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Continuer vers le site sans m’inscrire →</button>
+    </div>
+    
+    <!-- Trust signals -->
+    <div style="display:flex;justify-content:space-around;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);font-size:.7rem;color:rgba(255,255,255,.45);text-align:center">
+      <span>🔒 Zéro spam</span>
+      <span>🇫🇷 Startup française</span>
+      <span>⚡ Place garantie</span>
+    </div>
+  </div>
+</div>
+
+<!-- Écran de confirmation (caché par défaut) -->
+<div id="mhk-waitlist-success" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(3,12,20,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:linear-gradient(145deg,#141414 0%,#1a1a1a 100%);border:1px solid rgba(200,150,90,.3);border-radius:24px;padding:40px 32px;max-width:420px;width:100%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:mhkSlideUp .4s cubic-bezier(.16,1,.3,1)">
+    <div style="font-size:3.5rem;margin-bottom:14px;animation:mhkBounce .6s ease-out">🎉</div>
+    <h2 style="font-family:'DM Serif Display',Georgia,serif;color:#fff;font-size:1.6rem;margin:0 0 12px 0;font-weight:400">Vous êtes <em style="color:#E8C07A;font-style:italic">inscrit !</em></h2>
+    <p style="color:rgba(255,255,255,.7);font-size:.92rem;line-height:1.6;margin:0 0 24px 0">Votre place est réservée. Nous vous contacterons dès l’ouverture officielle le <strong style="color:#E8C07A">1er mai 2026</strong>.</p>
+    <button onclick="mhkCloseModal(true)" style="background:linear-gradient(135deg,#E8C07A 0%,#C8965A 100%);color:#141414;border:none;padding:12px 28px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit">Continuer vers le site →</button>
+  </div>
+</div>
+
+<style>
+  @keyframes mhkFadeIn { from { opacity:0 } to { opacity:1 } }
+  @keyframes mhkSlideUp { from { opacity:0;transform:translateY(20px) scale(.96) } to { opacity:1;transform:translateY(0) scale(1) } }
+  @keyframes mhkPulse { 0%,100% { opacity:1 } 50% { opacity:.4 } }
+  @keyframes mhkBounce { 0% { transform:scale(0) } 60% { transform:scale(1.1) } 100% { transform:scale(1) } }
+  .mhk-profil-option input:checked + .mhk-profil-label {
+    background:rgba(200,150,90,.15) !important;
+    border-color:rgba(200,150,90,.5) !important;
+    color:#E8C07A !important;
+  }
+  .mhk-profil-label:hover {
+    background:rgba(255,255,255,.08) !important;
+    border-color:rgba(255,255,255,.2) !important;
+  }
+  #mhk-waitlist-modal input::placeholder, #mhk-waitlist-modal textarea::placeholder {
+    color:rgba(255,255,255,.35)
+  }
+  #mhk-submit:disabled {
+    opacity:.6;cursor:not-allowed !important;
+  }
+  @media (max-width:500px) {
+    #mhk-waitlist-box { padding:28px 22px !important }
+    #mhk-waitlist-box h2 { font-size:1.55rem !important }
+  }
+</style>
+
+<script>
+(function(){
+  var SUPABASE_URL = 'https://illovwqvszjuasftwkxh.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_yXuE76Cwzcx7ETJhddg-1g_KsObOpdQ';
+  var STORAGE_KEY = 'mhk_waitlist_seen';
+  
+  // Afficher la modale après 1s si pas déjà vue
+  function checkAndShow() {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+    } catch(e) {}
+    
+    // Ne pas afficher si URL contient ?skip=1
+    if (new URLSearchParams(location.search).get('skip') === '1') return;
+    
+    var modal = document.getElementById('mhk-waitlist-modal');
+    if (modal) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  window.mhkCloseModal = function(skipForever) {
+    var modal = document.getElementById('mhk-waitlist-modal');
+    var success = document.getElementById('mhk-waitlist-success');
+    if (modal) modal.style.display = 'none';
+    if (success) success.style.display = 'none';
+    document.body.style.overflow = '';
+    if (skipForever) {
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+    }
+  };
+  
+  window.mhkUpdateProfil = function(radio) {
+    // Le CSS fait déjà l'effet visuel via :checked, rien à faire
+  };
+  
+  window.mhkSubmitWaitlist = function(e) {
+    e.preventDefault();
+    var errorEl = document.getElementById('mhk-error');
+    var submitBtn = document.getElementById('mhk-submit');
+    var prenom = document.getElementById('mhk-prenom').value.trim();
+    var email = document.getElementById('mhk-email').value.trim();
+    var profilEl = document.querySelector('input[name="profil"]:checked');
+    
+    errorEl.style.display = 'none';
+    
+    if (!prenom || !email || !profilEl) {
+      errorEl.textContent = 'Merci de remplir tous les champs requis.';
+      errorEl.style.display = 'block';
+      return false;
+    }
+    
+    // Email basique
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorEl.textContent = 'Adresse email invalide.';
+      errorEl.style.display = 'block';
+      return false;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ Envoi en cours...';
+    
+    var payload = {
+      prenom: prenom,
+      email: email.toLowerCase(),
+      profil: profilEl.value,
+      source: 'modale_accueil',
+      user_agent: navigator.userAgent ? navigator.userAgent.substring(0, 250) : null
+    };
+    
+    fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    }).then(function(r) {
+      if (r.ok) {
+        // Succès
+        try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+        document.getElementById('mhk-waitlist-modal').style.display = 'none';
+        document.getElementById('mhk-waitlist-success').style.display = 'flex';
+      } else {
+        return r.text().then(function(txt) {
+          var msg = 'Une erreur est survenue. Réessayez ?';
+          if (txt && txt.indexOf('duplicate') > -1) {
+            msg = 'Cette adresse email est déjà inscrite à la liste ✓';
+            try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+            setTimeout(function(){ window.mhkCloseModal(true); }, 1800);
+          }
+          throw new Error(msg);
+        });
+      }
+    }).catch(function(err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '🎯 Réserver ma place';
+      errorEl.textContent = err.message || 'Erreur de connexion. Réessayez ?';
+      errorEl.style.display = 'block';
+    });
+    
+    return false;
+  };
+  
+  // Fermer avec Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var modal = document.getElementById('mhk-waitlist-modal');
+      if (modal && modal.style.display !== 'none') {
+        window.mhkCloseModal(false);
+      }
+    }
+  });
+  
+  // Fermer en cliquant sur le backdrop (pas sur la box)
+  document.addEventListener('click', function(e) {
+    var modal = document.getElementById('mhk-waitlist-modal');
+    if (e.target === modal) {
+      window.mhkCloseModal(false);
+    }
+  });
+  
+  // Déclencher au bon moment
+  if (document.readyState === 'complete') {
+    setTimeout(checkAndShow, 1000);
+  } else {
+    window.addEventListener('load', function() {
+      setTimeout(checkAndShow, 1000);
+    });
+  }
+})();
+</script>
+<!-- ========== FIN MODALE WAITLIST ========== -->
+
 </body>
 </html>
