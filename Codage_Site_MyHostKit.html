@@ -897,67 +897,157 @@ function showRole(role){
 </footer>
 
 <!-- MENTIONS LEGALES COMPLETES -->
+<!-- ============================================
+     POPUPS LÉGALES MyHostKit v3.1
+     Aligné avec cgv.html / privacy.html / mentions-legales.html
+     À insérer dans Codage_Site_MyHostKit.html en remplaçant les 4 blocs existants
+     ============================================ -->
+
 <div id="modal-mentions" class="modal" onclick="if(event.target===this)closeLegal('mentions')">
 <div class="modal-box">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Mentions legales</h2><button onclick="closeLegal('mentions')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
 <div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">1. Editeur du site</h3>
-<p><strong>MyHostKit</strong><br>Micro-entreprise (auto-entrepreneur)<br>SIRET : 10032406000019<br>Siege : 60 rue Francois 1er, 75008 Paris, France<br>Responsable de la publication : Rayane<br>Telephone : 06 99 34 89 51<br>Email : myhostkit.contact@gmail.com<br>Site : www.myhostkit.com</p>
+<p style="font-style:italic;margin-bottom:14px">Derniere mise a jour : avril 2026</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">2. Hebergement</h3>
-<p>Site heberge par <strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, USA.<br>DNS et protection par <strong>Cloudflare Inc.</strong>, 101 Townsend St, San Francisco, CA 94107, USA.<br>Code source : <strong>GitHub Inc.</strong> (Microsoft), deploiement automatique via Vercel.<br>Application mobile : <strong>Supabase</strong> (base de donnees PostgreSQL) + <strong>Vercel</strong> (API et deploiement).<br>Paiements : <strong>Stripe</strong> — aucune donnee bancaire stockee sur nos serveurs.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">1. Editeur du site et de l'application</h3>
+<p><strong>Rayane MAZOUNI</strong><br>Entrepreneur individuel — Micro-entreprise (auto-entrepreneur)<br>Adresse : 60 rue Francois 1er, 75008 Paris, France<br>SIRET : 10032406000019<br>Code APE : 6201Z<br>TVA non applicable, art. 293 B du CGI<br>Telephone : 06 99 34 89 51<br>Email : myhostkit.contact@gmail.com<br>Site : www.myhostkit.com</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">3. Propriete intellectuelle</h3>
-<p>L'ensemble des contenus du site www.myhostkit.com et de l'application MyHostKit (textes, images, logos, graphismes, icones, code source, bases de donnees, logiciels, design UI/UX) sont la propriete exclusive de MyHostKit et proteges par le droit francais et les conventions internationales relatives a la propriete intellectuelle (Code de la propriete intellectuelle, Convention de Berne, Directive 2001/29/CE).</p>
-<p><strong>Toute reproduction, representation, modification, publication, adaptation, traduction ou exploitation non autorisee de tout ou partie de ces elements est strictement interdite</strong> et constitue une contrefacon sanctionnee par les articles L.335-2 et suivants du Code de la propriete intellectuelle. Les contrevenants s'exposent a des poursuites penales et civiles.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">2. Directeur de la publication</h3>
+<p><strong>Rayane MAZOUNI</strong>, en sa qualite d'entrepreneur individuel.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">3. Hebergement du site</h3>
+<p><strong>Vercel Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, Etats-Unis — vercel.com<br><strong>DNS et protection :</strong> Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA.<br><strong>Code source :</strong> GitHub, Inc. (Microsoft), deploiement automatique via Vercel.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">4. Hebergement de la base de donnees et de l'application</h3>
+<p><strong>Supabase Inc.</strong> (base de donnees, authentification)<br>970 Toa Payoh North #07-04, Singapore 318992<br>Datacenters utilises : Union europeenne (eu-west-1, Stockholm)<br>Site : supabase.com</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">5. Sous-traitants techniques</h3>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li><strong>Stripe Payments Europe Ltd</strong> (Irlande) — traitement des paiements et marketplace (Stripe Connect)</li>
+<li><strong>Resend, Inc.</strong> (Etats-Unis) — envoi d'emails transactionnels</li>
+<li><strong>Anthropic, PBC</strong> (Etats-Unis) — IA d'analyse photo et concierge IA (Claude)</li>
+<li><strong>Apple Inc.</strong> (Etats-Unis) — distribution App Store et notifications iOS</li>
+<li><strong>Google LLC</strong> (Etats-Unis) — distribution Play Store et notifications Android</li>
+<li><strong>Colissimo (La Poste)</strong> (France) — livraison des kits physiques</li>
+</ul>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">6. Propriete intellectuelle</h3>
+<p>L'ensemble des contenus du site www.myhostkit.com et de l'application MyHostKit (textes, images, logos, graphismes, icones, code source, bases de donnees, logiciels, design UI/UX) sont la propriete exclusive de Rayane MAZOUNI ou de ses partenaires, et sont proteges par le droit francais et les conventions internationales relatives a la propriete intellectuelle (Code de la propriete intellectuelle, Convention de Berne, Directive 2001/29/CE).</p>
+<p><strong>Toute reproduction, representation, modification, publication, adaptation, traduction ou exploitation non autorisee de tout ou partie de ces elements est strictement interdite</strong> et constitue une contrefacon sanctionnee par les articles L.335-2 et suivants du Code de la propriete intellectuelle.</p>
 <p>La marque MyHostKit, le logo et les noms de produits sont des marques deposees ou en cours de depot. Leur utilisation sans autorisation ecrite prealable est interdite.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">4. Protection des donnees personnelles (RGPD)</h3>
-<p><strong>Responsable du traitement :</strong> MyHostKit, 60 rue Francois 1er, 75008 Paris.<br>
-<strong>Donnees collectees :</strong> nom, prenom, email, telephone, adresse, donnees de reservation, donnees de paiement (traitees par Stripe), photos de rapports de menage.<br>
-<strong>Finalites :</strong> execution des services (conciergerie IA, marketplace menage, boutique produits), gestion de la relation client, facturation, amelioration du service.<br>
-<strong>Base legale :</strong> execution du contrat (Art. 6.1.b RGPD) et consentement (Art. 6.1.a RGPD) pour les communications marketing.<br>
-<strong>Duree de conservation :</strong> 3 ans apres la derniere utilisation du service. Donnees de facturation : 10 ans (obligation legale).<br>
-<strong>Destinataires :</strong> les donnees sont accessibles aux prestataires techniques (Supabase, Stripe, Vercel, Cloudflare, GitHub) dans le strict cadre de leurs missions. Aucune vente de donnees a des tiers.<br>
-<strong>Transferts hors UE :</strong> certains prestataires sont situes aux USA (Stripe, Supabase, Vercel, Cloudflare, GitHub). Les transferts sont encadres par les Clauses Contractuelles Types (CCT) de la Commission europeenne et/ou le Data Privacy Framework (DPF) UE-USA.<br>
-<strong>Vos droits :</strong> acces, rectification, effacement, portabilite, limitation, opposition — exercables par email a myhostkit.contact@gmail.com. Reponse sous 30 jours. Reclamation aupres de la CNIL (www.cnil.fr).</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">7. Protection des donnees personnelles (RGPD)</h3>
+<p>Conformement au RGPD n°2016/679 et a la Loi Informatique et Libertes, vous disposez d'un droit d'acces, de rectification, de suppression, de portabilite, de limitation et d'opposition concernant vos donnees personnelles. Pour plus d'informations, consultez notre Politique de confidentialite.</p>
+<p>Pour exercer ces droits : myhostkit.contact@gmail.com. Reponse sous 30 jours. Reclamation possible aupres de la <strong>CNIL</strong> (3 place de Fontenoy, TSA 80715, 75334 Paris cedex 07 — www.cnil.fr).</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">5. Cookies</h3>
-<p>Ce site utilise des cookies techniques strictement necessaires au fonctionnement (session, preferences). Cookies analytiques anonymises via Vercel/Cloudflare. Aucun cookie publicitaire tiers sans consentement explicite. Vous pouvez configurer votre navigateur pour refuser les cookies.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">8. Mediation de la consommation</h3>
+<p>Conformement a l'article L.612-1 du Code de la consommation, en cas de litige non resolu a l'amiable, le consommateur peut recourir gratuitement au mediateur de la consommation suivant : <strong>[NOM_MEDIATEUR_A_CHOISIR]</strong>.</p>
+<p>Plateforme europeenne ODR : https://ec.europa.eu/consumers/odr/</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">6. Mediation et litiges</h3>
-<p>En cas de litige, vous pouvez recourir gratuitement au mediateur de la consommation : plateforme europeenne ODR https://ec.europa.eu/consumers/odr/. Droit francais applicable. Tribunal competent : Paris.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">9. Loi applicable et juridiction</h3>
+<p>Droit francais applicable. En cas de litige, les tribunaux francais seront seuls competents, sous reserve des regles imperatives de protection des consommateurs. Tribunal competent par defaut : Paris.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">10. Contact</h3>
+<p>📧 myhostkit.contact@gmail.com · 📞 06 99 34 89 51 · 📬 60 rue Francois 1er, 75008 Paris, France</p>
 </div>
 </div>
 </div>
 
 <div id="modal-cgv" class="modal" onclick="if(event.target===this)closeLegal('cgv')">
 <div class="modal-box">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Conditions Generales de Vente</h2><button onclick="closeLegal('cgv')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Conditions Generales de Vente et d'Utilisation</h2><button onclick="closeLegal('cgv')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
 <div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 1 — Vendeur</h3>
-<p><strong>MyHostKit</strong> — Micro-entreprise (auto-entrepreneur)<br>SIRET : 10032406000019<br>60 rue Francois 1er, 75008 Paris<br>Tel : 06 99 34 89 51 · Email : myhostkit.contact@gmail.com<br>TVA non applicable (article 293 B du CGI)</p>
+<p style="font-style:italic;margin-bottom:14px">Version 3.1 — Avril 2026</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 2 — Services et produits</h3>
-<p>MyHostKit propose : (a) des abonnements de conciergerie IA pour hotes Airbnb (FREE, Starter 49 EUR/mois, Pro 89 EUR/mois, Conciergerie Pro sur devis), (b) des abonnements pour menageres (FREE, Pro 19 EUR/mois, Business 39 EUR/mois), (c) des kits physiques superhote, (d) une marketplace de mise en relation hotes/menageres avec commission (15%, 10% ou 5% selon le plan). Les prix sont indiques TTC en euros.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 1 — Objet</h3>
+<p>Les presentes CGV regissent l'acces et l'utilisation de l'application mobile MyHostKit, du site www.myhostkit.com et de l'ensemble des services et produits qui y sont proposes : conciergerie IA pour hotes Airbnb, marketplace de mise en relation hotes/menageres, kits physiques superhote.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 3 — Commission et paiement</h3>
-<p>Paiement securise par Stripe. Aucune donnee bancaire stockee sur nos serveurs. Commission prelevee automatiquement sur chaque prestation de menage : 15% (plan Gratuit), 10% (plan Pro), 5% (plan Business). Le paiement n'est confirme qu'apres verification Stripe (verify_payment). Pour les abonnements, le premier prelevement intervient apres la periode d'essai de 30 jours.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 2 — Editeur (vendeur)</h3>
+<p><strong>Rayane MAZOUNI</strong> — Entrepreneur individuel — Micro-entreprise (auto-entrepreneur)<br>Adresse : 60 rue Francois 1er, 75008 Paris, France<br>SIRET : 10032406000019<br>TVA non applicable, art. 293 B du CGI<br>Telephone : 06 99 34 89 51 · Email : myhostkit.contact@gmail.com</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 4 — Livraison (kits physiques)</h3>
-<p>Livraison Colissimo avec suivi sous 48h ouvrees en France metropolitaine. Commandes avant 14h expediees le jour meme.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 3 — Acceptation</h3>
+<p>L'utilisation de l'Application implique l'acceptation pleine et entiere des presentes CGV lors de la creation du Compte. Cette acceptation est <strong>horodatee et conservee comme preuve</strong> conformement a l'article 1366 du Code civil et au Reglement eIDAS.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 5 — Droit de retractation</h3>
-<p>Conformement a l'article L221-18 du Code de la consommation, delai de 14 jours a compter de la reception pour les produits physiques. Pour les abonnements numeriques, le droit de retractation ne s'applique pas une fois le service active (art. L221-28). Retours : myhostkit.contact@gmail.com</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 4 — Conditions d'inscription</h3>
+<p>Etre majeur (18 ans), avoir la capacite juridique pour contracter. Pour les Menageres : disposer d'un statut juridique valide d'exercice independant (autoentrepreneur, EI, EURL, SAS…). Le Compte est strictement personnel.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 6 — Abonnements</h3>
-<p>Plans Starter et Pro hotes, Pro et Business menageres : sans engagement, resiliation a tout moment avec effet a la fin du mois en cours. 30 jours d'essai gratuit — aucun prelevement pendant cette periode. En cas d'impaye, le plan est gele (donnees conservees) jusqu'a regularisation.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 5 — Services proposes</h3>
+<p><strong>Pour les Hotes :</strong> gestion centralisee de logements, recherche et reservation de prestataires de menage, suivi du stock (Starter+), synchronisation iCal Airbnb/Booking (Starter+), reception de rapports photo, paiement securise en escrow via Stripe, concierge IA et analyse IA des photos (Pro).</p>
+<p><strong>Pour les Menageres :</strong> reception de demandes, gestion d'un calendrier de disponibilites, envoi de rapports photo, encaissement automatise via Stripe Connect, generation de factures, visibilite boostee (Pro), badge verifie et gestion d'equipe (Business).</p>
+<p><strong>Pour les Voyageurs :</strong> acces limite a un guide voyageur (WiFi, instructions), concierge IA pour questions courantes.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 7 — Responsabilite</h3>
-<p>MyHostKit agit en tant que plateforme de mise en relation entre hotes et menageres. MyHostKit n'est pas partie au contrat de prestation de menage et ne saurait etre tenu responsable de la qualite des prestations. Les avis et notations sont publies sous la responsabilite de leurs auteurs.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 6 — Plans et tarification</h3>
+<p>Les prix sont indiques <strong>TTC en euros</strong> (franchise en base de TVA, art. 293 B du CGI).</p>
+<p><strong>Plans Hote :</strong></p>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li>Gratuit (0 €) — 1 logement, commission 15 %</li>
+<li>🚀 Starter (49 €/mois) — 3 logements, stock, iCal, commission 10 %</li>
+<li>⭐ Pro (89 €/mois) — logements illimites + IA concierge, commission 5 %</li>
+<li>Conciergerie Pro (sur devis) — accompagnement personnalise</li>
+</ul>
+<p><strong>Plans Menagere :</strong></p>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li>Gratuit (0 €) — 3 logements clients, visibilite standard</li>
+<li>⭐ Pro (19 €/mois) — logements illimites, visibilite boostee, –2 % de commission</li>
+<li>💼 Business (39 €/mois) — illimite, badge verifie, priorite max, gestion d'equipe, –5 % de commission</li>
+</ul>
+<p>Les tarifs peuvent etre modifies avec notification au moins <strong>30 jours avant</strong> tout changement.</p>
 
-<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 8 — Droit applicable</h3>
-<p>Droit francais applicable. Mediation consommateur : plateforme ODR https://ec.europa.eu/consumers/odr/. Tribunal competent : Paris.</p>
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 7 — Periode d'essai gratuite</h3>
+<p>Tout nouvel Utilisateur beneficie d'une <strong>periode d'essai gratuite de 30 jours</strong> donnant acces a l'ensemble des fonctionnalites Pro (cote hote) ou Business (cote menagere).</p>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li><strong>Aucun moyen de paiement</strong> n'est requis a l'inscription</li>
+<li><strong>Aucun prelevement automatique</strong> sans consentement explicite</li>
+<li>Notifications email J-7, J-1 et le jour meme de l'expiration</li>
+<li>A l'expiration, conversion automatique en plan Gratuit (pas en plan payant)</li>
+</ul>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 8 — Paiements et commissions (escrow Stripe)</h3>
+<p>Les paiements entre Hote et Menagere sont geres via Stripe Connect : (1) l'Hote paie le montant total, (2) le paiement est <strong>autorise mais non capture</strong> (escrow), (3) la Menagere effectue la prestation et envoie le rapport, (4) l'Hote valide la prestation, ou validation automatique apres <strong>48 heures</strong> sans contestation, (5) le paiement est libere : la Menagere recoit son montant net (apres commission), l'Editeur percoit sa commission.</p>
+<p><strong>Aucune donnee bancaire n'est stockee</strong> sur les serveurs de l'Editeur. Stripe est un prestataire de services de paiement agree, conforme PCI-DSS niveau 1.</p>
+<p><strong>Commission selon le plan de l'Hote :</strong> Gratuit 15 %, Starter 10 %, Pro 5 %. <strong>Reduction additionnelle</strong> selon le plan de la Menagere : Pro –2 %, Business –5 %.</p>
+<p>Une facture est emise automatiquement apres chaque transaction avec la mention « TVA non applicable, art. 293 B du CGI ». En cas d'impaye sur un abonnement, le plan est gele 15 jours puis retrograde en Gratuit.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 9 — Livraison des kits physiques</h3>
+<p>Expedition Colissimo avec suivi sous <strong>48 heures ouvrees</strong> en France metropolitaine. Commandes avant 14h expediees le jour meme. Garantie legale de conformite 2 ans (art. L.217-3 et suivants Code conso) et garantie des vices caches (art. 1641 et suivants Code civil).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 10 — Parrainage</h3>
+<p>Tout Utilisateur dispose d'un code de parrainage unique. Lorsqu'un nouveau Utilisateur s'inscrit avec ce code, le parrain et le filleul recoivent chacun <strong>7 jours d'essai gratuit supplementaires</strong>.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 11 — Statut de plateforme</h3>
+<p><strong>MyHostKit est une plateforme d'intermediation</strong>, et non un employeur des Menageres. L'Editeur n'est partie a aucun contrat de prestation entre Hotes et Menageres. Les Menageres sont des travailleurs independants, libres d'organiser leur activite, leurs horaires et leurs tarifs. Aucun lien de subordination n'existe. Les avis et notations sont publies sous la responsabilite de leurs auteurs.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 12 — Litiges entre utilisateurs</h3>
+<p>En cas de desaccord entre un Hote et une Menagere, l'Hote dispose d'un delai de <strong>48 heures</strong> apres reception du rapport pour declencher un litige. L'Editeur arbitrera le litige sous <strong>48 heures ouvrees</strong>. Pendant la procedure, le paiement reste bloque en escrow.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 13 — Donnees personnelles</h3>
+<p>Le traitement de vos donnees personnelles est decrit dans notre <strong>Politique de confidentialite</strong>. Conformement au RGPD, vous disposez d'un droit d'acces, de rectification, de suppression et d'opposition. Le bouton « Supprimer mon compte » dans les parametres de l'Application permet la suppression complete de votre compte.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 14 — Propriete intellectuelle</h3>
+<p>L'Application, son code, son design, son logo et l'ensemble de ses contenus sont la propriete exclusive de l'Editeur. L'Utilisateur conserve les droits sur les contenus qu'il depose mais accorde a l'Editeur une <strong>licence non exclusive, mondiale et gratuite</strong> dans le cadre exclusif du fonctionnement de l'Application.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 15 — Responsabilite</h3>
+<p>L'Editeur s'engage a fournir l'Application avec diligence selon une <strong>obligation de moyens</strong>. Il ne saurait etre tenu responsable des actes ou manquements des Utilisateurs entre eux, des indisponibilites liees a la maintenance ou cas de force majeure, ni de la qualite reelle des prestations effectuees par les Menageres.</p>
+<p>Sauf dispositions legales contraires, la responsabilite totale de l'Editeur envers un Utilisateur est limitee au montant des sommes effectivement versees par cet Utilisateur a l'Editeur au cours des <strong>12 derniers mois</strong>.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 16 — Suspension et resiliation</h3>
+<p><strong>Par l'Utilisateur :</strong> suppression du Compte a tout moment via l'Application (Parametres → Supprimer mon compte). Suppression irreversible avec effacement des donnees sous 30 jours, sauf obligations legales (comptabilite : 10 ans).</p>
+<p><strong>Par l'Editeur :</strong> en cas de violation des CGV, apres mise en demeure restee sans effet sous 15 jours. Suspension immediate possible en cas de manquement grave.</p>
+<p><strong>Inactivite :</strong> avertissement apres 2 ans, suppression automatique apres 3 ans (recommandations CNIL).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 17 — Droit de retractation</h3>
+<p><strong>Kits physiques :</strong> delai de <strong>14 jours</strong> a compter de la reception (art. L.221-18 Code conso). Produit non utilise, emballage d'origine. Frais de retour a la charge du client (sauf produit defectueux). Remboursement sous 14 jours.</p>
+<p><strong>Abonnements numeriques :</strong> conformement a l'<strong>article L.221-28 13°</strong> du Code de la consommation, le droit de retractation ne s'applique pas aux contenus numeriques dont l'execution a commence apres accord prealable expres et renonciation expresse au droit de retractation. En activant un plan payant, l'Utilisateur reconnait expressement renoncer a son droit de retractation pour cet abonnement.</p>
+<p><strong>Prestations de menage :</strong> renonciation au droit de retractation (art. L.221-25 Code conso) car la prestation peut commencer avant la fin du delai de 14 jours.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 18 — Mediation et juridiction</h3>
+<p>Mediateur de la consommation : <strong>[NOM_MEDIATEUR_A_CHOISIR]</strong>. Plateforme europeenne ODR : https://ec.europa.eu/consumers/odr/. Droit francais applicable. Tribunal competent par defaut : Paris (sous reserve des regles imperatives de protection des consommateurs, art. R.631-3 Code conso).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 19 — Modifications des CGV</h3>
+<p>L'Editeur se reserve le droit de modifier les presentes CGV. Les Utilisateurs seront informes par email et/ou notification au moins <strong>30 jours</strong> avant l'entree en vigueur. La poursuite de l'utilisation vaut acceptation. En cas de desaccord, l'Utilisateur peut supprimer son Compte sans frais.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">Article 20 — Contact</h3>
+<p>📧 myhostkit.contact@gmail.com · 📞 06 99 34 89 51 · 📬 60 rue Francois 1er, 75008 Paris, France</p>
 </div>
 </div>
 </div>
@@ -966,13 +1056,102 @@ function showRole(role){
 <div class="modal-box">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Politique de confidentialite</h2><button onclick="closeLegal('confidentialite')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
 <div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<p>Derniere mise a jour : avril 2026</p>
-<p>MyHostKit (micro-entreprise, SIRET 10032406000019) s'engage a proteger vos donnees personnelles conformement au Reglement General sur la Protection des Donnees (RGPD) et a la loi Informatique et Libertes.</p>
-<p><strong>Donnees collectees :</strong> identite (nom, email, telephone), donnees de reservation, photos de rapports de menage, donnees de paiement (traitees exclusivement par Stripe), donnees de navigation (cookies techniques).</p>
-<p><strong>Utilisation :</strong> fourniture du service, gestion des reservations, traitement des paiements, communications liees au service, amelioration de l'application.</p>
-<p><strong>Partage :</strong> vos donnees ne sont jamais vendues. Elles sont partagees uniquement avec nos prestataires techniques (Supabase, Stripe, Vercel, Cloudflare, GitHub) dans le strict cadre necessaire au fonctionnement du service.</p>
-<p><strong>Securite :</strong> chiffrement des donnees en transit (TLS/SSL), authentification securisee, acces restreint aux donnees. Paiements traites par Stripe (certifie PCI DSS niveau 1).</p>
-<p><strong>Vos droits :</strong> acces, rectification, effacement, portabilite, limitation, opposition. Contact : myhostkit.contact@gmail.com. Autorite de controle : CNIL, 3 Place de Fontenoy, 75007 Paris (www.cnil.fr).</p>
+<p style="font-style:italic;margin-bottom:14px">Version 1.1 — Avril 2026</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">1. Preambule</h3>
+<p>La presente politique decrit la maniere dont MyHostKit collecte, utilise, stocke et protege vos donnees personnelles, conformement au <strong>RGPD</strong> n°2016/679 et a la <strong>Loi Informatique et Libertes</strong>.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">2. Responsable du traitement</h3>
+<p><strong>Rayane MAZOUNI</strong> — Entrepreneur individuel<br>Adresse : 60 rue Francois 1er, 75008 Paris<br>SIRET : 10032406000019<br>Telephone : 06 99 34 89 51<br>Email : myhostkit.contact@gmail.com</p>
+<p>Compte tenu de la taille de la structure, aucun DPO n'est designe. Pour toute demande, contactez l'editeur a l'adresse ci-dessus.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">3. Donnees collectees</h3>
+<p><strong>Donnees fournies directement :</strong></p>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li><strong>Identification :</strong> email, mot de passe (hache bcrypt), prenom, nom, telephone</li>
+<li><strong>Profil hote :</strong> nom de societe, adresse de facturation, SIRET le cas echeant</li>
+<li><strong>Profil menagere :</strong> SIRET, statut juridique, IBAN, BIC, adresse, biographie</li>
+<li><strong>Logements (hotes) :</strong> nom, adresse, code d'acces, instructions, photos</li>
+<li><strong>Reservations :</strong> dates, horaires, prix, nom du voyageur</li>
+<li><strong>Rapports de menage :</strong> photos prises par la menagere, notes</li>
+<li><strong>Communication :</strong> messages echanges via la messagerie integree</li>
+<li><strong>Commandes (kits physiques) :</strong> adresse de livraison, contenu de commande</li>
+<li><strong>Parrainage :</strong> code de parrainage, identifiants des filleuls</li>
+</ul>
+<p><strong>Donnees collectees automatiquement :</strong> adresse IP, type d'appareil, version OS/app, logs d'utilisation, tokens de notifications push.</p>
+<p><strong>Donnees de paiement :</strong> traitees par <strong>Stripe</strong>. <strong>Aucun numero de carte n'est stocke</strong>. Stripe transmet uniquement un identifiant de transaction et les 4 derniers chiffres pour la facturation.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">4. Finalites du traitement</h3>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li>Fonctionnement du service (compte, logements, mise en relation, rapports)</li>
+<li>Paiements et facturation (transactions escrow Stripe, factures)</li>
+<li>Vente de kits physiques (commandes, expedition, suivi)</li>
+<li>Communications transactionnelles (confirmations, alertes, emails J-7/J-1/J-0)</li>
+<li>Analyse qualite par IA (Claude Vision d'Anthropic) et concierge IA</li>
+<li>Securite (prevention fraude, audit suppressions)</li>
+<li>Amelioration du service (statistiques anonymisees)</li>
+<li>Obligations legales (comptabilite, lutte anti-blanchiment)</li>
+<li>Parrainage (attribution des recompenses)</li>
+</ul>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">5. Bases legales</h3>
+<p><strong>Execution du contrat</strong> (art. 6.1.b RGPD) : creation de compte, paiements, vente de kits.<br><strong>Consentement</strong> (art. 6.1.a RGPD) : notifications push, communications marketing.<br><strong>Interet legitime</strong> : analyse IA des photos, concierge IA, cookies analytiques anonymises.<br><strong>Obligation legale</strong> (art. 6.1.c RGPD) : conservation comptable.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">6. Duree de conservation</h3>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li>Compte actif : tant que le compte est utilise</li>
+<li>Compte inactif : avertissement apres 2 ans, suppression auto apres 3 ans</li>
+<li>Donnees comptables (factures, transactions) : <strong>10 ans</strong> (art. L.123-22 Code commerce)</li>
+<li>Logs techniques et cookies : <strong>13 mois maximum</strong></li>
+<li>Donnees apres suppression de compte : suppression sous 30 jours, sauf obligations legales</li>
+</ul>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">7. Destinataires et sous-traitants</h3>
+<p>Vos donnees peuvent etre communiquees aux sous-traitants suivants, qui agissent uniquement sur nos instructions :</p>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li><strong>Supabase</strong> — base de donnees + auth — UE (Stockholm)</li>
+<li><strong>Stripe Payments Europe</strong> — paiements — UE (Irlande)</li>
+<li><strong>Resend</strong> — emails transactionnels — USA (CCT)</li>
+<li><strong>Anthropic</strong> — IA d'analyse photo et concierge — USA (CCT)</li>
+<li><strong>Apple, Google</strong> — distribution app + notifications push — USA (CCT)</li>
+<li><strong>Vercel</strong> — hebergement site web — USA (CCT)</li>
+<li><strong>Cloudflare</strong> — DNS, anti-DDoS, CDN — USA (CCT)</li>
+<li><strong>GitHub (Microsoft)</strong> — hebergement code source — USA (CCT)</li>
+<li><strong>Colissimo (La Poste)</strong> — livraison kits physiques — UE (France)</li>
+</ul>
+<p><strong>Nous ne vendons jamais vos donnees</strong> a des tiers a des fins publicitaires.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">8. Transferts hors UE</h3>
+<p>Certains sous-traitants (Stripe US, Resend, Anthropic, Apple, Google, Vercel, Cloudflare, GitHub) sont aux Etats-Unis. Ces transferts sont encadres par les <strong>Clauses Contractuelles Types (CCT)</strong> approuvees par la Commission europeenne (art. 46 RGPD) et le cas echeant par le <strong>Data Privacy Framework</strong> UE-USA. L'hebergement principal de la base de donnees est <strong>au sein de l'Union europeenne</strong> (Supabase, Stockholm).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">9. Vos droits (articles 15 a 22 RGPD)</h3>
+<ul style="margin:8px 0 8px 20px;padding:0">
+<li><strong>Droit d'acces</strong> : obtenir une copie de vos donnees</li>
+<li><strong>Droit de rectification</strong> : corriger des donnees inexactes</li>
+<li><strong>Droit a l'effacement</strong> (« droit a l'oubli ») : exercable directement via le bouton « Supprimer mon compte » dans l'app</li>
+<li><strong>Droit a la limitation</strong> du traitement</li>
+<li><strong>Droit a la portabilite</strong> : recuperation au format structure</li>
+<li><strong>Droit d'opposition</strong> au traitement</li>
+<li><strong>Droit de retirer votre consentement</strong> a tout moment</li>
+<li><strong>Directives</strong> sur le sort de vos donnees apres votre deces</li>
+</ul>
+<p>Pour exercer ces droits : myhostkit.contact@gmail.com. Reponse sous <strong>1 mois</strong> (art. 12 RGPD).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">10. Securite</h3>
+<p>Mesures techniques et organisationnelles : chiffrement HTTPS/TLS 1.3, mots de passe haches bcrypt, datacenters certifies ISO 27001 (Supabase, AWS Stockholm), Row Level Security cote Supabase, authentification renforcee, audit des suppressions et connexions. En cas de violation de donnees, notification CNIL sous <strong>72 heures</strong> (art. 33-34 RGPD).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">11. Cookies et traceurs</h3>
+<p>L'application mobile n'utilise <strong>pas de cookies tiers a des fins publicitaires</strong>. Seules des donnees techniques necessaires (token d'authentification, preferences) sont stockees localement. Le site web peut utiliser des cookies analytiques anonymises conformes aux recommandations CNIL.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">12. Mineurs</h3>
+<p>L'Application est destinee a un usage <strong>professionnel par des personnes majeures</strong>. Nous ne collectons pas sciemment de donnees de mineurs de moins de 15 ans.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">13. Modifications</h3>
+<p>Toute modification substantielle vous sera notifiee par email et/ou notification dans l'Application au moins <strong>30 jours</strong> avant son entree en vigueur.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">14. Contact et reclamations</h3>
+<p>📧 myhostkit.contact@gmail.com · 📞 06 99 34 89 51 · 📬 60 rue Francois 1er, 75008 Paris</p>
+<p>Reclamation aupres de la <strong>CNIL</strong> : 3 place de Fontenoy, TSA 80715, 75334 Paris cedex 07 — Tel : 01 53 73 22 22 — www.cnil.fr</p>
 </div>
 </div>
 </div>
@@ -981,9 +1160,28 @@ function showRole(role){
 <div class="modal-box">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px"><h2 style="font-family:Fraunces,serif;font-size:1.5rem;font-weight:400">Retours et remboursements</h2><button onclick="closeLegal('retours')" style="width:34px;height:34px;border-radius:50%;background:var(--cr);border:none;cursor:pointer;font-size:1rem">✕</button></div>
 <div style="font-size:.84rem;color:var(--g);line-height:1.85">
-<p><strong>Kits physiques :</strong> retour sous 14 jours (Art. L221-18 Code de la consommation). Produits non utilises, emballage d'origine. Frais de retour a la charge du client sauf produit defectueux. Remboursement sous 14 jours apres reception.</p>
-<p><strong>Abonnements :</strong> essai gratuit 30 jours — aucun debit. Resiliation a tout moment depuis l'app. Aucun remboursement pour les mois entames.</p>
-<p><strong>Contact :</strong> myhostkit.contact@gmail.com · 06 99 34 89 51</p>
+<p style="font-style:italic;margin-bottom:14px">Article extrait des CGV — Avril 2026</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">1. Kits physiques</h3>
+<p>Conformement a l'<strong>article L.221-18</strong> du Code de la consommation, les Utilisateurs consommateurs disposent d'un <strong>delai de 14 jours</strong> a compter de la reception du produit pour se retracter, sans avoir a motiver leur decision.</p>
+<p>Le produit doit etre retourne <strong>non utilise, dans son emballage d'origine</strong>. Les frais de retour sont a la charge du client, sauf en cas de produit defectueux. Le remboursement intervient sous <strong>14 jours</strong> a compter de la reception du retour.</p>
+<p>Garantie legale de conformite <strong>2 ans</strong> (art. L.217-3 Code conso) et garantie des vices caches (art. 1641 Code civil).</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">2. Abonnements numeriques</h3>
+<p>Conformement a l'<strong>article L.221-28 13°</strong> du Code de la consommation, le droit de retractation <strong>ne s'applique pas</strong> aux contrats de fourniture d'un contenu numerique non fourni sur un support materiel <strong>dont l'execution a commence</strong> apres accord prealable expres de l'Utilisateur et renoncement expres a son droit de retractation.</p>
+<p>En s'inscrivant et en activant un plan payant, l'Utilisateur reconnait expressement demander l'execution immediate du service et renonce a son droit de retractation pour cet abonnement.</p>
+<p><strong>Resiliation :</strong> sans engagement, a tout moment depuis l'application, avec effet a la fin du mois en cours. Aucun remboursement pour les mois entames.</p>
+<p><strong>Essai gratuit :</strong> 30 jours sans CB requise. Conversion automatique en plan Gratuit a l'expiration (pas en plan payant). Aucun debit sans consentement explicite.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">3. Prestations de menage</h3>
+<p>Pour toute prestation de menage deja reservee et payee via la plateforme, l'Utilisateur reconnait expressement que la prestation peut commencer avant la fin du delai de retractation, et renonce de fait a son droit de retractation pour cette transaction (<strong>art. L.221-25 Code conso</strong>).</p>
+<p><strong>Litige sur la qualite :</strong> l'Hote dispose de <strong>48 heures</strong> apres reception du rapport pour declencher un litige via l'application. L'Editeur arbitrera sous 48 heures ouvrees. Pendant la procedure, le paiement reste bloque en escrow.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">4. Mediation</h3>
+<p>En cas de litige non resolu a l'amiable : mediateur de la consommation <strong>[NOM_MEDIATEUR_A_CHOISIR]</strong>. Plateforme europeenne ODR : https://ec.europa.eu/consumers/odr/.</p>
+
+<h3 style="font-size:1rem;font-weight:600;color:var(--n);margin:18px 0 7px">5. Contact</h3>
+<p>📧 myhostkit.contact@gmail.com · 📞 06 99 34 89 51</p>
 </div>
 </div>
 </div>
