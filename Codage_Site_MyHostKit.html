@@ -2203,8 +2203,8 @@ async function submitWaitlist(e){
   const profil = document.getElementById('wl-profil').value;
   const ville = document.getElementById('wl-ville').value.trim();
 
-  if (!prenom || !email || !profil){
-    errEl.textContent = 'Prenom, email et profil sont requis.';
+  if (!prenom || !email || !profil || !ville){
+    errEl.textContent = 'Tous les champs sont requis (prénom, email, profil, ville).';
     errEl.classList.add('show');
     return;
   }
@@ -2220,7 +2220,7 @@ async function submitWaitlist(e){
     prenom: prenom,
     email: email,
     profil: profil,
-    ville: ville || null,
+    ville: ville,
     source: 'site_popup',
     referrer_code: referrer_code,
     user_agent: navigator.userAgent,
@@ -2311,8 +2311,8 @@ async function submitWaitlist(e){
             </select>
           </div>
           <div class="wl-field">
-            <label>Ville (optionnel)</label>
-            <input id="wl-ville" type="text" placeholder="Paris, Nice..."/>
+            <label>Ville *</label>
+            <input id="wl-ville" type="text" required placeholder="Paris, Nice, Lyon..."/>
           </div>
         </div>
         <div class="wl-perks">
