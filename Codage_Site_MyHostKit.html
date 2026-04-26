@@ -2108,9 +2108,29 @@ setInterval(updateAllCountdowns, 1000);
 updateAllCountdowns();
 
 /* Founding members counter — base initiale + incrémentation locale à chaque inscription */
+let BASE_COUNT = 47;
+
+async function fetchRealWaitlistCount() {
+  try {
+    const r = await fetch('https://illovwqvszjuasftwkxh.supabase.co/rest/v1/rpc/get_waitlist_count', {
+      method: 'POST',
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsbG92d3F2c3pqdWFzZnR3a3hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzMTk4NDQsImV4cCI6MjA5MDg5NTg0NH0.EMR86eBRtW9tF118YB1Xq2NL08FajJ7HLp51YwmF4_Y',
+        'Content-Type': 'application/json'
+      },
+      body: '{}'
+    });
+    if (!r.ok) return;
+    const data = await r.json();
+    if (typeof data === 'number' && data >= 0) {
+      BASE_COUNT = data;
+      updateFoundingCount();
+    }
+  } catch(e) {}
+}
+
 function updateFoundingCount(){
-  // Base réelle au déploiement (mise à jour manuellement via le code)
-  const BASE_COUNT = 47;
   let extraCount = 0;
   try {
     const stored = localStorage.getItem('mhk_wl_extra');
@@ -2123,6 +2143,7 @@ function updateFoundingCount(){
   const left = Math.max(0, 50 - total);
   if (wsLeft) wsLeft.textContent = left > 0 ? left + ' places' : 'Liste pleine';
 }
+
 function incrementFoundingCount(){
   try {
     const cur = parseInt(localStorage.getItem('mhk_wl_extra') || '0', 10);
@@ -2130,7 +2151,9 @@ function incrementFoundingCount(){
   } catch(e){}
   updateFoundingCount();
 }
+
 setTimeout(updateFoundingCount, 500);
+fetchRealWaitlistCount();
 
 /* Bandeau ambassadeur si ?ref=xxx + tracking referral_clicks */
 (function trackReferral(){
