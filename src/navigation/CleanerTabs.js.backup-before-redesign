@@ -1,0 +1,57 @@
+import React, { useState, useEffect } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from 'react-native';
+import { supabase } from '../config/supabase';
+import CleanerOnboarding from '../screens/cleaner/CleanerOnboarding';
+import CleanerDashboard from '../screens/cleaner/CleanerDashboard';
+import CleanerCalendar from '../screens/cleaner/CleanerCalendar';
+import CleanerReport from '../screens/cleaner/CleanerReport';
+import CleanerTeam from '../screens/cleaner/CleanerTeam';
+import CleaningChatList from '../screens/CleaningChatList';
+import CleanerSettings from '../screens/cleaner/CleanerSettings';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import { t, useLang } from '../i18n';
+
+var T = { dark: '#141414', dark2: '#1E1E1E', muted: '#9B9B9B' };
+var Tab = createBottomTabNavigator();
+
+export default function CleanerTabs(props) {
+  useLang();
+  var _hasProfile = useState(null); var hasProfile = _hasProfile[0]; var setHasProfile = _hasProfile[1];
+  var _reload = useState(0); var reload = _reload[0]; var setReload = _reload[1];
+
+  useEffect(function() {
+    supabase.from('cleaners').select('id').eq('user_id', props.session.user.id).then(function(r) {
+      setHasProfile(r.data && r.data.length > 0);
+    });
+  }, [reload]);
+
+  if (hasProfile === null) return null;
+  if (!hasProfile) return <CleanerOnboarding session={props.session} supabase={supabase} onComplete={function() { setReload(reload + 1); }} />;
+
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: T.dark, borderTopColor: T.dark2, height: 85, paddingBottom: 25, paddingTop: 8 }, tabBarActiveTintColor: '#1C5F8A', tabBarInactiveTintColor: T.muted, tabBarLabelStyle: { fontSize: 9, fontWeight: '600' } }}>
+      <Tab.Screen name="CDash" options={{ tabBarLabel: t('tab_cleaner_schedule'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>📋</Text>; } }}>
+        {function(p) { return <CleanerDashboard {...p} session={props.session} supabase={supabase} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CCal" options={{ tabBarLabel: t('tab_cleaner_availability'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>📅</Text>; } }}>
+        {function(p) { return <CleanerCalendar {...p} session={props.session} supabase={supabase} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CReport" options={{ tabBarLabel: t('tab_cleaner_report'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>📸</Text>; } }}>
+        {function(p) { return <CleanerReport {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CNotifs" options={{ tabBarLabel: t('tab_notifs'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>🔔</Text>; } }}>
+        {function(p) { return <NotificationsScreen {...p} session={props.session} role="cleaner" onNavigate={function(screen){p.navigation.navigate(screen);}} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CMessages" options={{ tabBarLabel: t('tab_messages'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>💬</Text>; } }}>
+        {function(p) { return <CleaningChatList {...p} session={props.session} role="cleaner" />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CTeam" options={{ tabBarLabel: t('tab_cleaner_team'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>👥</Text>; } }}>
+        {function(p) { return <CleanerTeam {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="CSettings" options={{ tabBarLabel: t('tab_profile'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>⚙️</Text>; } }}>
+        {function(p) { return <CleanerSettings {...p} session={props.session} onLogout={props.onLogout} />; }}
+      </Tab.Screen>
+    </Tab.Navigator>
+  );
+}

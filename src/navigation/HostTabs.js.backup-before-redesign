@@ -1,0 +1,49 @@
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from 'react-native';
+import { supabase } from '../config/supabase';
+import HostDashboard from '../screens/host/HostDashboard';
+import HostProperties from '../screens/host/HostProperties';
+import HostFindCleaner from '../screens/host/HostFindCleaner';
+import HostInventory from '../screens/host/HostInventory';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import CleaningChatList from '../screens/CleaningChatList';
+import HostSettings from '../screens/host/HostSettings';
+import AdminPanel from '../screens/host/AdminPanel';
+import { isAdmin } from '../utils/subscription';
+import { t, useLang } from '../i18n';
+
+var T = { accent: '#C8965A', dark: '#141414', dark2: '#1E1E1E', muted: '#9B9B9B' };
+var Tab = createBottomTabNavigator();
+
+export default function HostTabs(props) {
+  useLang();
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: T.dark, borderTopColor: T.dark2, height: 85, paddingBottom: 25, paddingTop: 8 }, tabBarActiveTintColor: T.accent, tabBarInactiveTintColor: T.muted, tabBarLabelStyle: { fontSize: 9, fontWeight: '600' } }}>
+      <Tab.Screen name="Dashboard" options={{ tabBarLabel: t('tab_home'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>📊</Text>; } }}>
+        {function(p) { return <HostDashboard {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="Properties" options={{ tabBarLabel: t('tab_host_properties'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>🏠</Text>; } }}>
+        {function(p) { return <HostProperties {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="FindCleaner" options={{ tabBarLabel: t('tab_host_cleaning'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>🧹</Text>; } }}>
+        {function(p) { return <HostFindCleaner {...p} session={props.session} supabase={supabase} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="Inventory" options={{ tabBarLabel: t('tab_host_stock'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>📦</Text>; } }}>
+        {function(p) { return <HostInventory {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="Notifs" options={{ tabBarLabel: t('tab_notifs'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>🔔</Text>; } }}>
+        {function(p) { return <NotificationsScreen {...p} session={props.session} role="host" onNavigate={function(screen){p.navigation.navigate(screen);}} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="Messages" options={{ tabBarLabel: t('tab_messages'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>💬</Text>; } }}>
+        {function(p) { return <CleaningChatList {...p} session={props.session} role="host" />; }}
+      </Tab.Screen>
+      <Tab.Screen name="Settings" options={{ tabBarLabel: t('tab_profile'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>⚙️</Text>; } }}>
+        {function(p) { return <HostSettings {...p} session={props.session} onLogout={props.onLogout} />; }}
+      </Tab.Screen>
+      {isAdmin(props.session.user.email) && <Tab.Screen name="Admin" options={{ tabBarLabel: t('tab_admin'), tabBarIcon: function(o) { return <Text style={{ fontSize: 17, opacity: o.focused ? 1 : 0.4 }}>👑</Text>; } }}>
+        {function(p) { return <AdminPanel {...p} session={props.session} />; }}
+      </Tab.Screen>}
+    </Tab.Navigator>
+  );
+}

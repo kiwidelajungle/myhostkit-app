@@ -1,0 +1,347 @@
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, RefreshControl, Animated, LayoutAnimation, Platform, UIManager, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
+import { supabase, SUPABASE_ANON, EDGE_URL } from '../../config/supabase';
+import { createCleaningPayment, captureCleaningPayment } from '../../utils/stripe';
+import { useStripe } from '@stripe/stripe-react-native';
+import T from '../../theme';
+import { trackScreen, track } from '../../utils/monitoring';
+import { dbSilent } from '../../utils/db';
+import { getUserPlan, canUseFeature, isTrial, getTrialDaysRemaining, checkTrialEmails, getPlanLabel, isPlanSuspended } from '../../utils/subscription';
+import OnboardingBanner from '../../components/OnboardingBanner';
+import AnimCard from '../../components/AnimCard';
+import RatingModal from '../../components/RatingModal';
+import { t, useLang, getLang } from '../../i18n';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) { UIManager.setLayoutAnimationEnabledExperimental(true); }
+
+function parseHours(timeStr) { if (!timeStr) return 1; var p = timeStr.replace('→ ','-').split('-').map(function(s){return s.trim();}); if (p.length!==2) return 1; var a=p[0].split(':'),b=p[1].split(':'); var d=((parseInt(b[0])*60+parseInt(b[1]))-(parseInt(a[0])*60+parseInt(a[1])))/60; return d>0?d:1; }
+
+export default function HostDashboard(props) {
+  useLang();
+  var _stripe = useStripe(); var initPaymentSheet = _stripe.initPaymentSheet; var presentPaymentSheet = _stripe.presentPaymentSheet;
+
+  // Ouvre PaymentSheet pour payer un booking
+  async function payBookingWithStripe(bookingId, load) {
+    try {
+      var payment = await createCleaningPayment(bookingId);
+      var initRes = await initPaymentSheet({
+        merchantDisplayName: 'MyHostKit',
+        paymentIntentClientSecret: payment.client_secret,
+        defaultBillingDetails: { email: props.session.user.email },
+      });
+      if (initRes.error) {
+        Alert.alert('Erreur', initRes.error.message);
+        return;
+      }
+      var presentRes = await presentPaymentSheet();
+      if (presentRes.error) {
+        if (presentRes.error.code !== 'Canceled') {
+          Alert.alert('Paiement echoue', presentRes.error.message);
+        }
+        return;
+      }
+      Alert.alert('Paiement autorise', 'Le paiement de ' + (payment.amount_cents/100).toFixed(2) + ' euros est bloque en escrow. Il sera libere au cleaner apres validation du menage.');
+      if (load) load();
+    } catch (err) {
+      Alert.alert('Erreur', err.message || 'Impossible de lancer le paiement');
+    }
+  }
+  var _properties = useState([]); var properties = _properties[0]; var setProperties = _properties[1];
+  var _bookings = useState([]); var bookings = _bookings[0]; var setBookings = _bookings[1];
+  var _allBookings = useState([]); var allBookings = _allBookings[0]; var setAllBookings = _allBookings[1];
+  var _showRating = useState(false); var showRating = _showRating[0]; var setShowRating = _showRating[1];
+  var _ratingBooking = useState(null); var ratingBooking = _ratingBooking[0]; var setRatingBooking = _ratingBooking[1];
+  var _refreshing = useState(false); var refreshing = _refreshing[0]; var setRefreshing = _refreshing[1];
+  var _showRevenu = useState(false); var showRevenu = _showRevenu[0]; var setShowRevenu = _showRevenu[1];
+  var _userPlan = useState('free'); var userPlan = _userPlan[0]; var setUserPlan = _userPlan[1];
+  var _trialDays = useState(0); var trialDays = _trialDays[0]; var setTrialDays = _trialDays[1];
+  var _aiInsight = useState(''); var aiInsight = _aiInsight[0]; var setAiInsight = _aiInsight[1];
+
+  useEffect(function() {
+    trackScreen('HostDashboard');
+    getUserPlan(props.session.user.id).then(function(p){ setUserPlan(p); });
+    checkTrialEmails(props.session.user.id);
+    supabase.from('profiles').select('trial_ends_at').eq('id', props.session.user.id).single().then(function(r){
+      if (r.data && r.data.trial_ends_at) setTrialDays(getTrialDaysRemaining(r.data.trial_ends_at));
+    });
+  }, []);
+
+  function load() {
+    supabase.from('properties').select('*').eq('user_id', props.session.user.id).then(function(r) { if (r.data) setProperties(r.data); });
+    var today = new Date().toISOString().split('T')[0];
+    var now = new Date().toISOString();
+    supabase.from('cleaning_bookings').update({ status: 'validated', payment_released_at: now })
+      .eq('host_id', props.session.user.id).eq('status', 'report_sent').lte('auto_validate_at', now).then(function() {});
+    supabase.from('cleaning_bookings').select('*, cleaners(company_name, contact_name, price_per_cleaning, email), properties(name)')
+      .eq('host_id', props.session.user.id).order('date', { ascending: false }).limit(50)
+      .then(function(r) { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); if (r.data) { setAllBookings(r.data); setBookings(r.data.filter(function(b){return b.date >= today;})); } });
+  }
+  useFocusEffect(useCallback(function() { load(); }, []));
+  function refresh() { setRefreshing(true); load(); setTimeout(function() { setRefreshing(false); }, 800); }
+
+  var todayStr = new Date().toISOString().split('T')[0];
+  var todayBookings = bookings.filter(function(b) { return b.date === todayStr; });
+  var toPayUpfront = allBookings.filter(function(b) { return b.status === 'payment_required' && !b.payment_held_at; });
+  var toValidate = allBookings.filter(function(b) { return b.status === 'report_sent' && !b.payment_released_at; });
+  var disputed = allBookings.filter(function(b) { return b.status === 'disputed'; });
+  var waitingReport = allBookings.filter(function(b) { return b.status === 'confirmed' && b.payment_held_at && !b.report_sent; });
+
+  var totalPaid = 0; var totalCleaning = 0; var totalBookingsCount = allBookings.length;
+  allBookings.forEach(function(b) {
+    if (b.payment_status === 'paid' && b.payment_amount) totalCleaning += b.payment_amount;
+  });
+  var last30 = new Date(); last30.setDate(last30.getDate() - 30); var last30Str = last30.toISOString().split('T')[0];
+  var recentBookings = allBookings.filter(function(b) { return b.date >= last30Str; });
+  var occupationRate = properties.length > 0 ? Math.round((recentBookings.length / (30 * properties.length)) * 100) : 0;
+  if (occupationRate > 100) occupationRate = 100;
+
+  function loadAiInsight() {
+    var langInstruction = getLang() === 'en' ? 'Answer in English.' : 'Réponds en français.';
+    var sp = "You are a real estate financial advisor. The host has " + properties.length + " properties, " + totalBookingsCount + " bookings, " + totalCleaning + "EUR in cleaning expenses, occupation rate " + occupationRate + "%. Give 2-3 brief insights to optimize their revenue. " + langInstruction;
+    fetch(EDGE_URL + '/ai-concierge', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON }, body: JSON.stringify({ message: 'Analyze my revenue', systemPrompt: sp }) })
+    .then(function(r) { return r.json(); }).then(function(d) { setAiInsight(d.response || d.reply || ''); })
+    .catch(function() { setAiInsight(t('host_dashboard_revenu_ai_unavailable')); });
+  }
+
+  return (
+    <SafeAreaView style={s.safe} edges={['top']}>
+      <View style={s.hdr}>
+        <View><Text style={s.hdrT}>{t('host_dashboard_header')}</Text><Text style={s.hdrSub}>🏠 {t('role_host')}</Text></View>
+        {toPayUpfront.length > 0 && <View style={s.alertBadge}><Text style={s.alertBadgeT}>{t('host_dashboard_badge_to_pay', { count: toPayUpfront.length })}</Text></View>}
+      </View>
+      <ScrollView style={{ flex: 1, backgroundColor: T.bg }} contentContainerStyle={{ padding: 16 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={T.accent} />}>
+
+        {isPlanSuspended() && (
+          <View style={{backgroundColor:'#FDE8E8',borderRadius:14,padding:14,marginBottom:14,borderWidth:1.5,borderColor:'rgba(220,50,50,0.3)',flexDirection:'row',alignItems:'center',gap:10}}>
+            <Text style={{fontSize:24}}>⏱️</Text>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:14,fontWeight:'700',color:'#DC3232'}}>{t('host_dashboard_suspended_title')}</Text>
+              <Text style={{fontSize:11,color:'#8B4513',marginTop:2}}>{t('host_dashboard_suspended_msg')}</Text>
+            </View>
+          </View>
+        )}
+
+        {isTrial(userPlan) && trialDays > 0 && (
+          <View style={{backgroundColor:'#FFF4E6',borderRadius:14,padding:14,marginBottom:14,borderWidth:1.5,borderColor:'rgba(200,150,90,0.3)',flexDirection:'row',alignItems:'center',gap:10}}>
+            <Text style={{fontSize:24}}>📊</Text>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:14,fontWeight:'700',color:'#C8965A'}}>{trialDays === 1 ? t('host_dashboard_trial_active_single') : t('host_dashboard_trial_active_plural', { days: trialDays })}</Text>
+              <Text style={{fontSize:11,color:'#8B7355',marginTop:2}}>{t('host_dashboard_trial_desc')}</Text>
+            </View>
+          </View>
+        )}
+        {isTrial(userPlan) && trialDays === 0 && (
+          <View style={{backgroundColor:'#FDE8E8',borderRadius:14,padding:14,marginBottom:14,borderWidth:1.5,borderColor:'rgba(220,50,50,0.2)',flexDirection:'row',alignItems:'center',gap:10}}>
+            <Text style={{fontSize:24}}>⏰</Text>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:14,fontWeight:'700',color:'#DC3232'}}>{t('host_dashboard_trial_ended_title')}</Text>
+              <Text style={{fontSize:11,color:'#8B5555',marginTop:2}}>{t('host_dashboard_trial_ended_msg')}</Text>
+            </View>
+            <TouchableOpacity style={{backgroundColor:'#1C5F8A',borderRadius:8,paddingHorizontal:12,paddingVertical:8}} onPress={function(){props.navigation.navigate('Settings');}}><Text style={{color:'#fff',fontSize:11,fontWeight:'700'}}>{t('host_dashboard_see_plans_btn')}</Text></TouchableOpacity>
+          </View>
+        )}
+        {userPlan === 'free' && !isTrial(userPlan) && (
+          <TouchableOpacity style={{backgroundColor:'#E8F4FB',borderRadius:14,padding:14,marginBottom:14,borderWidth:1,borderColor:'rgba(28,95,138,0.2)',flexDirection:'row',alignItems:'center',gap:10}} onPress={function(){props.navigation.navigate('Settings');}}>
+            <Text style={{fontSize:18}}>💰</Text>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:13,fontWeight:'600',color:'#1C5F8A'}}>{t('host_dashboard_free_upgrade_title')}</Text>
+              <Text style={{fontSize:10,color:'#6B6B6B',marginTop:2}}>{t('host_dashboard_free_upgrade_desc')}</Text>
+            </View>
+            <Text style={{color:'#1C5F8A',fontSize:16}}>⬺</Text>
+          </TouchableOpacity>
+        )}
+        {userPlan === 'free' && properties.length > 1 && (
+          <TouchableOpacity style={{backgroundColor:'#FDE8E8',borderRadius:14,padding:14,marginBottom:14,borderWidth:1.5,borderColor:'rgba(220,50,50,0.2)',flexDirection:'row',alignItems:'center',gap:10}} onPress={function(){props.navigation.navigate('Settings');}}>
+            <Text style={{fontSize:18}}>📅</Text>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:13,fontWeight:'700',color:'#DC3232'}}>{(properties.length - 1) === 1 ? t('host_dashboard_frozen_single') : t('host_dashboard_frozen_plural', { count: properties.length - 1 })}</Text>
+              <Text style={{fontSize:10,color:'#8B5555',marginTop:2}}>{t('host_dashboard_frozen_desc')}</Text>
+            </View>
+            <Text style={{color:'#DC3232',fontSize:16}}>⬺</Text>
+          </TouchableOpacity>
+        )}
+        <OnboardingBanner role="host" session={props.session} hasProperties={properties.length > 0} onNavigate={function(screen) { try { props.navigation.navigate(screen); } catch(e) {} }} />
+
+        <View style={s.statsRow}>
+          <AnimCard style={s.stat} delay={0}><Text style={[s.statV,{color:T.blue}]}>{properties.length}</Text><Text style={s.statL}>{t('host_dashboard_stat_properties')}</Text></AnimCard>
+          <AnimCard style={s.stat} delay={60}><Text style={[s.statV,{color:'#FF9500'}]}>{totalBookingsCount}</Text><Text style={s.statL}>{t('host_dashboard_stat_bookings')}</Text></AnimCard>
+          <AnimCard style={s.stat} delay={120}><Text style={[s.statV,{color:T.success}]}>{occupationRate}%</Text><Text style={s.statL}>{t('host_dashboard_stat_occupation')}</Text></AnimCard>
+          <AnimCard style={s.stat} delay={180}><Text style={[s.statV,{color:T.error}]}>{totalCleaning}€</Text><Text style={s.statL}>{t('host_dashboard_stat_cleaning')}</Text></AnimCard>
+        </View>
+
+        <TouchableOpacity style={s.revenuBtn} onPress={function() { LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); setShowRevenu(!showRevenu); if (!showRevenu && !aiInsight) { if (canUseFeature(userPlan, 'revenueAI')) { loadAiInsight(); } else { setAiInsight(t('host_dashboard_revenu_ai_pro_only')); } } }}>
+          <Text style={s.revenuBtnT}>{showRevenu ? t('host_dashboard_revenu_close') : t('host_dashboard_revenu_open')}</Text>
+        </TouchableOpacity>
+        {showRevenu && (
+          <AnimCard style={s.revenuCard} delay={50}>
+            <View style={s.revRow}><Text style={s.revLabel}>{t('host_dashboard_revenu_cleaning_expense')}</Text><Text style={[s.revVal,{color:T.error}]}>-{totalCleaning} €</Text></View>
+            <View style={s.revRow}><Text style={s.revLabel}>{t('host_dashboard_revenu_bookings_30d')}</Text><Text style={s.revVal}>{recentBookings.length}</Text></View>
+            <View style={s.revRow}><Text style={s.revLabel}>{t('host_dashboard_revenu_occupation_rate')}</Text><Text style={s.revVal}>{occupationRate}%</Text></View>
+            {aiInsight ? (
+              <View style={s.aiBox}><Text style={s.aiTitle}>{t('host_dashboard_revenu_ai_title')}</Text><Text style={s.aiText}>{aiInsight}</Text></View>
+            ) : (
+              <TouchableOpacity style={s.aiLoadBtn} onPress={loadAiInsight}><Text style={s.aiLoadBtnT}>{t('host_dashboard_revenu_ai_btn')}</Text></TouchableOpacity>
+            )}
+          </AnimCard>
+        )}
+
+        {toPayUpfront.length > 0 && (
+          <View>
+            <Text style={s.sec}>{t('host_dashboard_payment_required_title')}</Text>
+            <Text style={s.secSub}>{t('host_dashboard_payment_required_sub')}</Text>
+            {toPayUpfront.map(function(b, i) {
+              var name = b.cleaners ? b.cleaners.company_name : t('host_dashboard_cleaner_fallback');
+              var rate = b.cleaners ? b.cleaners.price_per_cleaning : 0;
+              var h = parseHours(b.time); var amount = Math.round(rate * h * 100) / 100;
+              var prop = b.properties ? b.properties.name : '';
+              return (
+                <AnimCard key={b.id||i} style={s.payCard} delay={i*80}>
+                  <View style={s.payH}>
+                    <View style={{flex:1}}>
+                      <Text style={s.payName}>🧹 {name}</Text>
+                      <Text style={s.paySub}>🏠 {prop} · 📅 {b.date}</Text>
+                      <Text style={s.paySub}>🕐 {b.time||'?'} ({h}h)</Text>
+                    </View>
+                    <View style={{alignItems:'flex-end'}}>
+                      <Text style={s.payRate}>{rate} €/h</Text>
+                      <Text style={s.payAmount}>{amount} €</Text>
+                    </View>
+                  </View>
+                  <View style={s.checks}>
+                    <Text style={s.checkWait}>{t('host_dashboard_escrow_secure')}</Text>
+                    <Text style={s.checkWait}>{t('host_dashboard_escrow_blocked')}</Text>
+                  </View>
+                  <TouchableOpacity style={s.payBtn} onPress={function() { payBookingWithStripe(b.id, load); }}>
+                    <Text style={s.payBtnT}>{t('host_dashboard_pay_btn', { amount: amount })}</Text>
+                  </TouchableOpacity>
+                </AnimCard>
+              );
+            })}
+          </View>
+        )}
+
+        {toValidate.length > 0 && (
+          <View style={s.secWrap}>
+            <Text style={s.sec}>{t('host_dashboard_to_validate_title')}</Text>
+            <Text style={s.secSub}>{t('host_dashboard_to_validate_sub')}</Text>
+            {toValidate.map(function(b, i) {
+              var name = b.cleaners ? b.cleaners.company_name : t('host_dashboard_cleaner_fallback');
+              var rate = b.cleaners ? b.cleaners.price_per_cleaning : 0;
+              var h = parseHours(b.time); var amount = Math.round(rate * h * 100) / 100;
+              var prop = b.properties ? b.properties.name : '';
+              return (
+                <AnimCard key={b.id||i} style={s.payCard} delay={i*80}>
+                  <View style={s.payH}>
+                    <View style={{flex:1}}>
+                      <Text style={s.payName}>🧹 {name}</Text>
+                      <Text style={s.paySub}>🏠 {prop} · 📅 {b.date}</Text>
+                    </View>
+                    <View style={{alignItems:'flex-end'}}>
+                      <Text style={s.payAmount}>{amount} €</Text>
+                      <Text style={{fontSize:10,color:T.muted}}>{t('host_dashboard_escrow_amount')}</Text>
+                    </View>
+                  </View>
+                  <View style={s.checks}>
+                    <Text style={s.checkOk}>{t('host_dashboard_report_received')}</Text>
+                    <Text style={s.checkWait}>{t('host_dashboard_auto_validate_48h')}</Text>
+                  </View>
+                  <View style={{flexDirection:'row',gap:8}}>
+                    <TouchableOpacity style={[s.payBtn,{flex:1,backgroundColor:T.success}]} onPress={function() {
+                      Alert.alert(t('host_dashboard_validate_alert_title'),t('host_dashboard_validate_alert_msg', { amount: amount }), [
+                        { text: t('host_dashboard_btn_cancel'), style: 'cancel' },
+                        { text: t('host_dashboard_btn_confirm_validate'), onPress: function() {
+                          supabase.from('cleaning_bookings').update({ status: 'validated', payment_released_at: new Date().toISOString() }).eq('id', b.id).then(function() {
+                            setRatingBooking(b);
+                            setShowRating(true);
+                            load();
+                          });
+                        }}
+                      ]);
+                    }}>
+                      <Text style={s.payBtnT}>{t('host_dashboard_btn_validate')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[s.payBtn,{flex:1,backgroundColor:T.error}]} onPress={function() {
+                      Alert.prompt ? Alert.prompt(t('host_dashboard_dispute_alert_title'),t('host_dashboard_dispute_alert_msg'), function(reason) {
+                        if (reason) {
+                          supabase.from('cleaning_bookings').update({ status: 'disputed', dispute_reason: reason, dispute_created_at: new Date().toISOString() }).eq('id', b.id).then(function() {
+                            fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'Litige #'+b.id+' — '+prop,body:'Hôte: '+props.session.user.email+'\nMénagère: '+name+'\nMontant: '+amount+' €\n\nMotif: '+reason})}).catch(function(){});
+                            Alert.alert(t('host_dashboard_dispute_created_title'),t('host_dashboard_dispute_created_msg')); load();
+                          });
+                        }
+                      }) : Alert.alert(t('host_dashboard_dispute_no_prompt_title'),t('host_dashboard_dispute_no_prompt_msg'));
+                    }}>
+                      <Text style={s.payBtnT}>{t('host_dashboard_btn_dispute')}</Text>
+                    </TouchableOpacity>
+                  </View>
+                </AnimCard>
+              );
+            })}
+          </View>
+        )}
+
+        {waitingReport.length > 0 && (
+          <View>
+            <Text style={s.sec}>{t('host_dashboard_waiting_report_title')}</Text>
+            {waitingReport.map(function(b, i) {
+              var name = b.cleaners ? b.cleaners.company_name : ''; var prop = b.properties ? b.properties.name : '';
+              return <AnimCard key={b.id||i} style={s.waitCard} delay={i*50}><Text style={s.waitName}>🧹 {name} · 🏠 {prop}</Text><Text style={s.waitSub}>📅 {b.date} · {t('host_dashboard_waiting_report_status')}</Text></AnimCard>;
+            })}
+          </View>
+        )}
+
+        {bookings.length > 0 && (
+          <View>
+            <Text style={s.sec}>{t('host_dashboard_upcoming_title')}</Text>
+            {bookings.filter(function(b){return b.date >= todayStr && b.payment_status !== 'paid';}).slice(0,8).map(function(b,i) {
+              var name = b.cleaners ? b.cleaners.company_name : ''; var prop = b.properties ? b.properties.name : '';
+              var validated = b.cleaner_validated;
+              return <AnimCard key={b.id||i} style={[s.bookCard,{borderLeftColor: validated ? T.success : '#FF9500'}]} delay={i*50}>
+                <View style={{flexDirection:'row',justifyContent:'space-between'}}><View style={{flex:1}}><Text style={s.bookName}>{prop}</Text><Text style={s.bookSub}>🧹 {name} · 📅 {b.date}</Text></View>
+                <Text style={[s.bookBadge,{color: validated ? T.success : '#FF9500'}]}>{validated ? t('host_dashboard_validated') : t('host_dashboard_to_validate_badge')}</Text></View>
+              </AnimCard>;
+            })}
+          </View>
+        )}
+
+        {allBookings.length === 0 && <AnimCard style={s.empty} delay={100}><Text style={{fontSize:40,marginBottom:12}}>🏠</Text><Text style={s.emptyT}>{t('host_dashboard_welcome_title')}</Text><Text style={s.emptyS}>{t('host_dashboard_welcome_msg')}</Text></AnimCard>}
+        <View style={{ height: 30 }} />
+      </ScrollView>
+      <RatingModal visible={showRating} title={t('host_dashboard_rating_title')} subtitle={ratingBooking ? (ratingBooking.cleaners ? ratingBooking.cleaners.company_name : t('host_dashboard_rating_fallback_name')) : ''} onClose={function(){setShowRating(false);setRatingBooking(null);}} onSubmit={function(rating, comment) {
+        if (ratingBooking && ratingBooking.cleaner_id) {
+          supabase.from('reviews').insert({ reviewer_id: props.session.user.id, reviewed_id: ratingBooking.cleaner_id, reviewed_type: 'cleaner', booking_id: ratingBooking.id, rating: rating, comment: comment }).then(function(r) {
+            if (r.error) Alert.alert(t('common_error'), r.error.message);
+            else Alert.alert(t('host_dashboard_rating_success_title'), t('host_dashboard_rating_success_msg'));
+          });
+        }
+        setShowRating(false); setRatingBooking(null);
+      }} />
+    </SafeAreaView>
+  );
+}
+
+var s = StyleSheet.create({
+  safe:{flex:1,backgroundColor:T.dark},hdr:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:18,paddingVertical:14,backgroundColor:T.dark},
+  hdrT:{fontSize:18,fontWeight:'600',color:'#fff'},hdrSub:{fontSize:11,color:'rgba(255,255,255,0.5)',marginTop:2},
+  alertBadge:{backgroundColor:'rgba(200,150,90,0.2)',paddingHorizontal:10,paddingVertical:4,borderRadius:12},alertBadgeT:{fontSize:11,fontWeight:'700',color:T.accent},
+  statsRow:{flexDirection:'row',gap:8,marginBottom:14},stat:{flex:1,backgroundColor:T.card,borderRadius:14,padding:12,alignItems:'center',borderWidth:1,borderColor:T.border},
+  statV:{fontSize:18,fontWeight:'700',marginBottom:2},statL:{fontSize:6,fontWeight:'700',color:T.muted,letterSpacing:0.5,textAlign:'center'},
+  revenuBtn:{backgroundColor:T.card,borderRadius:14,padding:14,alignItems:'center',borderWidth:1.5,borderColor:T.accent,marginBottom:14},revenuBtnT:{fontSize:14,fontWeight:'600',color:T.accent},
+  revenuCard:{backgroundColor:T.card,borderRadius:14,padding:16,marginBottom:14,borderWidth:1,borderColor:T.border},
+  revRow:{flexDirection:'row',justifyContent:'space-between',paddingVertical:8,borderBottomWidth:1,borderBottomColor:T.border},revLabel:{fontSize:13,color:T.sub},revVal:{fontSize:14,fontWeight:'600',color:T.text},
+  aiBox:{marginTop:12,padding:12,backgroundColor:'#E8F4FB',borderRadius:10},aiTitle:{fontSize:12,fontWeight:'700',color:T.blue,marginBottom:6},aiText:{fontSize:12,color:T.sub,lineHeight:18},
+  aiLoadBtn:{marginTop:12,padding:12,backgroundColor:T.bg,borderRadius:10,alignItems:'center',borderWidth:1,borderColor:T.border},aiLoadBtnT:{fontSize:12,fontWeight:'600',color:T.blue},
+  sec:{fontSize:15,fontWeight:'600',color:T.text,marginTop:14,marginBottom:4},secSub:{fontSize:11,color:T.muted,marginBottom:10},
+  payCard:{backgroundColor:T.card,borderRadius:14,padding:14,marginBottom:10,borderWidth:1,borderColor:T.accent,borderLeftWidth:4,borderLeftColor:T.accent},
+  payH:{flexDirection:'row',alignItems:'flex-start',marginBottom:10},payName:{fontSize:15,fontWeight:'600',color:T.text},paySub:{fontSize:12,color:T.muted,marginTop:2},
+  payRate:{fontSize:11,color:T.muted},payAmount:{fontSize:20,fontWeight:'700',color:T.accent},
+  checks:{marginBottom:10},checkOk:{fontSize:12,color:T.success,marginBottom:3},checkWait:{fontSize:12,color:'#FF9500',marginBottom:3},
+  payBtn:{backgroundColor:T.accent,borderRadius:12,paddingVertical:14,alignItems:'center'},payBtnT:{color:'#fff',fontSize:14,fontWeight:'700'},
+  waitCard:{backgroundColor:T.card,borderRadius:14,padding:14,marginBottom:8,borderWidth:1,borderColor:T.border,borderLeftWidth:4,borderLeftColor:T.muted},
+  waitName:{fontSize:13,fontWeight:'600',color:T.text},waitSub:{fontSize:11,color:T.muted,marginTop:3},
+  bookCard:{backgroundColor:T.card,borderRadius:14,padding:14,marginBottom:8,borderWidth:1,borderColor:T.border,borderLeftWidth:4},
+  bookName:{fontSize:14,fontWeight:'600',color:T.text},bookSub:{fontSize:12,color:T.muted,marginTop:2},bookBadge:{fontSize:10,fontWeight:'700'},
+  empty:{backgroundColor:T.card,borderRadius:16,padding:30,alignItems:'center',borderWidth:1,borderColor:T.border,marginTop:20},
+  emptyT:{fontSize:16,fontWeight:'600',color:T.text,marginBottom:6},emptyS:{fontSize:13,color:T.muted,textAlign:'center'},
+});

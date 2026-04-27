@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { supabase } from '../config/supabase';
+import T from '../theme';
+
+
+var CGU_VERSION = '2.0';
+var CGU_TEXT = 'CONDITIONS GÉNÉRALES D\'UTILISATION — MyHostKit\nVersion ' + CGU_VERSION + ' — Avril 2026\n\n' +
+'1. OBJET\nLes présentes Conditions Générales d\'Utilisation (ci-après « CGU ») régissent l\'accès et l\'utilisation de l\'application mobile MyHostKit (ci-après « l\'Application »), éditée par MyHostKit SAS, 60 rue François 1er, 75008 Paris, SIRET 10032406000019, RCS Paris (ci-après « l\'Éditeur »).\n\n' +
+'2. ACCEPTATION\nL\'utilisation de l\'Application implique l\'acceptation pleine et entière des présentes CGU. L\'Utilisateur reconnaît avoir pris connaissance des présentes CGU et les accepter expressément. Cette acceptation est horodatée et conservée comme preuve par l\'Éditeur conformément à l\'article 1366 du Code civil et au Règlement eIDAS.\n\n' +
+'3. INSCRIPTION ET COMPTES\nL\'inscription est ouverte aux personnes physiques majeures et aux personnes morales. L\'Utilisateur garantit l\'exactitude des informations fournies. Trois types de comptes existent : Hôte/Conciergerie, Service Ménage, et Voyageur. Chaque Utilisateur est responsable de la confidentialité de ses identifiants.\n\n' +
+'4. SERVICES PROPOSÉS\nL\'Application propose : la mise en relation entre hôtes et prestataires de ménage, un assistant IA pour la gestion des logements, un système de gestion des stocks, un système de messagerie, et un accès voyageur via code d\'accès. Les services peuvent évoluer sans préavis.\n\n' +
+'5. DONNÉES PERSONNELLES ET RGPD\nConformément au Règlement Général sur la Protection des Données (UE 2016/679) et à la loi Informatique et Libertés du 6 janvier 1978 modifiée :\n- Responsable de traitement : MyHostKit SAS\n- Données collectées : nom, email, téléphone, adresse, données de localisation, données d\'utilisation\n- Finalités : exécution du contrat, mise en relation, amélioration des services, communication\n- Base légale : exécution contractuelle (Art. 6.1.b RGPD), consentement (Art. 6.1.a RGPD)\n- Durée de conservation : 3 ans après la dernière utilisation\n- Hébergement : Supabase (serveurs UE), OVHcloud (France)\n- Droits : accès, rectification, effacement, portabilité, opposition — contact@myhostkit.com\n- DPO : contact@myhostkit.com\n- Réclamation : CNIL, 3 place de Fontenoy, 75007 Paris\n\n' +
+'6. COOKIES ET TRACEURS\nL\'Application utilise des cookies techniques nécessaires au fonctionnement (session, authentification). Des cookies analytiques anonymisés peuvent être utilisés pour améliorer les services. Aucun cookie publicitaire n\'est utilisé sans consentement explicite de l\'Utilisateur, conformément à la directive ePrivacy et aux recommandations de la CNIL.\n\n' +
+'7. RESPONSABILITÉS\nL\'Éditeur s\'efforce d\'assurer la disponibilité de l\'Application 24h/24, 7j/7, sans garantie de continuité. L\'Éditeur ne saurait être tenu responsable des dommages directs ou indirects résultant de l\'utilisation ou de l\'impossibilité d\'utilisation de l\'Application. L\'Utilisateur est seul responsable du contenu qu\'il publie.\n\n' +
+'8. PROPRIÉTÉ INTELLECTUELLE\nL\'ensemble des éléments de l\'Application (textes, images, logos, code source, marques) sont la propriété exclusive de MyHostKit SAS et protégés par le Code de la propriété intellectuelle. Toute reproduction non autorisée constitue une contrefaçon (Art. L335-2 CPI).\n\n' +
+'9. MISE EN RELATION MÉNAGE\nL\'Application facilite la mise en relation entre hôtes et prestataires de ménage. MyHostKit n\'est pas employeur des prestataires et n\'est pas responsable de la qualité des prestations. Les prestataires exercent en tant que professionnels indépendants.\n\n' +
+'10. MESSAGERIE\nLes messages échangés via l\'Application sont conservés pour assurer la traçabilité et la résolution des litiges. Les Utilisateurs s\'engagent à ne pas utiliser la messagerie à des fins illicites, diffamatoires ou contraires à l\'ordre public.\n\n' +
+'11. RÉSILIATION\nL\'Utilisateur peut supprimer son compte à tout moment via l\'Application ou par email à myhostkit.contact@gmail.com. L\'Éditeur peut suspendre ou supprimer un compte en cas de violation des présentes CGU, après mise en demeure restée sans effet sous 15 jours.\n\n' +
+'12. TARIFICATION ET PLANS D\'ABONNEMENT\nL\'Application propose différents plans d\'abonnement avec facturation mensuelle :\n\nPlans Hôte :\n- Gratuit : 1 logement, commission 15% sur les prestations\n- Starter : 49 EUR/mois — 3 logements, stock, iCal, commission 10%\n- Pro : 89 EUR/mois — logements illimités, IA concierge, commission 5%\n\nPlans Ménagère :\n- Gratuit : 3 logements clients, visibilité standard\n- Pro : 19 EUR/mois — logements illimités, visibilité boostée, réduction commission -2%\n- Business : 39 EUR/mois — logements illimités, badge vérifié, priorité max, gestion d\'équipe, réduction commission -5%\n\nLa commission est un pourcentage prélevé sur le montant HT de chaque prestation de ménage, calculé selon le plan de l\'hôte au moment de la prestation. Elle est affichée sur la facture transmise au prestataire et à l\'hôte. Les tarifs peuvent être modifiés avec notification 30 jours avant tout changement.\n\n' +
+'13. PÉRIODE D\'ESSAI GRATUITE\nTout nouvel Utilisateur bénéficie d\'une période d\'essai gratuite de 30 jours donnant accès à l\'ensemble des fonctionnalités. Aucun moyen de paiement n\'est requis. Aucun prélèvement automatique ne sera effectué sans consentement explicite. À l\'expiration, le compte est converti en plan Gratuit. L\'Utilisateur est notifié par email 7 jours, 1 jour et le jour même de l\'expiration.\n\n' +
+'14. GEL DES LOGEMENTS\nLorsqu\'un Utilisateur dépasse la limite de logements de son plan, les logements excédentaires sont gelés : ils restent enregistrés mais inaccessibles. Les codes d\'accès voyageur sont désactivés. Aucune donnée n\'est supprimée. Les logements sont réactivés lors du passage à un plan supérieur.\n\n' +
+'15. PAIEMENT DES PRESTATIONS\nLe paiement s\'effectue via Stripe. Les fonds sont en séquestre jusqu\'à validation du rapport par l\'hôte ou auto-validation après 48h. En cas de litige, les fonds sont conservés. MyHostKit agit en tant qu\'intermédiaire, non employeur.\n\n' +
+'16. FACTURATION\nUne facture conforme aux obligations légales françaises (art. 289 CGI) est générée automatiquement. Mentions obligatoires : identité des parties, description, montant HT, commission, net à payer, TVA (art. 293 B CGI si applicable), pénalités de retard et indemnité de recouvrement 40 EUR (art. L.441-10 Code de commerce). Conservation 10 ans (art. L123-22 Code de commerce).\n\n' +
+'17. MÉDIATION\nEn cas de litige, l\'Utilisateur peut recourir au médiateur de la consommation (plateforme ODR : https://ec.europa.eu/consumers/odr/). Droit applicable : droit français. Juridiction : Tribunal de Commerce de Paris.\n\n' +
+'18. MODIFICATION DES CGU\nL\'Éditeur peut modifier les CGU. Les Utilisateurs seront informés par notification. La poursuite vaut acceptation.\n\n' +
+'19. CONTACT\nMyHostKit SAS — 60 rue François 1er, 75008 Paris\nEmail : myhostkit.contact@gmail.com — Tél : 06 99 34 89 51\nSIRET : 10032406000019 — RCS Paris';
+
+export default function CGUScreen(props) {
+  var _accepted = useState(false); var accepted = _accepted[0]; var setAccepted = _accepted[1];
+  var _scrolledToBottom = useState(false); var scrolledToBottom = _scrolledToBottom[0]; var setScrolledToBottom = _scrolledToBottom[1];
+  var _loading = useState(false); var loading = _loading[0]; var setLoading = _loading[1];
+
+  function handleScroll(event) {
+    var y = event.nativeEvent.contentOffset.y;
+    var h = event.nativeEvent.contentSize.height;
+    var vh = event.nativeEvent.layoutMeasurement.height;
+    if (y + vh >= h - 50) setScrolledToBottom(true);
+  }
+
+  function accept() {
+    if (!accepted) { Alert.alert('Erreur', 'Vous devez cocher la case pour accepter les CGU.'); return; }
+    setLoading(true);
+    // Stocker la preuve d'acceptation dans Supabase
+    supabase.from('cgu_acceptances').insert({
+      user_id: props.session.user.id,
+      user_email: props.session.user.email || '',
+      user_role: props.role || 'unknown',
+      cgu_version: CGU_VERSION,
+      device_info: Platform.OS + ' ' + Platform.Version,
+      consent_text: 'J\'ai lu et j\'accepte les Conditions Générales d\'Utilisation de MyHostKit (version ' + CGU_VERSION + ').',
+    }).then(function(r) {
+      setLoading(false);
+      if (r.error) { Alert.alert('Erreur', r.error.message); return; }
+      if (props.onAccept) props.onAccept();
+    });
+  }
+
+  return (
+    <SafeAreaView style={s.safe} edges={['top']}>
+      <View style={s.hdr}><Text style={s.hdrT}>Conditions d'utilisation</Text></View>
+      <View style={s.notice}><Text style={{ fontSize: 14 }}>📜</Text><Text style={s.noticeT}>Veuillez lire et accepter les CGU pour continuer</Text></View>
+
+      <ScrollView style={s.cguScroll} onScroll={handleScroll} scrollEventThrottle={100}>
+        <Text style={s.cguText}>{CGU_TEXT}</Text>
+        <View style={{ height: 30 }} />
+      </ScrollView>
+
+      <View style={s.footer}>
+        {!scrolledToBottom && <Text style={s.scrollHint}>↓ Scrollez pour lire la suite</Text>}
+        <TouchableOpacity style={s.checkRow} onPress={function() { setAccepted(!accepted); }} activeOpacity={0.7}>
+          <View style={[s.checkbox, accepted && s.checkboxChecked]}>{accepted && <Text style={s.checkmark}>✓</Text>}</View>
+          <Text style={s.checkText}>J'ai lu et j'accepte les Conditions Générales d'Utilisation de MyHostKit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[s.acceptBtn, (!accepted || !scrolledToBottom) && { opacity: 0.4 }]} onPress={accept} disabled={!accepted || !scrolledToBottom || loading}>
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={s.acceptBtnT}>Accepter et continuer</Text>}
+        </TouchableOpacity>
+        <Text style={s.legal}>Votre acceptation sera horodatée et conservée conformément à l'article 1366 du Code civil.</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+var s = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: T.bg },
+  hdr: { paddingHorizontal: 18, paddingVertical: 14, backgroundColor: T.dark }, hdrT: { fontSize: 18, fontWeight: '600', color: '#fff' },
+  notice: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingVertical: 10, backgroundColor: T.accentLight || '#FDF6EE', borderBottomWidth: 1, borderBottomColor: T.border },
+  noticeT: { fontSize: 13, color: T.sub, fontWeight: '500' },
+  cguScroll: { flex: 1, paddingHorizontal: 16, paddingTop: 10 },
+  cguText: { fontSize: 13, lineHeight: 22, color: T.text, fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
+  scrollHint: { fontSize: 12, color: T.accent, textAlign: 'center', marginBottom: 8, fontWeight: '600' },
+  footer: { paddingHorizontal: 16, paddingVertical: 14, backgroundColor: T.card, borderTopWidth: 1, borderTopColor: T.border },
+  checkRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 14 },
+  checkbox: { width: 24, height: 24, borderRadius: 6, borderWidth: 2, borderColor: T.border, alignItems: 'center', justifyContent: 'center', marginTop: 2 },
+  checkboxChecked: { backgroundColor: '#1C5F8A', borderColor: '#1C5F8A' },
+  checkmark: { color: '#fff', fontSize: 14, fontWeight: '700' },
+  checkText: { fontSize: 13, color: T.text, flex: 1, lineHeight: 20 },
+  acceptBtn: { backgroundColor: '#1C5F8A', borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
+  acceptBtnT: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  legal: { fontSize: 10, color: T.muted, textAlign: 'center', marginTop: 10, lineHeight: 16 },
+});

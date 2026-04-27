@@ -1,0 +1,27 @@
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text } from 'react-native';
+import GuestHome from '../screens/guest/GuestHome';
+import GuestInfo from '../screens/guest/GuestInfo';
+import GuestChat from '../screens/guest/GuestChat';
+import { t, useLang } from '../i18n';
+
+var T = { dark: '#141414', dark2: '#1E1E1E', accent: '#C8965A', muted: '#9B9B9B' };
+var Tab = createBottomTabNavigator();
+
+export default function GuestTabs(props) {
+  useLang();
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: T.dark, borderTopColor: T.dark2, height: 85, paddingBottom: 25, paddingTop: 8 }, tabBarActiveTintColor: T.accent, tabBarInactiveTintColor: T.muted, tabBarLabelStyle: { fontSize: 9, fontWeight: '600' } }}>
+      <Tab.Screen name="GHome" options={{ tabBarLabel: t('tab_home'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>🏠</Text>; } }}>
+        {function(p) { return <GuestHome {...p} session={props.session} onLogout={props.onLogout} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="GInfo" options={{ tabBarLabel: t('tab_guest_info'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>📋</Text>; } }}>
+        {function(p) { return <GuestInfo {...p} session={props.session} />; }}
+      </Tab.Screen>
+      <Tab.Screen name="GChat" options={{ tabBarLabel: t('tab_guest_concierge'), tabBarIcon: function(o) { return <Text style={{ fontSize: 18, opacity: o.focused ? 1 : 0.4 }}>🤖</Text>; } }}>
+        {function(p) { return <GuestChat {...p} session={props.session} />; }}
+      </Tab.Screen>
+    </Tab.Navigator>
+  );
+}

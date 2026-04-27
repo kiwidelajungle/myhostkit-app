@@ -1,0 +1,107 @@
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { supabase } from '../config/supabase';
+import HostDashboard from '../screens/host/HostDashboard';
+import HostProperties from '../screens/host/HostProperties';
+import HostFindCleaner from '../screens/host/HostFindCleaner';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import HostSettings from '../screens/host/HostSettings';
+import MoreToolsScreen from '../screens/MoreToolsScreen';
+import { t, useLang } from '../i18n';
+
+var T = {
+  navy: '#0a1628',
+  navyLight: '#142238',
+  gold: '#C8965A',
+  goldSoft: '#d4a96b',
+  muted: '#8a9099',
+};
+
+var Tab = createBottomTabNavigator();
+
+export default function HostTabs(props) {
+  useLang();
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: T.navy,
+          borderTopColor: T.navyLight,
+          borderTopWidth: 1,
+          height: 88,
+          paddingBottom: 28,
+          paddingTop: 10,
+        },
+        tabBarActiveTintColor: T.gold,
+        tabBarInactiveTintColor: T.muted,
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: '600',
+          marginTop: 2,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        options={{
+          tabBarLabel: 'Accueil',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'home' : 'home-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <HostDashboard {...p} session={props.session} />; }}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="Properties"
+        options={{
+          tabBarLabel: 'Logements',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'business' : 'business-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <HostProperties {...p} session={props.session} />; }}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="Cleaning"
+        options={{
+          tabBarLabel: 'Menage',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'sparkles' : 'sparkles-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <HostFindCleaner {...p} session={props.session} supabase={supabase} />; }}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="Notifs"
+        options={{
+          tabBarLabel: 'Notifs',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'notifications' : 'notifications-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <NotificationsScreen {...p} session={props.session} role="host" onNavigate={function(screen){p.navigation.navigate(screen);}} />; }}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="More"
+        options={{
+          tabBarLabel: 'Plus',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'apps' : 'apps-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <MoreToolsScreen {...p} session={props.session} />; }}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="Profile"
+        options={{
+          tabBarLabel: 'Profil',
+          tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'person' : 'person-outline'} size={22} color={o.color} />; },
+        }}
+      >
+        {function(p) { return <HostSettings {...p} session={props.session} onLogout={props.onLogout} />; }}
+      </Tab.Screen>
+    </Tab.Navigator>
+  );
+}
