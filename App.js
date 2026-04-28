@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
@@ -13,6 +13,7 @@ import HostTabs from './src/navigation/HostTabs';
 import GuestTabs from './src/navigation/GuestTabs';
 import CleanerTabs from './src/navigation/CleanerTabs';
 import AdminTabs from './src/navigation/AdminTabs';
+import CompleteProfileScreen from './src/screens/CompleteProfileScreen';
 import { isAdmin } from './src/utils/subscription';
 import { supabase } from './src/config/supabase';
 import { checkInactivity } from './src/utils/accountManager';
@@ -51,6 +52,7 @@ var Stack = createNativeStackNavigator();
 export default Sentry.wrap(function App() {
   var _session = useState(null); var session = _session[0]; var setSession = _session[1];
   var _role = useState(null); var role = _role[0]; var setRole = _role[1];
+  var _profileComplete = useState(null); var profileComplete = _profileComplete[0]; var setProfileComplete = _profileComplete[1];
   var _showOnboarding = useState(null); var showOnboarding = _showOnboarding[0]; var setShowOnboarding = _showOnboarding[1];
   var _showRoleTuto = useState(false); var showRoleTuto = _showRoleTuto[0]; var setShowRoleTuto = _showRoleTuto[1];
   var _showSplash = useState(true); var showSplash = _showSplash[0]; var setShowSplash = _showSplash[1];
@@ -68,7 +70,7 @@ export default Sentry.wrap(function App() {
       if (r.data.session) {
         setSession(r.data.session);
         // Charger le rôle depuis la base
-        supabase.from('profiles').select('role').eq('id', r.data.session.user.id).single().then(function(pr) {
+        supabase.from('profiles').select('role,profile_complete').eq('id', r.data.session.user.id).single().then(function(pr) {
           if (pr.data && pr.data.role) {
             setRole(pr.data.role);
             // Vérifier tuto du rôle
@@ -87,8 +89,8 @@ export default Sentry.wrap(function App() {
       setSession(s);
       if (!s) { setRole(null); setCguAccepted(false); }
       else if (s.user && !role) {
-        supabase.from('profiles').select('role').eq('id', s.user.id).single().then(function(pr) {
-          if (pr.data && pr.data.role) setRole(pr.data.role);
+        supabase.from('profiles').select('role,profile_complete').eq('id', s.user.id).single().then(function(pr) {
+          if (pr.data && pr.data.role) { setRole(pr.data.role); setProfileComplete(pr.data.profile_complete === true || pr.data.role === 'guest' || pr.data.role === 'admin'); }
         });
       }
     });
@@ -150,6 +152,9 @@ export default Sentry.wrap(function App() {
   if (checkingCgu) return null;
 
   // Tuto du rôle — première connexion dans ce rôle
+  if (session && role && role !== 'guest' && role !== 'admin' && profileComplete === false) {
+    return <CompleteProfileScreen role={role} session={session} onComplete={function(){setProfileComplete(true);}} />;
+  }
   if (showRoleTuto && role && role !== 'admin') {
     return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="dark" /><OnboardingScreen role={role} referralCode={'MHK-' + (session.user.id || '').substring(0,6).toUpperCase()} onDone={function() { AsyncStorage.setItem('tuto_' + role + '_done', 'true'); setShowRoleTuto(false); }} /></SafeAreaProvider></StripeProvider>;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../config/supabase';
@@ -96,7 +96,7 @@ export default function HostTabs(props) {
       <Tab.Screen
         name="Profile"
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: t('common_profile'),
           tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'person' : 'person-outline'} size={22} color={o.color} />; },
         }}
       >

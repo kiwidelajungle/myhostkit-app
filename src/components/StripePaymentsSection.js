@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+﻿import React, { useState, useEffect, useCallback } from 'react';
+import { t, useLang } from '../i18n';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Linking } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { supabase } from '../config/supabase';
@@ -6,6 +7,7 @@ import { startStripeConnectOnboarding, getCleanerStripeStatus, getStripeDashboar
 
 // Section Paiements Stripe Connect Express - a inserer dans CleanerSettings
 export default function StripePaymentsSection(props) {
+  useLang();
   var _status = useState(null); var status = _status[0]; var setStatus = _status[1];
   var _loading = useState(true); var loading = _loading[0]; var setLoading = _loading[1];
   var _opening = useState(false); var opening = _opening[0]; var setOpening = _opening[1];
@@ -40,7 +42,7 @@ export default function StripePaymentsSection(props) {
       setOpening(false);
     }).catch(function(err) {
       setOpening(false);
-      Alert.alert('Erreur', err.message || 'Impossible d ouvrir le dashboard Stripe');
+      Alert.alert(t('common_error'), err.message || t('stripe_err_dashboard'));
     });
   }
 
@@ -52,7 +54,7 @@ export default function StripePaymentsSection(props) {
       setTimeout(refresh, 1500);
     }).catch(function(err) {
       setOpening(false);
-      Alert.alert('Erreur', err.message || 'Impossible de lancer la configuration Stripe');
+      Alert.alert(t('common_error'), err.message || t('stripe_err_setup'));
     });
   }
 
@@ -131,7 +133,7 @@ export default function StripePaymentsSection(props) {
             {opening ? <ActivityIndicator color="#141414" /> : <Text style={s.btnT}>Voir mes revenus</Text>}
           </TouchableOpacity>
           <TouchableOpacity style={s.btnSecondary} onPress={handleOpenOnboarding} disabled={opening}>
-            <Text style={s.btnSecondaryT}>{opening ? 'Ouverture...' : 'Modifier mes informations'}</Text>
+            <Text style={s.btnSecondaryT}>{opening ? t('stripe_opening') : t('stripe_edit_info')}</Text>
           </TouchableOpacity>
         </View>
       )}

@@ -1,11 +1,13 @@
-// [12] BLOQUANT: Onboarding — Checklist d'activation pour nouveaux utilisateurs
+﻿// [12] BLOQUANT: Onboarding — Checklist d'activation pour nouveaux utilisateurs
 import React, { useState, useEffect } from 'react';
+import { t, useLang } from '../i18n';
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var T = { accent: '#C8965A', blue: '#1C5F8A', card: '#FFFFFF', text: '#141414', muted: '#9B9B9B', border: 'rgba(0,0,0,0.06)', success: '#34C759', bg: '#FAFAF8' };
 
 export default function OnboardingBanner({ role, session, hasProperties, hasBookings, hasInventory, hasCleanerProfile, hasAvailability, onNavigate }) {
+  useLang();
   var _dismissed = useState(false); var dismissed = _dismissed[0]; var setDismissed = _dismissed[1];
   var _loaded = useState(false); var loaded = _loaded[0]; var setLoaded = _loaded[1];
 
@@ -26,16 +28,16 @@ export default function OnboardingBanner({ role, session, hasProperties, hasBook
   var steps = [];
   if (role === 'host') {
     steps = [
-      { done: true, label: '✅ Compte créé', action: null },
-      { done: hasProperties, label: hasProperties ? '✅ Logement ajouté' : '🏠 Ajouter votre 1er logement', action: 'Properties' },
-      { done: !!hasBookings, label: hasBookings ? 'Menagere reservee' : 'Reserver une menagere', action: 'FindCleaner' },
-      { done: !!hasInventory, label: hasInventory ? 'Stock configure' : 'Configurer le stock', action: 'Inventory' },
+      { done: true, label: t('onb_banner_account_created'), action: null },
+      { done: hasProperties, label: hasProperties ? 'OK ' + t('onb_banner_property_done') : t('onb_banner_property_todo'), action: 'Properties' },
+      { done: !!hasBookings, label: hasBookings ? t('onb_banner_booking_done') : t('onb_banner_booking_todo'), action: 'FindCleaner' },
+      { done: !!hasInventory, label: hasInventory ? t('onb_banner_stock_done') : t('onb_banner_stock_todo'), action: 'Inventory' },
     ];
   } else if (role === 'cleaner') {
     steps = [
-      { done: true, label: '✅ Compte créé', action: null },
-      { done: hasCleanerProfile, label: hasCleanerProfile ? '✅ Profil complété' : '👤 Compléter votre profil + IBAN', action: 'CSettings' },
-      { done: !!hasAvailability, label: hasAvailability ? 'Disponibilites ajoutees' : 'Ajouter vos disponibilites', action: 'CCal' },
+      { done: true, label: t('onb_banner_account_created'), action: null },
+      { done: hasCleanerProfile, label: hasCleanerProfile ? 'OK ' + t('onb_banner_profile_done') : t('onb_banner_profile_todo'), action: 'CSettings' },
+      { done: !!hasAvailability, label: hasAvailability ? t('onb_banner_avail_done') : t('onb_banner_avail_todo'), action: 'CCal' },
     ];
   }
 
@@ -47,7 +49,7 @@ export default function OnboardingBanner({ role, session, hasProperties, hasBook
   return (
     <View style={s.card}>
       <View style={s.header}>
-        <Text style={s.title}>👋 Bienvenue sur MyHostKit !</Text>
+        <Text style={s.title}>{t('onb_banner_welcome')}</Text>
         <TouchableOpacity onPress={dismiss}><Text style={s.closeT}>✕</Text></TouchableOpacity>
       </View>
       <Text style={s.subtitle}>Complétez ces étapes pour démarrer</Text>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../config/supabase';
@@ -211,7 +211,7 @@ export default function LoginScreen(props) {
               <View style={s.passWrap}>
                 <TextInput style={s.passInput} placeholder={t('login_password_placeholder')} placeholderTextColor={T.muted} value={pass} onChangeText={setPass} secureTextEntry={!showPass} />
                 <TouchableOpacity style={s.eyeBtn} onPress={function(){setShowPass(!showPass);}}>
-                  <Text style={s.eyeT}>{showPass ? 'x"' : 'x️'}</Text>
+                  <Text style={s.eyeT}>{showPass ? 'Cacher' : 'Voir'}</Text>
                 </TouchableOpacity>
               </View>
 
@@ -219,7 +219,7 @@ export default function LoginScreen(props) {
                 <View style={s.passWrap}>
                   <TextInput style={s.passInput} placeholder={t('login_confirm_password_placeholder')} placeholderTextColor={T.muted} value={pass2} onChangeText={setPass2} secureTextEntry={!showPass2} />
                   <TouchableOpacity style={s.eyeBtn} onPress={function(){setShowPass2(!showPass2);}}>
-                    <Text style={s.eyeT}>{showPass2 ? 'x"' : 'x️'}</Text>
+                    <Text style={s.eyeT}>{showPass2 ? 'Cacher' : 'Voir'}</Text>
                   </TouchableOpacity>
                 </View>
               )}

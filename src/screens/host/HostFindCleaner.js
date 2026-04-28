@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+﻿import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, ActivityIndicator, Linking, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -24,7 +24,7 @@ export default function HostFindCleaner(props) {
   var _favCleaners = useState([]); var favCleaners = _favCleaners[0]; var setFavCleaners = _favCleaners[1];
 
   useFocusEffect(useCallback(function() {
-    props.supabase.from('properties').select('*').eq('user_id', props.session.user.id).then(function(r) {
+    supabase.from('properties').select('*').eq('user_id', props.session.user.id).then(function(r) {
       if (r.data) { setProperties(r.data); if (r.data.length && !selProp) setSelProp(r.data[0]); }
     });
     loadFavorites();
@@ -61,7 +61,7 @@ export default function HostFindCleaner(props) {
   function search() {
     if (!date) { Alert.alert(t('common_error'), t('host_find_cleaner_err_no_date')); return; }
     setSearching(true); setResults([]);
-    props.supabase.from('cleaner_availability').select('*, cleaners(*)').eq('date', date).eq('is_available', true).eq('status', 'available').then(function(r) {
+    supabase.from('cleaner_availability').select('*, cleaners(*)').eq('date', date).eq('is_available', true).eq('status', 'available').then(function(r) {
       var data = (r.data || []).filter(function(a) { return a.cleaners && a.cleaners.active; });
       if (city.trim()) {
         var c = city.trim().toLowerCase();
@@ -69,7 +69,7 @@ export default function HostFindCleaner(props) {
       }
       if (data.length > 0) {
         var userIds = data.map(function(a) { return a.cleaners.user_id; }).filter(Boolean);
-        props.supabase.from('profiles').select('id,subscription_plan').in('id', userIds).then(function(pr) {
+        supabase.from('profiles').select('id,subscription_plan').in('id', userIds).then(function(pr) {
           var planMap = {};
           if (pr.data) pr.data.forEach(function(p) { planMap[p.id] = p.subscription_plan || 'free'; });
           data.forEach(function(a) {
@@ -81,7 +81,7 @@ export default function HostFindCleaner(props) {
           });
           data.sort(function(a, b) { return (b.cleaners._priority || 0) - (a.cleaners._priority || 0); });
           var cleanerIds = data.map(function(a) { return a.cleaners.id; }).filter(Boolean);
-          props.supabase.from('reviews').select('reviewed_id, rating').eq('reviewed_type', 'cleaner').in('reviewed_id', cleanerIds).then(function(rv) {
+          supabase.from('reviews').select('reviewed_id, rating').eq('reviewed_type', 'cleaner').in('reviewed_id', cleanerIds).then(function(rv) {
             if (rv.data && rv.data.length > 0) {
               var ratingMap = {};
               rv.data.forEach(function(r2) {
@@ -111,14 +111,14 @@ export default function HostFindCleaner(props) {
     if (!prop && properties.length > 0) { prop = properties[0]; setSelProp(prop); }
     if (!prop) { Alert.alert(t('host_find_cleaner_err_no_prop_title'), t('host_find_cleaner_err_no_prop_msg')); return; }
     setLoading(true);
-    props.supabase.from('cleaning_bookings').insert({
+    supabase.from('cleaning_bookings').insert({
       property_id: prop.id, cleaner_id: cleaner.id, host_id: props.session.user.id,
       date: date, time: avail.time_start + ' - ' + avail.time_end, notes: notes,
       status: 'pending', cleaner_validated: false,
     }).select().then(function(r) {
       var bid = r.data && r.data.length ? r.data[0].id : null;
-      props.supabase.from('cleaner_availability').update({ status: 'booked', booked_by: props.session.user.id, property_id: prop.id }).eq('id', avail.id).then(function() {});
-      props.supabase.from('cleaning_chats').insert({ host_id: props.session.user.id, cleaner_id: cleaner.id, booking_id: bid }).then(function() {});
+      supabase.from('cleaner_availability').update({ status: 'booked', booked_by: props.session.user.id, property_id: prop.id }).eq('id', avail.id).then(function() {});
+      supabase.from('cleaning_chats').insert({ host_id: props.session.user.id, cleaner_id: cleaner.id, booking_id: bid }).then(function() {});
       setLoading(false); setBooking(null); setNotes('');
       track('cleaning_booking_sent', { cleaner_id: cleaner.id });
       Alert.alert(t('host_find_cleaner_booking_sent_title'), t('host_find_cleaner_booking_sent_msg', { cleaner: cleaner.company_name }));
@@ -127,10 +127,14 @@ export default function HostFindCleaner(props) {
         body: JSON.stringify({
           to: cleaner.email,
           subject: t('host_find_cleaner_email_subject', { property: prop.name, date: date }),
-          body: t('host_find_cleaner_email_body', { name: cleaner.contact_name, property: prop.name, date: date, time: avail.time_start + ' - ' + avail.time_end }),
+          body: t('host_find_cleaner_email_body', { property: prop.name, date: date, host: 'MyHostKit', notes: notes || '-' }),
         }),
       }).catch(function(){});
       search();
+    }).catch(function(err) {
+      setLoading(false);
+      if (typeof console !== 'undefined' && console.warn) console.warn('bookCleaner failed', err);
+      Alert.alert(t('common_error'), (err && err.message) ? err.message : 'Erreur');
     });
   }
 

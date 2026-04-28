@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 // [15] Sync iCal depuis Airbnb/Booking/VRBO
 // Parse un flux iCal et crée des réservations dans la table bookings
 import { Alert } from 'react-native';
@@ -31,7 +32,7 @@ function parseIcal(icalText) {
 
 export async function syncIcalForProperty(propertyId, icalUrl, userId) {
   if (!icalUrl || !icalUrl.trim()) {
-    Alert.alert('Erreur', 'Entrez une URL iCal valide');
+    Alert.alert(t('common_error'), t('ical_err_invalid_url'));
     return { added: 0, error: null };
   }
 
@@ -57,7 +58,7 @@ export async function syncIcalForProperty(propertyId, icalUrl, userId) {
 
     var events = parseIcal(text);
     if (events.length === 0) {
-      return { added: 0, error: 'Aucune réservation trouvée dans ce calendrier' };
+      return { added: 0, error: t('ical_err_no_bookings') };
     }
 
     var added = 0;
@@ -75,7 +76,7 @@ export async function syncIcalForProperty(propertyId, icalUrl, userId) {
 
       if (!existing.data) {
         // Extraire le nom du guest depuis le summary
-        var guestName = ev.summary || 'Voyageur';
+        var guestName = ev.summary || t('ical_default_guest');
         guestName = guestName.replace('Reserved', '').replace('Réservé', '').replace(' - ', '').trim() || 'Voyageur';
 
         await supabase.from('bookings').insert({

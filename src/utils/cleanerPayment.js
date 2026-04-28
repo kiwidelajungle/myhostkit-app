@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 // src/utils/cleanerPayment.js
 // Paiement UNIQUEMENT après service terminé + facture envoyée
 // Plus d'acompte — paiement full post-rapport
@@ -30,7 +31,7 @@ export async function payAfterService(bookingId, session) {
       .select('*, cleaners(company_name, contact_name, email, price_per_cleaning), properties(name), invoices(*)')
       .eq('id', bookingId).single();
 
-    if (!res.data) { Alert.alert('Erreur', 'Réservation introuvable'); return false; }
+    if (!res.data) { Alert.alert(t('common_error'), t('cpay_err_booking')); return false; }
     var b = res.data;
 
     // Vérifications
@@ -39,11 +40,11 @@ export async function payAfterService(bookingId, session) {
     if (!b.report_sent) errors.push('Le rapport photo n\'a pas été envoyé');
     if (!b.invoice_id) errors.push('La facture n\'a pas été générée');
     if (b.payment_status === 'paid') {
-      Alert.alert('Déjà payé ✅', 'Ce ménage a déjà été réglé.');
+      Alert.alert(t('cpay_already_paid_title'), t('cpay_already_paid_msg'));
       return false;
     }
     if (errors.length > 0) {
-      Alert.alert('❌ Paiement impossible', '• ' + errors.join('\n• '));
+      Alert.alert(t('cpay_impossible_title'), '• ' + errors.join('\n• '));
       return false;
     }
 
@@ -52,7 +53,7 @@ export async function payAfterService(bookingId, session) {
     var amount = round2(rate * hours);
     var cleanerName = b.cleaners ? b.cleaners.company_name : 'Ménagère';
     var contactName = b.cleaners ? b.cleaners.contact_name : '';
-    var propName = b.properties ? b.properties.name : 'Logement';
+    var propName = b.properties ? b.properties.name : t('common_property');
     var cleanerEmail = b.cleaners ? b.cleaners.email : '';
 
     return new Promise(function(resolve) {
@@ -89,7 +90,7 @@ export async function payAfterService(bookingId, session) {
                 payment_date: new Date().toISOString(),
                 paid_by: session.user.id,
               }).eq('id', bookingId).then(function(ur) {
-                if (ur.error) { Alert.alert('Erreur', ur.error.message); resolve(false); return; }
+                if (ur.error) { Alert.alert(t('common_error'), ur.error.message); resolve(false); return; }
 
                 // Mettre à jour la facture
                 supabase.from('invoices').update({ status: 'paid', paid_at: new Date().toISOString() }).eq('id', b.invoice_id).then(function() {});
@@ -100,7 +101,7 @@ export async function payAfterService(bookingId, session) {
                 }
 
                 // Mail confirmation CC MyHostKit
-                var subject = encodeURIComponent('MyHostKit — Paiement effectué : ' + propName + ' (' + b.date + ')');
+                Alert.alert(t('cpay_done_title'), amount + ' EUR -> ' + cleanerName);
                 var body = encodeURIComponent(
                   'Bonjour ' + contactName + ',\n\n' +
                   'Le paiement de votre prestation a été effectué :\n\n' +
@@ -111,7 +112,7 @@ export async function payAfterService(bookingId, session) {
                   method: 'POST', headers: {'Content-Type':'application/json'},
                   body: JSON.stringify({ to: cleanerEmail, subject: 'MyHostKit — Paiement prestation ' + propName, body: 'Bonjour ' + contactName + ',\n\nLe paiement de votre prestation a ete effectue :\n\n🏠 ' + propName + '\n📅 ' + b.date + '\n💰 ' + amount + ' EUR\n\nMerci pour votre travail !\nVia MyHostKit' }),
                 }).catch(function(){});
-                Alert.alert('Paiement effectué ✅', amount + ' € payés à ' + cleanerName);
+                Alert.alert(t('cpay_done_title'), amount + ' EUR -> ' + cleanerName);
                 resolve(true);
               });
             }
@@ -120,7 +121,7 @@ export async function payAfterService(bookingId, session) {
       );
     });
   } catch (err) {
-    Alert.alert('Erreur', err.message || 'Erreur');
+    Alert.alert(t('common_error'), err.message || t('cpay_err_generic'));
     return false;
   }
 }

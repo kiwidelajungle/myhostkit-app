@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
+﻿import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SUPABASE_ANON, EDGE_URL } from '../../config/supabase';
 import T from '../../theme';
@@ -74,6 +74,7 @@ export default function GuestChat(props) {
 
   return (
     <SafeAreaView style={s.safe} edges={['top']}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}} keyboardVerticalOffset={0}>
       <View style={s.hdr}><Text style={s.hdrT}>{t('guest_chat_header')}</Text><Text style={s.hdrSub}>{t('guest_chat_header_sub')}</Text></View>
       <ScrollView style={{ flex: 1, backgroundColor: T.bg }} contentContainerStyle={{ padding: 16, paddingBottom: 8 }}>
         {msgs.length === 0 && (
@@ -104,6 +105,7 @@ export default function GuestChat(props) {
           <Text style={{ color: '#fff', fontSize: 16 }}>➤</Text>
         </TouchableOpacity>
       </View>
+    </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

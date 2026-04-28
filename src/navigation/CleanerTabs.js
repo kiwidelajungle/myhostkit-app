@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../config/supabase';
@@ -8,7 +8,7 @@ import CleaningChatList from '../screens/CleaningChatList';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import CleanerSettings from '../screens/cleaner/CleanerSettings';
 import CleanerMoreScreen from '../screens/cleaner/CleanerMoreScreen';
-import { useLang } from '../i18n';
+import { t, useLang } from '../i18n';
 
 var T = {
   navy: '#0a1628',
@@ -98,7 +98,7 @@ export default function CleanerTabs(props) {
       <Tab.Screen
         name="Profile"
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: t('common_profile'),
           tabBarIcon: function(o) { return <Ionicons name={o.focused ? 'person' : 'person-outline'} size={22} color={o.color} />; },
         }}
       >

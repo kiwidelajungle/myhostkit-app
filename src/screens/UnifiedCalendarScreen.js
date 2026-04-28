@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useState } from 'react';
+import { t, useLang } from '../i18n';
 import {
   View,
   Text,
@@ -48,6 +49,7 @@ const PLATFORM_LABELS = {
 };
 
 export default function UnifiedCalendarScreen() {
+  useLang();
   const { bookings, properties, conflicts } = useICalSync();
   const [selectedPropertyId, setSelectedPropertyId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -115,7 +117,7 @@ export default function UnifiedCalendarScreen() {
   return (
     <View style={s.container}>
       <View style={s.header}>
-        <Text style={s.title}>Calendrier unifie</Text>
+        <Text style={s.title}>{t('ucal_title')}</Text>
         <Text style={s.subtitle}>
           {filteredBookings.length} reservation{filteredBookings.length > 1 ? 's' : ''} - {conflicts.length} conflit{conflicts.length > 1 ? 's' : ''}
         </Text>
@@ -178,7 +180,7 @@ export default function UnifiedCalendarScreen() {
         </View>
 
         <View style={s.legend}>
-          <Text style={s.legendTitle}>Legende</Text>
+          <Text style={s.legendTitle}>{t('ucal_legend')}</Text>
           <View style={s.legendRow}>
             {Object.keys(PLATFORM_LABELS).map((key) => (
               <View key={key} style={s.legendItem}>
@@ -190,7 +192,7 @@ export default function UnifiedCalendarScreen() {
           <View style={s.legendRow}>
             <View style={s.legendItem}>
               <View style={[s.legendDot, { backgroundColor: C.danger }]} />
-              <Text style={s.legendText}>Conflit (point rouge)</Text>
+              <Text style={s.legendText}>{t('ucal_legend_conflict')}</Text>
             </View>
           </View>
         </View>
@@ -206,7 +208,7 @@ export default function UnifiedCalendarScreen() {
               })}
             </Text>
             {selectedDateBookings.length === 0 ? (
-              <Text style={s.detailsEmpty}>Aucune reservation ce jour</Text>
+              <Text style={s.detailsEmpty}>{t('ucal_no_booking_today')}</Text>
             ) : (
               selectedDateBookings.map((b) => (
                 <View key={b.id} style={s.bookingItem}>
@@ -221,7 +223,7 @@ export default function UnifiedCalendarScreen() {
                     </Text>
                   </View>
                   <View style={{ flex: 1, marginLeft: 12 }}>
-                    <Text style={s.bookingProperty}>{b.property_name || 'Logement'}</Text>
+                    <Text style={s.bookingProperty}>{b.property_name || t('common_property')}</Text>
                     <Text style={s.bookingDates}>
                       Du {b.checkin_date} au {b.checkout_date}
                     </Text>
@@ -244,16 +246,9 @@ const s = StyleSheet.create({
   header: { paddingHorizontal: 20, paddingTop: 60, paddingBottom: 12 },
   title: { fontSize: 30, fontWeight: '700', color: C.ink, letterSpacing: -0.5 },
   subtitle: { fontSize: 14, color: C.textSoft, marginTop: 4 },
-  filterScroll: { paddingHorizontal: 16, paddingVertical: 12 },
+  filterScroll: { paddingHorizontal: 16, paddingVertical: 12, alignItems: 'center' },
   filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    backgroundColor: '#fff',
-    borderRadius: 100,
-    borderWidth: 1,
-    borderColor: C.border,
-    marginRight: 8,
-    maxWidth: 200,
+    paddingHorizontal: 14, paddingVertical: 10, backgroundColor: '#fff', borderRadius: 100, borderWidth: 1, borderColor: C.border, marginRight: 8, minHeight: 36, justifyContent: 'center',
   },
   filterChipActive: { backgroundColor: C.ink, borderColor: C.ink },
   filterChipText: { color: C.text, fontSize: 13, fontWeight: '500' },

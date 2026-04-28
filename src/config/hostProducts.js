@@ -1,0 +1,51 @@
+﻿// ============================================================
+// Catalogue produits boutique cote HOTE
+// ============================================================
+import { t } from '../i18n';
+
+export var HOST_PRODUCTS = [
+  { id:'h_savon_mains', name:'Savon mains', cat:'Hygiene', unit:'flacon', price:4.00 },
+  { id:'h_gel_douche', name:'Gel douche', cat:'Hygiene', unit:'flacon', price:5.00 },
+  { id:'h_shampoing', name:'Shampoing', cat:'Hygiene', unit:'flacon', price:5.00 },
+  { id:'h_apres_shamp', name:'Apres-shampoing', cat:'Hygiene', unit:'flacon', price:5.00 },
+  { id:'h_pq', name:'Papier toilette x12', cat:'Hygiene', unit:'pack', price:8.00 },
+  { id:'h_mouchoirs', name:'Mouchoirs boite', cat:'Hygiene', unit:'boite', price:3.00 },
+  { id:'h_drap_1p', name:'Drap 1 place', cat:'Literie', unit:'jeu', price:18.00 },
+  { id:'h_drap_2p', name:'Drap 2 places', cat:'Literie', unit:'jeu', price:25.00 },
+  { id:'h_couette_1p', name:'Couette 1 place', cat:'Literie', unit:'piece', price:35.00 },
+  { id:'h_couette_2p', name:'Couette 2 places', cat:'Literie', unit:'piece', price:50.00 },
+  { id:'h_oreiller', name:'Oreiller', cat:'Literie', unit:'piece', price:12.00 },
+  { id:'h_taies', name:'Taies oreiller x2', cat:'Literie', unit:'lot', price:10.00 },
+  { id:'h_protege_mat', name:'Protege-matelas 2 places', cat:'Literie', unit:'piece', price:22.00 },
+  { id:'h_serv_bain', name:'Serviette bain', cat:'Linge bain', unit:'piece', price:12.00 },
+  { id:'h_serv_invite', name:'Serviette invite', cat:'Linge bain', unit:'piece', price:6.00 },
+  { id:'h_tapis_bain', name:'Tapis bain', cat:'Linge bain', unit:'piece', price:10.00 },
+  { id:'h_peignoir', name:'Peignoir', cat:'Linge bain', unit:'piece', price:25.00 },
+  { id:'h_multi_surf', name:'Multi-surfaces', cat:'Nettoyage', unit:'flacon', price:5.00 },
+  { id:'h_vaisselle', name:'Liquide vaisselle', cat:'Nettoyage', unit:'flacon', price:3.00 },
+  { id:'h_vinaigre', name:'Vinaigre blanc 1L', cat:'Nettoyage', unit:'bouteille', price:2.00 },
+  { id:'h_javel', name:'Javel 1L', cat:'Nettoyage', unit:'bouteille', price:2.50 },
+  { id:'h_vitres', name:'Nettoyant vitres', cat:'Nettoyage', unit:'flacon', price:4.00 },
+  { id:'h_wc', name:'Desinfectant WC', cat:'Nettoyage', unit:'flacon', price:3.50 },
+  { id:'h_eponges', name:'Eponges x3', cat:'Nettoyage', unit:'lot', price:3.00 },
+  { id:'h_microfibre', name:'Microfibres x5', cat:'Nettoyage', unit:'lot', price:6.00 },
+  { id:'h_sacs_30', name:'Sacs poubelle 30L', cat:'Nettoyage', unit:'rouleau', price:4.00 },
+  { id:'h_sacs_100', name:'Sacs poubelle 100L', cat:'Nettoyage', unit:'rouleau', price:5.00 },
+  { id:'h_cafe', name:'Capsules cafe x10', cat:'Cuisine', unit:'boite', price:6.00 },
+  { id:'h_the', name:'The sachets x20', cat:'Cuisine', unit:'boite', price:4.00 },
+  { id:'h_sucre', name:'Sucre sachets x50', cat:'Cuisine', unit:'boite', price:3.00 },
+  { id:'h_sel_poivre', name:'Sel/poivre kit', cat:'Cuisine', unit:'kit', price:4.00 },
+  { id:'h_huile', name:'Huile olive 50cl', cat:'Cuisine', unit:'bouteille', price:6.00 },
+  { id:'h_eau', name:'Eau 50cl x6', cat:'Cuisine', unit:'pack', price:3.00 },
+  { id:'h_kit_bienv', name:'Kit bienvenue (savon+shamp+gel)', cat:'Accueil', unit:'kit', price:10.00 },
+  { id:'h_fleurs', name:'Bouquet fleurs', cat:'Accueil', unit:'piece', price:15.00 },
+  { id:'h_bougie', name:'Bougie parfumee', cat:'Accueil', unit:'piece', price:12.00 },
+  { id:'h_guide', name:'Guide d accueil imprime', cat:'Accueil', unit:'exemplaire', price:8.00 },
+  { id:'h_piles', name:'Piles AAA x4', cat:'Maintenance', unit:'lot', price:5.00 },
+  { id:'h_ampoules', name:'Ampoules LED', cat:'Maintenance', unit:'piece', price:5.00 },
+  { id:'h_detect', name:'Detecteur fumee', cat:'Maintenance', unit:'piece', price:15.00 },
+  { id:'h_bbq', name:'Produit barbecue', cat:'Exterieur', unit:'flacon', price:6.00 },
+  { id:'h_coussin', name:'Coussin exterieur', cat:'Exterieur', unit:'piece', price:18.00 },
+];
+
+export var HOST_PRODUCT_CATEGORIES = ['all','Hygiene','Literie','Linge bain','Nettoyage','Cuisine','Accueil','Maintenance','Exterieur'];

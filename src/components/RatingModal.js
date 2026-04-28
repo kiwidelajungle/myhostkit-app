@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { t, useLang } from '../i18n';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Modal } from 'react-native';
 
 export default function RatingModal(props) {
+  useLang();
   var _rating = useState(0); var rating = _rating[0]; var setRating = _rating[1];
   var _comment = useState(''); var comment = _comment[0]; var setComment = _comment[1];
 
@@ -31,12 +33,12 @@ export default function RatingModal(props) {
 
           <View style={s.btns}>
             <TouchableOpacity style={s.cancelBtn} onPress={props.onClose}>
-              <Text style={s.cancelBtnT}>Annuler</Text>
+              <Text style={s.cancelBtnT}>{t('common_cancel')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[s.submitBtn, rating === 0 && {opacity:0.4}]} disabled={rating === 0} onPress={function(){
               if (rating > 0) { props.onSubmit(rating, comment.trim()); setRating(0); setComment(''); }
             }}>
-              <Text style={s.submitBtnT}>Envoyer</Text>
+              <Text style={s.submitBtnT}>{t('common_send')}</Text>
             </TouchableOpacity>
           </View>
         </View>

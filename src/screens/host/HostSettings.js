@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, ActivityIndicator, Linking, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -61,7 +61,6 @@ export default function HostSettings(props) {
 
   function subscribeToPlan(planName) {
     track('upgrade_clicked', { plan: planName });
-    Alert.alert(t('host_settings_stripe_loading_title'), t('host_settings_stripe_loading_msg'));
     supabase.auth.getSession().then(function(sr) {
       var token = sr.data && sr.data.session ? sr.data.session.access_token : null;
       if (!token) { Alert.alert(t('common_error'), t('host_settings_session_expired')); return; }

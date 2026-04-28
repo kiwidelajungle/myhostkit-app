@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
+import * as WebBrowser from 'expo-web-browser';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, ActivityIndicator, Animated, Linking, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase, SUPABASE_ANON, EDGE_URL } from '../../config/supabase';
 import T from '../../theme';
 import { getUserPlan, canUseFeature } from '../../utils/subscription';
+import { HOST_PRODUCTS, HOST_PRODUCT_CATEGORIES } from '../../config/hostProducts';
+import ShippingAddressModal from '../../components/ShippingAddressModal';
 import { t, useLang, getLang } from '../../i18n';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -86,7 +89,7 @@ function AnimatedItem(props) {
 
 export default function HostInventory(props) {
   useLang();
-  var _userPlan = useState('free'); var userPlan = _userPlan[0]; var setUserPlan = _userPlan[1];
+  var _userPlan = useState(null); var userPlan = _userPlan[0]; var setUserPlan = _userPlan[1];
   var _props2 = useState([]); var properties = _props2[0]; var setProperties = _props2[1];
   var _sel = useState(null); var sel = _sel[0]; var setSel = _sel[1];
   var _items = useState([]); var items = _items[0]; var setItems = _items[1];
@@ -100,6 +103,10 @@ export default function HostInventory(props) {
   var _aiMsg = useState(''); var aiMsg = _aiMsg[0]; var setAiMsg = _aiMsg[1];
   var _aiReply = useState(''); var aiReply = _aiReply[0]; var setAiReply = _aiReply[1];
   var _aiLoading = useState(false); var aiLoading = _aiLoading[0]; var setAiLoading = _aiLoading[1];
+  var _showShop = useState(false); var showShop = _showShop[0]; var setShowShop = _showShop[1];
+  var _shopCart = useState({}); var shopCart = _shopCart[0]; var setShopCart = _shopCart[1];
+  var _shopFilter = useState('all'); var shopFilter = _shopFilter[0]; var setShopFilter = _shopFilter[1];
+  var _showAddrModal = useState(false); var showAddrModal = _showAddrModal[0]; var setShowAddrModal = _showAddrModal[1];
   var headerFade = useRef(new Animated.Value(0)).current;
 
   useEffect(function() { getUserPlan(props.session.user.id).then(function(p){setUserPlan(p);}); }, []);
@@ -118,6 +125,7 @@ export default function HostInventory(props) {
   useEffect(function() { load(); }, []);
   useEffect(function() { if (sel) loadItems(sel.id); }, [sel]);
 
+  if (userPlan === null) { return <SafeAreaView style={{flex:1,backgroundColor:'#141414',alignItems:'center',justifyContent:'center'}}><ActivityIndicator color='#C8965A' size='large'/></SafeAreaView>; }
   if (!canUseFeature(userPlan, 'stock')) {
     return (
       <SafeAreaView style={{flex:1,backgroundColor:'#141414'}} edges={['top']}>
@@ -164,14 +172,52 @@ export default function HostInventory(props) {
       else { Alert.alert(t('host_inventory_prefill_success_title'), t('host_inventory_prefill_success_msg', { count: SUGGESTIONS.length })); loadItems(sel.id); }
     });
   }
+  function shopAdd(id) { var n={}; for(var k in shopCart) n[k]=shopCart[k]; n[id]=(n[id]||0)+1; setShopCart(n); }
+  function shopRemove(id) { var n={}; for(var k in shopCart) n[k]=shopCart[k]; if(n[id]>1) n[id]--; else delete n[id]; setShopCart(n); }
+  function shopCount() { var c=0; for(var k in shopCart) c+=shopCart[k]; return c; }
+  function shopTotal() { var t=0; for(var k in shopCart) { var p=HOST_PRODUCTS.find(function(x){return x.id===k;}); if(p) t+=p.price*shopCart[k]; } return t; }
+  function shopOrder() {
+    if(shopCount()===0) return;
+    if(!sel){Alert.alert(t('common_error'), t('shop_err_no_property'));return;}
+    setShowAddrModal(true);
+  }
+  function shopOrderConfirmed(addr) {
+    setShowAddrModal(false);
+    if(!sel) return;
+    var nl=String.fromCharCode(10);
+    var lines=Object.keys(shopCart).map(function(id){var p=HOST_PRODUCTS.find(function(x){return x.id===id;});var q=shopCart[id];return '  - '+p.name+' x'+q+'  ('+(p.price*q).toFixed(2)+' EUR)';}).join(nl);
+    var totalCents=Math.round(shopTotal()*100);
+    var addrFull=addr.address+', '+addr.postalCode+' '+addr.city;
+    var emailBody='COMMANDE BOUTIQUE'+nl+'================'+nl+nl+'Logement: '+sel.name+nl+nl+'LIVRAISON:'+nl+addr.name+nl+addrFull+nl+'Tel: '+addr.phone+nl+nl+'ARTICLES ('+shopCount()+'):'+nl+lines+nl+nl+'TOTAL: '+shopTotal().toFixed(2)+' EUR';
+    fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'checkout',amount:totalCents,description:'Commande boutique - '+sel.name,customer_email:props.session.user.email})}).then(function(r){return r.json();}).then(function(data){
+      if(data.url){
+        WebBrowser.openBrowserAsync(data.url).then(function(){
+          fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_payment',session_url:data.url})}).then(function(vr){return vr.json();}).then(function(vd){
+            if(vd&&vd.paid){
+              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'MyHostKit - Commande PAYEE : '+sel.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
+              setShopCart({}); setShowShop(false);
+              Alert.alert(t('shop_paid_title'), t('shop_paid_msg'));
+            } else { Alert.alert(t('shop_not_finalized')); }
+          }).catch(function(){ Alert.alert(t('shop_verif_pending')); });
+        });
+      } else { Alert.alert('Erreur',data.error||'Contactez myhostkit.contact@gmail.com'); }
+    }).catch(function(e){ Alert.alert(t('shop_network_error'),e.message); });
+  }
   function orderByMail() {
     var critical = items.filter(function(it) { return it.quantity <= it.min_quantity; });
     if (critical.length === 0) { Alert.alert(t('host_inventory_order_ok_title'), t('host_inventory_order_ok_msg')); return; }
-    var list = critical.map(function(it) { return '  • ' + it.item_name + ' — stock: ' + it.quantity + ' ' + it.unit + ' (min: ' + it.min_quantity + ')'; }).join('\n');
-    fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
+    var nl = String.fromCharCode(10);
+    var list = critical.map(function(it) { return '  - ' + it.item_name + ' (stock: ' + it.quantity + ' ' + it.unit + ' / min: ' + it.min_quantity + ')'; }).join(nl);
+    var recap = 'Logement: ' + sel.name + nl + nl + 'Articles a commander (' + critical.length + ') :' + nl + list + nl + nl + 'Confirmer l envoi de la commande par email ?';
+    Alert.alert(t('shop_confirm_title'), recap, [
+      { text: 'Annuler', style: 'cancel' },
+      { text: t('common_send'), onPress: function() {
+        fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ to: 'myhostkit.contact@gmail.com', subject: 'MyHostKit — Commande : ' + sel.name, body: 'Commande pour :\n' + sel.name + '\n\nArticles :\n' + list }),
     }).then(function() { Alert.alert(t('host_inventory_order_sent_title')); }).catch(function() { Alert.alert(t('host_inventory_order_error')); });
+      }}
+    ]);
   }
   function askAI() {
     if (!aiMsg.trim()) return;
@@ -208,8 +254,30 @@ export default function HostInventory(props) {
         <View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
           <TouchableOpacity style={s.actionBtn} onPress={function() { setShowAdd(!showAdd); }}><Text style={s.actionBtnT}>{showAdd ? '✕' : t('host_inventory_btn_add')}</Text></TouchableOpacity>
           {items.length === 0 && <TouchableOpacity style={[s.actionBtn, { backgroundColor: T.accentLight, borderColor: T.accent }]} onPress={addSuggestions}><Text style={[s.actionBtnT, { color: T.accentDark }]}>{t('host_inventory_btn_prefill')}</Text></TouchableOpacity>}
-          {criticalCount > 0 && <TouchableOpacity style={[s.actionBtn, { backgroundColor: '#FFF5F5', borderColor: T.error }]} onPress={orderByMail}><Text style={[s.actionBtnT, { color: T.error }]}>{t('host_inventory_btn_order')}</Text></TouchableOpacity>}
+          <TouchableOpacity style={{backgroundColor:T.accent,borderRadius:10,paddingVertical:11,paddingHorizontal:16,alignItems:'center',justifyContent:'center',marginLeft:8,flexDirection:'row',gap:6}} onPress={function(){setShowShop(!showShop);}}><Text style={{color:'#fff',fontSize:13,fontWeight:'600'}}>{showShop ? 'Fermer boutique' : 'Boutique'}</Text>{shopCount()>0 && !showShop && <View style={{backgroundColor:'#fff',borderRadius:10,paddingHorizontal:6,paddingVertical:1}}><Text style={{color:T.accent,fontSize:11,fontWeight:'700'}}>{shopCount()}</Text></View>}</TouchableOpacity>
         </View>
+        {showShop && <View style={{backgroundColor:T.card,borderRadius:14,padding:14,marginBottom:14,borderWidth:1,borderColor:T.accent}}>
+          <Text style={{fontSize:14,fontWeight:'700',color:T.text,marginBottom:6,textAlign:'center'}}>{t('shop_section_title')}</Text>
+          <Text style={{fontSize:11,color:T.muted,textAlign:'center',marginBottom:10}}>{t('shop_section_sub')}</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{gap:6,marginBottom:10}}>
+            {HOST_PRODUCT_CATEGORIES.map(function(c){var a=shopFilter===c;return <TouchableOpacity key={c} style={{paddingHorizontal:10,paddingVertical:4,borderRadius:8,backgroundColor:a?T.accent:T.bg,borderWidth:1,borderColor:a?T.accent:T.border}} onPress={function(){setShopFilter(c);}}><Text style={{fontSize:11,fontWeight:'600',color:a?'#fff':T.text}}>{c==='all'?t('shop_filter_all'):c}</Text></TouchableOpacity>;})}
+          </ScrollView>
+          {HOST_PRODUCTS.filter(function(p){return shopFilter==='all'||p.cat===shopFilter;}).map(function(prod){var qty=shopCart[prod.id]||0;return <View key={prod.id} style={{flexDirection:'row',alignItems:'center',gap:10,paddingVertical:8,borderBottomWidth:1,borderBottomColor:T.border}}>
+            <View style={{flex:1}}>
+              <Text style={{fontSize:12,fontWeight:'600',color:T.text}}>{prod.name}</Text>
+              <Text style={{fontSize:10,color:T.muted}}>{prod.price.toFixed(2)} EUR / {prod.unit}</Text>
+            </View>
+            <View style={{flexDirection:'row',alignItems:'center',gap:8}}>
+              {qty>0 && <TouchableOpacity style={{width:28,height:28,borderRadius:8,backgroundColor:'#F0F0F0',alignItems:'center',justifyContent:'center'}} onPress={function(){shopRemove(prod.id);}}><Text style={{fontSize:14,fontWeight:'600',color:T.text}}>-</Text></TouchableOpacity>}
+              {qty>0 && <Text style={{fontSize:14,fontWeight:'700',color:T.text,minWidth:18,textAlign:'center'}}>{qty}</Text>}
+              <TouchableOpacity style={{width:28,height:28,borderRadius:8,backgroundColor:T.success,alignItems:'center',justifyContent:'center'}} onPress={function(){shopAdd(prod.id);}}><Text style={{fontSize:14,fontWeight:'600',color:'#fff'}}>+</Text></TouchableOpacity>
+            </View>
+          </View>;})}
+          {shopCount()>0 && <View style={{marginTop:14,paddingTop:12,borderTopWidth:1,borderTopColor:T.border}}>
+            <Text style={{fontSize:13,fontWeight:'700',color:T.text,textAlign:'center',marginBottom:10}}>Total: {shopTotal().toFixed(2)} EUR ({shopCount()} articles)</Text>
+            <TouchableOpacity style={{backgroundColor:T.accent,borderRadius:10,paddingVertical:13,alignItems:'center'}} onPress={shopOrder}><Text style={{color:'#fff',fontSize:14,fontWeight:'700'}}>Commander - {shopTotal().toFixed(2)} EUR</Text></TouchableOpacity>
+          </View>}
+        </View>}
         {showAdd && <View style={s.addForm}>
           <TextInput style={s.input} placeholder={t('host_inventory_ph_item_name')} placeholderTextColor={T.muted} value={newName} onChangeText={setNewName} />
           <View style={{ flexDirection: 'row', gap: 8 }}><TextInput style={[s.input, { flex: 1 }]} placeholder={t('host_inventory_ph_qty')} placeholderTextColor={T.muted} value={newQty} onChangeText={setNewQty} keyboardType="numeric" /><TextInput style={[s.input, { flex: 1 }]} placeholder={t('host_inventory_ph_min')} placeholderTextColor={T.muted} value={newMin} onChangeText={setNewMin} keyboardType="numeric" /><TextInput style={[s.input, { flex: 1 }]} placeholder={t('host_inventory_ph_unit')} placeholderTextColor={T.muted} value={newUnit} onChangeText={setNewUnit} /></View>
@@ -229,6 +297,14 @@ export default function HostInventory(props) {
         <Text style={s.helpTip}>{t('host_inventory_help_tip')}</Text>
         <View style={{ height: 30 }} />
       </ScrollView>
+      <ShippingAddressModal
+        visible={showAddrModal}
+        onClose={function(){setShowAddrModal(false);}}
+        onConfirm={function(addr){shopOrderConfirmed(addr);}}
+        prefill={sel ? { address: sel.address || '', city: sel.city || '' } : {}}
+        recapText={t('common_property')+': '+(sel?sel.name:'')+' - '+shopCount()+' '+t('shop_items')}
+        totalText={'Total: '+shopTotal().toFixed(2)+' EUR'}
+      />
     </SafeAreaView>
   );
 }

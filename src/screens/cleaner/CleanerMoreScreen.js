@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { t, useLang } from '../../i18n';
 import {
   View,
   Text,
@@ -27,28 +28,29 @@ const C = {
 };
 
 export default function CleanerMoreScreen(props) {
+  useLang();
   const [activeModal, setActiveModal] = useState(null);
 
   const tools = [
     {
       key: 'calendar',
       icon: 'calendar-outline',
-      title: 'Mes disponibilites',
-      subtitle: 'Gerez votre calendrier de disponibilites',
+      title: t('cmore_avail_title'),
+      subtitle: t('cmore_avail_sub'),
       color: C.gold,
     },
     {
       key: 'report',
       icon: 'camera-outline',
-      title: 'Rapports photo',
-      subtitle: 'Documentez vos missions avec photos',
+      title: t('cmore_reports_title'),
+      subtitle: t('cmore_reports_sub'),
       color: C.gold,
     },
     {
       key: 'team',
       icon: 'people-outline',
-      title: 'Mon equipe',
-      subtitle: 'Gerez vos collaborateurs',
+      title: t('cmore_team_title'),
+      subtitle: t('cmore_team_sub'),
       color: C.gold,
     },
   ];
@@ -69,8 +71,8 @@ export default function CleanerMoreScreen(props) {
   return (
     <View style={s.container}>
       <View style={s.header}>
-        <Text style={s.title}>Plus d'outils</Text>
-        <Text style={s.subtitle}>Gerez votre activite de menage</Text>
+        <Text style={s.title}>{t('more_page_title')}</Text>
+        <Text style={s.subtitle}>{t('more_page_sub_cleaner')}</Text>
       </View>
 
       <ScrollView contentContainerStyle={s.scroll}>

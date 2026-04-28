@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, RefreshControl, Alert, Animated, Platform, UIManager, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,7 @@ import { dbSilent } from '../../utils/db';
 import AnimCard from '../../components/AnimCard';
 import { t, useLang } from '../../i18n';
 import ProspectionRequestModal from '../../components/ProspectionRequestModal';
+import ShippingAddressModal from '../../components/ShippingAddressModal';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) { UIManager.setLayoutAnimationEnabledExperimental(true); }
 var MYHOSTKIT_EMAIL = 'myhostkit.contact@gmail.com';
@@ -73,6 +74,7 @@ export default function CleanerDashboard(props) {
   var _customPrice = useState(''); var customPrice = _customPrice[0]; var setCustomPrice = _customPrice[1];
   var _customQty = useState('1'); var customQty = _customQty[0]; var setCustomQty = _customQty[1];
   var _shopFilter = useState('all'); var shopFilter = _shopFilter[0]; var setShopFilter = _shopFilter[1];
+  var _showAddrModal = useState(false); var showAddrModal = _showAddrModal[0]; var setShowAddrModal = _showAddrModal[1];
 
   function getProdName(prod) { return prod.i18nKey ? t(prod.i18nKey) : prod.name; }
   function getProdUnit(prod) { return prod.unitKey ? t(prod.unitKey) : prod.unit; }
@@ -155,31 +157,31 @@ export default function CleanerDashboard(props) {
   function sendOrder() {
     if(getCartCount()===0)return;
     if(!orderProp){Alert.alert(t('common_error'), t('cleaner_dashboard_order_error_no_prop'));return;}
+    setShowAddrModal(true);
+  }
+  function sendOrderConfirmed(addr) {
+    setShowAddrModal(false);
+    if(!orderProp) return;
     var calc=calculateOrderWithCommission(cart,PRODUCTS);
     var description=t('cleaner_dashboard_order_description', { property: orderProp.name });
-    Alert.alert(t('cleaner_dashboard_order_confirm_title', { total: calc.total.toFixed(2) }), t('cleaner_dashboard_order_confirm_msg', { subtotal: calc.subtotal.toFixed(2), commission: calc.commission.toFixed(2), total: calc.total.toFixed(2) }), [
-      { text: t('cleaner_dashboard_order_btn_cancel') },
-      { text: t('cleaner_dashboard_order_btn_pay'), onPress: function(){
-        var totalCents=Math.round(calc.total*100);
-        fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({action:'checkout',amount:totalCents,description:description,customer_email:props.session.user.email})
-        }).then(function(r){return r.json();}).then(function(data){
-          if(data.url){
-            WebBrowser.openBrowserAsync(data.url).then(function(){
-              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_payment',session_url:data.url})}).then(function(vr){return vr.json();}).then(function(vd){
-                if(vd&&vd.paid){
-                  setCart({});setShowShop(false);
-                  Alert.alert(t('cleaner_dashboard_order_confirmed_title'), t('cleaner_dashboard_order_confirmed_msg'));
-                  fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:props.session.user.email, subject: t('cleaner_dashboard_order_email_subject'), body: t('cleaner_dashboard_order_email_body', { total: calc.total.toFixed(2) })})}).catch(function(){});
-                }else{Alert.alert(t('cleaner_dashboard_order_not_finalized_title'), t('cleaner_dashboard_order_not_finalized_msg'));}
-              }).catch(function(){Alert.alert(t('cleaner_dashboard_order_verification_pending'));});
-            });
-          }else{Alert.alert(t('common_error'), data.error || 'Contactez myhostkit.contact@gmail.com');}
-        }).catch(function(e){Alert.alert(t('cleaner_dashboard_order_network_error'), e.message);});
-      }}
-    ]);
+    var nl=String.fromCharCode(10);
+    var itemsList=Object.keys(cart).map(function(idx){var p=PRODUCTS[idx];var q=cart[idx];return '  - '+(p.i18nKey?t(p.i18nKey):p.name)+' x'+q+'  ('+(p.price*q).toFixed(2)+' EUR)';}).join(nl);
+    var addrFull=addr.address+', '+addr.postalCode+' '+addr.city;
+    var emailBody='COMMANDE BOUTIQUE MENAGERE'+nl+'================'+nl+nl+'Logement: '+orderProp.name+nl+nl+'LIVRAISON:'+nl+addr.name+nl+addrFull+nl+'Tel: '+addr.phone+nl+nl+'ARTICLES:'+nl+itemsList+nl+nl+'Sous-total: '+calc.subtotal.toFixed(2)+' EUR'+nl+'Commission: '+calc.commission.toFixed(2)+' EUR'+nl+'TOTAL: '+calc.total.toFixed(2)+' EUR';
+    var totalCents=Math.round(calc.total*100);
+    fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'checkout',amount:totalCents,description:description,customer_email:props.session.user.email})}).then(function(r){return r.json();}).then(function(data){
+      if(data.url){
+        WebBrowser.openBrowserAsync(data.url).then(function(){
+          fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_payment',session_url:data.url})}).then(function(vr){return vr.json();}).then(function(vd){
+            if(vd&&vd.paid){
+              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'MyHostKit - Commande PAYEE menagere : '+orderProp.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
+              setCart({});setShowShop(false);
+              Alert.alert(t('cleaner_dashboard_order_confirmed_title'), t('cleaner_dashboard_order_confirmed_msg'));
+            } else { Alert.alert(t('cleaner_dashboard_order_not_finalized_title'), t('cleaner_dashboard_order_not_finalized_msg')); }
+          }).catch(function(){ Alert.alert(t('cleaner_dashboard_order_verification_pending')); });
+        });
+      } else { Alert.alert(t('common_error'), data.error || 'Contactez myhostkit.contact@gmail.com'); }
+    }).catch(function(e){ Alert.alert(t('cleaner_dashboard_order_network_error'), e.message); });
   }
 
   var todayStr=new Date().toISOString().split('T')[0];
@@ -299,7 +301,7 @@ export default function CleanerDashboard(props) {
             </View>
           </View>
 
-          {getCartCount()>0&&<View style={s.cartSum}>{(function(){var c=calculateOrderWithCommission(cart,PRODUCTS);return <View><Text style={s.cartLine}>{t('cleaner_dashboard_cart_summary', { subtotal: c.subtotal.toFixed(2), commission: c.commission.toFixed(2), total: c.total.toFixed(2) })}</Text><TouchableOpacity style={s.orderBtn} onPress={sendOrder}><Text style={s.orderBtnT}>{t('cleaner_dashboard_cart_order_btn', { total: c.total.toFixed(2) })}</Text></TouchableOpacity></View>;})()}</View>}
+          {getCartCount()>0&&<View style={s.cartSum}>{(function(){var c=calculateOrderWithCommission(cart,PRODUCTS);return <View><Text style={s.cartLine}>{t('cleaner_dashboard_cart_summary', { subtotal: c.subtotal.toFixed(2), commission: c.commission.toFixed(2), total: c.total.toFixed(2) })}</Text><TouchableOpacity style={s.orderBtn} onPress={sendOrder}><Text style={s.orderBtnT}>{'🛒 '+t('cleaner_dashboard_cart_order_btn', { total: c.total.toFixed(2) })}</Text></TouchableOpacity></View>;})()}</View>}
         </View>}
 
         {toValidate.length > 0 && <View><Text style={s.sec}>{t('cleaner_dashboard_sec_to_validate')}</Text>
@@ -342,25 +344,33 @@ export default function CleanerDashboard(props) {
         <AnimCard style={[s.empty, {marginTop: 14, borderColor: T.accent, borderWidth: 1.5}]} delay={150}>
           <Text style={{fontSize: 36, marginBottom: 10}}>🏠</Text>
           <Text style={[s.emptyT, {color: T.text}]}>
-            {propCount === 0 ? 'Aucun logement disponible' : 'Étendez votre clientèle'}
+            {propCount === 0 ? t('cleaner_dash_no_property') : t('cleaner_dash_extend_clientele')}
           </Text>
           <Text style={[s.emptyS, {marginBottom: 16}]}>
             {propCount === 0
-              ? "Pas encore d'hôte dans votre zone — notre équipe peut prospecter pour vous."
-              : 'Notre équipe peut prospecter de nouveaux hôtes pour vous dans la zone de votre choix.'}
+              ? t('cleaner_dash_prosp_no_host')
+              : t('cleaner_dash_prosp_more')}
           </Text>
           <TouchableOpacity 
             style={{backgroundColor: T.dark, paddingVertical: 14, paddingHorizontal: 20, borderRadius: 30, alignItems: 'center'}}
             onPress={function() { setProspectModal(true); }}
           >
             <Text style={{color: T.accent, fontWeight: '700', fontSize: 13, textAlign: 'center'}}>
-              Demander une mise en relation avec un hôte par MyHostKit
+              {t('cleaner_dash_prosp_btn')}
             </Text>
           </TouchableOpacity>
           <Text style={{color: T.muted, fontSize: 10, marginTop: 10, fontStyle: 'italic'}}>
-            ⚡ Réponse sous 48-72h · 🎁 Gratuit au lancement
+            {t('cleaner_dash_prosp_footer')}
           </Text>
         </AnimCard>
+        <ShippingAddressModal
+          visible={showAddrModal}
+          onClose={function(){setShowAddrModal(false);}}
+          onConfirm={function(addr){sendOrderConfirmed(addr);}}
+          prefill={orderProp ? { address: orderProp.address || '', city: orderProp.city || '' } : {}}
+          recapText={t('common_property')+': '+(orderProp?orderProp.name:'')+' - '+getCartCount()+' '+t('shop_items')}
+          totalText={getCartCount()>0 ? 'Total: '+calculateOrderWithCommission(cart,PRODUCTS).total.toFixed(2)+' EUR' : ''}
+        />
         <ProspectionRequestModal
           visible={prospectModal}
           onClose={function() { setProspectModal(false); }}
@@ -384,7 +394,7 @@ var s = StyleSheet.create({
   prodRow:{flexDirection:'row',alignItems:'center',gap:10,paddingVertical:8,borderBottomWidth:1,borderBottomColor:T.border},prodName:{fontSize:12,fontWeight:'600',color:T.text},prodPrice:{fontSize:10,color:T.muted},
   prodBtn:{width:28,height:28,borderRadius:8,backgroundColor:'#F0F0F0',alignItems:'center',justifyContent:'center'},prodBtnT:{fontSize:14,fontWeight:'600',color:T.text},prodQty:{fontSize:14,fontWeight:'700',color:T.text},
   cartSum:{marginTop:12,borderTopWidth:1,borderTopColor:T.border,paddingTop:12},cartLine:{fontSize:12,color:T.sub,textAlign:'center',marginBottom:10},
-  orderBtn:{backgroundColor:T.accent,borderRadius:12,paddingVertical:12,alignItems:'center'},orderBtnT:{color:'#fff',fontSize:13,fontWeight:'700'},
+  orderBtn:{backgroundColor:T.accent,borderRadius:10,paddingVertical:11,paddingHorizontal:16,alignItems:'center',justifyContent:'center'},orderBtnT:{color:'#fff',fontSize:13,fontWeight:'600'},
   bookCard:{backgroundColor:T.card,borderRadius:14,padding:14,marginBottom:10,borderWidth:1,borderColor:T.border,borderLeftWidth:4},
   bookName:{fontSize:14,fontWeight:'600',color:T.text},bookSub:{fontSize:12,color:T.muted,marginTop:2},
   actionBtn:{borderRadius:10,paddingVertical:12,alignItems:'center',borderWidth:1,borderColor:T.border},actionBtnT:{fontSize:13,fontWeight:'600',color:T.text},

@@ -51,7 +51,7 @@ export default function NotificationsScreen(props) {
                     if (r4.data) {
                       var critical = r4.data.filter(function(it) { return it.quantity <= it.min_quantity; });
                       if (critical.length > 0) {
-                        allNotifs.push({ type: 'stock_low', icon: '⚠️', title: critical.length === 1 ? t('notifications_host_stock_title_single') : t('notifications_host_stock_title_plural', { count: critical.length }), desc: critical.slice(0, 3).map(function(it) { return it.item_name; }).join(', '), color: T.error, target: 'Inventory', time: new Date().toISOString() });
+                        allNotifs.push({ type: 'stock_low', icon: '⚠️', title: critical.length === 1 ? t('notifications_host_stock_title_single') : t('notifications_host_stock_title_plural', { count: critical.length }), desc: critical.slice(0, 3).map(function(it) { return it.item_name; }).join(', '), color: T.error, target: 'Home', time: new Date().toISOString() });
                       }
                     }
                     allNotifs.sort(function(a, b) { return new Date(b.time || 0) - new Date(a.time || 0); });
@@ -73,7 +73,7 @@ export default function NotificationsScreen(props) {
         .order('created_at', { ascending: false }).limit(10)
         .then(function(r) {
           if (r.data) r.data.forEach(function(b) {
-            allNotifs.push({ type: 'booking_to_validate', icon: '🔔', title: t('notifications_cleaner_booking_to_validate_title'), desc: t('notifications_cleaner_booking_to_validate_desc', { property: b.properties ? b.properties.name : t('notifications_fallback_property'), date: b.date, time: b.time || '' }), color: T.error, target: 'CDash', id: b.id, time: b.created_at });
+            allNotifs.push({ type: 'booking_to_validate', icon: '🔔', title: t('notifications_cleaner_booking_to_validate_title'), desc: t('notifications_cleaner_booking_to_validate_desc', { property: b.properties ? b.properties.name : t('notifications_fallback_property'), date: b.date, time: b.time || '' }), color: T.error, target: 'Missions', id: b.id, time: b.created_at });
           });
           var today = new Date().toISOString().split('T')[0];
           supabase.from('cleaning_bookings').select('*, properties(name)')
@@ -81,29 +81,29 @@ export default function NotificationsScreen(props) {
             .order('date', { ascending: true }).limit(5)
             .then(function(r2) {
               if (r2.data) r2.data.forEach(function(b) {
-                allNotifs.push({ type: 'upcoming', icon: '📅', title: t('notifications_cleaner_upcoming_title'), desc: t('notifications_cleaner_upcoming_desc', { property: b.properties ? b.properties.name : '', date: b.date, time: b.time || '' }), color: T.success, target: 'CDash', id: b.id, time: b.created_at });
+                allNotifs.push({ type: 'upcoming', icon: '📅', title: t('notifications_cleaner_upcoming_title'), desc: t('notifications_cleaner_upcoming_desc', { property: b.properties ? b.properties.name : '', date: b.date, time: b.time || '' }), color: T.success, target: 'Missions', id: b.id, time: b.created_at });
               });
               supabase.from('cleaning_chats').select('*')
                 .eq('cleaner_id', cid).gt('cleaner_unread', 0)
                 .then(function(r3) {
                   if (r3.data) r3.data.forEach(function(c) {
-                    allNotifs.push({ type: 'message', icon: '💬', title: c.cleaner_unread === 1 ? t('notifications_cleaner_messages_single') : t('notifications_cleaner_messages_plural', { count: c.cleaner_unread }), desc: t('notifications_cleaner_messages_desc_fallback'), color: T.blue, target: 'CMessages', id: c.id, time: c.last_message_at });
+                    allNotifs.push({ type: 'message', icon: '💬', title: c.cleaner_unread === 1 ? t('notifications_cleaner_messages_single') : t('notifications_cleaner_messages_plural', { count: c.cleaner_unread }), desc: t('notifications_cleaner_messages_desc_fallback'), color: T.blue, target: 'Messages', id: c.id, time: c.last_message_at });
                   });
                   supabase.from('cleaning_bookings').select('*, properties(name)')
                     .eq('cleaner_id', cid).eq('payment_status', 'paid')
                     .order('payment_date', { ascending: false }).limit(5)
                     .then(function(r4) {
                       if (r4.data) r4.data.forEach(function(b) {
-                        allNotifs.push({ type: 'paid', icon: '💰', title: t('notifications_cleaner_paid_title', { amount: b.payment_amount || 0 }), desc: t('notifications_cleaner_paid_desc', { property: b.properties ? b.properties.name : '', date: b.date }), color: T.success, target: 'CDash', id: b.id, time: b.payment_date });
+                        allNotifs.push({ type: 'paid', icon: '💰', title: t('notifications_cleaner_paid_title', { amount: b.payment_amount || 0 }), desc: t('notifications_cleaner_paid_desc', { property: b.properties ? b.properties.name : '', date: b.date }), color: T.success, target: 'Missions', id: b.id, time: b.payment_date });
                       });
                       var yesterday = new Date(Date.now() - 86400000).toISOString();
                       supabase.from('team_messages').select('*').like('conversation_id', '%' + session.user.id + '%').gt('created_at', yesterday).neq('sender_id', session.user.id).order('created_at', { ascending: false }).limit(10).then(function(r5) {
                         if (r5.data) r5.data.forEach(function(tm) {
-                          allNotifs.push({ type: 'team_msg', icon: '👥', title: t('notifications_cleaner_team_msg_title', { sender: tm.sender_name || t('notifications_cleaner_team_msg_sender_fallback') }), desc: tm.text ? (tm.text.length > 40 ? tm.text.substring(0, 40) + '...' : tm.text) : t('notifications_cleaner_team_msg_photo'), color: '#1C5F8A', target: 'CTeam', id: tm.id, time: tm.created_at });
+                          allNotifs.push({ type: 'team_msg', icon: '👥', title: t('notifications_cleaner_team_msg_title', { sender: tm.sender_name || t('notifications_cleaner_team_msg_sender_fallback') }), desc: tm.text ? (tm.text.length > 40 ? tm.text.substring(0, 40) + '...' : tm.text) : t('notifications_cleaner_team_msg_photo'), color: '#1C5F8A', target: 'More', id: tm.id, time: tm.created_at });
                         });
                         supabase.from('team_missions').select('*').eq('owner_id', session.user.id).eq('status', 'pending').order('mission_date', { ascending: true }).limit(5).then(function(r6) {
                           if (r6.data) r6.data.forEach(function(mi) {
-                            allNotifs.push({ type: 'mission', icon: '📋', title: t('notifications_cleaner_mission_title', { title: mi.title }), desc: mi.mission_date ? t('notifications_cleaner_mission_desc_date', { date: mi.mission_date }) : t('notifications_cleaner_mission_desc_no_date'), color: '#C8965A', target: 'CTeam', id: mi.id, time: mi.created_at });
+                            allNotifs.push({ type: 'mission', icon: '📋', title: t('notifications_cleaner_mission_title', { title: mi.title }), desc: mi.mission_date ? t('notifications_cleaner_mission_desc_date', { date: mi.mission_date }) : t('notifications_cleaner_mission_desc_no_date'), color: '#C8965A', target: 'More', id: mi.id, time: mi.created_at });
                           });
                           allNotifs.sort(function(a, b) { return new Date(b.time || 0) - new Date(a.time || 0); });
                           LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

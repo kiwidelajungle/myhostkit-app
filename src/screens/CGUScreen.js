@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+﻿import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../config/supabase';
 import T from '../theme';
 
 
-var CGU_VERSION = '2.1';
+var CGU_VERSION = '3.2';
 var CGU_TEXT = 'CONDITIONS GENERALES D\'UTILISATION — MyHostKit\nVersion ' + CGU_VERSION + ' — Avril 2026\n\n' +
 '1. OBJET\nLes presentes Conditions Generales d\'Utilisation (ci-apres « CGU ») regissent l\'acces et l\'utilisation de l\'application mobile MyHostKit (ci-apres « l\'Application »), editee par Rayane MAZOUNI, entrepreneur individuel sous le regime de la micro-entreprise (auto-entrepreneur), 60 rue Francois 1er, 75008 Paris, SIRET 10032406000019, code APE 6201Z, TVA non applicable art. 293 B du CGI (ci-apres « l\'Editeur »).\n\n' +
 '2. ACCEPTATION\nL\'utilisation de l\'Application implique l\'acceptation pleine et entiere des presentes CGU. L\'Utilisateur reconnait avoir pris connaissance des presentes CGU et les accepter expressement avant toute utilisation de l\'Application.\n\n' +
@@ -69,6 +69,7 @@ export default function CGUScreen(props) {
       </ScrollView>
 
       <View style={s.footer}>
+        <TouchableOpacity onPress={function(){ Linking.openURL('https://www.myhostkit.com/cgu.html'); }} style={{paddingVertical:10,alignItems:'center'}}><Text style={{color:'#C8965A',fontSize:13,fontWeight:'600',textDecorationLine:'underline'}}>Voir les CGV completes sur myhostkit.com</Text></TouchableOpacity>
         {!scrolledToBottom && <Text style={s.scrollHint}>↓ Scrollez pour lire la suite</Text>}
         <TouchableOpacity style={s.checkRow} onPress={function() { setAccepted(!accepted); }} activeOpacity={0.7}>
           <View style={[s.checkbox, accepted && s.checkboxChecked]}>{accepted && <Text style={s.checkmark}>✓</Text>}</View>

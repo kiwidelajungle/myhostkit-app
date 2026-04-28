@@ -1,10 +1,11 @@
-// ============================================================
+﻿// ============================================================
 // ProspectionRequestModal.js
 // Modal wizard 3 etapes pour demander une mise en relation a MyHostKit
 // quand aucun logement n'est disponible dans la zone de l'agent.
 // ============================================================
 
 import React, { useState, useRef, useEffect } from 'react';
+import { t, useLang } from '../i18n';
 import {
   View, Text, Modal, TouchableOpacity, TextInput, ScrollView,
   StyleSheet, Alert, Animated, KeyboardAvoidingView, Platform,
@@ -25,6 +26,7 @@ var TEXT_MUTED = '#6b6b6b';
 // COMPOSANT PRINCIPAL
 // ============================================================
 export default function ProspectionRequestModal(props) {
+  useLang();
   // props.visible (bool), props.onClose (func), props.initialCity (string)
 
   var _step = useState(1); var step = _step[0]; var setStep = _step[1];
@@ -88,14 +90,14 @@ export default function ProspectionRequestModal(props) {
   function goNext() {
     if (step === 1) {
       if (!city || city.trim().length < 2) {
-        Alert.alert('Ville requise', 'Indiquez la ville ou vous voulez intervenir.');
+        Alert.alert(t('prosp_err_city_title'), t('prosp_err_city_msg'));
         return;
       }
       setStep(2);
     } else if (step === 2) {
       var p = parseFloat(price);
       if (!p || p <= 0) {
-        Alert.alert('Tarif requis', 'Indiquez un tarif valide.');
+        Alert.alert(t('prosp_err_price_title'), t('prosp_err_price_msg'));
         return;
       }
       setStep(3);
@@ -185,17 +187,17 @@ export default function ProspectionRequestModal(props) {
                   <View style={styles.successCircle}>
                     <Text style={styles.successCheck}>OK</Text>
                   </View>
-                  <Text style={styles.successTitle}>C'est parti.</Text>
+                  <Text style={styles.successTitle}>{t('prosp_success_title')}</Text>
                   <Text style={styles.successText}>
-                    Notre equipe va prospecter activement les hotes autour de
+                    {t('prosp_success_text')} 
                     <Text style={{ fontWeight: '700', color: NAVY }}> {city}</Text>.
                   </Text>
                   <View style={styles.successDivider} />
                   <Text style={styles.successEta}>
-                    Premiers contacts sous <Text style={{ fontWeight: '700' }}>48 a 72h</Text>
+                    {t('prosp_first_contact')} <Text style={{ fontWeight: '700' }}>{t('prosp_eta_value')}</Text>
                   </Text>
                   <TouchableOpacity style={styles.btnPrimary} onPress={handleClose}>
-                    <Text style={styles.btnPrimaryText}>Compris</Text>
+                    <Text style={styles.btnPrimaryText}>{t('prosp_success_btn')}</Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -203,16 +205,16 @@ export default function ProspectionRequestModal(props) {
               {/* STEP 1 : VILLE */}
               {!success && step === 1 && (
                 <View>
-                  <Text style={styles.stepNum}>ETAPE 1 / 3</Text>
+                  <Text style={styles.stepNum}>{t('prosp_step', { n: 1 })}</Text>
                   <Text style={styles.title}>
-                    Ou cherchez-vous <Text style={styles.titleAccent}>des hotes</Text> ?
+                    {t('prosp_step1_title')} <Text style={styles.titleAccent}>{t('prosp_step1_accent')}</Text> ?
                   </Text>
                   <Text style={styles.subtitle}>
-                    Indiquez votre zone d'intervention. Notre equipe contactera
-                    directement les hotes Airbnb et conciergeries locales.
+                    {t('prosp_step1_sub')}
+
                   </Text>
 
-                  <Text style={styles.label}>Ville principale</Text>
+                  <Text style={styles.label}>{t('prosp_label_city')}</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Marseille, Lyon, Bordeaux..."
@@ -223,7 +225,7 @@ export default function ProspectionRequestModal(props) {
                     autoCorrect={false}
                   />
 
-                  <Text style={[styles.label, { marginTop: 20 }]}>Rayon de recherche</Text>
+                  <Text style={[styles.label, { marginTop: 20 }]}>{t('prosp_radius')}</Text>
                   <View style={styles.segments}>
                     {[5, 10, 20, 30].map(function(r) {
                       var active = radius === r;
@@ -246,16 +248,16 @@ export default function ProspectionRequestModal(props) {
               {/* STEP 2 : TARIF */}
               {!success && step === 2 && (
                 <View>
-                  <Text style={styles.stepNum}>ETAPE 2 / 3</Text>
+                  <Text style={styles.stepNum}>{t('prosp_step', { n: 2 })}</Text>
                   <Text style={styles.title}>
-                    Vos <Text style={styles.titleAccent}>tarifs</Text>
+                    {t('prosp_step2_label_yours')} <Text style={styles.titleAccent}>{t('prosp_step2_accent')}</Text>
                   </Text>
                   <Text style={styles.subtitle}>
-                    Comment facturez-vous vos prestations ? On adapte la
-                    recherche a vos conditions.
+                    {t('prosp_step2_sub')}
+
                   </Text>
 
-                  <Text style={styles.label}>Mode de facturation</Text>
+                  <Text style={styles.label}>{t('prosp_billing_mode')}</Text>
                   <View style={styles.modeRow}>
                     <TouchableOpacity
                       style={[styles.modeCard, pricingMode === 'hourly' && styles.modeCardActive]}
@@ -265,7 +267,7 @@ export default function ProspectionRequestModal(props) {
                         H
                       </Text>
                       <Text style={[styles.modeLabel, pricingMode === 'hourly' && { color: GOLD }]}>
-                        A L'HEURE
+                        {t('prosp_a_l_heure')}
                       </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -276,13 +278,13 @@ export default function ProspectionRequestModal(props) {
                         m2
                       </Text>
                       <Text style={[styles.modeLabel, pricingMode === 'surface' && { color: GOLD }]}>
-                        AU M2
+                        {t('prosp_au_m2')}
                       </Text>
                     </TouchableOpacity>
                   </View>
 
                   <Text style={[styles.label, { marginTop: 16 }]}>
-                    {pricingMode === 'hourly' ? 'Tarif horaire' : 'Tarif au m2'}
+                    {pricingMode === 'hourly' ? t('prosp_hourly') : t('prosp_per_m2')}
                   </Text>
                   <View style={styles.priceWrap}>
                     <TextInput
@@ -297,18 +299,18 @@ export default function ProspectionRequestModal(props) {
                   </View>
                   <Text style={styles.priceHint}>
                     {pricingMode === 'hourly'
-                      ? 'Votre tarif par heure de prestation'
-                      : 'Votre tarif par m2 nettoye'}
+                      ? t('prosp_hourly_desc')
+                      : t('prosp_per_m2_desc')}
                   </Text>
 
                   {/* Estimation auto */}
                   {getEstimate() && (
                     <View style={styles.estimate}>
                       <Text style={styles.estimateLabel}>
-                        ESTIMATION POUR UN STUDIO 25m2
+                        {t('prosp_estimate_label')}
                       </Text>
                       <Text style={styles.estimateValue}>
-                        {getEstimate()} EUR <Text style={styles.estimateValueSub}>par prestation</Text>
+                        {getEstimate()} EUR <Text style={styles.estimateValueSub}>{t('prosp_estimate_per')}</Text>
                       </Text>
                     </View>
                   )}
@@ -318,15 +320,15 @@ export default function ProspectionRequestModal(props) {
               {/* STEP 3 : DISPONIBILITE */}
               {!success && step === 3 && (
                 <View>
-                  <Text style={styles.stepNum}>ETAPE 3 / 3</Text>
+                  <Text style={styles.stepNum}>{t('prosp_step', { n: 3 })}</Text>
                   <Text style={styles.title}>
-                    Votre <Text style={styles.titleAccent}>disponibilite</Text>
+                    {t('prosp_step3_label_yours')} <Text style={styles.titleAccent}>{t('prosp_step3_accent')}</Text>
                   </Text>
                   <Text style={styles.subtitle}>
-                    Pour vous proposer des hotes pertinents au bon moment.
+                    {t('prosp_step3_sub')}
                   </Text>
 
-                  <Text style={styles.label}>Disponible a partir de</Text>
+                  <Text style={styles.label}>{t('prosp_avail_from')}</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="2026-05-01"
@@ -338,7 +340,7 @@ export default function ProspectionRequestModal(props) {
                     Format : AAAA-MM-JJ (ex: 2026-05-01)
                   </Text>
 
-                  <Text style={[styles.label, { marginTop: 20 }]}>Volume souhaite</Text>
+                  <Text style={[styles.label, { marginTop: 20 }]}>{t('prosp_volume')}</Text>
                   <View style={styles.segments}>
                     {[
                       { value: '1-3', label: '1-3 / sem' },
@@ -373,7 +375,7 @@ export default function ProspectionRequestModal(props) {
                     onPress={goBack}
                     disabled={loading}
                   >
-                    <Text style={styles.btnBackText}>Retour</Text>
+                    <Text style={styles.btnBackText}>{t('prosp_back')}</Text>
                   </TouchableOpacity>
                 )}
                 {step < 3 && (
@@ -382,7 +384,7 @@ export default function ProspectionRequestModal(props) {
                     onPress={goNext}
                     disabled={loading}
                   >
-                    <Text style={styles.btnPrimaryText}>Continuer</Text>
+                    <Text style={styles.btnPrimaryText}>{t('prosp_continue')}</Text>
                   </TouchableOpacity>
                 )}
                 {step === 3 && (
@@ -393,7 +395,7 @@ export default function ProspectionRequestModal(props) {
                   >
                     {loading
                       ? <ActivityIndicator color={GOLD} />
-                      : <Text style={styles.btnPrimaryText}>Demander la mise en relation</Text>
+                      : <Text style={styles.btnPrimaryText}>{t('prosp_submit')}</Text>
                     }
                   </TouchableOpacity>
                 )}

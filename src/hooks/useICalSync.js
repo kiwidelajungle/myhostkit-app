@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../config/supabase';
 
@@ -99,7 +100,7 @@ export function useICalSync() {
       await Promise.all([fetchProperties(), fetchConflicts(), fetchBookings()]);
       return { success: true, bookings_upserted: data?.bookings_upserted, conflicts_detected: data?.conflicts_detected };
     } catch (e) {
-      setError(e?.message || 'Erreur inconnue');
+      setError(e?.message || t('hook_err_unknown'));
       return { success: false, message: e?.message };
     } finally {
       setSyncing(false);

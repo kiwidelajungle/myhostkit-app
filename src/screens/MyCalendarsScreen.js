@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { t, useLang } from '../i18n';
 import {
   View,
   Text,
@@ -49,6 +50,7 @@ const PLATFORM_COLORS = {
 };
 
 export default function MyCalendarsScreen() {
+  useLang();
   const {
     properties,
     loading,
@@ -95,19 +97,19 @@ export default function MyCalendarsScreen() {
       Alert.alert('Enregistre', 'Le calendrier sera synchronise dans les 15 prochaines minutes.');
       closeEditModal();
     } else {
-      Alert.alert('Erreur', error || "Impossible d'enregistrer");
+      Alert.alert(t('common_error'), error || t('cal_err_save'));
     }
   };
 
   const handleRemove = () => {
     if (!editing) return;
     Alert.alert(
-      'Supprimer ?',
+      t('cal_delete_title'),
       'Le calendrier ne sera plus synchronise pour ce logement.',
       [
-        { text: 'Annuler', style: 'cancel' },
+        { text: t('common_cancel'), style: 'cancel' },
         {
-          text: 'Supprimer',
+          text: t('common_delete'),
           style: 'destructive',
           onPress: async () => {
             await removeIcalUrl(editing.id);
@@ -123,15 +125,15 @@ export default function MyCalendarsScreen() {
     if (result.success) {
       Alert.alert(
         'Sync terminee',
-        `${result.bookings_upserted ?? 0} reservations - ${result.conflicts_detected ?? 0} conflit(s) detecte(s)`
+        t('cal_sync_result', { count: result.bookings_upserted ?? 0, conflicts: result.conflicts_detected ?? 0 })
       );
     } else {
-      Alert.alert('Erreur', result.message || 'Sync echouee');
+      Alert.alert(t('common_error'), result.message || t('cal_err_sync'));
     }
   };
 
   const formatRelativeTime = (iso) => {
-    if (!iso) return 'Jamais synchronise';
+    if (!iso) return t('cal_never_synced');
     const diff = Date.now() - new Date(iso).getTime();
     const min = Math.floor(diff / 60000);
     if (min < 1) return "A l'instant";
@@ -153,9 +155,9 @@ export default function MyCalendarsScreen() {
   return (
     <View style={s.container}>
       <View style={s.header}>
-        <Text style={s.title}>Mes calendriers</Text>
+        <Text style={s.title}>{t('cal_my_title')}</Text>
         <Text style={s.subtitle}>
-          Sync automatique toutes les 15 min - {properties.filter(p => p.ical_url).length}/{properties.length} actifs
+          {t('cal_auto_sync_info', { active: properties.filter(p => p.ical_url).length, total: properties.length })}
         </Text>
       </View>
 
@@ -171,7 +173,7 @@ export default function MyCalendarsScreen() {
           {syncing ? (
             <ActivityIndicator color={C.ink} />
           ) : (
-            <Text style={s.syncButtonText}>Synchroniser maintenant</Text>
+            <Text style={s.syncButtonText}>{t('cal_sync_now')}</Text>
           )}
         </TouchableOpacity>
 
@@ -181,8 +183,8 @@ export default function MyCalendarsScreen() {
 
         {!loading && properties.length === 0 && (
           <View style={s.empty}>
-            <Text style={s.emptyTitle}>Aucun logement</Text>
-            <Text style={s.emptyText}>Ajoutez d'abord un logement dans l'app</Text>
+            <Text style={s.emptyTitle}>{t('cal_empty_no_property')}</Text>
+            <Text style={s.emptyText}>{t('cal_empty_add_first')}</Text>
           </View>
         )}
 
@@ -221,7 +223,7 @@ export default function MyCalendarsScreen() {
                     </Text>
                   </>
                 ) : (
-                  <Text style={s.notConfigured}>+ Ajouter une URL iCal</Text>
+                  <Text style={s.notConfigured}>{t('cal_add_ical_url')}</Text>
                 )}
               </View>
             </TouchableOpacity>
@@ -247,9 +249,9 @@ export default function MyCalendarsScreen() {
               showsVerticalScrollIndicator={false}
             >
               <Text style={s.modalTitle}>{editing?.name}</Text>
-              <Text style={s.modalSubtitle}>Configurez la sync iCal</Text>
+              <Text style={s.modalSubtitle}>{t('cal_modal_sub')}</Text>
 
-              <Text style={s.label}>Plateforme</Text>
+              <Text style={s.label}>{t('cal_label_platform')}</Text>
               <View style={s.platformPicker}>
                 {Object.keys(PLATFORM_LABELS).map((p) => (
                   <TouchableOpacity
@@ -264,7 +266,7 @@ export default function MyCalendarsScreen() {
                 ))}
               </View>
 
-              <Text style={s.label}>URL iCal</Text>
+              <Text style={s.label}>{t('cal_label_url')}</Text>
               <TextInput
                 style={s.input}
                 value={icalInput}
@@ -288,14 +290,14 @@ export default function MyCalendarsScreen() {
               <View style={s.modalActions}>
                 {editing?.ical_url && (
                   <TouchableOpacity style={s.removeButton} onPress={handleRemove}>
-                    <Text style={s.removeButtonText}>Supprimer</Text>
+                    <Text style={s.removeButtonText}>{t('common_delete')}</Text>
                   </TouchableOpacity>
                 )}
                 <TouchableOpacity style={s.cancelButton} onPress={closeEditModal}>
-                  <Text style={s.cancelButtonText}>Annuler</Text>
+                  <Text style={s.cancelButtonText}>{t('common_cancel')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={s.saveButton} onPress={handleSave}>
-                  <Text style={s.saveButtonText}>Enregistrer</Text>
+                  <Text style={s.saveButtonText}>{t('cal_btn_save')}</Text>
                 </TouchableOpacity>
               </View>
             </ScrollView>

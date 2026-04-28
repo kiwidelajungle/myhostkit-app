@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, RefreshControl, Animated, LayoutAnimation, Platform, UIManager, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import { trackScreen, track } from '../../utils/monitoring';
 import { dbSilent } from '../../utils/db';
 import { getUserPlan, canUseFeature, isTrial, getTrialDaysRemaining, checkTrialEmails, getPlanLabel, isPlanSuspended } from '../../utils/subscription';
 import OnboardingBanner from '../../components/OnboardingBanner';
+import IncidentsScreen from './IncidentsScreen';
 import AnimCard from '../../components/AnimCard';
 import RatingModal from '../../components/RatingModal';
 import { t, useLang, getLang } from '../../i18n';
@@ -32,7 +33,7 @@ export default function HostDashboard(props) {
         defaultBillingDetails: { email: props.session.user.email },
       });
       if (initRes.error) {
-        Alert.alert('Erreur', initRes.error.message);
+        Alert.alert(t('common_error'), initRes.error.message);
         return;
       }
       var presentRes = await presentPaymentSheet();
@@ -45,7 +46,7 @@ export default function HostDashboard(props) {
       Alert.alert('Paiement autorise', 'Le paiement de ' + (payment.amount_cents/100).toFixed(2) + ' euros est bloque en escrow. Il sera libere au cleaner apres validation du menage.');
       if (load) load();
     } catch (err) {
-      Alert.alert('Erreur', err.message || 'Impossible de lancer le paiement');
+      Alert.alert(t('common_error'), err.message || t('host_dash_err_payment'));
     }
   }
   var _properties = useState([]); var properties = _properties[0]; var setProperties = _properties[1];
@@ -55,6 +56,8 @@ export default function HostDashboard(props) {
   var _ratingBooking = useState(null); var ratingBooking = _ratingBooking[0]; var setRatingBooking = _ratingBooking[1];
   var _refreshing = useState(false); var refreshing = _refreshing[0]; var setRefreshing = _refreshing[1];
   var _showRevenu = useState(false); var showRevenu = _showRevenu[0]; var setShowRevenu = _showRevenu[1];
+  var _showIncidents = useState(false); var showIncidents = _showIncidents[0]; var setShowIncidents = _showIncidents[1];
+  var _incidentsCount = useState(0); var incidentsCount = _incidentsCount[0]; var setIncidentsCount = _incidentsCount[1];
   var _userPlan = useState('free'); var userPlan = _userPlan[0]; var setUserPlan = _userPlan[1];
   var _trialDays = useState(0); var trialDays = _trialDays[0]; var setTrialDays = _trialDays[1];
   var _aiInsight = useState(''); var aiInsight = _aiInsight[0]; var setAiInsight = _aiInsight[1];
@@ -63,11 +66,17 @@ export default function HostDashboard(props) {
     trackScreen('HostDashboard');
     getUserPlan(props.session.user.id).then(function(p){ setUserPlan(p); });
     checkTrialEmails(props.session.user.id);
+    loadIncidentsCount();
     supabase.from('profiles').select('trial_ends_at').eq('id', props.session.user.id).single().then(function(r){
       if (r.data && r.data.trial_ends_at) setTrialDays(getTrialDaysRemaining(r.data.trial_ends_at));
     });
   }, []);
 
+  function loadIncidentsCount() {
+    supabase.from('incidents').select('id', { count: 'exact', head: true }).eq('host_id', props.session.user.id).eq('status', 'new').then(function(r) {
+      if (r.count !== null && r.count !== undefined) setIncidentsCount(r.count);
+    });
+  }
   function load() {
     supabase.from('properties').select('*').eq('user_id', props.session.user.id).then(function(r) { if (r.data) setProperties(r.data); });
     var today = new Date().toISOString().split('T')[0];
@@ -163,6 +172,14 @@ export default function HostDashboard(props) {
           </TouchableOpacity>
         )}
         <OnboardingBanner role="host" session={props.session} hasProperties={properties.length > 0} onNavigate={function(screen) { try { props.navigation.navigate(screen); } catch(e) {} }} />
+        <TouchableOpacity style={{backgroundColor:incidentsCount>0?'#FFE5E5':'#fff',borderRadius:14,padding:14,marginBottom:14,borderWidth:1,borderColor:incidentsCount>0?'#FF3B30':T.border,flexDirection:'row',alignItems:'center',gap:12}} onPress={function(){setShowIncidents(true);loadIncidentsCount();}}>
+          <View style={{width:40,height:40,borderRadius:20,backgroundColor:incidentsCount>0?'#FF3B30':'#F0F0F0',alignItems:'center',justifyContent:'center'}}><Text style={{fontSize:18,color:incidentsCount>0?'#fff':T.text,fontWeight:'700'}}>!</Text></View>
+          <View style={{flex:1}}>
+            <Text style={{fontSize:14,fontWeight:'700',color:T.text}}>{t('host_dash_signals_btn')}</Text>
+            <Text style={{fontSize:11,color:T.muted,marginTop:2}}>{incidentsCount===0?t('host_dash_no_new_signal'):(incidentsCount===1?'1 nouveau signalement':incidentsCount+' nouveaux signalements')}</Text>
+          </View>
+          {incidentsCount>0 && <View style={{backgroundColor:'#FF3B30',borderRadius:12,paddingHorizontal:8,paddingVertical:3}}><Text style={{color:'#fff',fontSize:12,fontWeight:'700'}}>{incidentsCount}</Text></View>}
+        </TouchableOpacity>
 
         <View style={s.statsRow}>
           <AnimCard style={s.stat} delay={0}><Text style={[s.statV,{color:T.blue}]}>{properties.length}</Text><Text style={s.statL}>{t('host_dashboard_stat_properties')}</Text></AnimCard>
@@ -171,7 +188,7 @@ export default function HostDashboard(props) {
           <AnimCard style={s.stat} delay={180}><Text style={[s.statV,{color:T.error}]}>{totalCleaning}€</Text><Text style={s.statL}>{t('host_dashboard_stat_cleaning')}</Text></AnimCard>
         </View>
 
-        <TouchableOpacity style={s.revenuBtn} onPress={function() { LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); setShowRevenu(!showRevenu); if (!showRevenu && !aiInsight) { if (canUseFeature(userPlan, 'revenueAI')) { loadAiInsight(); } else { setAiInsight(t('host_dashboard_revenu_ai_pro_only')); } } }}>
+        <TouchableOpacity style={s.revenuBtn} onPress={function() { LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); setShowRevenu(!showRevenu); if (!showRevenu && !aiInsight) { if (canUseFeature(userPlan, 'aiConcierge')) { loadAiInsight(); } else { setAiInsight(t('host_dashboard_revenu_ai_pro_only')); } } }}>
           <Text style={s.revenuBtnT}>{showRevenu ? t('host_dashboard_revenu_close') : t('host_dashboard_revenu_open')}</Text>
         </TouchableOpacity>
         {showRevenu && (
@@ -308,6 +325,16 @@ export default function HostDashboard(props) {
         {allBookings.length === 0 && <AnimCard style={s.empty} delay={100}><Text style={{fontSize:40,marginBottom:12}}>🏠</Text><Text style={s.emptyT}>{t('host_dashboard_welcome_title')}</Text><Text style={s.emptyS}>{t('host_dashboard_welcome_msg')}</Text></AnimCard>}
         <View style={{ height: 30 }} />
       </ScrollView>
+      {showIncidents && (
+        <View style={{position:'absolute',top:0,left:0,right:0,bottom:0,backgroundColor:T.bg,zIndex:9999,elevation:50}}>
+          <SafeAreaView edges={['top']} style={{backgroundColor:T.dark}}>
+            <View style={{flexDirection:'row',alignItems:'center',paddingHorizontal:14,paddingVertical:12,backgroundColor:T.dark}}>
+              <TouchableOpacity onPress={function(){setShowIncidents(false);loadIncidentsCount();}} style={{paddingVertical:10,paddingHorizontal:14,backgroundColor:'rgba(255,255,255,0.15)',borderRadius:8}}><Text style={{color:'#fff',fontSize:15,fontWeight:'700'}}>{'< Retour'}</Text></TouchableOpacity>
+            </View>
+          </SafeAreaView>
+          <View style={{flex:1}}><IncidentsScreen session={props.session} /></View>
+        </View>
+      )}
       <RatingModal visible={showRating} title={t('host_dashboard_rating_title')} subtitle={ratingBooking ? (ratingBooking.cleaners ? ratingBooking.cleaners.company_name : t('host_dashboard_rating_fallback_name')) : ''} onClose={function(){setShowRating(false);setRatingBooking(null);}} onSubmit={function(rating, comment) {
         if (ratingBooking && ratingBooking.cleaner_id) {
           supabase.from('reviews').insert({ reviewer_id: props.session.user.id, reviewed_id: ratingBooking.cleaner_id, reviewed_type: 'cleaner', booking_id: ratingBooking.id, rating: rating, comment: comment }).then(function(r) {

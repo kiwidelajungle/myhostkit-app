@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, ActivityIndicator, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../../config/supabase';
@@ -234,7 +234,7 @@ export default function HostProperties(props) {
               {p.contacts && <Text style={s.propInfo}>📞 {p.contacts}</Text>}
               {(p.address || p.city || p.latitude) && <TouchableOpacity style={{backgroundColor:'#F0F7FB',borderRadius:10,padding:12,marginTop:10,flexDirection:'row',alignItems:'center',gap:10,borderWidth:1,borderColor:'rgba(28,95,138,0.2)'}} onPress={function(){ showNavigationChoice((p.address||'') + (p.city ? ', ' + p.city : ''), p.latitude, p.longitude); }}>
                 <View style={{width:44,height:44,backgroundColor:'#1C5F8A',borderRadius:22,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{fontSize:20}}>⚙️</Text>
+                  <Text style={{fontSize:22}}>📍</Text>
                 </View>
                 <View style={{flex:1}}>
                   <Text style={{fontSize:13,fontWeight:'700',color:'#1C5F8A'}}>{t('host_properties_route_title')} {p.latitude && p.longitude ? t('host_properties_route_accurate') : ''}</Text>

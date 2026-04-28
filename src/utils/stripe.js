@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 // Stripe Connect — via Edge Function manage-subscription
 import { Alert } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
@@ -12,10 +13,10 @@ export async function createPaymentSession(bookingId, session) {
       .select('*, cleaners(company_name, contact_name, price_per_cleaning, email, stripe_account_id), properties(name)')
       .eq('id', bookingId).single();
 
-    if (!res.data) { Alert.alert('Erreur', 'Reservation introuvable'); return null; }
+    if (!res.data) { Alert.alert(t('common_error'), t('stripe_err_booking_not_found')); return null; }
     var b = res.data;
     var c = b.cleaners;
-    if (!c) { Alert.alert('Erreur', 'Menagere introuvable'); return null; }
+    if (!c) { Alert.alert(t('common_error'), t('stripe_err_cleaner_not_found')); return null; }
 
     var rate = c.price_per_cleaning || 0;
     var hours = 1;
@@ -40,7 +41,7 @@ export async function createPaymentSession(bookingId, session) {
     var limits = getLimits(hostPlan);
     var commissionRate = limits.commission || 0.15;
     var commissionAmount = Math.round(totalAmount * commissionRate);
-    var propName = b.properties ? b.properties.name : 'Logement';
+    var propName = b.properties ? b.properties.name : t('common_property');
 
     var response = await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription', {
       method: 'POST',
@@ -85,22 +86,22 @@ export async function createPaymentSession(bookingId, session) {
             return { success: true, amount: totalAmount / 100 };
           } else {
             // Paiement NON effectué — ne rien changer
-            Alert.alert('Paiement non effectue', 'Le paiement n\'a pas ete finalise. La reservation reste en attente de paiement.');
+            Alert.alert(t('stripe_payment_not_done_title'), 'Le paiement n\'a pas ete finalise. La reservation reste en attente de paiement.');
             return null;
           }
         } catch(verifyErr) {
           // En cas d'erreur de vérification, ne PAS valider le paiement
-          Alert.alert('Verification en cours', 'Nous n\'avons pas pu confirmer le paiement. Si vous avez paye, le statut sera mis a jour dans quelques minutes.');
+          Alert.alert(t('stripe_verif_title'), 'Nous n\'avons pas pu confirmer le paiement. Si vous avez paye, le statut sera mis a jour dans quelques minutes.');
           return null;
         }
       }
     }
 
     // Fallback — pas de bouton "Marquer payé" (seul le webhook Stripe peut confirmer)
-    Alert.alert('Paiement indisponible', 'Le paiement Stripe n\'a pas pu etre initie. Verifiez votre connexion et reessayez.');
+    Alert.alert(t('stripe_unavail_title'), 'Le paiement Stripe n\'a pas pu etre initie. Verifiez votre connexion et reessayez.');
     return null;
   } catch(e) {
-    Alert.alert('Erreur', e.message || 'Erreur de paiement');
+    Alert.alert(t('common_error'), e.message || t('stripe_err_payment'));
     return null;
   }
 }
@@ -116,10 +117,10 @@ export async function createConnectAccount(cleanerUserId) {
       var data = await response.json();
       if (data.onboarding_url) { await WebBrowser.openBrowserAsync(data.onboarding_url); return true; }
     }
-    Alert.alert('Stripe Connect', 'Configuration bientot disponible.');
+    Alert.alert(t('stripe_connect_title'), t('stripe_connect_msg'));
     return false;
   } catch(e) {
-    Alert.alert('Erreur', e.message);
+    Alert.alert(t('common_error'), e.message);
     return false;
   }
 }

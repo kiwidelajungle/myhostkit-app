@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { t, useLang } from '../i18n';
 import {
   View,
   Text,
@@ -31,7 +32,7 @@ const C = {
 };
 
 function formatRelativeTime(iso) {
-  if (!iso) return 'Jamais';
+  if (!iso) return t('more_never');
   const diff = Date.now() - new Date(iso).getTime();
   const min = Math.floor(diff / 60000);
   if (min < 1) return "A l'instant";
@@ -43,6 +44,7 @@ function formatRelativeTime(iso) {
 }
 
 export default function MoreToolsScreen(props) {
+  useLang();
   const [activeModal, setActiveModal] = useState(null);
   const { conflicts, properties } = useICalSync();
   const conflictCount = conflicts.length;
@@ -61,39 +63,39 @@ export default function MoreToolsScreen(props) {
     {
       key: 'calendars',
       icon: 'calendar-outline',
-      title: 'Mes calendriers iCal',
-      subtitle: 'Sync Airbnb, Booking, Abritel, VRBO',
+      title: t('more_ical_title'),
+      subtitle: t('more_ical_sub'),
       color: C.gold,
     },
     {
       key: 'conflicts',
       icon: 'warning-outline',
-      title: 'Conflits de calendrier',
+      title: t('more_conflicts_title'),
       subtitle: conflictCount > 0
         ? `${conflictCount} conflit${conflictCount > 1 ? 's' : ''} a resoudre`
-        : 'Aucun conflit detecte',
+        : t('more_conflicts_none'),
       color: conflictCount > 0 ? C.danger : C.gold,
       badge: conflictCount > 0 ? conflictCount : null,
     },
     {
       key: 'unified',
       icon: 'grid-outline',
-      title: 'Vue calendrier',
-      subtitle: 'Planning unifie multi-plateformes',
+      title: t('more_unified_title'),
+      subtitle: t('more_unified_sub'),
       color: C.gold,
     },
     {
       key: 'inventory',
       icon: 'cube-outline',
-      title: 'Inventaire',
-      subtitle: 'Stock, accessoires, consommables',
+      title: t('more_inv_title'),
+      subtitle: t('more_inv_sub'),
       color: C.gold,
     },
     {
       key: 'messages',
       icon: 'chatbubbles-outline',
-      title: 'Messages',
-      subtitle: 'Conversations avec les agents',
+      title: t('more_msg_title'),
+      subtitle: t('more_msg_sub'),
       color: C.gold,
     },
   ];
@@ -118,8 +120,8 @@ export default function MoreToolsScreen(props) {
   return (
     <View style={s.container}>
       <View style={s.header}>
-        <Text style={s.title}>Plus d'outils</Text>
-        <Text style={s.subtitle}>Tous vos outils complementaires</Text>
+        <Text style={s.title}>{t('more_page_title')}</Text>
+        <Text style={s.subtitle}>{t('more_page_sub_host')}</Text>
       </View>
 
       <ScrollView contentContainerStyle={s.scroll}>
@@ -133,7 +135,7 @@ export default function MoreToolsScreen(props) {
           >
             <View style={s.statsHeader}>
               <Ionicons name="sync-outline" size={18} color={C.gold} />
-              <Text style={s.statsHeaderText}>Sync iCal</Text>
+              <Text style={s.statsHeaderText}>{t('more_sync_ical')}</Text>
             </View>
 
             <View style={s.statsRow}>
@@ -142,7 +144,7 @@ export default function MoreToolsScreen(props) {
                   <Text style={{ color: C.gold }}>{activeCalendars}</Text>
                   <Text style={s.statValueSoft}> / {totalProperties}</Text>
                 </Text>
-                <Text style={s.statLabel}>Actifs</Text>
+                <Text style={s.statLabel}>{t('more_active')}</Text>
               </View>
 
               <View style={s.statDivider} />
@@ -151,14 +153,14 @@ export default function MoreToolsScreen(props) {
                 <Text style={[s.statValue, { color: conflictCount > 0 ? C.danger : C.success }]}>
                   {conflictCount}
                 </Text>
-                <Text style={s.statLabel}>Conflit{conflictCount !== 1 ? 's' : ''}</Text>
+                <Text style={s.statLabel}>{conflictCount !== 1 ? t('more_conflict_plural') : t('more_conflict_single')}</Text>
               </View>
 
               <View style={s.statDivider} />
 
               <View style={s.statBox}>
                 <Text style={s.statValueSmall}>{formatRelativeTime(lastSync)}</Text>
-                <Text style={s.statLabel}>Dernier sync</Text>
+                <Text style={s.statLabel}>{t('more_last_sync')}</Text>
               </View>
             </View>
           </TouchableOpacity>

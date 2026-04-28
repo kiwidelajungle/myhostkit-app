@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
+import { t, useLang } from '../i18n';
 import {
   View,
   Text,
@@ -51,6 +52,7 @@ function getPlatformColor(platform) {
 }
 
 export default function ConflictsScreen() {
+  useLang();
   const { conflicts, fetchConflicts, resolveConflict, error } = useICalSync();
   const [refreshing, setRefreshing] = useState(false);
   const [resolvingId, setResolvingId] = useState(null);
@@ -76,7 +78,7 @@ export default function ConflictsScreen() {
       'Marquer comme resolu ?',
       `Confirmez-vous avoir bloque la date du ${formatDate(conflict.overlap_start)} au ${formatDate(conflict.overlap_end)} sur l'une des plateformes ?`,
       [
-        { text: 'Annuler', style: 'cancel' },
+        { text: t('common_cancel'), style: 'cancel' },
         {
           text: "Oui, c'est resolu",
           onPress: async () => {
@@ -84,7 +86,7 @@ export default function ConflictsScreen() {
             const ok = await resolveConflict(conflict.id);
             setResolvingId(null);
             if (!ok) {
-              Alert.alert('Erreur', error || 'Impossible de marquer comme resolu');
+              Alert.alert(t('common_error'), error || t('conflicts_err_resolve'));
             }
           },
         },
@@ -95,7 +97,7 @@ export default function ConflictsScreen() {
   const openPlatform = (platform) => {
     const url = PLATFORM_LINKS[platform] || `https://www.${platform}.com`;
     Linking.openURL(url).catch(() => {
-      Alert.alert('Erreur', "Impossible d'ouvrir le lien");
+      Alert.alert(t('common_error'), t('conflicts_err_link'));
     });
   };
 
@@ -105,7 +107,7 @@ export default function ConflictsScreen() {
         <Text style={s.title}>Conflits</Text>
         <Text style={s.subtitle}>
           {conflicts.length === 0
-            ? 'Aucun conflit'
+            ? t('conflicts_empty_filter')
             : `${conflicts.length} conflit${conflicts.length > 1 ? 's' : ''} a resoudre`}
         </Text>
       </View>
@@ -117,7 +119,7 @@ export default function ConflictsScreen() {
         {conflicts.length === 0 && (
           <View style={s.empty}>
             <Text style={s.emptyEmoji}>OK</Text>
-            <Text style={s.emptyTitle}>Aucun conflit detecte</Text>
+            <Text style={s.emptyTitle}>{t('conflicts_empty_title')}</Text>
             <Text style={s.emptyText}>
               Tous vos calendriers sont synchronises et coherents. Continuez comme ca !
             </Text>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, TextInput, Alert, Linking } from 'react-native';
+﻿import React, { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, TextInput, Alert, Linking, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { showNavigationChoice } from '../../utils/navigation';
+import { supabase } from '../../config/supabase';
 import T from '../../theme';
 import { t, useLang, getLang } from '../../i18n';
 
@@ -17,7 +18,7 @@ export default function GuestHome(props) {
     if (!incidentText.trim()) { Alert.alert(t('guest_home_incident_err_title'), t('guest_home_incident_err_msg')); return; }
     var subject = encodeURIComponent('MyHostKit — Incident logement : ' + (property.name || ''));
     var body = encodeURIComponent('Signalement d\'un probleme\n\nLogement : ' + (property.name || '') + '\nAdresse : ' + (property.address || '') + ' ' + (property.city || '') + '\n\nDescription :\n' + incidentText + '\n\nEnvoye via MyHostKit');
-    Linking.openURL('mailto:myhostkit.contact@gmail.com?subject=' + subject + '&body=' + body);
+    supabase.from('incidents').insert({ property_id: property.id, host_id: property.user_id, guest_name: '', description: incidentText }).then(function(){}).catch(function(){});
     Alert.alert(t('guest_home_incident_sent_title'), t('guest_home_incident_sent_msg'));
     setIncidentText(''); setShowIncident(false);
   }
@@ -51,6 +52,7 @@ export default function GuestHome(props) {
 
   return (
     <SafeAreaView style={s.safe} edges={['top']}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{flex:1}}>
       <View style={s.hdr}>
         <View><Text style={s.hdrT}>{property.name}</Text><Text style={s.hdrSub}>{t('guest_home_role_label')}</Text></View>
       </View>
@@ -133,6 +135,7 @@ export default function GuestHome(props) {
 
         <View style={{ height: 30 }} />
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

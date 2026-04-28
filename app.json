@@ -10,7 +10,15 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.myhostkit.app"
+      "bundleIdentifier": "com.myhostkit.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "MyHostKit utilise la camera pour permettre aux menageres de prendre des photos lors de leurs rapports de mission.",
+        "NSPhotoLibraryUsageDescription": "MyHostKit accede a vos photos pour permettre l upload de photos de rapport de menage et de documents KBIS.",
+        "NSPhotoLibraryAddUsageDescription": "MyHostKit peut sauvegarder des photos de rapport dans votre galerie.",
+        "NSLocationWhenInUseUsageDescription": "MyHostKit utilise votre localisation pour afficher les logements et missions a proximite.",
+        "NSUserNotificationsUsageDescription": "MyHostKit envoie des notifications pour les nouvelles reservations, signalements voyageurs et messages.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +29,25 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.myhostkit.app"
+      "package": "com.myhostkit.app",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET",
+        "VIBRATE",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET",
+        "VIBRATE"
+      ]
     },
     "web": {
       "output": "static",
@@ -43,14 +69,12 @@
       ],
       "expo-web-browser",
       [
-        "@sentry/react-native/expo",
+        "@stripe/stripe-react-native",
         {
-          "url": "https://sentry.io/",
-          "project": "myhostkit-app",
-          "organization": "myhostkit"
+          "merchantIdentifier": "merchant.com.myhostkit.app",
+          "enableGooglePay": false
         }
-      ],
-      ["@stripe/stripe-react-native", { "merchantIdentifier": "merchant.com.myhostkit.app", "enableGooglePay": false }]
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
@@ -59,9 +83,15 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "32799250-96fd-4d40-9a47-a30697f4201b"
+        "projectId": "b22c625a-4877-4f73-bfb0-0a33bf648405"
       }
     },
-    "owner": "myhostkit"
+    "owner": "myhostkitappmobile",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b22c625a-4877-4f73-bfb0-0a33bf648405"
+    }
   }
 }

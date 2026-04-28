@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 // Helper pour ouvrir les apps de navigation GPS
 import { Linking, Platform, Alert } from 'react-native';
 
@@ -43,7 +44,7 @@ export function showNavigationChoice(address, latitude, longitude) {
   var title = '🗺️ Itinéraire';
   var msg = (address || '') + (hasGps ? '\n📍 GPS: ' + latitude + ', ' + longitude : '');
   Alert.alert(title, msg, [
-    { text: 'Annuler', style: 'cancel' },
+    { text: t('common_cancel'), style: 'cancel' },
     { text: '🚗 Waze', onPress: function(){ openNavigation(address, latitude, longitude, 'waze'); }},
     { text: '🅶 Google Maps', onPress: function(){ openNavigation(address, latitude, longitude, 'google'); }},
     { text: '🍎 Apple Maps', onPress: function(){ openNavigation(address, latitude, longitude, 'apple'); }},

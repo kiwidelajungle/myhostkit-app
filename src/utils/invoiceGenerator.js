@@ -1,3 +1,4 @@
+﻿import { t } from '../i18n';
 // src/utils/invoiceGenerator.js
 // Génération de facture + numéro unique + envoi mail
 
@@ -36,13 +37,13 @@ export async function generateInvoice(bookingId, session) {
       .select('*, cleaners(*), properties(name, address, city)')
       .eq('id', bookingId).single();
 
-    if (!res.data) { Alert.alert('Erreur', 'Réservation introuvable'); return null; }
+    if (!res.data) { Alert.alert(t('common_error'), t('inv_err_booking_not_found')); return null; }
     var b = res.data;
     var c = b.cleaners;
 
-    if (!c) { Alert.alert('Erreur', 'Profil ménagère introuvable'); return null; }
+    if (!c) { Alert.alert(t('common_error'), t('inv_err_cleaner_not_found')); return null; }
     if (!c.billing_complete) {
-      Alert.alert('Facturation incomplète', 'Complétez votre profil de facturation dans Paramètres avant de générer une facture.');
+      Alert.alert(t('inv_billing_incomplete_title'), 'Complétez votre profil de facturation dans Paramètres avant de générer une facture.');
       return null;
     }
 
@@ -50,7 +51,7 @@ export async function generateInvoice(bookingId, session) {
     var hours = parseHours(b.time);
     var amount = round2(rate * hours);
     var invoiceNum = generateInvoiceNumber();
-    var propName = b.properties ? b.properties.name : 'Logement';
+    var propName = b.properties ? b.properties.name : t('common_property');
     var propAddr = b.properties ? (b.properties.address || '') + ' ' + (b.properties.city || '') : '';
 
     // Créer l'entrée invoice dans Supabase
@@ -67,7 +68,7 @@ export async function generateInvoice(bookingId, session) {
     }).select().single();
 
     if (invRes.error) {
-      Alert.alert('Erreur facture', invRes.error.message);
+      Alert.alert(t('inv_err_invoice'), invRes.error.message);
       return null;
     }
 
@@ -139,7 +140,7 @@ export async function generateInvoice(bookingId, session) {
       rate: rate,
     };
   } catch (err) {
-    Alert.alert('Erreur', err.message || 'Impossible de générer la facture');
+    Alert.alert(t('common_error'), err.message || t('inv_err_generic'));
     return null;
   }
 }

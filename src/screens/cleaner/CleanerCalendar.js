@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import T from '../../theme';
 import { t, useLang } from '../../i18n';
 
-var DAYS_FR = [t('cal_day_short_0'), t('cal_day_short_1'), t('cal_day_short_2'), t('cal_day_short_3'), t('cal_day_short_4'), t('cal_day_short_5'), t('cal_day_short_6')];
+function getDaysShort() { return [t('cal_day_short_0'), t('cal_day_short_1'), t('cal_day_short_2'), t('cal_day_short_3'), t('cal_day_short_4'), t('cal_day_short_5'), t('cal_day_short_6')]; }
 var HOURS = ['07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
 
 function getNext14Days() {
   var days = [];
   for (var i = 0; i < 14; i++) {
     var d = new Date(); d.setDate(d.getDate() + i);
-    days.push({ date: d.toISOString().split('T')[0], dayName: DAYS_FR[d.getDay()], dayNum: d.getDate(), isToday: i === 0 });
+    days.push({ date: d.toISOString().split('T')[0], dayName: getDaysShort()[d.getDay()], dayNum: d.getDate(), isToday: i === 0 });
   }
   return days;
 }
