@@ -42,7 +42,7 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <header>
 <div class="brand">MyHostKit</div>
 <h1>Politique de confidentialité</h1>
-<div class="updated">Version 1.1 — Avril 2026</div>
+<div class="updated">Version 1.2 — Avril 2026</div>
 </header>
 
 <div class="toc">
@@ -102,7 +102,7 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <h3>3.2 Données collectées automatiquement</h3>
 <ul>
 <li><strong>Données techniques</strong> : adresse IP, type d'appareil, version de l'OS (iOS/Android), version de l'application</li>
-<li><strong>Logs d'utilisation</strong> : date et heure de connexion, actions principales (connexion, création de réservation, envoi de rapport)</li>
+<li><strong>Logs d'utilisation</strong> : date et heure de connexion, actions principales (connexion, création de réservation, envoi de rapport). Ces données sont collectées via PostHog de manière anonymisée pour analyser l'usage et améliorer l'application.</li> <li><strong>Erreurs techniques</strong> : en cas de bug ou plantage, des informations techniques (type d'erreur, OS, version app) sont automatiquement transmises à Sentry pour permettre le débogage. Aucune donnée personnelle identifiable n'est volontairement transmise.</li>
 <li><strong>Notifications push</strong> : token unique fourni par Apple ou Google pour vous envoyer des notifications</li>
 </ul>
 
@@ -157,21 +157,22 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <table>
 <thead><tr><th>Sous-traitant</th><th>Finalité</th><th>Localisation</th></tr></thead>
 <tbody>
-<tr><td>Supabase</td><td>Hébergement base de données + authentification</td><td>UE (Stockholm)</td></tr>
-<tr><td>Stripe Payments Europe</td><td>Traitement des paiements</td><td>UE (Irlande)</td></tr>
+<tr><td>Supabase</td><td>Hébergement base de données + authentification + stockage de fichiers</td><td>UE (Stockholm)</td></tr>
+<tr><td>Stripe Payments Europe</td><td>Traitement des paiements + Stripe Connect (versement aux ménagères)</td><td>UE (Irlande)</td></tr>
 <tr><td>Resend</td><td>Envoi d'emails transactionnels</td><td>États-Unis (clauses contractuelles types)</td></tr>
 <tr><td>Anthropic</td><td>IA d'analyse photo et concierge (Claude)</td><td>États-Unis (clauses contractuelles types)</td></tr>
+<tr><td>Sentry</td><td>Monitoring des erreurs techniques (collecte minimale : type d'erreur, OS, version app)</td><td>Allemagne (UE) / États-Unis (CCT)</td></tr>
+<tr><td>PostHog</td><td>Analyse anonyme d'usage de l'application (parcours utilisateur, fonctionnalités utilisées)</td><td>États-Unis (clauses contractuelles types)</td></tr>
 <tr><td>Apple, Google</td><td>Distribution app + notifications push</td><td>États-Unis (clauses contractuelles types)</td></tr>
 <tr><td>Vercel</td><td>Hébergement site web et déploiement automatique</td><td>États-Unis (clauses contractuelles types)</td></tr>
 <tr><td>Cloudflare</td><td>DNS, protection anti-DDoS, CDN</td><td>États-Unis (clauses contractuelles types)</td></tr>
 <tr><td>GitHub (Microsoft)</td><td>Hébergement du code source du site</td><td>États-Unis (clauses contractuelles types)</td></tr>
-
 </tbody>
 </table>
 <p>Nous ne vendons <strong>jamais</strong> vos données à des tiers à des fins publicitaires.</p>
 
 <h2 id="transferts">8. Transferts hors Union européenne</h2>
-<p>Certains de nos sous-traitants (Stripe US, Resend, Anthropic, Apple, Google, Vercel, Cloudflare, GitHub) sont situés aux États-Unis. Ces transferts sont encadrés par les <strong>Clauses Contractuelles Types (CCT)</strong> approuvées par la Commission européenne, conformément à l'article 46 du RGPD, et le cas échéant par le <strong>Data Privacy Framework</strong> (DPF) UE-USA.</p>
+<p>Certains de nos sous-traitants (Resend, Anthropic, PostHog, Apple, Google, Vercel, Cloudflare, GitHub, et Sentry pour partie) sont situés aux États-Unis. Ces transferts sont encadrés par les <strong>Clauses Contractuelles Types (CCT)</strong> approuvées par la Commission européenne, conformément à l'article 46 du RGPD, et le cas échéant par le <strong>Data Privacy Framework</strong> (DPF) UE-USA.</p>
 <p>L'hébergement principal de votre base de données se fait <strong>au sein de l'Union européenne</strong> (Supabase, Stockholm).</p>
 
 <h2 id="droits">9. Vos droits</h2>
@@ -194,10 +195,13 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <li>Chiffrement des communications via HTTPS/TLS 1.3</li>
 <li>Mots de passe stockés sous forme de hash bcrypt (jamais en clair)</li>
 <li>Stockage des données dans des datacenters certifiés ISO 27001 (Supabase, AWS Stockholm)</li>
-<li>Politiques d'accès restrictives par rôle (Row Level Security côté Supabase)</li>
+<li>Politiques d'accès restrictives par rôle activées sur l'ensemble des tables (Row Level Security côté Supabase)</li>
+<li>Documents KBIS stockés dans un espace privé chiffré avec accès restreint au seul propriétaire</li>
 <li>Authentification renforcée pour les opérations sensibles</li>
 <li>Audit des suppressions et des connexions</li>
 </ul>
+
+<p><strong>Note sur les photos de rapport ménage</strong> : les photos prises par les ménagères dans le cadre de leurs rapports de mission sont stockées dans un espace de stockage public en lecture (URLs non devinables). Cette configuration permet l'affichage rapide des rapports dans l'application. Ces photos peuvent être supprimées à tout moment via la suppression de votre compte.</p>
 <p>En cas de violation de données susceptible d'engendrer un risque pour vos droits, nous notifierons la <strong>CNIL dans les 72 heures</strong> et vous informerons individuellement si nécessaire (art. 33-34 RGPD).</p>
 
 <h2 id="cookies">11. Cookies et traceurs</h2>
