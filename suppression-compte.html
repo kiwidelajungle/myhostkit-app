@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suppression de compte / Delete account — MyHostKit</title>
+<meta name="description" content="Comment supprimer votre compte MyHostKit / How to delete your MyHostKit account">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #fbf7f0 0%, #f3ebdc 100%);
+    color: #141e37;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 48px 40px;
+    box-shadow: 0 4px 30px rgba(140, 95, 40, 0.08);
+  }
+  .lang-switch {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .lang-switch button {
+    padding: 8px 20px;
+    border: 2px solid #d29e5a;
+    background: white;
+    color: #8c5f28;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-switch button.active {
+    background: #d29e5a;
+    color: white;
+  }
+  .lang-section { display: none; }
+  .lang-section.active { display: block; }
+  .logo {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .logo span {
+    font-size: 56px;
+    display: inline-block;
+  }
+  h1 {
+    font-size: 32px;
+    text-align: center;
+    color: #141e37;
+    margin-bottom: 8px;
+    font-weight: 800;
+  }
+  .subtitle {
+    text-align: center;
+    color: #6e7480;
+    margin-bottom: 40px;
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 22px;
+    color: #141e37;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f3ebdc;
+  }
+  p { margin-bottom: 16px; color: #3a4258; }
+  ol {
+    margin: 16px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  ol li {
+    counter-increment: step;
+    margin-bottom: 14px;
+    padding: 12px 16px 12px 56px;
+    background: #fbf7f0;
+    border-radius: 12px;
+    position: relative;
+  }
+  ol li::before {
+    content: counter(step);
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    width: 28px;
+    height: 28px;
+    background: #d29e5a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .alert {
+    background: #fff5e1;
+    border-left: 4px solid #d29e5a;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  .alert strong { color: #8c5f28; }
+  .info-box {
+    background: #f0f4ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .info-box ul {
+    margin-left: 20px;
+    margin-top: 8px;
+  }
+  .info-box li {
+    margin-bottom: 6px;
+    color: #3a4258;
+  }
+  .contact-cta {
+    background: linear-gradient(135deg, #d29e5a 0%, #b88748 100%);
+    color: white;
+    padding: 28px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 32px 0 0;
+  }
+  .contact-cta h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .contact-cta a {
+    display: inline-block;
+    margin-top: 12px;
+    background: white;
+    color: #8c5f28;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 24px;
+    font-weight: 700;
+    transition: transform 0.2s;
+  }
+  .contact-cta a:hover { transform: translateY(-2px); }
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #f3ebdc;
+    color: #6e7480;
+    font-size: 13px;
+  }
+  footer a { color: #d29e5a; text-decoration: none; }
+  @media (max-width: 600px) {
+    .container { padding: 32px 24px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="lang-switch">
+    <button id="btn-fr" class="active" onclick="setLang('fr')">🇫🇷 Français</button>
+    <button id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
+  </div>
+
+  <div class="logo"><span>🏠</span></div>
+
+  <!-- ========== FRANÇAIS ========== -->
+  <section id="lang-fr" class="lang-section active">
+
+    <h1>Supprimer votre compte MyHostKit</h1>
+    <p class="subtitle">Procédure de suppression définitive du compte et des données associées</p>
+
+    <h2>Comment supprimer votre compte depuis l'application</h2>
+    <p>L'application MyHostKit intègre directement une fonction de suppression de compte. La procédure est entièrement à la main de l'utilisateur, en quelques étapes :</p>
+
+    <ol>
+      <li>Ouvrez l'application MyHostKit et connectez-vous à votre compte</li>
+      <li>Accédez à l'onglet <strong>Profil</strong> en bas à droite de l'écran</li>
+      <li>Faites défiler jusqu'à la section <strong>Paramètres du compte</strong></li>
+      <li>Touchez le bouton <strong>Supprimer mon compte</strong></li>
+      <li>Confirmez la suppression dans la fenêtre qui s'affiche</li>
+    </ol>
+
+    <div class="alert">
+      <strong>⚠️ Action irréversible.</strong> La suppression est définitive et ne peut être annulée. Une fois confirmée, vous perdrez l'accès à toutes les données associées à votre compte.
+    </div>
+
+    <h2>Données supprimées</h2>
+    <div class="info-box">
+      <p><strong>Toutes les données suivantes sont effacées :</strong></p>
+      <ul>
+        <li>Profil utilisateur (email, nom, coordonnées)</li>
+        <li>Logements enregistrés et leurs informations (codes WiFi, codes d'accès, codes voyageurs)</li>
+        <li>Réservations et historique des séjours</li>
+        <li>Missions de ménage et rapports photo</li>
+        <li>Conversations et messages</li>
+        <li>Paramètres de synchronisation iCal</li>
+        <li>Inventaire et stocks</li>
+      </ul>
+    </div>
+
+    <h2>Données conservées par obligation légale</h2>
+    <p>Conformément aux obligations légales françaises et européennes, certaines données sont conservées pour une durée limitée même après la suppression du compte :</p>
+    <div class="info-box">
+      <ul>
+        <li><strong>Factures et paiements</strong> : 10 ans (obligation comptable)</li>
+        <li><strong>Logs de connexion</strong> : 12 mois (obligations LCEN)</li>
+        <li><strong>Données fiscales</strong> : 6 ans (obligation fiscale)</li>
+      </ul>
+    </div>
+    <p>Ces données ne sont accessibles qu'aux services administratifs et fiscaux compétents en cas de demande légale.</p>
+
+    <h2>Délais de suppression</h2>
+    <p>La suppression effective des données est exécutée <strong>sous 30 jours</strong> après la confirmation. Pendant cette période, votre compte est désactivé et inaccessible. Aucune notification ou message ne vous sera envoyé après la suppression.</p>
+
+    <div class="contact-cta">
+      <h3>Vous ne parvenez pas à supprimer votre compte ?</h3>
+      <p>Notre équipe peut effectuer la suppression manuellement à votre demande.</p>
+      <a href="mailto:myhostkit.contact@gmail.com?subject=Demande%20de%20suppression%20de%20compte">myhostkit.contact@gmail.com</a>
+    </div>
+
+  </section>
+
+  <!-- ========== ENGLISH ========== -->
+  <section id="lang-en" class="lang-section">
+
+    <h1>Delete your MyHostKit account</h1>
+    <p class="subtitle">How to permanently delete your account and associated data</p>
+
+    <h2>How to delete your account from the app</h2>
+    <p>The MyHostKit app includes a built-in account deletion feature. The process is entirely in the user's control, in a few steps:</p>
+
+    <ol>
+      <li>Open the MyHostKit app and sign in to your account</li>
+      <li>Go to the <strong>Profile</strong> tab at the bottom right of the screen</li>
+      <li>Scroll down to the <strong>Account settings</strong> section</li>
+      <li>Tap the <strong>Delete my account</strong> button</li>
+      <li>Confirm deletion in the dialog that appears</li>
+    </ol>
+
+    <div class="alert">
+      <strong>⚠️ Irreversible action.</strong> Deletion is permanent and cannot be undone. Once confirmed, you will lose access to all data associated with your account.
+    </div>
+
+    <h2>Data that will be deleted</h2>
+    <div class="info-box">
+      <p><strong>All of the following data will be erased:</strong></p>
+      <ul>
+        <li>User profile (email, name, contact info)</li>
+        <li>Registered properties and their information (WiFi codes, access codes, guest tokens)</li>
+        <li>Reservations and stay history</li>
+        <li>Cleaning missions and photo reports</li>
+        <li>Conversations and messages</li>
+        <li>iCal synchronization settings</li>
+        <li>Inventory and stock data</li>
+      </ul>
+    </div>
+
+    <h2>Data retained by legal obligation</h2>
+    <p>In accordance with French and European legal obligations, some data is retained for a limited period even after account deletion:</p>
+    <div class="info-box">
+      <ul>
+        <li><strong>Invoices and payments</strong>: 10 years (accounting obligation)</li>
+        <li><strong>Connection logs</strong>: 12 months (LCEN obligations)</li>
+        <li><strong>Tax data</strong>: 6 years (tax obligation)</li>
+      </ul>
+    </div>
+    <p>This data is only accessible to authorized administrative and tax authorities upon legal request.</p>
+
+    <h2>Deletion timeline</h2>
+    <p>Effective data deletion is performed <strong>within 30 days</strong> of confirmation. During this period, your account is deactivated and inaccessible. No notification or message will be sent to you after deletion.</p>
+
+    <div class="contact-cta">
+      <h3>Unable to delete your account?</h3>
+      <p>Our team can perform the deletion manually upon request.</p>
+      <a href="mailto:myhostkit.contact@gmail.com?subject=Account%20Deletion%20Request">myhostkit.contact@gmail.com</a>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>MyHostKit — <a href="https://myhostkit.com">myhostkit.com</a></p>
+    <p style="margin-top:6px;">SIRET 100 324 060 00019 — 60 rue François 1er, 75008 Paris</p>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+    document.getElementById('btn-' + lang).classList.add('active');
+    document.documentElement.lang = lang;
+  }
+  // Auto-detect browser language on first load
+  (function() {
+    var browserLang = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+    if (browserLang === 'en') setLang('en');
+  })();
+</script>
+
+</body>
+</html>
