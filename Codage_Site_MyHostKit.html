@@ -2272,6 +2272,7 @@ async function submitWaitlist(e){
     }
     document.getElementById('wl-form-wrap').classList.add('hidden');
     document.getElementById('wl-success-wrap').classList.remove('hidden');
+     if(typeof fbq!=='undefined'){fbq('track','Lead',{content_name:'Waitlist MyHostKit',content_category:(document.getElementById('wl-statut')||{}).value||'Unknown',value:0,currency:'EUR'});}
     document.getElementById('wl-success-email').textContent = email;
     // Marquer l'inscription avec timestamp (6 mois sans réafficher)
     try { localStorage.setItem('mhk_wl_done', String(Date.now())); } catch(e){}
@@ -2350,7 +2351,7 @@ async function submitWaitlist(e){
         <button type="button" class="wl-skip" onclick="closeWaitlist()">Plus tard, merci</button>
       </form>
     </div>
-    <div id="wl-success-wrap" class="hidden">
+    <div id="" class="hidden">
       <div class="wl-success">
         <div class="wl-success-icon">&check;</div>
         <h3>Bienvenue &agrave; <em>bord !</em></h3>
