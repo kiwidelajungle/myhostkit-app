@@ -2243,7 +2243,7 @@ async function submitWaitlist(e){
   btn.querySelector('span').textContent = 'Envoi en cours...';
 
   const payload = {
-    prenom: prenom || 'N/A',
+    prenom: prenom || (profil==='hote'?'Hôte':profil==='conciergerie'?'Conciergerie':profil==='menagere'?'Agent':profil==='voyageur'?'Voyageur':'Vous'),
     email: email,
     profil: profil,
     ville: ville || 'N/A',
