@@ -2229,8 +2229,8 @@ async function submitWaitlist(e){
   const profil = document.getElementById('wl-profil').value;
   const ville = document.getElementById('wl-ville').value.trim();
 
-  if (!prenom || !email || !profil || !ville){
-    errEl.textContent = 'Tous les champs sont requis (prénom, email, profil, ville).';
+  if (!email || !profil){
+    errEl.textContent = 'Email et profil sont requis.';
     errEl.classList.add('show');
     return;
   }
@@ -2272,7 +2272,7 @@ async function submitWaitlist(e){
     }
     document.getElementById('wl-form-wrap').classList.add('hidden');
     document.getElementById('wl-success-wrap').classList.remove('hidden');
-     if(typeof fbq!=='undefined'){fbq('track','Lead',{content_name:'Waitlist MyHostKit',content_category:(document.getElementById('wl-statut')||{}).value||'Unknown',value:0,currency:'EUR'});}
+     if(typeof fbq!=='undefined'){fbq('track','Lead',{content_name:'Waitlist MyHostKit',content_category:(document.getElementById('wl-profil')||{}).value||'Unknown',value:0,currency:'EUR'});}
     document.getElementById('wl-success-email').textContent = email;
     // Marquer l'inscription avec timestamp (6 mois sans réafficher)
     try { localStorage.setItem('mhk_wl_done', String(Date.now())); } catch(e){}
@@ -2317,8 +2317,8 @@ async function submitWaitlist(e){
         <div class="wl-error" id="wl-error"></div>
         <div class="wl-form-row">
           <div class="wl-field">
-            <label>Pr&eacute;nom *</label>
-            <input id="wl-prenom" type="text" required placeholder="Rayane" autocomplete="given-name"/>
+            <label style="display:none">Pr&eacute;nom *</label>
+            <input id="wl-prenom" type="hidden" placeholder="Rayane" autocomplete="given-name"/>
           </div>
           <div class="wl-field">
             <label>Email *</label>
@@ -2338,8 +2338,8 @@ async function submitWaitlist(e){
             </select>
           </div>
           <div class="wl-field">
-            <label>Ville *</label>
-            <input id="wl-ville" type="text" required placeholder="Paris, Nice, Lyon..."/>
+            <label style="display:none">Ville *</label>
+            <input id="wl-ville" type="hidden" placeholder="Paris, Nice, Lyon..."/>
           </div>
         </div>
         <div class="wl-perks">
