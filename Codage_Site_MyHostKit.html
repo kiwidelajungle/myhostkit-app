@@ -2243,10 +2243,10 @@ async function submitWaitlist(e){
   btn.querySelector('span').textContent = 'Envoi en cours...';
 
   const payload = {
-    prenom: prenom,
+    prenom: prenom || 'N/A',
     email: email,
     profil: profil,
-    ville: ville,
+    ville: ville || 'N/A',
     source: 'site_popup',
     referrer_code: referrer_code,
     user_agent: navigator.userAgent,
