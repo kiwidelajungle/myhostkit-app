@@ -1,97 +1,93 @@
-{
-  "expo": {
-    "name": "MyHostKit",
-    "slug": "myhostkit",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myhostkitapp2",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.myhostkit.app",
-      "infoPlist": {
-        "NSCameraUsageDescription": "MyHostKit utilise la camera pour permettre aux menageres de prendre des photos lors de leurs rapports de mission.",
-        "NSPhotoLibraryUsageDescription": "MyHostKit accede a vos photos pour permettre l upload de photos de rapport de menage et de documents KBIS.",
-        "NSPhotoLibraryAddUsageDescription": "MyHostKit peut sauvegarder des photos de rapport dans votre galerie.",
-        "NSLocationWhenInUseUsageDescription": "MyHostKit utilise votre localisation pour afficher les logements et missions a proximite.",
-        "NSUserNotificationsUsageDescription": "MyHostKit envoie des notifications pour les nouvelles reservations, signalements voyageurs et messages.",
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "package": "com.myhostkit.app",
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "READ_MEDIA_IMAGES",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "INTERNET",
-        "VIBRATE",
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "READ_MEDIA_IMAGES",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "INTERNET",
-        "VIBRATE"
-      ]
-    },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
-        }
-      ],
-      "expo-web-browser",
-      [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "merchant.com.myhostkit.app",
-          "enableGooglePay": false
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "b22c625a-4877-4f73-bfb0-0a33bf648405"
-      }
-    },
-    "owner": "myhostkitappmobile",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/b22c625a-4877-4f73-bfb0-0a33bf648405"
-    }
-  }
+﻿{
+    "expo":  {
+                 "name":  "MyHostKit",
+                 "slug":  "myhostkit",
+                 "version":  "1.0.0",
+                 "orientation":  "portrait",
+                 "icon":  "./assets/images/icon.png",
+                 "scheme":  "myhostkitapp2",
+                 "userInterfaceStyle":  "automatic",
+                 "newArchEnabled":  true,
+                 "ios":  {
+                             "supportsTablet":  true,
+                             "bundleIdentifier":  "com.myhostkit.app",
+                             "infoPlist":  {
+                                               "NSCameraUsageDescription":  "MyHostKit utilise la camera pour permettre aux menageres de prendre des photos lors de leurs rapports de mission.",
+                                               "NSPhotoLibraryUsageDescription":  "MyHostKit accede a vos photos pour permettre l upload de photos de rapport de menage et de documents KBIS.",
+                                               "NSPhotoLibraryAddUsageDescription":  "MyHostKit peut sauvegarder des photos de rapport dans votre galerie.",
+                                               "NSLocationWhenInUseUsageDescription":  "MyHostKit utilise votre localisation pour afficher les logements et missions a proximite.",
+                                               "NSUserNotificationsUsageDescription":  "MyHostKit envoie des notifications pour les nouvelles reservations, signalements voyageurs et messages.",
+                                               "ITSAppUsesNonExemptEncryption":  false
+                                           }
+                         },
+                 "android":  {
+                                 "adaptiveIcon":  {
+                                                      "backgroundColor":  "#E6F4FE",
+                                                      "foregroundImage":  "./assets/images/android-icon-foreground.png",
+                                                      "backgroundImage":  "./assets/images/android-icon-background.png",
+                                                      "monochromeImage":  "./assets/images/android-icon-monochrome.png"
+                                                  },
+                                 "edgeToEdgeEnabled":  true,
+                                 "predictiveBackGestureEnabled":  false,
+                                 "package":  "com.myhostkit.app",
+                                 "permissions":  [
+                                                     "CAMERA",
+                                                     "READ_EXTERNAL_STORAGE",
+                                                     "WRITE_EXTERNAL_STORAGE",
+                                                     "READ_MEDIA_IMAGES",
+                                                     "ACCESS_FINE_LOCATION",
+                                                     "ACCESS_COARSE_LOCATION",
+                                                     "INTERNET",
+                                                     "VIBRATE",
+                                                     "CAMERA",
+                                                     "READ_EXTERNAL_STORAGE",
+                                                     "WRITE_EXTERNAL_STORAGE",
+                                                     "READ_MEDIA_IMAGES",
+                                                     "ACCESS_FINE_LOCATION",
+                                                     "ACCESS_COARSE_LOCATION",
+                                                     "INTERNET",
+                                                     "VIBRATE"
+                                                 ]
+                             },
+                 "web":  {
+                             "output":  "static",
+                             "favicon":  "./assets/images/favicon.png"
+                         },
+                 "plugins":  [
+                                 "expo-router",
+                                 [
+                                     "expo-splash-screen",
+                                     {
+                                         "image":  "./assets/images/splash-icon.png",
+                                         "imageWidth":  200,
+                                         "resizeMode":  "contain",
+                                         "backgroundColor":  "#ffffff",
+                                         "dark":  {
+                                                      "backgroundColor":  "#000000"
+                                                  }
+                                     }
+                                 ],
+                                 "expo-web-browser"
+                             ],
+                 "experiments":  {
+                                     "typedRoutes":  true,
+                                     "reactCompiler":  true
+                                 },
+                 "extra":  {
+                               "router":  {
+
+                                          },
+                               "eas":  {
+                                           "projectId":  "b22c625a-4877-4f73-bfb0-0a33bf648405"
+                                       }
+                           },
+                 "owner":  "myhostkitappmobile",
+                 "runtimeVersion":  {
+                                        "policy":  "appVersion"
+                                    },
+                 "updates":  {
+                                 "url":  "https://u.expo.dev/b22c625a-4877-4f73-bfb0-0a33bf648405"
+                             }
+             }
 }
+

@@ -3,8 +3,8 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, RefreshControl, A
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { supabase, SUPABASE_ANON, EDGE_URL } from '../../config/supabase';
-import { createCleaningPayment, captureCleaningPayment } from '../../utils/stripe';
-import { useStripe } from '@stripe/stripe-react-native';
+
+
 import T from '../../theme';
 import { trackScreen, track } from '../../utils/monitoring';
 import { dbSilent } from '../../utils/db';
@@ -21,8 +21,7 @@ function parseHours(timeStr) { if (!timeStr) return 1; var p = timeStr.replace('
 
 export default function HostDashboard(props) {
   useLang();
-  var _stripe = useStripe(); var initPaymentSheet = _stripe.initPaymentSheet; var presentPaymentSheet = _stripe.presentPaymentSheet;
-
+  
   // Ouvre PaymentSheet pour payer un booking
   async function payBookingWithStripe(bookingId, load) {
     try {
@@ -372,3 +371,4 @@ var s = StyleSheet.create({
   empty:{backgroundColor:T.card,borderRadius:16,padding:30,alignItems:'center',borderWidth:1,borderColor:T.border,marginTop:20},
   emptyT:{fontSize:16,fontWeight:'600',color:T.text,marginBottom:6},emptyS:{fontSize:13,color:T.muted,textAlign:'center'},
 });
+
