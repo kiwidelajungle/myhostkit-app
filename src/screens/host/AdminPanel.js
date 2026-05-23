@@ -85,7 +85,7 @@ export default function AdminPanel(props) {
 
   return (
     <SafeAreaView style={s.safe} edges={['top']}>
-      <View style={s.hdr}><Text style={s.hdrT}>Admin MyHostKit</Text><Text style={s.hdrSub}>👑 m.rayane8306</Text></View>
+      <View style={s.hdr}><Text style={s.hdrT}>Admin Keyla</Text><Text style={s.hdrSub}>👑 m.rayane8306</Text></View>
       <ScrollView style={{ flex: 1, backgroundColor: T.bg }} contentContainerStyle={{ padding: 16 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={T.accent} />}>
 
         {/* Stats */}

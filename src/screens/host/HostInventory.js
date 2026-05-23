@@ -194,7 +194,7 @@ export default function HostInventory(props) {
         WebBrowser.openBrowserAsync(data.url).then(function(){
           fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_payment',session_url:data.url})}).then(function(vr){return vr.json();}).then(function(vd){
             if(vd&&vd.paid){
-              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'MyHostKit - Commande PAYEE : '+sel.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
+              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'Keyla - Commande PAYEE : '+sel.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
               setShopCart({}); setShowShop(false);
               Alert.alert(t('shop_paid_title'), t('shop_paid_msg'));
             } else { Alert.alert(t('shop_not_finalized')); }
@@ -214,7 +214,7 @@ export default function HostInventory(props) {
       { text: t('common_send'), onPress: function() {
         fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ to: 'myhostkit.contact@gmail.com', subject: 'MyHostKit — Commande : ' + sel.name, body: 'Commande pour :\n' + sel.name + '\n\nArticles :\n' + list }),
+      body: JSON.stringify({ to: 'myhostkit.contact@gmail.com', subject: 'Keyla — Commande : ' + sel.name, body: 'Commande pour :\n' + sel.name + '\n\nArticles :\n' + list }),
     }).then(function() { Alert.alert(t('host_inventory_order_sent_title')); }).catch(function() { Alert.alert(t('host_inventory_order_error')); });
       }}
     ]);
@@ -223,7 +223,7 @@ export default function HostInventory(props) {
     if (!aiMsg.trim()) return;
     setAiLoading(true);
     var langInstruction = getLang() === 'en' ? 'Answer in English briefly.' : 'Reponds en francais brievement.';
-    var sp = 'You are the MyHostKit stock assistant for "' + (sel ? sel.name : '') + '". Stock: ' + items.map(function(it) { return it.item_name + ':' + it.quantity; }).join(', ') + '. ' + langInstruction;
+    var sp = 'You are the Keyla stock assistant for "' + (sel ? sel.name : '') + '". Stock: ' + items.map(function(it) { return it.item_name + ':' + it.quantity; }).join(', ') + '. ' + langInstruction;
     fetch(EDGE_URL + '/ai-concierge', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON }, body: JSON.stringify({ message: aiMsg, systemPrompt: sp }) })
     .then(function(r) { return r.json(); }).then(function(d) { setAiReply(d.response || d.reply || t('host_inventory_ai_error')); setAiLoading(false); })
     .catch(function() { setAiReply(t('host_inventory_ai_unavailable')); setAiLoading(false); });

@@ -1,6 +1,6 @@
 ﻿{
     "expo":  {
-                 "name":  "MyHostKit",
+                 "name":  "Keyla",
                  "slug":  "myhostkit",
                  "version":  "1.0.0",
                  "orientation":  "portrait",
@@ -12,11 +12,11 @@
                              "supportsTablet":  true,
                              "bundleIdentifier":  "com.myhostkit.app",
                              "infoPlist":  {
-                                               "NSCameraUsageDescription":  "MyHostKit utilise la camera pour permettre aux menageres de prendre des photos lors de leurs rapports de mission.",
-                                               "NSPhotoLibraryUsageDescription":  "MyHostKit accede a vos photos pour permettre l upload de photos de rapport de menage et de documents KBIS.",
-                                               "NSPhotoLibraryAddUsageDescription":  "MyHostKit peut sauvegarder des photos de rapport dans votre galerie.",
-                                               "NSLocationWhenInUseUsageDescription":  "MyHostKit utilise votre localisation pour afficher les logements et missions a proximite.",
-                                               "NSUserNotificationsUsageDescription":  "MyHostKit envoie des notifications pour les nouvelles reservations, signalements voyageurs et messages.",
+                                               "NSCameraUsageDescription":  "Keyla utilise la camera pour permettre aux menageres de prendre des photos lors de leurs rapports de mission.",
+                                               "NSPhotoLibraryUsageDescription":  "Keyla accede a vos photos pour permettre l upload de photos de rapport de menage et de documents KBIS.",
+                                               "NSPhotoLibraryAddUsageDescription":  "Keyla peut sauvegarder des photos de rapport dans votre galerie.",
+                                               "NSLocationWhenInUseUsageDescription":  "Keyla utilise votre localisation pour afficher les logements et missions a proximite.",
+                                               "NSUserNotificationsUsageDescription":  "Keyla envoie des notifications pour les nouvelles reservations, signalements voyageurs et messages.",
                                                "ITSAppUsesNonExemptEncryption":  false
                                            }
                          },

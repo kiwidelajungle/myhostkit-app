@@ -90,7 +90,7 @@ export default function LoginScreen(props) {
                     // Email parrain (garde en FR : destinataire = parrain, probablement francophone)
                     fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
                       method: 'POST', headers: {'Content-Type':'application/json'},
-                      body: JSON.stringify({ to: ref.data.email, subject: 'MyHostKit  Parrainage reussi ! +7 jours gratuits', body: 'Felicitations !\n\n' + email.trim() + ' s\'est inscrit avec votre code parrain ' + code + '.\n\nVous beneficiez de 7 jours gratuits supplementaires.\n\nVotre essai se termine le ' + parrainTrialEnd.toLocaleDateString('fr-FR') + '.\n\n L\'equipe MyHostKit' }),
+                      body: JSON.stringify({ to: ref.data.email, subject: 'Keyla  Parrainage reussi ! +7 jours gratuits', body: 'Felicitations !\n\n' + email.trim() + ' s\'est inscrit avec votre code parrain ' + code + '.\n\nVous beneficiez de 7 jours gratuits supplementaires.\n\nVotre essai se termine le ' + parrainTrialEnd.toLocaleDateString('fr-FR') + '.\n\n L\'equipe Keyla' }),
                     });
                     Alert.alert(t('login_referral_applied_title'), t('login_referral_applied_msg'));
                   }); // fin count
@@ -169,7 +169,7 @@ export default function LoginScreen(props) {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled">
           <Text style={s.logo}>🏠</Text>
-          <Text style={s.title}>MyHostKit</Text>
+          <Text style={s.title}>Keyla</Text>
           <Text style={s.sub}>{t('login_subtitle')}</Text>
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10, marginBottom: 20 }}>

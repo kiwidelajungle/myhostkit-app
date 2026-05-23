@@ -45,7 +45,7 @@ export async function registerPushToken(userId) {
     // Configurer les notifications sur Android
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
-        name: 'MyHostKit',
+        name: 'Keyla',
         importance: Notifications.AndroidImportance.HIGH,
         vibrationPattern: [0, 250, 250, 250],
       });

@@ -16,8 +16,8 @@ export default function GuestHome(props) {
 
   function sendIncident() {
     if (!incidentText.trim()) { Alert.alert(t('guest_home_incident_err_title'), t('guest_home_incident_err_msg')); return; }
-    var subject = encodeURIComponent('MyHostKit — Incident logement : ' + (property.name || ''));
-    var body = encodeURIComponent('Signalement d\'un probleme\n\nLogement : ' + (property.name || '') + '\nAdresse : ' + (property.address || '') + ' ' + (property.city || '') + '\n\nDescription :\n' + incidentText + '\n\nEnvoye via MyHostKit');
+    var subject = encodeURIComponent('Keyla — Incident logement : ' + (property.name || ''));
+    var body = encodeURIComponent('Signalement d\'un probleme\n\nLogement : ' + (property.name || '') + '\nAdresse : ' + (property.address || '') + ' ' + (property.city || '') + '\n\nDescription :\n' + incidentText + '\n\nEnvoye via Keyla');
     supabase.from('incidents').insert({ property_id: property.id, host_id: property.user_id, guest_name: '', description: incidentText }).then(function(){}).catch(function(){});
     Alert.alert(t('guest_home_incident_sent_title'), t('guest_home_incident_sent_msg'));
     setIncidentText(''); setShowIncident(false);
@@ -39,7 +39,7 @@ export default function GuestHome(props) {
   if (!property.name) {
     return (
       <SafeAreaView style={s.safe} edges={['top']}>
-        <View style={s.hdr}><Text style={s.hdrT}>MyHostKit</Text></View>
+        <View style={s.hdr}><Text style={s.hdrT}>Keyla</Text></View>
         <View style={{ flex: 1, backgroundColor: T.bg, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
           <Text style={{ fontSize: 50, marginBottom: 16 }}>🏠</Text>
           <Text style={{ fontSize: 18, fontWeight: '600', color: T.text, marginBottom: 8 }}>{t('guest_home_no_prop_title')}</Text>

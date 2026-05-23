@@ -1,6 +1,6 @@
 ﻿// ============================================================
 // ProspectionRequestModal.js
-// Modal wizard 3 etapes pour demander une mise en relation a MyHostKit
+// Modal wizard 3 etapes pour demander une mise en relation a Keyla
 // quand aucun logement n'est disponible dans la zone de l'agent.
 // ============================================================
 
@@ -14,7 +14,7 @@ import {
 import { sendProspectionRequest } from '../services/prospection';
 
 // ============================================================
-// PALETTE MyHostKit (alignee sur le site)
+// PALETTE Keyla (alignee sur le site)
 // ============================================================
 var NAVY = '#0A1F3D';
 var GOLD = '#B89B6E';

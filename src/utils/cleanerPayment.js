@@ -100,17 +100,17 @@ export async function payAfterService(bookingId, session) {
                   supabase.rpc('increment_field', { row_id: b.property_id, table_name: 'properties', field_name: 'total_cleaning_cost' }).then(function() {});
                 }
 
-                // Mail confirmation CC MyHostKit
+                // Mail confirmation CC Keyla
                 Alert.alert(t('cpay_done_title'), amount + ' EUR -> ' + cleanerName);
                 var body = encodeURIComponent(
                   'Bonjour ' + contactName + ',\n\n' +
                   'Le paiement de votre prestation a été effectué :\n\n' +
                   '🏠 ' + propName + '\n📅 ' + b.date + '\n💰 ' + amount + ' €\n\n' +
-                  'Merci pour votre travail !\nVia MyHostKit'
+                  'Merci pour votre travail !\nVia Keyla'
                 );
                 fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
                   method: 'POST', headers: {'Content-Type':'application/json'},
-                  body: JSON.stringify({ to: cleanerEmail, subject: 'MyHostKit — Paiement prestation ' + propName, body: 'Bonjour ' + contactName + ',\n\nLe paiement de votre prestation a ete effectue :\n\n🏠 ' + propName + '\n📅 ' + b.date + '\n💰 ' + amount + ' EUR\n\nMerci pour votre travail !\nVia MyHostKit' }),
+                  body: JSON.stringify({ to: cleanerEmail, subject: 'Keyla — Paiement prestation ' + propName, body: 'Bonjour ' + contactName + ',\n\nLe paiement de votre prestation a ete effectue :\n\n🏠 ' + propName + '\n📅 ' + b.date + '\n💰 ' + amount + ' EUR\n\nMerci pour votre travail !\nVia Keyla' }),
                 }).catch(function(){});
                 Alert.alert(t('cpay_done_title'), amount + ' EUR -> ' + cleanerName);
                 resolve(true);

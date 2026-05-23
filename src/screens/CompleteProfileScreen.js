@@ -91,7 +91,7 @@ export default function CompleteProfileScreen(props) {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{flex:1}}>
         <View style={s.hdr}><Text style={s.hdrT}>{t('cprof_title')}</Text></View>
         <ScrollView contentContainerStyle={{padding:18}} keyboardShouldPersistTaps="handled">
-          <Text style={s.intro}>Pour utiliser MyHostKit, merci de completer toutes les informations ci-dessous. Toutes sont obligatoires.</Text>
+          <Text style={s.intro}>Pour utiliser Keyla, merci de completer toutes les informations ci-dessous. Toutes sont obligatoires.</Text>
 
           <Text style={s.label}>{t('cprof_first_name')}</Text>
           <TextInput style={s.input} value={firstName} onChangeText={setFirstName} autoCapitalize="words" />

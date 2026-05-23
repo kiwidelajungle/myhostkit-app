@@ -180,7 +180,7 @@ export default function CleanerTeam(props) {
                 <View style={{flex:1}}>
                   <Text style={s.memberName}>{m.member_name}</Text>
                   <Text style={s.memberEmail}>{m.member_email}</Text>
-                  {!m.user_id && <Text style={{fontSize:9,color:'#FF9500',marginTop:2}}>⚠ Pas encore inscrit sur MyHostKit</Text>}
+                  {!m.user_id && <Text style={{fontSize:9,color:'#FF9500',marginTop:2}}>⚠ Pas encore inscrit sur Keyla</Text>}
                 </View>
                 <Text style={{color:alreadyIn?T.muted:'#34C759',fontWeight:'600',fontSize:12}}>{alreadyIn?t('team_already_member'):t('team_btn_add')}</Text>
               </TouchableOpacity>
@@ -199,7 +199,7 @@ export default function CleanerTeam(props) {
       if (r.error) { Alert.alert(t('error_title'), r.error.message); return; }
       Alert.alert(t('team_alert_added_title'), t('team_alert_added_msg', { name: name.trim() }));
       setEmail(''); setName(''); setShowAdd(false); load();
-      fetch(EDGE, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ to:email.trim(), subject:'MyHostKit — Equipe', body:'Bonjour '+name.trim()+',\n\nVous avez ete ajoute a une equipe sur MyHostKit.\n\nSi vous n\'avez pas encore l\'application, telechargez-la pour communiquer avec votre equipe.\n\n— MyHostKit' }) });
+      fetch(EDGE, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ to:email.trim(), subject:'Keyla — Equipe', body:'Bonjour '+name.trim()+',\n\nVous avez ete ajoute a une equipe sur Keyla.\n\nSi vous n\'avez pas encore l\'application, telechargez-la pour communiquer avec votre equipe.\n\n— Keyla' }) });
     });
   }
   function removeMember(m) { Alert.alert(t('team_alert_remove_title', { name: m.member_name }),'',[ {text:t('team_btn_cancel')}, {text:t('team_btn_remove'),style:'destructive',onPress:function(){supabase.from('team_members').delete().eq('id',m.id).then(function(){load();});}} ]); }
@@ -216,7 +216,7 @@ export default function CleanerTeam(props) {
     supabase.from('team_missions').insert({ owner_id:uid, title:missionTitle.trim(), mission_date:missionDate.trim()||null, description:missionDesc.trim()||'', status:'pending' }).then(function(r) {
       if (r.error) Alert.alert(t('error_title'), r.error.message);
       else { Alert.alert(t('team_alert_mission_created_title'), t('team_alert_mission_created_msg')); setMissionTitle(''); setMissionDate(''); setMissionDesc(''); setShowAddMission(false); load();
-        members.forEach(function(m){ fetch(EDGE, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ to:m.member_email, subject:'MyHostKit — Mission: '+missionTitle.trim(), body:'Bonjour '+m.member_name+',\n\nNouvelle mission: '+missionTitle.trim()+(missionDate.trim()?' — '+missionDate.trim():'')+(missionDesc.trim()?'\n\n'+missionDesc.trim():'')+'\n\n— MyHostKit' }) }); });
+        members.forEach(function(m){ fetch(EDGE, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ to:m.member_email, subject:'Keyla — Mission: '+missionTitle.trim(), body:'Bonjour '+m.member_name+',\n\nNouvelle mission: '+missionTitle.trim()+(missionDate.trim()?' — '+missionDate.trim():'')+(missionDesc.trim()?'\n\n'+missionDesc.trim():'')+'\n\n— Keyla' }) }); });
       }
     });
   }
@@ -237,7 +237,7 @@ export default function CleanerTeam(props) {
         {tab==='members' && <View>
           <TouchableOpacity style={s.addBtn} onPress={function(){setShowAdd(!showAdd);}}><Text style={s.addBtnT}>{showAdd?t('team_btn_close'):t('team_btn_add_member')}</Text></TouchableOpacity>
           {showAdd && <View style={s.addForm}><TextInput style={s.input} placeholder={t('team_placeholder_name')} placeholderTextColor={T.muted} value={name} onChangeText={setName} /><TextInput style={s.input} placeholder={t('team_placeholder_email')} placeholderTextColor={T.muted} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" /><TouchableOpacity style={s.confirmBtn} onPress={addMember}><Text style={s.confirmBtnT}>Ajouter</Text></TouchableOpacity></View>}
-          {members.map(function(m,i){ return <View key={m.id||i} style={s.memberCard}><Text style={{fontSize:18}}>👤</Text><View style={{flex:1}}><Text style={s.memberName}>{m.member_name}</Text><Text style={s.memberEmail}>{m.member_email}</Text>{m.user_id ? <Text style={{fontSize:9,color:'#34C759'}}>✓ Inscrit sur MyHostKit</Text> : <Text style={{fontSize:9,color:'#FF9500'}}>⚠ Pas encore inscrit</Text>}</View><TouchableOpacity style={{marginRight:8,opacity:m.user_id?1:0.3}} onPress={function(){openPrivateChat(m);}}><Text style={{fontSize:16}}>💬</Text></TouchableOpacity><TouchableOpacity onPress={function(){removeMember(m);}}><Text style={{color:'#DC3232',fontSize:11}}>✕</Text></TouchableOpacity></View>; })}
+          {members.map(function(m,i){ return <View key={m.id||i} style={s.memberCard}><Text style={{fontSize:18}}>👤</Text><View style={{flex:1}}><Text style={s.memberName}>{m.member_name}</Text><Text style={s.memberEmail}>{m.member_email}</Text>{m.user_id ? <Text style={{fontSize:9,color:'#34C759'}}>✓ Inscrit sur Keyla</Text> : <Text style={{fontSize:9,color:'#FF9500'}}>⚠ Pas encore inscrit</Text>}</View><TouchableOpacity style={{marginRight:8,opacity:m.user_id?1:0.3}} onPress={function(){openPrivateChat(m);}}><Text style={{fontSize:16}}>💬</Text></TouchableOpacity><TouchableOpacity onPress={function(){removeMember(m);}}><Text style={{color:'#DC3232',fontSize:11}}>✕</Text></TouchableOpacity></View>; })}
           {members.length===0&&!showAdd && <View style={s.empty}><Text style={{fontSize:40,marginBottom:12}}>👥</Text><Text style={s.emptyT}>{t('team_empty_members_title')}</Text><Text style={s.emptyS}>{t('team_empty_members_sub')}</Text></View>}
         </View>}
         {tab==='groups' && <View>

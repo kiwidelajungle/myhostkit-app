@@ -114,8 +114,8 @@ export async function checkTrialEmails(userId) {
     if (daysLeft <= 7 && daysLeft > 1 && !d.trial_email_j7_sent) {
       await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ to: d.email, subject: 'MyHostKit — Votre essai gratuit se termine dans ' + daysLeft + ' jours',
-          body: 'Bonjour,\n\nVotre periode d\'essai gratuit MyHostKit se termine dans ' + daysLeft + ' jours.\n\nPour continuer a profiter de toutes les fonctionnalites, choisissez un plan adapte a vos besoins :\n\n  Starter — 49 EUR/mois (3 logements, stock, iCal)\n  Pro — 89 EUR/mois (illimite, IA concierge, 5% commission)\n\nSi vous ne choisissez pas de plan, votre compte passera automatiquement en version gratuite (1 logement, 15% commission).\n\nAucun paiement ne sera preleve sans votre consentement.\n\n— L\'equipe MyHostKit' }),
+        body: JSON.stringify({ to: d.email, subject: 'Keyla — Votre essai gratuit se termine dans ' + daysLeft + ' jours',
+          body: 'Bonjour,\n\nVotre periode d\'essai gratuit Keyla se termine dans ' + daysLeft + ' jours.\n\nPour continuer a profiter de toutes les fonctionnalites, choisissez un plan adapte a vos besoins :\n\n  Starter — 49 EUR/mois (3 logements, stock, iCal)\n  Pro — 89 EUR/mois (illimite, IA concierge, 5% commission)\n\nSi vous ne choisissez pas de plan, votre compte passera automatiquement en version gratuite (1 logement, 15% commission).\n\nAucun paiement ne sera preleve sans votre consentement.\n\n— L\'equipe Keyla' }),
       });
       await supabase.from('profiles').update({ trial_email_j7_sent: true }).eq('id', userId);
     }
@@ -124,8 +124,8 @@ export async function checkTrialEmails(userId) {
     if (daysLeft <= 1 && daysLeft > 0 && !d.trial_email_j1_sent) {
       await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ to: d.email, subject: 'MyHostKit — Dernier jour d\'essai gratuit',
-          body: 'Bonjour,\n\nVotre essai gratuit MyHostKit se termine demain.\n\nChoisissez votre plan pour continuer sans interruption :\n\n  Starter — 49 EUR/mois\n  Pro — 89 EUR/mois\n\nApres expiration, votre compte sera automatiquement converti en plan gratuit. Aucun paiement ne sera preleve.\n\n— L\'equipe MyHostKit' }),
+        body: JSON.stringify({ to: d.email, subject: 'Keyla — Dernier jour d\'essai gratuit',
+          body: 'Bonjour,\n\nVotre essai gratuit Keyla se termine demain.\n\nChoisissez votre plan pour continuer sans interruption :\n\n  Starter — 49 EUR/mois\n  Pro — 89 EUR/mois\n\nApres expiration, votre compte sera automatiquement converti en plan gratuit. Aucun paiement ne sera preleve.\n\n— L\'equipe Keyla' }),
       });
       await supabase.from('profiles').update({ trial_email_j1_sent: true }).eq('id', userId);
     }
@@ -134,8 +134,8 @@ export async function checkTrialEmails(userId) {
     if (daysLeft === 0 && !d.trial_email_end_sent) {
       await fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ to: d.email, subject: 'MyHostKit — Essai termine, choisissez votre plan',
-          body: 'Bonjour,\n\nVotre essai gratuit MyHostKit est termine.\n\nVotre compte est desormais en version gratuite (1 logement, 15% commission).\n\nPour retrouver l\'acces complet, souscrivez a un plan :\n\n  Starter — 49 EUR/mois (3 logements)\n  Pro — 89 EUR/mois (illimite + IA)\n\nRendez-vous dans Profil > Mon abonnement.\n\n— L\'equipe MyHostKit' }),
+        body: JSON.stringify({ to: d.email, subject: 'Keyla — Essai termine, choisissez votre plan',
+          body: 'Bonjour,\n\nVotre essai gratuit Keyla est termine.\n\nVotre compte est desormais en version gratuite (1 logement, 15% commission).\n\nPour retrouver l\'acces complet, souscrivez a un plan :\n\n  Starter — 49 EUR/mois (3 logements)\n  Pro — 89 EUR/mois (illimite + IA)\n\nRendez-vous dans Profil > Mon abonnement.\n\n— L\'equipe Keyla' }),
       });
       await supabase.from('profiles').update({ trial_email_end_sent: true, subscription_plan: 'free', subscription_status: 'inactive' }).eq('id', userId);
     }

@@ -3,7 +3,7 @@
 const BRANDS = {
   myhostkit: {
     slug: 'myhostkit',
-    name: 'MyHostKit',
+    name: 'Keyla',
     colors: {
       primary: '#C8965A',
       dark: '#141414',

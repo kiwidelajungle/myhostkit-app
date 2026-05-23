@@ -105,16 +105,16 @@ export async function generateInvoice(bookingId, session) {
       'TOTAL TTC : ' + amount + ' €\n\n' +
       '════════════════════════════════\n';
 
-    // Envoyer mail avec la facture à l'hôte + CC MyHostKit
-    var subject = encodeURIComponent('MyHostKit — Facture ' + invoiceNum + ' : ' + propName + ' (' + b.date + ')');
+    // Envoyer mail avec la facture à l'hôte + CC Keyla
+    var subject = encodeURIComponent('Keyla — Facture ' + invoiceNum + ' : ' + propName + ' (' + b.date + ')');
     var body = encodeURIComponent(
       'Bonjour,\n\n' +
       'Veuillez trouver ci-dessous la facture pour la prestation de ménage :\n\n' +
       invoiceText + '\n' +
-      'Le paiement est à effectuer via l\'application MyHostKit.\n\n' +
+      'Le paiement est à effectuer via l\'application Keyla.\n\n' +
       'Cordialement,\n' +
       (c.first_name || '') + ' ' + (c.last_name || c.contact_name || '') + '\n' +
-      'Via MyHostKit — Conciergerie IA'
+      'Via Keyla — Conciergerie IA'
     );
 
     // Récupérer l'email de l'hôte si possible

@@ -27,7 +27,7 @@ export default function HostDashboard(props) {
     try {
       var payment = await createCleaningPayment(bookingId);
       var initRes = await initPaymentSheet({
-        merchantDisplayName: 'MyHostKit',
+        merchantDisplayName: 'Keyla',
         paymentIntentClientSecret: payment.client_secret,
         defaultBillingDetails: { email: props.session.user.email },
       });
