@@ -1,9 +1,9 @@
-﻿import { BrandingProvider } from './src/context/BrandingProvider';
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StripeProvider } from '@stripe/stripe-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from './src/screens/SplashScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
@@ -129,31 +129,23 @@ export default Sentry.wrap(function App() {
   function logout() { track('logout'); clearUser(); supabase.auth.signOut(); setSession(null); setRole(null); setCguAccepted(false); }
 
   if (showSplash) {
-    return <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider><StatusBar style="light" /><SplashScreen onFinish={function() { setShowSplash(false); }} /></SafeAreaProvider>
-    </BrandingProvider>;
+    return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="light" /><SplashScreen onFinish={function() { setShowSplash(false); }} /></SafeAreaProvider></StripeProvider>;
   }
 
   // Pas connecté → Login
   // Onboarding au premier lancement
   if (showOnboarding === null) return null; // chargement
   if (showOnboarding && !session) {
-    return <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider><StatusBar style="dark" /><OnboardingScreen onDone={function() { AsyncStorage.setItem('onboarding_done', 'true'); setShowOnboarding(false); }} /></SafeAreaProvider>
-    </BrandingProvider>;
+    return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="dark" /><OnboardingScreen onDone={function() { AsyncStorage.setItem('onboarding_done', 'true'); setShowOnboarding(false); }} /></SafeAreaProvider></StripeProvider>;
   }
 
   if (!session || !role) {
-    return <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider><StatusBar style="dark" /><NavigationContainer><Stack.Navigator screenOptions={{ headerShown: false }}><Stack.Screen name="Login">{function(p) { return <LoginScreen {...p} onLogin={login} />; }}</Stack.Screen></Stack.Navigator></NavigationContainer></SafeAreaProvider>
-    </BrandingProvider>;
+    return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="dark" /><NavigationContainer><Stack.Navigator screenOptions={{ headerShown: false }}><Stack.Screen name="Login">{function(p) { return <LoginScreen {...p} onLogin={login} />; }}</Stack.Screen></Stack.Navigator></NavigationContainer></SafeAreaProvider></StripeProvider>;
   }
 
   // Connecté mais CGU non acceptées → CGU
   if (!cguAccepted && !checkingCgu && role !== 'guest') {
-    return <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider><StatusBar style="dark" /><CGUScreen session={session} role={role} onAccept={function() { setCguAccepted(true); }} /></SafeAreaProvider>
-    </BrandingProvider>;
+    return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="dark" /><CGUScreen session={session} role={role} onAccept={function() { setCguAccepted(true); }} /></SafeAreaProvider></StripeProvider>;
   }
 
   // Loading CGU check
@@ -164,15 +156,12 @@ export default Sentry.wrap(function App() {
     return <CompleteProfileScreen role={role} session={session} onComplete={function(){setProfileComplete(true);}} />;
   }
   if (showRoleTuto && role && role !== 'admin') {
-    return <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider><StatusBar style="dark" /><OnboardingScreen role={role} referralCode={'MHK-' + (session.user.id || '').substring(0,6).toUpperCase()} onDone={function() { AsyncStorage.setItem('tuto_' + role + '_done', 'true'); setShowRoleTuto(false); }} /></SafeAreaProvider>
-    </BrandingProvider>;
+    return <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider><StatusBar style="dark" /><OnboardingScreen role={role} referralCode={'MHK-' + (session.user.id || '').substring(0,6).toUpperCase()} onDone={function() { AsyncStorage.setItem('tuto_' + role + '_done', 'true'); setShowRoleTuto(false); }} /></SafeAreaProvider></StripeProvider>;
   }
 
   // Connecté + CGU OK → App
   return (
-    <BrandingProvider brandSlug='keyla'>
-    <SafeAreaProvider>
+    <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY} merchantIdentifier="merchant.com.myhostkit.app"><SafeAreaProvider>
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -187,10 +176,6 @@ export default Sentry.wrap(function App() {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
-    </BrandingProvider>
+    </SafeAreaProvider></StripeProvider>
   );
 });
-
-
-

@@ -1,5 +1,5 @@
 // src/utils/monitoring.js
-// Wrapper unifiÃ© Sentry + PostHog pour Keyla
+// Wrapper unifiÃ© Sentry + PostHog pour MyHostKit
 // Usage : import { track, identify, captureError, setUserContext, clearUser } from '../utils/monitoring';
 
 import * as Sentry from '@sentry/react-native';

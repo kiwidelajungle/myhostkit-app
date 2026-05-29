@@ -13,8 +13,8 @@ export default function GuestSettings(props) {
     Alert.alert(t('guest_settings_checkout_alert_title'), t('guest_settings_checkout_alert_msg'), [
       { text: t('guest_settings_btn_cancel') },
       { text: t('guest_settings_checkout_confirm_btn'), onPress: function() {
-        var subject = encodeURIComponent('Keyla — Check-out : ' + (p ? p.name : 'Logement'));
-        var body = encodeURIComponent('Bonjour,\n\nLe voyageur a confirmé son départ de :\n\n🏠 ' + (p ? p.name : '') + '\n📍 ' + (p ? (p.address||'')+ ' ' + (p.city||'') : '') + '\n📅 ' + new Date().toLocaleDateString('fr-FR') + '\n🕐 ' + new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) + '\n\nLe logement est libre pour le ménage.\n\nCordialement,\nVia Keyla');
+        var subject = encodeURIComponent('MyHostKit — Check-out : ' + (p ? p.name : 'Logement'));
+        var body = encodeURIComponent('Bonjour,\n\nLe voyageur a confirmé son départ de :\n\n🏠 ' + (p ? p.name : '') + '\n📍 ' + (p ? (p.address||'')+ ' ' + (p.city||'') : '') + '\n📅 ' + new Date().toLocaleDateString('fr-FR') + '\n🕐 ' + new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) + '\n\nLe logement est libre pour le ménage.\n\nCordialement,\nVia MyHostKit');
         Linking.openURL('mailto:myhostkit.conciergerie@gmail.com?subject=' + subject + '&body=' + body);
         Alert.alert(t('guest_settings_checkout_done_title'), t('guest_settings_checkout_done_msg'));
         if (props.onLogout) props.onLogout();

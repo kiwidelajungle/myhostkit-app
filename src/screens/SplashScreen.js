@@ -18,7 +18,7 @@ export default function SplashScreen(props) {
     <View style={s.c}>
       <Animated.View style={{ opacity: opacity, transform: [{ scale: scale }], alignItems: 'center' }}>
         <Text style={s.logo}>🏠</Text>
-        <Text style={s.t}>Keyla</Text>
+        <Text style={s.t}>MyHostKit</Text>
         <Text style={s.sub}>Conciergerie IA</Text>
       </Animated.View>
     </View>

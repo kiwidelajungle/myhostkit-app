@@ -174,7 +174,7 @@ export default function CleanerDashboard(props) {
         WebBrowser.openBrowserAsync(data.url).then(function(){
           fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/manage-subscription',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_payment',session_url:data.url})}).then(function(vr){return vr.json();}).then(function(vd){
             if(vd&&vd.paid){
-              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'Keyla - Commande PAYEE menagere : '+orderProp.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
+              fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:'myhostkit.contact@gmail.com',subject:'MyHostKit - Commande PAYEE menagere : '+orderProp.name,body:emailBody+nl+nl+'Statut: PAYE'})}).catch(function(){});
               setCart({});setShowShop(false);
               Alert.alert(t('cleaner_dashboard_order_confirmed_title'), t('cleaner_dashboard_order_confirmed_msg'));
             } else { Alert.alert(t('cleaner_dashboard_order_not_finalized_title'), t('cleaner_dashboard_order_not_finalized_msg')); }

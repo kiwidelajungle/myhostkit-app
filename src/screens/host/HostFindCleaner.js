@@ -127,7 +127,7 @@ export default function HostFindCleaner(props) {
         body: JSON.stringify({
           to: cleaner.email,
           subject: t('host_find_cleaner_email_subject', { property: prop.name, date: date }),
-          body: t('host_find_cleaner_email_body', { property: prop.name, date: date, host: 'Keyla', notes: notes || '-' }),
+          body: t('host_find_cleaner_email_body', { property: prop.name, date: date, host: 'MyHostKit', notes: notes || '-' }),
         }),
       }).catch(function(){});
       search();

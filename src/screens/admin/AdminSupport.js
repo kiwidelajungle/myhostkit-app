@@ -43,7 +43,7 @@ export default function AdminSupport(props) {
     if (!email.includes('@') || !subject.trim()) { Alert.alert('Erreur','Email et sujet requis'); return; }
     fetch('https://illovwqvszjuasftwkxh.supabase.co/functions/v1/send-email', {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ to: email.trim(), subject: subject.trim(), body: body.trim() || 'Message de support Keyla' }),
+      body: JSON.stringify({ to: email.trim(), subject: subject.trim(), body: body.trim() || 'Message de support MyHostKit' }),
     }).then(function(r) { return r.json(); }).then(function(d) {
       if (d.success) { Alert.alert('Email envoye ✅'); setSubject(''); setBody(''); }
       else Alert.alert('Erreur', JSON.stringify(d.error||''));
