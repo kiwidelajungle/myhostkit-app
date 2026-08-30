@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activer mon abonnement MyHostKit</title>
+<meta name="description" content="Activez votre abonnement MyHostKit : payez ici avec l'email de votre compte, l'application se débloque automatiquement.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B111E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%23C7A468' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=DM+Sans:wght@300..500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B111E;--card:#0F1626;--t1:#F2EDE1;--t2:rgba(242,237,225,.72);--t3:rgba(242,237,225,.58);--gold:#C7A468;--gold40:rgba(199,164,104,.4);--gold15:rgba(199,164,104,.17);--line:rgba(242,237,225,.1)}
+body{min-height:100svh;background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-weight:300;padding:40px 22px 60px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:480px}
+.logo{font-family:'Fraunces',Georgia,serif;font-size:19px;text-align:center;display:block;color:var(--t1);text-decoration:none;margin-bottom:38px}
+.logo em{font-style:italic;color:var(--gold)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(27px,7vw,34px);letter-spacing:-.015em;text-align:center;line-height:1.15;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--gold)}
+.lede{text-align:center;color:var(--t2);font-size:15px;line-height:1.65;margin-bottom:34px}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.plan{border:1px solid var(--line);background:var(--card);padding:18px 16px;cursor:pointer;text-align:left;color:var(--t1);font-family:inherit;transition:border-color .25s}
+.plan[aria-pressed="true"]{border-color:var(--gold)}
+.plan b{display:block;font-weight:400;font-size:14px;margin-bottom:6px}
+.plan .p{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:320}
+.plan .p small{font-size:12px;color:var(--t3);font-family:'DM Sans',sans-serif}
+.field{margin-bottom:18px}
+label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.2em;color:var(--t3);margin-bottom:8px}
+input[type=email]{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--t1);font-family:inherit;font-size:16px;font-weight:300;padding:10px 2px 12px;border-radius:0}
+input[type=email]:focus{outline:none;border-color:var(--gold)}
+input::placeholder{color:var(--t3)}
+.hint{font-size:12.5px;color:var(--t3);margin-top:8px;line-height:1.6}
+.hint b{color:var(--t2);font-weight:500}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+.btn{width:100%;background:var(--gold);border:1px solid var(--gold);color:#0B111E;font-family:inherit;font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:.14em;padding:17px;cursor:pointer;margin-top:10px;transition:opacity .3s}
+.btn:hover{opacity:.9}
+.btn:disabled{opacity:.5;cursor:default}
+.msg{display:none;border:1px solid rgba(210,120,110,.4);color:#E0AFA6;background:rgba(210,120,110,.06);padding:13px 16px;font-size:13.5px;line-height:1.6;margin-top:16px}
+.msg.show{display:block}
+.foot{margin-top:30px;text-align:center;font-size:13px;color:var(--t3);line-height:1.8}
+.foot a{color:var(--gold)}
+.steps{border:1px solid var(--gold15);padding:18px 20px;margin-top:34px;font-size:13.5px;color:var(--t2);line-height:1.8}
+.steps b{color:var(--t1);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">MyHost<em>Kit</em></a>
+  <h1>Activez votre <em>abonnement.</em></h1>
+  <p class="lede">Payez ici avec l'email de votre compte — l'application se débloque automatiquement, sans engagement.</p>
+
+  <form id="payForm" novalidate>
+    <div class="plans" role="group" aria-label="Votre formule">
+      <button type="button" class="plan" data-plan="host" aria-pressed="true">
+        <b>Hôte / Conciergerie</b>
+        <span class="p">39 € <small>/ mois</small></span>
+      </button>
+      <button type="button" class="plan" data-plan="cleaner" aria-pressed="false">
+        <b>Agent d'entretien</b>
+        <span class="p">19 € <small>/ mois</small></span>
+      </button>
+    </div>
+
+    <div class="field">
+      <label for="email">L'email de votre compte dans l'app</label>
+      <input id="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+      <p class="hint"><b>Important :</b> utilisez exactement le même email que dans l'application — c'est lui qui active votre espace.</p>
+    </div>
+
+    <div class="hp" aria-hidden="true">
+      <label for="website">Site web</label>
+      <input id="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button class="btn" id="payBtn" type="submit">Procéder au paiement sécurisé</button>
+    <div class="msg" id="payMsg" role="alert"></div>
+  </form>
+
+  <div class="steps">
+    <b>Comment ça marche</b><br>
+    1 · Vous payez ici (Stripe, résiliable à tout moment).<br>
+    2 · Vous ouvrez l'application et touchez « Actualiser — j'ai payé ».<br>
+    3 · Votre espace s'ouvre. C'est tout.
+  </div>
+
+  <p class="foot">
+    Pas encore de compte ? <a href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" rel="noopener">Téléchargez l'app</a> et inscrivez-vous avec le même email.<br>
+    Une question ? <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a>
+  </p>
+</div>
+
+<script>
+(function(){
+  var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
+  var plan = 'host';
+  var btns = document.querySelectorAll('.plan');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      plan = b.dataset.plan;
+    });
+  });
+
+  var form = document.getElementById('payForm');
+  var payBtn = document.getElementById('payBtn');
+  var msg = document.getElementById('payMsg');
+  function showErr(t){ msg.textContent = t; msg.classList.add('show'); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.classList.remove('show');
+    var email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showErr('Indiquez un email valide — celui de votre compte dans l\'app.'); return; }
+    payBtn.disabled = true;
+    payBtn.textContent = 'Ouverture du paiement…';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, plan: plan, website: document.getElementById('website').value })
+    }).then(function(r){ return r.json().then(function(d){ return { s: r.status, d: d }; }); })
+    .then(function(res){
+      if (res.s === 200 && res.d && res.d.url) { window.location.href = res.d.url; return; }
+      payBtn.disabled = false;
+      payBtn.textContent = 'Procéder au paiement sécurisé';
+      if (res.s === 429) { showErr('Trop de tentatives — réessayez dans une heure.'); return; }
+      if (res.d && res.d.detail) { showErr('Paiement indisponible : ' + res.d.detail); return; }
+      showErr('Le paiement est momentanément indisponible. Réessayez ou écrivez à contact@myhostkit.com.');
+    }).catch(function(){
+      payBtn.disabled = false;
+      payBtn.textContent = 'Procéder au paiement sécurisé';
+      showErr('Connexion impossible. Vérifiez votre réseau et réessayez.');
+    });
+  });
+})();
+</script>
+</body>
+</html>

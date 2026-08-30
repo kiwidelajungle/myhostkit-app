@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activation MyHostKit</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B111E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%23C7A468' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=DM+Sans:wght@300..500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100svh;display:flex;align-items:center;justify-content:center;background:#0B111E;color:#F2EDE1;font-family:'DM Sans',sans-serif;font-weight:300;padding:24px;text-align:center}
+.box{max-width:430px}
+.mark{width:74px;height:74px;border:1px solid rgba(199,164,104,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:30px;color:#C7A468}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(26px,6vw,34px);letter-spacing:-.015em;margin-bottom:14px;line-height:1.15}
+h1 em{font-style:italic;color:#C7A468}
+p{color:rgba(242,237,225,.72);font-size:15.5px;line-height:1.7;margin-bottom:8px}
+.step{border:1px solid rgba(242,237,225,.12);padding:16px 20px;margin-top:24px;font-size:14px;color:rgba(242,237,225,.72)}
+.step b{color:#F2EDE1;font-weight:500}
+a{color:#C7A468}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="mark" id="mk">✓</div>
+  <h1 id="ttl">Paiement <em>confirmé.</em></h1>
+  <p id="msg">Votre abonnement MyHostKit est actif.</p>
+  <div class="step" id="stp"><b>Ouvrez l'application</b> et touchez « Actualiser — j'ai payé » : votre espace s'ouvre immédiatement. Pas encore de compte ? Inscrivez-vous dans l'app avec le même email.</div>
+  <p style="margin-top:22px;font-size:13px">Un souci ? <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></p>
+</div>
+<script>
+if (new URLSearchParams(location.search).get('statut') === 'annule') {
+  document.getElementById('mk').textContent = '·';
+  document.getElementById('ttl').innerHTML = 'Paiement <em>annulé.</em>';
+  document.getElementById('msg').textContent = "Aucun montant n'a été débité.";
+  document.getElementById('stp').innerHTML = "<b>Revenez dans l'application</b> pour réessayer quand vous le souhaitez.";
+}
+</script>
+</body>
+</html>
