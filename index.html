@@ -2,31 +2,1355 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyHostKit</title>
-<link rel="canonical" href="https://myhostkit.com/Codage_Site_MyHostKit.html">
-<style>
-  body{background:#0a0705;color:#F5E6C8;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
-  .loader{text-align:center}
-  .loader h1{font-family:Georgia,serif;font-size:2rem;color:#C8965A;margin:0 0 10px;letter-spacing:3px}
-  .loader p{font-size:.9rem;opacity:.6;margin:0}
-  .spinner{width:40px;height:40px;border:3px solid rgba(200,150,90,.2);border-top-color:#C8965A;border-radius:50%;animation:spin 1s linear infinite;margin:30px auto 0}
-  @keyframes spin{to{transform:rotate(360deg)}}
-</style>
-<script>
-(function(){
-  var qs = window.location.search || '';
-  var hash = window.location.hash || '';
-  window.location.replace('/Codage_Site_MyHostKit.html' + qs + hash);
-})();
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MyHostKit — Votre app de conciergerie, à votre marque</title>
+<meta name="description" content="Licence en marque blanche à revendre ou plateforme sur mesure avec channel manager — pour les formateurs et conciergeries qui veulent leur propre application, déjà en production sur l'App Store.">
+<link rel="canonical" href="https://www.myhostkit.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MyHostKit — Votre app de conciergerie, à votre marque">
+<meta property="og:description" content="Licence white-label à revendre ou plateforme construite sur mesure avec channel manager. Première app partenaire déjà sur l'App Store.">
+<meta property="og:url" content="https://www.myhostkit.com/">
+<meta property="og:image" content="https://www.myhostkit.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B111E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%23C7A468' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"MyHostKit","url":"https://www.myhostkit.com/","email":"contact@myhostkit.com","address":{"@type":"PostalAddress","streetAddress":"60 rue François 1er","postalCode":"75008","addressLocality":"Paris","addressCountry":"FR"}}
 </script>
-<meta http-equiv="refresh" content="0; url=/Codage_Site_MyHostKit.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ MINUIT & CHAMPAGNE ═══════════ */
+:root{
+  --bg:#0B111E;--bg2:#0F1626;--bg3:#141C30;
+  --t1:#F2EDE1;--t2:rgba(242,237,225,.72);--t3:rgba(242,237,225,.58);
+  --gold:#C7A468;--gold40:rgba(199,164,104,.4);--gold15:rgba(199,164,104,.17);--gold08:rgba(199,164,104,.07);
+  --line:rgba(242,237,225,.1);
+  --beige:#F0EAE0;--navy:#16253C;
+  --cream:#FAF7F1;--ink:#1C2B45;--ink-soft:rgba(28,43,69,.55);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --serif:'Fraunces',Georgia,serif;--sans:'DM Sans','Helvetica Neue',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --track-tight:.14em;--track-wide:.22em;
+  --r-device:26px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);line-height:1.65;font-size:16.5px;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#0B111E}
+body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.028;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(22px,5vw,48px)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--gold);color:#0B111E;padding:12px 20px;font-size:14px;text-decoration:none}
+.skip:focus{left:0}
+
+h1,h2,h3{font-family:var(--serif);font-weight:340;font-variation-settings:'opsz' 100;letter-spacing:-.015em;line-height:1.08;text-wrap:balance}
+h1 em,h2 em{font-style:italic;font-weight:320;color:var(--gold)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--gold);font-weight:400;display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold40);flex-shrink:0}
+.chap{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:15px;letter-spacing:.02em}
+
+.btn{display:inline-block;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--sans);font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:var(--track-tight);padding:17px 36px;text-decoration:none;cursor:pointer;transition:background .35s ease,color .35s ease;text-align:center}
+.btn:hover{background:var(--gold);color:#0B111E}
+.btn-full{background:var(--gold);color:#0B111E}
+.btn-full:hover{background:#D4B37B;border-color:#D4B37B;color:#0B111E}
+.lnk{color:var(--t2);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;text-decoration-color:var(--gold40);transition:color .3s;font-size:14.5px}
+.lnk:hover{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* reveal */
+html.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+html.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}}
+
+/* barre de progression */
+#sprog{position:fixed;top:0;left:0;right:0;height:2px;z-index:110;background:var(--gold);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+
+/* curseur lumineux (desktop) */
+#glow{position:fixed;z-index:95;width:34px;height:34px;border:1px solid var(--gold40);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(var(--gs,1));transition:transform .25s ease,opacity .3s;opacity:0;left:0;top:0}
+@media(pointer:coarse){#glow{display:none}}
+@media(prefers-reduced-motion:reduce){#glow{display:none}}
+
+/* ═══════════ NAV ═══════════ */
+.nav{position:fixed;top:0;inset-inline:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px clamp(22px,5vw,48px);transition:padding .35s ease,background .35s ease,border-color .35s ease;border-bottom:1px solid transparent}
+.nav.shrunk{padding-block:12px;background:rgba(11,17,30,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--t1);text-decoration:none;letter-spacing:-.01em}
+.logo em{font-style:italic;color:var(--gold)}
+.nav-links{display:none;gap:34px;list-style:none}
+.nav-links a{font-size:13.5px;color:var(--t3);text-decoration:none;letter-spacing:.02em;transition:color .3s}
+.nav-links a:hover{color:var(--t1)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav .btn{padding:11px 22px;font-size:11.5px}
+.nav .btn.nav-cta{display:none}
+.burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:1px solid var(--line);cursor:pointer;padding:0 11px}
+.burger span{display:block;height:1px;background:var(--t1);transition:transform .3s var(--ease),opacity .3s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:99;background:rgba(11,17,30,.98);display:none;flex-direction:column;justify-content:center;padding:90px clamp(22px,8vw,60px) 40px}
+.mnav.open{display:flex}
+.mnav a{font-family:var(--serif);font-size:clamp(26px,7vw,34px);font-weight:340;color:var(--t1);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
+.mnav a:hover{color:var(--gold)}
+.mnav .btn{margin-top:34px;font-size:13px}
+@media(min-width:900px){
+  .nav-links{display:flex}
+  .nav .btn.nav-cta{display:inline-block}
+  .burger,.mnav{display:none}
+}
+
+/* ═══════════ DEVICES ═══════════ */
+.dev{background:var(--beige);border-radius:calc(var(--r-device) + 9px);padding:11px;box-shadow:0 50px 90px -30px rgba(0,0,0,.85),0 20px 40px -20px rgba(0,0,0,.5);outline:1px solid var(--gold15);outline-offset:-1px}
+.scr{background:var(--cream);border-radius:var(--r-device);overflow:hidden;color:var(--ink);--acc:#8A6B3F;--accv:#C7A468}
+.d-status{display:flex;justify-content:center;padding:9px 0 3px}
+.d-notch{width:64px;height:7px;border-radius:5px;background:var(--ink);opacity:.85}
+.d-head{padding:13px 15px 9px}
+.d-brand{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--acc);letter-spacing:-.01em;min-height:1.4em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-sub{font-size:10px;color:var(--ink-soft);margin-top:1px}
+.d-kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:4px 12px}
+.d-kpi{background:#fff;border:1px solid rgba(28,43,69,.09);border-radius:11px;padding:9px 10px}
+.d-k{font-size:7.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-soft)}
+.d-v{font-family:var(--serif);font-size:15px;margin-top:2px}
+.d-v small{font-size:9px;color:var(--acc);font-family:var(--sans)}
+.d-row{margin:7px 12px 0;background:#fff;border:1px solid rgba(28,43,69,.09);border-radius:11px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.d-row b{font-size:10.5px;font-weight:500;display:block}
+.d-row span{font-size:8.5px;color:var(--ink-soft);display:block}
+.d-dot{width:7px;height:7px;border-radius:50%;background:var(--accv);flex-shrink:0}
+.d-chip{font-size:8px;font-weight:500;border-radius:20px;padding:3px 8px;flex-shrink:0;white-space:nowrap}
+.d-chip.ok{background:rgba(74,124,89,.14);color:#3D6B4F}
+.d-chip.warm{background:rgba(199,164,104,.18);color:var(--acc)}
+.d-btn{margin:9px 12px 14px;background:var(--accv);color:#fff;text-align:center;border-radius:11px;padding:10px;font-size:10.5px;font-weight:500;letter-spacing:.04em}
+.d-note{margin:8px 12px 0;font-size:8.5px;color:var(--ink-soft);text-align:center}
+.d-cal{margin:6px 12px 0;background:#fff;border:1px solid rgba(28,43,69,.09);border-radius:11px;padding:10px}
+.d-cal-t{font-size:9px;font-weight:500;margin-bottom:7px;display:flex;justify-content:space-between}
+.d-cal-t i{font-style:normal;color:var(--ink-soft);font-weight:400}
+.d-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.d-c{aspect-ratio:1;border-radius:5px;background:rgba(28,43,69,.05);font-size:7px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft)}
+.d-c.b{background:var(--accv);color:#fff}
+.d-c.b2{background:var(--ink);color:#fff}
+.d-bub{margin:7px 12px 0;max-width:78%;border-radius:12px;padding:8px 11px;font-size:9.5px;line-height:1.45}
+.d-bub.guest{background:#fff;border:1px solid rgba(28,43,69,.09)}
+.d-bub.ia{background:var(--accv);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.d-bub time{display:block;font-size:7px;opacity:.6;margin-top:3px}
+.d-bars{margin:7px 12px 0;background:#fff;border:1px solid rgba(28,43,69,.09);border-radius:11px;padding:10px}
+.d-bar{display:flex;align-items:center;gap:7px;margin-top:6px}
+.d-bar:first-child{margin-top:0}
+.d-bar b{font-size:8.5px;font-weight:400;width:64px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d-bar .tr{flex:1;height:4px;border-radius:2px;background:rgba(28,43,69,.08);overflow:hidden}
+.d-bar .tr i{display:block;height:100%;background:var(--accv);width:var(--w)}
+.d-bar em{font-style:normal;font-size:8.5px;font-family:var(--serif);white-space:nowrap}
+
+/* ═══════════ HERO — scène qui se déconstruit ═══════════ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:-30% -20% auto;height:90%;background:radial-gradient(ellipse 70% 50% at 30% 0%,rgba(199,164,104,.1),transparent 65%);pointer-events:none}
+.hero-grid{display:flex;flex-direction:column;gap:56px;width:100%}
+.hero-copy{max-width:640px}
+.hero h1{font-size:clamp(3.2rem,10vw,5.8rem);font-variation-settings:'opsz' 144;margin:26px 0 30px}
+.hero-sub{color:var(--t2);font-size:clamp(16px,2.2vw,18.5px);max-width:46ch;line-height:1.7;text-wrap:pretty}
+.hero-ctas{display:flex;flex-direction:column;align-items:flex-start;gap:22px;margin-top:44px}
+.hero-proof-hint{font-size:13px;color:var(--t3)}
+.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+html.js .ln>span{display:inline-block;transform:translateY(112%);animation:rise 1s var(--ease) forwards;animation-delay:calc(var(--i)*130ms)}
+@keyframes rise{to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){html.js .ln>span{animation:none;transform:none}}
+/* parallaxe de sortie pilotée par --p (0 → 1 en quittant le hero) */
+html.js.fx .hero-copy .ln:nth-child(1){transform:translateY(calc(var(--hp,0)*-90px))}
+html.js.fx .hero-copy .ln:nth-child(2){transform:translateY(calc(var(--hp,0)*-55px))}
+html.js.fx .hero-copy .ln:nth-child(3){transform:translateY(calc(var(--hp,0)*-25px))}
+html.js.fx .hero-copy>.hero-sub,html.js.fx .hero-copy>.hero-ctas,html.js.fx .hero-copy>.eyebrow{opacity:calc(1 - var(--hp,0)*1.6)}
+html.js.fx .hero-stage{transform:translateY(calc(var(--hp,0)*120px));opacity:calc(1 - var(--hp,0)*1.15)}
+.hero-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--t3);font-size:10px;letter-spacing:var(--track-wide);text-transform:uppercase;opacity:calc(1 - var(--hp,0)*3)}
+.hero-cue i{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);display:block;overflow:hidden;position:relative}
+html.js .hero-cue i::after{content:'';position:absolute;left:0;top:-16px;width:1px;height:16px;background:var(--t1);animation:cue 1.8s ease-in infinite}
+@keyframes cue{to{top:100%}}
+@media(prefers-reduced-motion:reduce){html.js .hero-cue i::after{animation:none}}
+.tilt-wrap{perspective:1200px}
+.tilt{width:min(300px,72vw);transform:rotateX(var(--rx,4deg)) rotateY(var(--ry,-7deg)) rotateZ(-2.5deg)}
+html.js .float{animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media(prefers-reduced-motion:reduce){html.js .float{animation:none}}
+.hero-stage{position:relative;display:flex;justify-content:center}
+@media(min-width:900px){
+  .hero-grid{flex-direction:row;align-items:center;gap:40px}
+  .hero-copy{flex:1.15}
+  .hero-stage{flex:1;justify-content:flex-end;padding-right:24px}
+  .tilt{width:min(330px,26vw)}
+}
+
+/* ═══════════ MARQUEE ═══════════ */
+.marquee{--gap:5rem;display:flex;gap:var(--gap);overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-track{display:flex;gap:var(--gap);flex-shrink:0;min-width:100%;align-items:baseline;animation:mq 36s linear infinite;will-change:transform}
+@keyframes mq{to{transform:translateX(calc(-100% - var(--gap)))}}
+.marquee:hover .mq-track{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.mq-track{animation:none}}
+.mq-track span{font-family:var(--serif);font-weight:320;font-size:clamp(34px,5.5vw,60px);letter-spacing:-.02em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px var(--gold40)}
+.mq-track span.solid{color:var(--gold);-webkit-text-stroke:0;font-style:italic}
+.mq-track i{font-style:normal;color:var(--gold40);font-size:.5em;align-self:center}
+
+/* ═══════════ PREUVES ═══════════ */
+.proofs{border-bottom:1px solid var(--line)}
+.proofs-grid{display:grid;grid-template-columns:1fr}
+.proof{padding:26px clamp(22px,5vw,34px);border-bottom:1px solid var(--line);transition:background .4s}
+.proof:hover{background:var(--gold08)}
+.proof:last-child{border-bottom:none}
+.proof b{display:block;font-weight:400;font-size:14.5px;color:var(--t1);letter-spacing:.01em}
+.proof span{font-size:13px;color:var(--t3);line-height:1.55;display:block;margin-top:3px}
+@media(min-width:768px){
+  .proofs-grid{grid-template-columns:repeat(4,1fr)}
+  .proof{border-bottom:none;border-right:1px solid var(--line);padding:34px 28px}
+  .proof:last-child{border-right:none}
+}
+
+/* ═══════════ DEUX PORTES ═══════════ */
+.portes{padding:clamp(80px,10vw,130px) 0}
+.portes-grid{display:grid;grid-template-columns:1fr;border:1px solid var(--gold15)}
+.porte{padding:clamp(34px,5vw,56px);padding-right:clamp(70px,8vw,96px);text-decoration:none;display:block;transition:background .4s ease;position:relative}
+.porte+.porte{border-top:1px solid var(--gold15)}
+.porte:hover{background:var(--gold08)}
+.porte .chap{display:block;margin-bottom:14px}
+.porte h2{font-size:clamp(22px,3vw,30px);margin-bottom:12px;color:var(--t1)}
+.porte p{color:var(--t2);font-size:15px;max-width:44ch;text-wrap:pretty}
+.porte-go{position:absolute;top:clamp(34px,5vw,56px);right:clamp(28px,4vw,48px);color:var(--gold);font-size:22px;transition:transform .35s var(--ease)}
+.porte:hover .porte-go{transform:translateX(6px)}
+@media(min-width:768px){
+  .portes-grid{grid-template-columns:1fr 1fr}
+  .porte+.porte{border-top:none;border-left:1px solid var(--gold15)}
+}
+
+/* ═══════════ SECTIONS ═══════════ */
+.sec{padding:clamp(84px,11vw,150px) 0;border-top:1px solid var(--line)}
+.sec-head{margin-bottom:clamp(44px,6vw,72px)}
+.sec-head h2{font-size:clamp(28px,4.6vw,44px);margin-top:22px;max-width:18ch}
+.sec-head .lede{color:var(--t2);font-size:16.5px;max-width:56ch;margin-top:18px;text-wrap:pretty}
+.lede--aside{font-size:14.5px;color:var(--t3)}
+.split{display:flex;flex-direction:column;gap:clamp(40px,6vw,72px)}
+@media(min-width:900px) and (min-height:820px){.split>.s-l{position:sticky;top:110px}}
+@media(min-width:900px){
+  .split{flex-direction:row;align-items:flex-start}
+  .split>.s-l{flex:0 0 38%}
+  .split>.s-r{flex:1}
+}
+
+/* rôles */
+.roles{list-style:none}
+.role{padding:30px 0;border-bottom:1px solid var(--line)}
+.role:first-child{border-top:1px solid var(--line)}
+.role h3{font-size:clamp(19px,2.4vw,23px);margin-bottom:8px}
+.role p{color:var(--t2);font-size:15px;max-width:56ch;text-wrap:pretty}
+
+/* ═══════════ RAIL ÉPINGLÉ ═══════════ */
+.rail-head{padding:clamp(64px,9vw,110px) 0 0}
+.rail-zone{position:relative}
+.rail{display:flex;gap:clamp(24px,3.5vw,44px);overflow-x:auto;scroll-snap-type:x mandatory;padding:34px clamp(22px,5vw,48px) 44px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail-item{flex:0 0 auto;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
+.rail-item .dev{width:clamp(216px,24vw,252px);transition:transform .5s var(--ease)}
+.rail-item:nth-child(odd) .dev{transform:rotate(-1.8deg)}
+.rail-item:nth-child(even) .dev{transform:rotate(1.6deg) translateY(12px)}
+.rail-item:nth-child(odd) .dev:hover{transform:rotate(0) translateY(-6px)}
+.rail-item:nth-child(even) .dev:hover{transform:rotate(0) translateY(6px)}
+.rail-cap{font-size:11px;color:var(--t3);letter-spacing:var(--track-tight);text-transform:uppercase}
+.rail-hint{text-align:center;font-size:12px;color:var(--t3);letter-spacing:var(--track-tight);text-transform:uppercase;padding-bottom:clamp(64px,9vw,110px)}
+/* desktop : scène épinglée, défilement horizontal piloté par le scroll */
+@media(min-width:900px){
+  html.js.fx .rail-zone{height:320vh}
+  html.js.fx .rail-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  html.js.fx .rail{overflow:visible;scroll-snap-type:none;transform:translateX(calc(var(--rp,0)*var(--rmax,-1200px)));padding-bottom:34px;padding-right:36vw}
+  html.js.fx .rail-item .dev{width:clamp(270px,23vw,310px)}
+  html.js.fx .rail-hint{padding-bottom:0}
+}
+
+/* ═══════════ AUTOMATISATION — journée type ═══════════ */
+.auto-tl{position:relative;border-left:1px solid var(--gold15);margin-left:9px;padding-left:clamp(26px,4vw,46px);display:flex;flex-direction:column;gap:clamp(30px,4vw,44px)}
+.evt{position:relative}
+.evt::before{content:'';position:absolute;left:calc(clamp(26px,4vw,46px)*-1 - 4.5px);top:7px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.evt-time{font-family:var(--mono);font-size:11.5px;color:var(--gold);letter-spacing:.06em}
+.evt-t{font-weight:400;font-size:16.5px;margin:5px 0 3px;font-family:var(--sans);color:var(--t1)}
+.evt-d{font-size:14px;color:var(--t2);max-width:52ch;text-wrap:pretty}
+.evt-tag{display:inline-block;margin-left:10px;font-size:9px;letter-spacing:var(--track-tight);text-transform:uppercase;color:var(--gold);border:1px solid var(--gold40);border-radius:20px;padding:2px 9px;vertical-align:2px}
+.auto-punch{margin-top:clamp(40px,6vw,60px);font-family:var(--serif);font-weight:340;font-size:clamp(21px,3vw,28px);letter-spacing:-.01em;max-width:26ch;text-wrap:balance}
+.auto-punch+.lnk{display:inline-block;margin-top:16px}
+/* mini-chat sombre */
+.cb{margin-top:16px;border:1px solid var(--line);background:var(--bg);padding:18px;max-width:440px;display:flex;flex-direction:column;gap:10px}
+.cb .bub{max-width:86%;padding:10px 14px;font-size:13.5px;line-height:1.5;border-radius:14px}
+.cb .bub.g{background:var(--bg3);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.cb .bub.i{background:var(--gold);color:#0B111E;align-self:flex-end;border-bottom-right-radius:4px}
+.cb .bub time{font-size:10px;opacity:.65;display:block;margin-top:4px;font-family:var(--mono)}
+.cb .typing{display:inline-flex;gap:4px;padding:13px 15px;background:var(--gold15);border-radius:14px;border-bottom-right-radius:4px;align-self:flex-end}
+.cb .typing i{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:tp 1s ease-in-out infinite}
+.cb .typing i:nth-child(2){animation-delay:.15s}
+.cb .typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{50%{opacity:.3;transform:translateY(-2px)}}
+.cb .typing.gone{display:none}
+html.js .stp{opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s var(--ease)}
+html.js .stp.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html.js .stp{opacity:1;transform:none;transition:none}
+  .cb .typing{display:none}
+  .cb .typing i{animation:none}
+}
+/* rapport photo IA */
+.rep{margin-top:16px;border:1px solid var(--line);background:var(--bg);padding:18px;max-width:440px}
+.rep-h{font-size:10px;letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--t3);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.rep-h b{font-family:var(--mono);font-weight:400;color:var(--gold);font-size:10px;letter-spacing:.04em}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.th{aspect-ratio:1;border-radius:8px;position:relative;overflow:hidden;background:linear-gradient(160deg,#25334F,#141C30);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.th::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(199,164,104,.28),transparent 55%)}
+html.js .rep.scan .th::after{content:'';position:absolute;left:0;right:0;top:-45%;height:45%;background:linear-gradient(180deg,transparent,rgba(199,164,104,.4),transparent);animation:scan 1.1s ease-in-out 2}
+@keyframes scan{to{top:100%}}
+@media(prefers-reduced-motion:reduce){html.js .rep.scan .th::after{animation:none;display:none}}
+.vl{margin-top:14px;display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--t2)}
+.vl .ok::before{content:'✓';color:var(--gold);margin-right:9px}
+.vl .warn{color:var(--t3)}
+.vl .warn i{font-style:normal;font-size:9px;letter-spacing:var(--track-tight);text-transform:uppercase;color:var(--gold);border:1px solid var(--gold40);border-radius:20px;padding:2px 8px;margin-right:9px}
+.vl .final{border-top:1px solid var(--line);padding-top:10px;margin-top:5px;display:flex;justify-content:space-between;align-items:center;color:var(--t1)}
+.vl .final b{font-weight:400}
+.vl .final span{font-family:var(--mono);font-size:10px;color:var(--t3)}
+
+/* ═══════════ CHANNEL MANAGER ═══════════ */
+.cm-flow{border:1px solid var(--gold15);padding:clamp(30px,4vw,46px) clamp(22px,3vw,38px);display:flex;flex-direction:column;align-items:center;gap:16px;background:var(--bg2);margin-top:38px}
+.cm-node{border:1px solid var(--line);padding:16px 26px;text-align:center;min-width:min(240px,100%)}
+.cm-node-app{border-color:var(--gold40)}
+.cm-node b{font-weight:400;font-size:15px;display:block}
+.cm-node span{font-size:12.5px;color:var(--t3);display:block;margin-top:3px}
+.cm-line{position:relative;width:1px;height:34px;background:var(--gold15)}
+html.js .cm-line::after{content:'';position:absolute;left:-1.5px;top:-8px;width:4px;height:8px;background:var(--gold);border-radius:2px;animation:pulse 2.6s ease-in infinite}
+html.js .cm-line--late::after{animation-delay:1.3s}
+@keyframes pulse{0%{top:-8px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){html.js .cm-line::after{animation:none;display:none}}
+.cm-lbl{font-size:10.5px;letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--gold)}
+.cm-otas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.cm-ota{border:1px solid var(--line);padding:7px 16px;font-size:12.5px;color:var(--t2)}
+.cm-pts{list-style:none;display:flex;flex-direction:column}
+.cm-pt{padding:22px 0;border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:flex-start}
+.cm-pt:first-child{border-top:1px solid var(--line)}
+.cm-tick{color:var(--gold);flex-shrink:0;font-size:15px;line-height:1.6}
+.cm-pt b{display:block;font-weight:400;font-size:15.5px;margin-bottom:4px}
+.cm-pt p{font-size:14px;color:var(--t2);max-width:52ch;text-wrap:pretty}
+.cm-note{margin-top:26px;padding-left:18px;border-left:1px solid var(--gold40);font-size:13.5px;color:var(--t3);max-width:56ch;line-height:1.7;text-wrap:pretty}
+/* journal en direct */
+.cm-log{margin-top:26px;border:1px solid var(--line);background:var(--bg);padding:18px 20px;font-family:var(--mono);font-size:11px;line-height:1.9;color:var(--t3);min-height:110px}
+.cm-log b{color:var(--gold);font-weight:400}
+.cm-log .new{color:var(--t1)}
+.cm-log-t{font-family:var(--sans);font-size:10px;letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--t3);display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.cm-log-t::before{content:'';width:6px;height:6px;border-radius:50%;background:#7E9C7B;animation:blink 2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.cm-log-t::before{animation:none}}
+
+/* ═══════════ MANIFESTE BEIGE — mots au scroll ═══════════ */
+.beige-zone{position:relative}
+html.js.fx .beige-zone{height:220vh}
+.beige{background:var(--beige);color:var(--navy);padding:clamp(76px,10vw,130px) 0;text-align:center}
+html.js.fx .beige-zone .beige{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:0}
+.beige p.mark{font-family:var(--serif);font-weight:340;font-size:clamp(30px,5.6vw,58px);line-height:1.18;letter-spacing:-.015em;max-width:20ch;margin-inline:auto;text-wrap:balance}
+.beige p.mark em{font-style:italic;color:#8A6B3F}
+.beige .sub{margin-top:22px;font-size:15px;color:rgba(22,37,60,.78)}
+html.js.fx .beige .w{opacity:min(1,max(.08,calc(var(--bp,0)*7 - var(--wi))));display:inline-block;transform:translateY(min(0px,max(-14px,calc((var(--wi) - var(--bp,0)*7)*8px))))}
+html.js.fx .beige .sub{opacity:min(1,max(0,calc(var(--bp,0)*7 - 6.3)))}
+
+/* ═══════════ CONFIGURATEUR ═══════════ */
+.cfg{display:flex;flex-direction:column;gap:clamp(36px,5vw,64px)}
+.cfg-ctrls label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--t3);margin-bottom:10px}
+.cfg-name{width:100%;max-width:380px;background:transparent;border:none;border-bottom:1px solid var(--gold40);color:var(--t1);font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);font-weight:340;padding:6px 2px 12px;transition:border-color .3s}
+.cfg-name:focus:not(:focus-visible){outline:none}
+.cfg-name:focus{border-color:var(--gold)}
+.cfg-name::placeholder{color:var(--t3);font-style:italic}
+.cfg-swatches{display:flex;gap:14px;margin-top:34px}
+.sw{width:34px;height:34px;border-radius:50%;border:1px solid rgba(242,237,225,.55);cursor:pointer;padding:0;transition:transform .25s var(--ease),box-shadow .25s}
+.sw:hover{transform:scale(1.12)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--gold);transform:scale(1.06)}
+.cfg-cta{margin-top:44px}
+.phone-zone{display:flex;justify-content:center}
+.phone-zone .dev{width:min(280px,74vw)}
+@media(min-width:900px){.cfg{flex-direction:row;align-items:center}.cfg-ctrls{flex:1}.phone-zone{flex:1}}
+
+/* ═══════════ PRIX ═══════════ */
+.price-hero{display:flex;flex-direction:column;border:1px solid var(--gold15)}
+.price-col{padding:clamp(28px,4vw,44px);border-bottom:1px solid var(--gold15)}
+.price-col:last-child{border-bottom:none}
+.price-col .who{font-size:12px;letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--t3)}
+.price-col .amt{font-family:var(--serif);font-weight:320;font-size:clamp(38px,6vw,62px);line-height:1.1;margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.price-col .per{font-size:13px;color:var(--t3);display:block;min-height:2.6em}
+.price-col .bar{height:2px;background:rgba(242,237,225,.16);margin-top:22px;position:relative}
+.price-col .bar i{position:absolute;inset:0 auto 0 0;background:rgba(242,237,225,.35);width:0;transition:width 1.3s var(--ease) .25s}
+.price-hero.in .bar i{width:var(--w)}
+@media(prefers-reduced-motion:reduce){.price-col .bar i{width:var(--w);transition:none}}
+.price-col.us .amt{color:var(--gold)}
+.price-col.us .bar i{background:var(--gold)}
+.price-note{font-size:12.5px;color:var(--t3);margin-top:16px;text-wrap:pretty}
+@media(min-width:768px){
+  .price-hero{flex-direction:row}
+  .price-col{flex:1;border-bottom:none;border-right:1px solid var(--gold15)}
+  .price-col:last-child{border-right:none}
+}
+.tbl-wrap{overflow-x:auto;margin-top:clamp(40px,6vw,64px);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{padding:16px 18px;text-align:left;font-size:10.5px;font-weight:400;color:var(--t3);text-transform:uppercase;letter-spacing:var(--track-tight);border-bottom:1px solid var(--line);white-space:nowrap}
+th.us{color:var(--gold)}
+th:not(:first-child),td:not(:first-child){text-align:center}
+td{padding:15px 18px;font-size:14px;color:var(--t2);border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--t1)}
+td.us{color:var(--gold)}
+.no{color:var(--t3)}
+
+/* ═══════════ SIMULATEUR ═══════════ */
+.sim{display:flex;flex-direction:column;gap:clamp(30px,4vw,50px)}
+.ctrl{border:1px solid var(--line);padding:22px;background:var(--bg2)}
+.ctrl+.ctrl{margin-top:14px}
+.ctrl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:12px}
+.ctrl-top label{font-size:13.5px;color:var(--t2)}
+.ctrl-val{font-family:var(--serif);font-size:24px;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:rgba(242,237,225,.18)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--gold);cursor:pointer}
+input[type=range]::-moz-range-track{height:2px;background:rgba(242,237,225,.18)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--bg);border:1.5px solid var(--gold);cursor:pointer}
+.ctrl-rng{display:flex;justify-content:space-between;margin-top:4px;font-size:11.5px;color:var(--t3)}
+.sim-out{border:1px solid var(--gold40);padding:clamp(28px,4vw,42px);background:linear-gradient(170deg,var(--gold08),transparent 55%)}
+.sim-lbl{font-size:11px;letter-spacing:var(--track-wide);text-transform:uppercase;color:var(--t3)}
+.sim-num{font-family:var(--serif);font-weight:320;font-size:clamp(40px,6vw,58px);margin:10px 0 2px;font-variant-numeric:tabular-nums;line-height:1.1}
+.sim-num small{font-size:.42em;color:var(--t3);font-family:var(--sans)}
+.sim-detail{font-size:13.5px;color:var(--t3)}
+.sim-year{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:26px;padding-top:18px}
+.sim-year span{font-size:13.5px;color:var(--t2)}
+.sim-year b{font-family:var(--serif);font-weight:340;font-size:24px;color:var(--gold);font-variant-numeric:tabular-nums}
+.sim-note{font-size:12.5px;color:var(--t3);margin-top:20px;line-height:1.7;text-wrap:pretty}
+.sim-out .btn{width:100%;margin-top:26px}
+@media(min-width:900px){.sim{flex-direction:row;align-items:stretch}.sim>div{flex:1}}
+
+/* ═══════════ SUR MESURE ═══════════ */
+.steps{counter-reset:st;list-style:none;border-top:1px solid var(--line)}
+.steps li{counter-increment:st;display:flex;gap:clamp(18px,3vw,34px);padding:28px 0;border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(st,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,34px);color:var(--gold);line-height:1.15;flex-shrink:0;width:2.4ch}
+.steps b{display:block;font-weight:400;font-size:16.5px;margin-bottom:4px}
+.steps p{font-size:14.5px;color:var(--t2);max-width:56ch;text-wrap:pretty}
+
+/* ═══════════ FONDATEUR ═══════════ */
+.founder{background:var(--bg2)}
+.founder-grid{display:flex;flex-direction:column;gap:38px;align-items:flex-start}
+.monogram{width:104px;height:104px;border:1px solid var(--gold40);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-size:38px;color:var(--gold);flex-shrink:0}
+.founder blockquote{font-family:var(--serif);font-weight:340;font-size:clamp(20px,3vw,27px);line-height:1.45;max-width:34ch;letter-spacing:-.01em;text-wrap:pretty}
+.founder .sig{margin-top:26px;font-family:var(--serif);font-style:italic;color:var(--gold);font-size:19px}
+.founder .sig small{display:block;font-family:var(--sans);font-style:normal;color:var(--t3);font-size:12.5px;letter-spacing:var(--track-tight);text-transform:uppercase;margin-top:6px}
+@media(min-width:768px){.founder-grid{flex-direction:row;gap:64px}}
+
+/* ═══════════ FAQ ═══════════ */
+.faq{max-width:780px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-of-type{border-top:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:24px 40px 24px 0;position:relative;font-size:16px;font-weight:400;color:var(--t1)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-family:var(--serif);font-size:22px;color:var(--gold);font-weight:300;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq .a{padding:0 0 26px;color:var(--t2);font-size:14.5px;max-width:62ch;line-height:1.75;text-wrap:pretty}
+
+/* ═══════════ CONTACT ═══════════ */
+.contact-grid{display:flex;flex-direction:column;gap:clamp(40px,6vw,72px)}
+.form{border:1px solid var(--gold15);padding:clamp(26px,4vw,44px);display:flex;flex-direction:column;gap:20px;background:var(--bg2)}
+.f-row{display:flex;flex-direction:column;gap:20px}
+.f-field{display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.f-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--t3)}
+.lbl-optional{text-transform:none;letter-spacing:0}
+.f-in{background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--t1);font-family:var(--sans);font-size:16px;font-weight:300;padding:8px 2px 12px;width:100%;min-width:0;transition:border-color .3s;border-radius:0;-webkit-appearance:none;appearance:none}
+.f-in:focus:not(:focus-visible){outline:none}
+.f-in:focus{border-color:var(--gold)}
+.f-in::placeholder{color:var(--t3)}
+select.f-in{cursor:pointer;padding-right:30px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C7A468' fill='none' stroke-width='1.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center}
+select.f-in.empty{color:var(--t3)}
+select.f-in option{background:#141C30;color:var(--t1)}
+textarea.f-in{resize:vertical;min-height:96px;line-height:1.6}
+.f-hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+.f-msg{display:none;padding:14px 18px;font-size:13.5px;line-height:1.6;border:1px solid}
+.f-msg.ok{display:block;border-color:rgba(140,180,140,.4);color:#B8D2B2;background:rgba(140,180,140,.06)}
+.f-msg.ko{display:block;border-color:rgba(210,120,110,.4);color:#E0AFA6;background:rgba(210,120,110,.06)}
+.form .btn{margin-top:6px;width:100%}
+.form .btn:disabled{opacity:.45;cursor:default}
+.f-note{font-size:12.5px;color:var(--t3);text-align:center;line-height:1.7}
+.f-note a{color:var(--t2)}
+.after{list-style:none;display:flex;flex-direction:column}
+.after li{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--t2);line-height:1.6;text-wrap:pretty}
+.after li:first-child{border-top:1px solid var(--line)}
+.after .n{font-family:var(--serif);font-style:italic;color:var(--gold);flex-shrink:0;font-size:17px}
+.aside-sig{margin-top:34px;display:flex;gap:16px;align-items:center}
+.aside-sig .monogram{width:52px;height:52px;font-size:20px}
+.aside-sig p{font-size:13px;color:var(--t3);line-height:1.6;max-width:30ch}
+@media(min-width:900px){
+  .contact-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:72px;align-items:start}
+  .f-row-2{flex-direction:row}
+}
+@media(min-width:900px) and (hover:hover) and (pointer:fine){.f-in{font-size:15px}}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{border-top:1px solid var(--line);padding:40px 0 46px}
+.foot{display:flex;flex-direction:column;gap:22px}
+.foot-info{font-size:12px;color:var(--t3);line-height:1.8}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a{font-size:12.5px;color:var(--t3);text-decoration:none;transition:color .3s}
+.foot-links a:hover{color:var(--gold)}
+@media(min-width:768px){.foot{flex-direction:row;justify-content:space-between;align-items:center}}
+</style>
 </head>
 <body>
-  <div class="loader">
-    <h1>MyHostKit</h1>
-    <p>Redirection...</p>
-    <div class="spinner"></div>
+<a class="skip" href="#main">Aller au contenu</a>
+<div id="sprog" aria-hidden="true"></div>
+<div id="glow" aria-hidden="true"></div>
+
+<nav class="nav" id="topnav" aria-label="Navigation principale">
+  <a href="#top" class="logo">MyHost<em>Kit</em></a>
+  <ul class="nav-links">
+    <li><a href="#app">L'application</a></li>
+    <li><a href="#channel-manager">Channel manager</a></li>
+    <li><a href="#marque">Votre marque</a></li>
+    <li><a href="#prix">Tarifs</a></li>
+    <li><a href="#faq">Questions</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#contact" class="btn nav-cta">Ma maquette</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</nav>
+<div class="mnav" id="mnav">
+  <a href="#app">L'application</a>
+  <a href="#channel-manager">Channel manager</a>
+  <a href="#marque">Votre marque</a>
+  <a href="#prix">Tarifs</a>
+  <a href="#faq">Questions</a>
+  <a href="#contact" class="btn btn-full">Recevoir ma maquette gratuite</a>
+</div>
+
+<main id="main">
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="top" data-fx="exit" data-var="--hp">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Marque blanche · Conciergerie</p>
+      <h1>
+        <span class="ln"><span style="--i:0">Votre app.</span></span>
+        <span class="ln"><span style="--i:1">Votre marque.</span></span>
+        <span class="ln"><span style="--i:2"><em>Votre marge.</em></span></span>
+      </h1>
+      <p class="hero-sub">Licence en marque blanche à revendre, ou plateforme de conciergerie construite sur mesure avec channel manager — pour les formateurs et conciergeries qui veulent leur propre outil, sans deux ans de développement.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-full">Recevoir ma maquette gratuite</a>
+        <a class="lnk" href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" target="_blank" rel="noopener">Voir l'app partenaire sur l'App Store&nbsp;→</a>
+        <p class="hero-proof-hint">C'est une application comme celle-ci que vous proposerez sous votre marque.</p>
+      </div>
+    </div>
+    <div class="hero-stage" aria-hidden="true">
+      <div class="tilt-wrap float">
+        <div class="tilt dev" id="heroTilt">
+          <div class="scr">
+            <div class="d-status"><div class="d-notch"></div></div>
+            <div class="d-head">
+              <div class="d-brand">Votre marque</div>
+              <div class="d-sub">Bonjour Alexandre — samedi 12 septembre</div>
+            </div>
+            <div class="d-kpis">
+              <div class="d-kpi"><div class="d-k">Revenus du mois</div><div class="d-v">4 260 € <small>▲</small></div></div>
+              <div class="d-kpi"><div class="d-k">Occupation</div><div class="d-v">87 %</div></div>
+            </div>
+            <div class="d-row"><div><b>Villa des Oliviers</b><span>Check-out demain · ménage planifié</span></div><div class="d-dot"></div></div>
+            <div class="d-row"><div><b>Studio Vieux-Port</b><span>Arrivée ce soir · code envoyé</span></div><div class="d-dot"></div></div>
+            <div class="d-row"><div><b>Loft Saint-Michel</b><span>Réservation Airbnb synchronisée</span></div><div class="d-dot"></div></div>
+            <div class="d-btn">Nouvelle réservation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-cue" aria-hidden="true"><i></i>Défiler</div>
+</header>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="solid">Marque blanche</span><i>◆</i><span>Channel manager</span><i>◆</i><span>App Store</span><i>◆</i><span>Concierge IA</span><i>◆</i><span>Ménage automatisé</span><i>◆</i>
+  </div>
+  <div class="mq-track" aria-hidden="true">
+    <span class="solid">Marque blanche</span><i>◆</i><span>Channel manager</span><i>◆</i><span>App Store</span><i>◆</i><span>Concierge IA</span><i>◆</i><span>Ménage automatisé</span><i>◆</i>
+  </div>
+</div>
+
+<!-- ═══ PREUVES ═══ -->
+<section class="proofs" aria-label="Preuves">
+  <div class="proofs-grid">
+    <div class="proof rv" style="--i:0"><b>App en ligne</b><span>La première app partenaire est publiée sur l'App&nbsp;Store.</span></div>
+    <div class="proof rv" style="--i:1"><b>En production</b><span>Premier partenariat en cours, contrat de 12&nbsp;mois.</span></div>
+    <div class="proof rv" style="--i:2"><b>Channel manager</b><span>Disponibilités, tarifs et restrictions synchronisés par API.</span></div>
+    <div class="proof rv" style="--i:3"><b>En direct</b><span>Vous parlez au développeur, jamais à un commercial.</span></div>
+  </div>
+</section>
+
+<!-- ═══ DEUX PORTES ═══ -->
+<section class="portes">
+  <div class="wrap">
+    <div class="portes-grid">
+      <a href="#prix" class="porte rv" style="--i:0">
+        <span class="chap">Première porte</span>
+        <h2>Revendre l'app sous ma marque</h2>
+        <p>Licence white-label, votre branding à l'inscription, marge récurrente sur chaque membre équipé.</p>
+        <span class="porte-go" aria-hidden="true">→</span>
+      </a>
+      <a href="#surmesure" class="porte rv" style="--i:1">
+        <span class="chap">Seconde porte</span>
+        <h2>Ma plateforme sur mesure</h2>
+        <p>Votre app à votre nom sur l'App Store, votre channel manager, vos fonctionnalités. Construite pour vous, au forfait.</p>
+        <span class="porte-go" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 · L'APPLICATION (rail épinglé) ═══ -->
+<section class="rail-zone" id="app" data-fx="pin" data-var="--rp">
+  <div class="rail-pin">
+    <div class="wrap rail-head">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <p class="eyebrow"><span class="chap">01</span>&nbsp;L'application</p>
+        <h2>Trois métiers. Une seule app.</h2>
+        <p class="lede">Hôte, ménage, voyageur — chaque acteur a son interface, et tout se coordonne sans vous.</p>
+      </div>
+    </div>
+    <div class="rail" id="rail" role="region" aria-label="Aperçu des interfaces de l'application" tabindex="0">
+      <div class="rail-item">
+        <div class="dev" aria-hidden="true"><div class="scr">
+          <div class="d-status"><div class="d-notch"></div></div>
+          <div class="d-head"><div class="d-brand">Votre marque</div><div class="d-sub">Pilotage en temps réel</div></div>
+          <div class="d-kpis">
+            <div class="d-kpi"><div class="d-k">Revenus</div><div class="d-v">4 260 €</div></div>
+            <div class="d-kpi"><div class="d-k">Occupation</div><div class="d-v">87 %</div></div>
+          </div>
+          <div class="d-row"><div><b>Villa des Oliviers</b><span>Check-out demain</span></div><span class="d-chip ok">Ménage planifié</span></div>
+          <div class="d-row"><div><b>Studio Vieux-Port</b><span>Arrivée ce soir</span></div><span class="d-chip warm">Code envoyé</span></div>
+          <div class="d-btn">Nouvelle réservation</div>
+        </div></div>
+        <span class="rail-cap">Pilotage</span>
+      </div>
+      <div class="rail-item">
+        <div class="dev" aria-hidden="true"><div class="scr">
+          <div class="d-status"><div class="d-notch"></div></div>
+          <div class="d-head"><div class="d-brand">Votre marque</div><div class="d-sub">Calendrier unifié</div></div>
+          <div class="d-cal">
+            <div class="d-cal-t">Janvier <i>0 conflit</i></div>
+            <div class="d-grid">
+              <div class="d-c">1</div><div class="d-c">2</div><div class="d-c b">3</div><div class="d-c b">4</div><div class="d-c b">5</div><div class="d-c">6</div><div class="d-c">7</div>
+              <div class="d-c">8</div><div class="d-c b2">9</div><div class="d-c b2">10</div><div class="d-c">11</div><div class="d-c">12</div><div class="d-c b">13</div><div class="d-c b">14</div>
+              <div class="d-c">15</div><div class="d-c">16</div><div class="d-c">17</div><div class="d-c b">18</div><div class="d-c b">19</div><div class="d-c b">20</div><div class="d-c">21</div>
+            </div>
+          </div>
+          <div class="d-row"><div><b>Airbnb · Booking · Vrbo</b><span>Disponibilités synchronisées</span></div><div class="d-dot"></div></div>
+          <div class="d-note">Une réservation tombe, les autres plateformes se ferment.</div>
+        </div></div>
+        <span class="rail-cap">Calendrier unifié</span>
+      </div>
+      <div class="rail-item">
+        <div class="dev" aria-hidden="true"><div class="scr">
+          <div class="d-status"><div class="d-notch"></div></div>
+          <div class="d-head"><div class="d-brand">Votre marque</div><div class="d-sub">Ménage automatisé</div></div>
+          <div class="d-row"><div><b>Villa des Oliviers</b><span>Demain · 10h — créée au check-out</span></div><span class="d-chip warm">Proposée</span></div>
+          <div class="d-row"><div><b>Studio Vieux-Port</b><span>Aujourd'hui · 14h · Sonia</span></div><span class="d-chip ok">Validée</span></div>
+          <div class="d-row"><div><b>Loft Saint-Michel</b><span>Rapport photo · validé par l'IA</span></div><span class="d-chip ok">Terminée</span></div>
+          <div class="d-btn">Trouver un cleaner</div>
+        </div></div>
+        <span class="rail-cap">Ménage automatisé</span>
+      </div>
+      <div class="rail-item">
+        <div class="dev" aria-hidden="true"><div class="scr">
+          <div class="d-status"><div class="d-notch"></div></div>
+          <div class="d-head"><div class="d-brand">Votre marque</div><div class="d-sub">Concierge voyageur</div></div>
+          <div class="d-bub guest">Bonsoir, quel est le code de la porte d'entrée ?<time>02:34</time></div>
+          <div class="d-bub ia">Bonsoir ! Le code est 4827A — l'ascenseur est à gauche. Bon séjour !<time>02:34 · réponse automatique</time></div>
+          <div class="d-row"><div><b>WiFi · Livret d'accueil</b><span>Codes, règles, recommandations</span></div><div class="d-dot"></div></div>
+        </div></div>
+        <span class="rail-cap">Concierge voyageur</span>
+      </div>
+      <div class="rail-item">
+        <div class="dev" aria-hidden="true"><div class="scr">
+          <div class="d-status"><div class="d-notch"></div></div>
+          <div class="d-head"><div class="d-brand">Votre marque</div><div class="d-sub">Revenus & URSSAF</div></div>
+          <div class="d-kpis">
+            <div class="d-kpi"><div class="d-k">Commissions</div><div class="d-v">1 480 €</div></div>
+            <div class="d-kpi"><div class="d-k">Volume géré</div><div class="d-v">7 210 €</div></div>
+          </div>
+          <div class="d-bars">
+            <div class="d-bar"><b>Villa Oliviers</b><div class="tr"><i style="--w:82%"></i></div><em>620 €</em></div>
+            <div class="d-bar"><b>Studio V.-Port</b><div class="tr"><i style="--w:60%"></i></div><em>460 €</em></div>
+            <div class="d-bar"><b>Loft St-Michel</b><div class="tr"><i style="--w:52%"></i></div><em>400 €</em></div>
+          </div>
+          <div class="d-btn">Télécharger le relevé URSSAF</div>
+        </div></div>
+        <span class="rail-cap">Revenus & URSSAF</span>
+      </div>
+    </div>
+    <p class="rail-hint">Aperçu des interfaces&nbsp;— faites défiler</p>
+  </div>
+</section>
+
+<!-- ═══ 02 · AUTOMATISATION ═══ -->
+<section class="sec" id="automatisation">
+  <div class="wrap split">
+    <div class="s-l sec-head rv">
+      <p class="eyebrow"><span class="chap">02</span>&nbsp;L'automatisation</p>
+      <h2>Pendant que vous <em>dormez.</em></h2>
+      <p class="lede">Une journée type avec l'app — chaque événement ci-dessous se produit sans que personne ne touche à rien.</p>
+    </div>
+    <div class="s-r">
+      <div class="auto-tl">
+        <div class="evt rv" style="--i:0">
+          <span class="evt-time">02:34</span>
+          <p class="evt-t">Un voyageur écrit en pleine nuit<span class="evt-tag">Concierge IA</span></p>
+          <p class="evt-d">Personne n'est réveillé — et pourtant il obtient sa réponse.</p>
+          <div class="cb" id="cbDemo" aria-hidden="true">
+            <div class="bub g stp" data-at="300">Bonsoir, on est devant la porte… quel est le code ?<time>02:34</time></div>
+            <div class="typing stp" id="cbTyping" data-at="1200"><i></i><i></i><i></i></div>
+            <div class="bub i stp" data-at="2600">Bonsoir ! Le code est 4827A — l'ascenseur est au fond à gauche. Excellent séjour !<time>02:34 · Concierge IA</time></div>
+          </div>
+        </div>
+        <div class="evt rv" style="--i:1">
+          <span class="evt-time">07:02</span>
+          <p class="evt-t">Une réservation Booking tombe<span class="evt-tag">Channel manager</span></p>
+          <p class="evt-d">Les dates se ferment sur Airbnb et Vrbo en quelques secondes. Zéro risque de double réservation.</p>
+        </div>
+        <div class="evt rv" style="--i:2">
+          <span class="evt-time">09:12</span>
+          <p class="evt-t">Le check-out déclenche le ménage<span class="evt-tag">Automatique</span></p>
+          <p class="evt-d">La mission est créée et proposée aux cleaners vérifiés de la marketplace — sans un appel, sans un message.</p>
+        </div>
+        <div class="evt rv" style="--i:3">
+          <span class="evt-time">11:30</span>
+          <p class="evt-t">Le rapport photo arrive<span class="evt-tag">Analysé par l'IA</span></p>
+          <p class="evt-d">La cleaner envoie ses photos. L'IA les passe en revue et valide le logement.</p>
+          <div class="rep" id="repDemo" aria-hidden="true">
+            <div class="rep-h">Rapport photo · Villa des Oliviers <b>12 clichés</b></div>
+            <div class="thumbs">
+              <div class="th">Chambre</div><div class="th">Sdb</div><div class="th">Cuisine</div><div class="th">Salon</div>
+            </div>
+            <div class="vl">
+              <span class="ok stp" data-at="1400">Lit fait, chambre rangée</span>
+              <span class="ok stp" data-at="1900">Salle de bain impeccable</span>
+              <span class="warn stp" data-at="2400"><i>À revoir</i>Trace sur le miroir du salon</span>
+              <span class="final stp" data-at="3000"><b>Logement validé, prêt à accueillir</b><span>analyse IA · 4 s</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="evt rv" style="--i:4">
+          <span class="evt-time">11:31</span>
+          <p class="evt-t">Le prochain séjour se prépare seul<span class="evt-tag">Automatique</span></p>
+          <p class="evt-d">Livret d'accueil, WiFi et code d'accès partent vers le prochain voyageur. Vous, vous n'avez rien fait.</p>
+        </div>
+      </div>
+      <p class="auto-punch rv">Votre matinée : zéro appel, zéro message, zéro tableur.</p>
+      <a class="lnk rv" href="#contact">Automatisez votre conciergerie&nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · CHANNEL MANAGER ═══ -->
+<section class="sec" id="channel-manager">
+  <div class="wrap split">
+    <div class="s-l sec-head rv">
+      <p class="eyebrow"><span class="chap">03</span>&nbsp;Channel manager</p>
+      <h2>Les calendriers se synchronisent <em>seuls.</em></h2>
+      <p class="lede">Pas un simple import iCal : un channel manager connecté par API aux plateformes de réservation.</p>
+      <div class="cm-flow rv" aria-hidden="true">
+        <div class="cm-node cm-node-app"><b>Votre app</b><span>Réservation créée, déplacée ou annulée</span></div>
+        <div class="cm-line"></div>
+        <p class="cm-lbl">Push immédiat</p>
+        <div class="cm-line"></div>
+        <div class="cm-node"><b>Channel manager</b><span>Disponibilités · Tarifs · Restrictions</span></div>
+        <div class="cm-line cm-line--late"></div>
+        <p class="cm-lbl">Diffusion</p>
+        <div class="cm-line cm-line--late"></div>
+        <div class="cm-otas">
+          <span class="cm-ota">Airbnb</span><span class="cm-ota">Booking.com</span><span class="cm-ota">Vrbo (Abritel)</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-r">
+      <ul class="cm-pts">
+        <li class="cm-pt rv" style="--i:0"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Disponibilités poussées en quelques secondes</b><p>Une réservation tombe ou s'annule&nbsp;? Seules les dates concernées sont mises à jour, sur toutes les plateformes connectées.</p></div></li>
+        <li class="cm-pt rv" style="--i:1"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Tarifs et restrictions pilotés depuis l'app</b><p>Prix par nuit, séjour minimum, fermetures à la vente — tout part vers les plateformes en un seul appel.</p></div></li>
+        <li class="cm-pt rv" style="--i:2"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Conflits détectés, dates bloquées</b><p>Le calendrier unifié repère les chevauchements entre plateformes et ferme les dates dès qu'une réservation tombe.</p></div></li>
+        <li class="cm-pt rv" style="--i:3"><span class="cm-tick" aria-hidden="true">✓</span><div><b>iCal en complément</b><p>Pour démarrer en cinq minutes sans configuration, la synchronisation iCal classique reste disponible sur chaque logement.</p></div></li>
+      </ul>
+      <div class="cm-log rv" id="cmLog" aria-hidden="true">
+        <p class="cm-log-t">Journal de synchronisation</p>
+      </div>
+      <p class="cm-note rv">Testé de bout en bout : création, déplacement, annulation — à chaque événement, seules les dates concernées sont poussées vers les plateformes. Pas de resynchronisation massive, pas de calendrier qui dérive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MANIFESTE ═══ -->
+<div class="beige-zone" data-fx="pin" data-var="--bp">
+  <section class="beige">
+    <div class="wrap">
+      <p class="mark"><span class="w" style="--wi:0">Vos</span> <span class="w" style="--wi:1">membres</span> <span class="w" style="--wi:2">ne</span> <span class="w" style="--wi:3">verront</span> <span class="w" style="--wi:4"><em>jamais</em></span> <span class="w" style="--wi:5">notre</span> <span class="w" style="--wi:6">nom.</span></p>
+      <p class="sub">Dans l'app : votre logo, vos couleurs, votre marque — de l'inscription à la facture.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ 04 · VOTRE MARQUE ═══ -->
+<section class="sec" id="marque" style="border-top:none">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow"><span class="chap">04</span>&nbsp;Votre marque</p>
+      <h2>Écrivez votre nom. Regardez-le exister.</h2>
+      <p class="lede">Tapez le nom de votre conciergerie et choisissez votre couleur — l'app se rebrande sous vos yeux. C'est exactement ce que vos membres verront.</p>
+    </div>
+    <div class="cfg">
+      <div class="cfg-ctrls rv">
+        <label for="brandName">Le nom de votre marque</label>
+        <input class="cfg-name" id="brandName" type="text" maxlength="24" placeholder="Maison Rivière" autocomplete="off">
+        <div class="cfg-swatches" role="group" aria-label="Couleur de votre marque">
+          <button class="sw" type="button" style="background:#C7A468" data-c="#C7A468" data-ink="#8A6B3F" aria-pressed="true" aria-label="Or"></button>
+          <button class="sw" type="button" style="background:#2F5D46" data-c="#2F5D46" data-ink="#2F5D46" aria-pressed="false" aria-label="Vert forêt"></button>
+          <button class="sw" type="button" style="background:#1F3A5F" data-c="#1F3A5F" data-ink="#1F3A5F" aria-pressed="false" aria-label="Bleu marine"></button>
+          <button class="sw" type="button" style="background:#7A3B3B" data-c="#7A3B3B" data-ink="#7A3B3B" aria-pressed="false" aria-label="Bordeaux"></button>
+        </div>
+        <div class="cfg-cta">
+          <button type="button" class="btn" id="cfgCta">Recevoir cette maquette à mon nom</button>
+        </div>
+      </div>
+      <div class="phone-zone rv" style="--i:1">
+        <div class="dev" id="phone" role="img" aria-label="Aperçu de votre application à votre marque">
+          <div class="scr" id="phoneScr" aria-hidden="true">
+            <div class="d-status"><div class="d-notch"></div></div>
+            <div class="d-head">
+              <div class="d-brand" id="phBrand">Maison Rivière</div>
+              <div class="d-sub">Bonjour Alexandre — samedi 12 septembre</div>
+            </div>
+            <div class="d-kpis">
+              <div class="d-kpi"><div class="d-k">Revenus du mois</div><div class="d-v">4 260 € <small>▲</small></div></div>
+              <div class="d-kpi"><div class="d-k">Occupation</div><div class="d-v">87 %</div></div>
+            </div>
+            <div class="d-row"><div><b>Villa des Oliviers</b><span>Check-out demain · ménage planifié</span></div><div class="d-dot"></div></div>
+            <div class="d-row"><div><b>Studio Vieux-Port</b><span>Arrivée ce soir · code envoyé</span></div><div class="d-dot"></div></div>
+            <div class="d-btn">Nouvelle réservation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 · TARIFS ═══ -->
+<section class="sec" id="prix">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow"><span class="chap">05</span>&nbsp;Tarifs</p>
+      <h2>Le marché loue. Vous, vous revendez.</h2>
+      <p class="lede">Les outils équivalents se louent à prix d'or, à vie, sans jamais porter votre nom. Estimations 2025 pour un parc d'environ vingt logements — Hostaway ne publie pas de grille, fourchette constatée.</p>
+    </div>
+    <div class="price-hero rv">
+      <div class="price-col"><span class="who">Hostaway</span><div class="amt">≈&nbsp;800&nbsp;€</div><span class="per">par mois, en location — sur devis</span><div class="bar"><i style="--w:100%"></i></div></div>
+      <div class="price-col"><span class="who">Lodgify</span><div class="amt">≈&nbsp;165&nbsp;€</div><span class="per">par mois, en location</span><div class="bar"><i style="--w:21%"></i></div></div>
+      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">39&nbsp;€</div><span class="per">par hôte / mois — logements illimités, tarif public</span><div class="bar"><i style="--w:5%"></i></div></div>
+    </div>
+    <p class="price-note rv">Tarif public : 39&nbsp;€ par hôte et 19&nbsp;€ par cleaner, par mois. En tant que partenaire, vous achetez sous le tarif public et revendez au prix que vous choisissez.</p>
+    <div class="tbl-wrap rv">
+      <table>
+        <caption class="visually-hidden">Comparaison des fonctionnalités</caption>
+        <thead><tr><th scope="col">Fonctionnalité</th><th scope="col" class="us">MyHostKit</th><th scope="col">Lodgify</th><th scope="col">Hostaway</th></tr></thead>
+        <tbody>
+          <tr><td>Channel manager Airbnb · Booking · Vrbo (Abritel)</td><td class="us">✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>App mobile en marque blanche, à votre nom</td><td class="us">✓</td><td class="no">✕</td><td class="no">✕</td></tr>
+          <tr><td>Marketplace de cleaners intégrée, profils vérifiés</td><td class="us">✓</td><td class="no">✕</td><td class="no">✕</td></tr>
+          <tr><td>Concierge IA dans votre app, à votre marque</td><td class="us">✓</td><td class="no">✕</td><td class="no">✕</td></tr>
+          <tr><td>Relevé de revenus conciergerie prêt pour l'URSSAF</td><td class="us">✓</td><td class="no">✕</td><td class="no">✕</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIMULATEUR ═══ -->
+<section class="sec" id="simulateur">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Simulateur</p>
+      <h2>Faites le calcul avec <em>vos</em> chiffres.</h2>
+      <p class="lede">Combien de membres, à quel prix de revente — voyez ce que la licence peut générer chez vous.</p>
+    </div>
+    <div class="sim">
+      <div class="rv">
+        <div class="ctrl">
+          <div class="ctrl-top"><label for="sm">Membres dans votre communauté</label><span class="ctrl-val" id="vm">100</span></div>
+          <input type="range" id="sm" min="10" max="1000" step="10" value="100">
+          <div class="ctrl-rng"><span>10</span><span>1&nbsp;000</span></div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label for="sp">Votre prix de revente / mois</label><span class="ctrl-val" id="vp">60&nbsp;€</span></div>
+          <input type="range" id="sp" min="30" max="200" step="5" value="60">
+          <div class="ctrl-rng"><span>30&nbsp;€</span><span>200&nbsp;€</span></div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label for="sr">Taux d'adoption estimé</label><span class="ctrl-val" id="vr">50&nbsp;%</span></div>
+          <input type="range" id="sr" min="10" max="100" step="5" value="50">
+          <div class="ctrl-rng"><span>10&nbsp;%</span><span>100&nbsp;%</span></div>
+        </div>
+      </div>
+      <div class="sim-out rv" style="--i:1">
+        <p class="sim-lbl">Revenu brut mensuel estimé</p>
+        <p class="sim-num" id="rg">—</p>
+        <p class="sim-detail" id="rgs">—</p>
+        <div class="sim-year"><span>Projection annuelle</span><b id="ra">—</b></div>
+        <p class="sim-note">Votre marge nette = ce revenu, moins vos licences au tarif partenaire. Votre prix de revente inclut votre accompagnement et votre communauté — c'est lui qui fait la valeur. Estimation indicative.</p>
+        <button class="btn" type="button" id="simCta">Obtenir mon tarif partenaire avec ces chiffres</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 · SUR MESURE ═══ -->
+<section class="sec" id="surmesure">
+  <div class="wrap split">
+    <div class="s-l sec-head rv">
+      <p class="eyebrow"><span class="chap">06</span>&nbsp;Sur mesure</p>
+      <h2>Une plateforme qui vous appartient.</h2>
+      <p class="lede">Pour les acteurs qui veulent leur propre produit : nous construisons votre application et son channel manager, de la maquette à l'App Store. Projet au forfait, puis licences à volonté.</p>
+      <p class="lede lede--aside">Je développe MyHostKit seul, et c'est volontaire : chaque projet sur mesure est suivi de bout en bout par la même personne. Je n'ouvre donc qu'un nombre limité de déploiements à la fois.</p>
+    </div>
+    <div class="s-r">
+      <ol class="steps">
+        <li class="rv" style="--i:0"><div><b>Votre maquette, d'abord</b><p>Avant tout engagement, vous recevez une maquette de votre application — votre nom, votre logo, vos couleurs. Vous la regardez, vous décidez.</p></div></li>
+        <li class="rv" style="--i:1"><div><b>La construction</b><p>App iOS à votre nom, back-office, channel manager, fonctionnalités adaptées à votre métier. Vous suivez l'avancement en direct avec le développeur.</p></div></li>
+        <li class="rv" style="--i:2"><div><b>Votre fiche App Store</b><p>L'application est publiée sous votre marque, comme pour notre premier partenaire — dont le déploiement réel se visite sur demande, en quinze minutes.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FONDATEUR ═══ -->
+<section class="sec founder">
+  <div class="wrap founder-grid">
+    <div class="monogram rv" aria-hidden="true">RM</div>
+    <div class="rv" style="--i:1">
+      <blockquote>« J'ai conçu et développé MyHostKit de bout en bout — l'app iOS, le back-office, le channel manager. Quand vous écrivez ici, c'est moi qui lis et c'est moi qui réponds. Pas de commercial, pas de chatbot. »</blockquote>
+      <p class="sig">Rayane Mazouni<small>Fondateur, MyHostKit — Paris</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Questions</p>
+      <h2>Les questions directes.</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Avez-vous déjà des partenaires ?</summary>
+        <div class="a">Oui. Une académie de formation en conciergerie a lancé sa propre application en marque blanche — elle est en ligne sur l'App Store, avec un contrat de 12 mois. La démonstration du déploiement réel se fait sur demande.</div>
+      </details>
+      <details>
+        <summary>L'app sera vraiment à ma marque ?</summary>
+        <div class="a">En licence : votre logo et vos couleurs à l'inscription, liens d'invitation à votre nom — MyHostKit reste invisible pour vos membres dans l'app. En sur mesure : c'est votre propre application, publiée sous votre nom sur l'App Store, avec votre fiche et votre identité de bout en bout.</div>
+      </details>
+      <details>
+        <summary>Et si vous arrêtez l'activité demain ?</summary>
+        <div class="a">Question légitime face à un fondateur solo — et c'est précisément pour ça qu'on en parle ouvertement dès le premier échange : nous posons ensemble les conditions de réversibilité et de continuité au contrat, avant tout engagement.</div>
+      </details>
+      <details>
+        <summary>Je ne sais pas coder. C'est un problème ?</summary>
+        <div class="a">Aucun. La technique — hébergement, mises à jour, synchronisation, App Store — est entièrement gérée. Vous vous concentrez sur votre communauté et votre vente ; vos membres créent leur compte en trente secondes via un lien d'invitation.</div>
+      </details>
+      <details>
+        <summary>Quel est le tarif partenaire ?</summary>
+        <div class="a">Il dépend du volume de licences et de votre profil, et reste inférieur au tarif public (39&nbsp;€/hôte · 19&nbsp;€/cleaner par mois). Vous revendez ensuite au prix que vous choisissez — la marge est entièrement la vôtre.</div>
+      </details>
+      <details>
+        <summary>Quelles plateformes sont synchronisées ?</summary>
+        <div class="a">Airbnb, Booking et Vrbo (Abritel). Deux modes : la synchronisation iCal, opérationnelle en cinq minutes, et le channel manager API pour la mise à jour des disponibilités, tarifs et restrictions en quelques secondes.</div>
+      </details>
+      <details>
+        <summary>L'app est-elle sur Android ?</summary>
+        <div class="a">L'application est publiée sur l'App Store iOS. Une version Android est prévue.</div>
+      </details>
+      <details>
+        <summary>Y a-t-il un engagement minimum ?</summary>
+        <div class="a">Les conditions sont discutées au cas par cas, selon le volume et le modèle choisi. Le premier échange, lui, n'engage à rien.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Contact</p>
+      <h2>La première étape ne coûte rien.</h2>
+      <p class="lede">Pendant que le marché loue ses outils jusqu'à 800&nbsp;€ par mois, la maquette à votre marque est offerte. Décrivez votre projet — le reste suit.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="form rv" id="leadForm" novalidate>
+        <div class="f-row f-row-2">
+          <div class="f-field">
+            <label class="f-lbl" for="lf-name">Votre nom</label>
+            <input class="f-in" id="lf-name" name="name" type="text" placeholder="Prénom Nom" required autocomplete="name">
+          </div>
+          <div class="f-field">
+            <label class="f-lbl" for="lf-email">Email</label>
+            <input class="f-in" id="lf-email" name="email" type="email" placeholder="vous@exemple.fr" required autocomplete="email">
+          </div>
+        </div>
+        <div class="f-row f-row-2">
+          <div class="f-field">
+            <label class="f-lbl" for="lf-profile">Votre projet</label>
+            <select class="f-in empty" id="lf-profile" name="profile">
+              <option value="">— Choisir —</option>
+              <option>Revendre l'app sous ma marque</option>
+              <option>Une plateforme sur mesure</option>
+              <option>Je ne sais pas encore</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label class="f-lbl" for="lf-phone">Téléphone <span class="lbl-optional">(optionnel)</span></label>
+            <input class="f-in" id="lf-phone" name="phone" type="tel" placeholder="06 12 34 56 78" autocomplete="tel">
+          </div>
+        </div>
+        <div class="f-field">
+          <label class="f-lbl" for="lf-message">Votre situation en quelques mots</label>
+          <textarea class="f-in" id="lf-message" name="message" placeholder="Ex. : je forme une quarantaine de conciergeries par an et je cherche un outil à leur proposer sous ma marque."></textarea>
+        </div>
+        <div class="f-hp" aria-hidden="true">
+          <label for="lf-website">Site web</label>
+          <input id="lf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="f-msg" id="fMsg" role="status"></div>
+        <button class="btn btn-full" id="fBtn" type="submit">Recevoir ma maquette gratuite</button>
+        <p class="f-note">Réponse personnelle sous 24&nbsp;h ouvrées. Pas de séquence d'emails automatique, pas de relance insistante.<br>Ou directement : <a href="mailto:contact@myhostkit.com?subject=Maquette%20MyHostKit%20%C3%A0%20ma%20marque">contact@myhostkit.com</a></p>
+      </form>
+      <div class="rv" style="--i:1">
+        <ul class="after">
+          <li><span class="n" aria-hidden="true">01</span>Vous décrivez votre projet en deux minutes.</li>
+          <li><span class="n" aria-hidden="true">02</span>Réponse personnelle, puis un échange de quinze minutes, sans engagement — avec la démonstration d'un déploiement réel.</li>
+          <li><span class="n" aria-hidden="true">03</span>Si le projet a du sens, vous recevez votre maquette à votre marque.</li>
+        </ul>
+        <div class="aside-sig">
+          <div class="monogram" aria-hidden="true">RM</div>
+          <p>C'est moi qui lis chaque message et qui réponds personnellement.<br>— Rayane</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-info">
+      <span class="logo" style="font-size:15px">MyHost<em>Kit</em></span><br>
+      © 2026 MyHostKit — SIRET 100&nbsp;324&nbsp;060&nbsp;00019<br>60 rue François 1er, 75008 Paris · Conçu et développé en France
+    </div>
+    <div class="foot-links">
+      <a href="https://www.myhostkit.com/cgv.html" target="_blank" rel="noopener">CGV</a>
+      <a href="https://www.myhostkit.com/privacy.html" target="_blank" rel="noopener">Confidentialité</a>
+      <a href="https://www.myhostkit.com/mentions-legales.html" target="_blank" rel="noopener">Mentions légales</a>
+      <a href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" target="_blank" rel="noopener">App Store</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(pointer:fine)').matches;
+  var desktop = matchMedia('(min-width:900px)');
+
+  /* ── Moteur de scroll (barre de progression + scènes --p) ── */
+  var fxEls = [].slice.call(document.querySelectorAll('[data-fx]'));
+  var sprog = document.getElementById('sprog');
+  var railZone = document.getElementById('app');
+  var rail = document.getElementById('rail');
+  var ticking = false;
+  function clamp01(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function railMax(){
+    if (!desktop.matches) return 0;
+    var track = rail.scrollWidth, vw = innerWidth;
+    return Math.max(0, track - vw);
+  }
+  var rmax = 0;
+  function measure(){
+    rmax = railMax();
+    railZone.style.setProperty('--rmax', -rmax + 'px');
+  }
+  function frame(){
+    ticking = false;
+    var vh = innerHeight;
+    var doc = document.documentElement;
+    var sp = doc.scrollTop / Math.max(1, doc.scrollHeight - vh);
+    sprog.style.transform = 'scaleX(' + sp.toFixed(4) + ')';
+    if (reduced) return;
+    fxEls.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      var p;
+      if (el.dataset.fx === 'pin') p = clamp01(-r.top / Math.max(1, r.height - vh));
+      else p = clamp01(-r.top / (r.height * .85));
+      el.style.setProperty(el.dataset.var, p.toFixed(4));
+    });
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  if (!reduced) document.documentElement.classList.add('fx');
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', function(){ measure(); onScroll(); });
+  measure(); frame();
+
+  /* ── Reveal au scroll ── */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  /* ── Nav condensée ── */
+  var nav = document.getElementById('topnav');
+  var sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:80px;height:1px;width:1px;pointer-events:none';
+  document.body.prepend(sentinel);
+  new IntersectionObserver(function(es){
+    nav.classList.toggle('shrunk', !es[0].isIntersecting);
+  }).observe(sentinel);
+
+  /* ── Menu mobile ── */
+  var burger = document.getElementById('burger');
+  var mnav = document.getElementById('mnav');
+  function closeMenu(){
+    burger.setAttribute('aria-expanded','false');
+    mnav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', function(){
+    var open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!open));
+    mnav.classList.toggle('open', !open);
+    document.body.style.overflow = open ? '' : 'hidden';
+  });
+  mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+
+  /* ── Curseur lumineux ── */
+  var glow = document.getElementById('glow');
+  if (glow && fine && !reduced) {
+    var gx = 0, gy = 0, tx = 0, ty = 0, gRunning = false, gSeen = false;
+    function gLoop(){
+      var dx = tx - gx, dy = ty - gy;
+      if (Math.abs(dx) + Math.abs(dy) < .3) { gRunning = false; return; }
+      gx += dx * .18; gy += dy * .18;
+      glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+      requestAnimationFrame(gLoop);
+    }
+    addEventListener('mousemove', function(e){
+      tx = e.clientX; ty = e.clientY;
+      if (!gSeen) { gSeen = true; gx = tx; gy = ty; glow.style.opacity = '1'; }
+      var on = e.target.closest && e.target.closest('a,button,input,summary,[role=slider]');
+      glow.style.setProperty('--gs', on ? '1.8' : '1');
+      if (!gRunning) { gRunning = true; requestAnimationFrame(gLoop); }
+    }, {passive:true});
+  }
+
+  /* ── Parallaxe 3D du device héro ── */
+  var tilt = document.getElementById('heroTilt');
+  if (tilt && fine && !reduced) {
+    var hero = document.querySelector('.hero');
+    var rx = 4, ry = -7, trx = 4, try_ = -7, running = false;
+    function loop(){
+      var dx = trx - rx, dy = try_ - ry;
+      if (Math.abs(dx) + Math.abs(dy) < .02) { running = false; return; }
+      rx += dx * .08; ry += dy * .08;
+      tilt.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+      tilt.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+      requestAnimationFrame(loop);
+    }
+    function kick(){ if (!running) { running = true; requestAnimationFrame(loop); } }
+    hero.addEventListener('mousemove', function(e){
+      try_ = -7 + ((e.clientX / innerWidth) - .5) * 14;
+      trx = 4 - ((e.clientY / innerHeight) - .5) * 10;
+      kick();
+    });
+    hero.addEventListener('mouseleave', function(){ trx = 4; try_ = -7; kick(); });
+  }
+
+  /* ── Journal de synchronisation (channel manager) ── */
+  var log = document.getElementById('cmLog');
+  if (log && !reduced) {
+    var LINES = [
+      ['10:42:07', 'Réservation Airbnb reçue', 'dispo fermée · Booking · Vrbo'],
+      ['10:42:08', 'Disponibilités poussées', '2 dates · 3 plateformes'],
+      ['11:05:31', 'Tarif mis à jour', '139 € / nuit · min. 2 nuits'],
+      ['12:18:44', 'Annulation détectée', 'dates rouvertes partout'],
+      ['12:18:45', 'Mission ménage replanifiée', 'notification envoyée'],
+      ['14:02:12', 'Réservation déplacée', 'anciennes + nouvelles dates à jour']
+    ];
+    var li = 0, timer = null;
+    function addLine(){
+      var d = LINES[li % LINES.length]; li++;
+      var p = document.createElement('p');
+      p.className = 'new';
+      p.innerHTML = '<b>' + d[0] + '</b>&nbsp; ' + d[1] + ' — ' + d[2];
+      log.appendChild(p);
+      var lines = log.querySelectorAll('p:not(.cm-log-t)');
+      if (lines.length > 4) log.removeChild(lines[0]);
+      setTimeout(function(){ p.classList.remove('new'); }, 1200);
+    }
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting) { if (!timer) { addLine(); timer = setInterval(addLine, 2400); } }
+      else { clearInterval(timer); timer = null; }
+    }, {threshold:.3}).observe(log);
+  }
+
+  /* ── Scènes automatisation (chat IA + rapport photo) ── */
+  ['cbDemo','repDemo'].forEach(function(id){
+    var box = document.getElementById(id);
+    if (!box) return;
+    if (reduced) { box.querySelectorAll('.stp').forEach(function(s){ s.classList.add('on'); }); return; }
+    new IntersectionObserver(function(es, obs){
+      if (!es[0].isIntersecting) return;
+      obs.unobserve(box);
+      if (id === 'repDemo') box.classList.add('scan');
+      box.querySelectorAll('.stp').forEach(function(s){
+        setTimeout(function(){
+          s.classList.add('on');
+          if (s.id === 'cbTyping') setTimeout(function(){ s.classList.add('gone'); }, 1400);
+        }, +s.dataset.at);
+      });
+    }, {threshold:.45}).observe(box);
+  });
+
+  /* ── Configurateur de marque ── */
+  var brandIn = document.getElementById('brandName');
+  var phBrand = document.getElementById('phBrand');
+  var phoneScr = document.getElementById('phoneScr');
+  var cfgColor = 'Or';
+  if (brandIn) {
+    brandIn.addEventListener('input', function(){
+      phBrand.textContent = brandIn.value.trim() || 'Maison Rivière';
+    });
+    document.querySelectorAll('.sw').forEach(function(sw){
+      sw.addEventListener('click', function(){
+        document.querySelectorAll('.sw').forEach(function(s){ s.setAttribute('aria-pressed','false'); });
+        sw.setAttribute('aria-pressed','true');
+        phoneScr.style.setProperty('--accv', sw.dataset.c);
+        phoneScr.style.setProperty('--acc', sw.dataset.ink);
+        cfgColor = sw.getAttribute('aria-label');
+      });
+    });
+    document.getElementById('cfgCta').addEventListener('click', function(){
+      var name = brandIn.value.trim();
+      prefill(name ? 'Je veux la maquette pour « ' + name + ' » (accent ' + cfgColor.toLowerCase() + ').' : '', '');
+    });
+  }
+
+  /* ── Simulateur ── */
+  var fmt = new Intl.NumberFormat('fr-FR');
+  function upd(){
+    var sm = document.getElementById('sm'), sp2 = document.getElementById('sp'), sr = document.getElementById('sr');
+    var m = +sm.value, p = +sp2.value, r = +sr.value;
+    document.getElementById('vm').textContent = fmt.format(m);
+    document.getElementById('vp').textContent = p + ' €';
+    document.getElementById('vr').textContent = r + ' %';
+    sm.setAttribute('aria-valuetext', fmt.format(m) + ' membres');
+    sp2.setAttribute('aria-valuetext', p + ' euros par mois');
+    sr.setAttribute('aria-valuetext', r + ' pour cent');
+    var lic = Math.round(m * r / 100);
+    var gross = lic * p;
+    document.getElementById('rg').innerHTML = fmt.format(gross) + ' € <small>/ mois</small>';
+    document.getElementById('rgs').textContent = fmt.format(lic) + ' licences actives × ' + p + ' €';
+    document.getElementById('ra').textContent = fmt.format(gross * 12) + ' €';
+  }
+  ['sm','sp','sr'].forEach(function(id){ document.getElementById(id).addEventListener('input', upd); });
+  upd();
+  document.getElementById('simCta').addEventListener('click', function(){
+    var m = document.getElementById('sm').value, p = document.getElementById('sp').value;
+    prefill('Je vise environ ' + m + ' membres à ' + p + ' €/mois — quel serait mon tarif partenaire sur ce volume ?', "Revendre l'app sous ma marque");
+  });
+
+  /* ── Pré-remplissage ── */
+  function prefill(msg, projet){
+    var t = document.getElementById('lf-message');
+    if (msg && !t.value.trim()) t.value = msg;
+    if (projet) {
+      var s = document.getElementById('lf-profile');
+      for (var i=0;i<s.options.length;i++) if (s.options[i].text === projet) { s.selectedIndex = i; break; }
+      s.classList.toggle('empty', !s.value);
+    }
+    document.getElementById('contact').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});
+  }
+
+  /* ── Select grisé tant que vide ── */
+  var sel = document.getElementById('lf-profile');
+  sel.addEventListener('change', function(){ sel.classList.toggle('empty', !sel.value); });
+
+  /* ── Formulaire → website-lead ── */
+  var LEAD_ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/website-lead';
+  var form = document.getElementById('leadForm');
+  var btn = document.getElementById('fBtn');
+  var msg = document.getElementById('fMsg');
+  function showMsg(kind, text){
+    msg.className = 'f-msg ' + kind;
+    msg.textContent = '';
+    setTimeout(function(){ msg.textContent = text; }, 60);
+  }
+  function fieldError(field, text){
+    showMsg('ko', text);
+    field.setAttribute('aria-invalid','true');
+    field.setAttribute('aria-describedby','fMsg');
+    field.focus();
+    field.addEventListener('input', function h(){
+      field.removeAttribute('aria-invalid');
+      field.removeAttribute('aria-describedby');
+      field.removeEventListener('input', h);
+    });
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nameF = document.getElementById('lf-name'), emailF = document.getElementById('lf-email');
+    var name = nameF.value.trim(), email = emailF.value.trim();
+    if (name.length < 2) { fieldError(nameF, 'Indiquez votre nom.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { fieldError(emailF, 'Indiquez un email valide.'); return; }
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    msg.className = 'f-msg';
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: document.getElementById('lf-phone').value.trim(),
+        profile: sel.value,
+        message: document.getElementById('lf-message').value.trim(),
+        website: document.getElementById('lf-website').value
+      })
+    }).then(function(r){
+      if (r.ok) {
+        form.reset();
+        sel.classList.add('empty');
+        showMsg('ok', 'Message bien reçu. Vous aurez une réponse personnelle sous 24 h ouvrées, à l’adresse indiquée.');
+        btn.textContent = 'Envoyé ✓';
+      } else if (r.status === 429) {
+        showMsg('ko', 'Trop de demandes envoyées. Réessayez dans une heure ou écrivez à contact@myhostkit.com.');
+        btn.disabled = false;
+        btn.textContent = 'Recevoir ma maquette gratuite';
+      } else { throw new Error('http ' + r.status); }
+    }).catch(function(){
+      showMsg('ko', 'L’envoi a échoué. Écrivez-nous directement : contact@myhostkit.com');
+      btn.disabled = false;
+      btn.textContent = 'Recevoir ma maquette gratuite';
+    });
+  });
+})();
+</script>
 </body>
 </html>
