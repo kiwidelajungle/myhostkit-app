@@ -340,6 +340,21 @@ html.js .cm-line--late::after{animation-delay:1.3s}
 @keyframes blink{50%{opacity:.3}}
 @media(prefers-reduced-motion:reduce){.cm-log-t::before{animation:none}}
 
+/* ═══════════ MIGRATION ═══════════ */
+.mig-punch{font-family:var(--serif);font-weight:340;font-size:clamp(20px,2.8vw,26px);letter-spacing:-.01em;line-height:1.4;max-width:30ch;text-wrap:balance;margin-bottom:clamp(34px,5vw,50px)}
+.mig-punch em{font-style:italic;color:var(--gold)}
+.mig-facts{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--gold15);margin-top:clamp(40px,6vw,60px)}
+.mig-fact{padding:22px 20px;border-bottom:1px solid var(--gold15)}
+.mig-fact:nth-child(odd){border-right:1px solid var(--gold15)}
+.mig-fact:nth-last-child(-n+2){border-bottom:none}
+.mig-fact b{display:block;font-family:var(--serif);font-weight:340;font-size:clamp(19px,2.6vw,24px);color:var(--gold);margin-bottom:3px}
+.mig-fact span{font-size:12.5px;color:var(--t3);line-height:1.5;display:block}
+@media(min-width:768px){
+  .mig-facts{grid-template-columns:repeat(4,1fr)}
+  .mig-fact{border-bottom:none;border-right:1px solid var(--gold15);padding:26px 22px}
+  .mig-fact:last-child{border-right:none}
+}
+
 /* ═══════════ MANIFESTE BEIGE — mots au scroll ═══════════ */
 .beige-zone{position:relative}
 html.js.fx .beige-zone{height:220vh}
@@ -507,6 +522,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
     <li><a href="#marque">Votre marque</a></li>
     <li><a href="#prix">Tarifs</a></li>
     <li><a href="#faq">Questions</a></li>
+    <li><a href="/activer.html" style="color:var(--gold)">Activer l'app</a></li>
   </ul>
   <div class="nav-right">
     <a href="#contact" class="btn nav-cta">Ma maquette</a>
@@ -521,6 +537,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
   <a href="#marque">Votre marque</a>
   <a href="#prix">Tarifs</a>
   <a href="#faq">Questions</a>
+  <a href="/activer.html" style="color:var(--gold)">Activer l'app — payer mon abonnement</a>
   <a href="#contact" class="btn btn-full">Recevoir ma maquette gratuite</a>
 </div>
 
@@ -787,6 +804,33 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
   </div>
 </section>
 
+<!-- ═══ MIGRATION ═══ -->
+<section class="sec" id="migration">
+  <div class="wrap">
+    <div class="split">
+      <div class="s-l sec-head rv">
+        <p class="eyebrow">La migration</p>
+        <h2>Déjà équipés ailleurs ? Vos annonces ne bougent pas.</h2>
+        <p class="lede">Le vrai frein au changement, c'est la peur de tout recréer. Ici, il n'y a rien à recréer : vos annonces, vos avis et vos réservations restent sur Airbnb et Booking — on ne fait que reconnecter les calendriers.</p>
+      </div>
+      <div class="s-r">
+        <p class="mig-punch rv">Migrer ne veut pas dire déménager. <em>Rien</em> n'est supprimé, rien n'est recréé, rien n'est coupé.</p>
+        <ol class="steps">
+          <li class="rv" style="--i:0"><div><b>Ajoutez vos logements</b><p>Quelques minutes par logement : nom, adresse, codes d'accès, WiFi. C'est la seule saisie du processus.</p></div></li>
+          <li class="rv" style="--i:1"><div><b>Connectez les calendriers — sans rien couper</b><p>Vous collez le lien iCal Airbnb ou Booking de chaque logement : synchronisation en cinq minutes, réservations existantes importées automatiquement. Votre installation actuelle continue de tourner en parallèle.</p></div></li>
+          <li class="rv" style="--i:2"><div><b>Basculez quand vous êtes prêts</b><p>Le channel manager API prend le relais : disponibilités, tarifs et restrictions pilotés depuis l'app, poussés en quelques secondes. Vous résiliez votre ancien outil seulement une fois que tout tourne — jamais avant.</p></div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="mig-facts rv">
+      <div class="mig-fact"><b>5 min</b><span>par logement pour la connexion iCal</span></div>
+      <div class="mig-fact"><b>0</b><span>annonce à recréer, avis conservés</span></div>
+      <div class="mig-fact"><b>100 %</b><span>des réservations existantes importées</span></div>
+      <div class="mig-fact"><b>0</b><span>coupure pendant la bascule</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ MANIFESTE ═══ -->
 <div class="beige-zone" data-fx="pin" data-var="--bp">
   <section class="beige">
@@ -852,9 +896,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
     <div class="price-hero rv">
       <div class="price-col"><span class="who">Hostaway</span><div class="amt">≈&nbsp;800&nbsp;€</div><span class="per">par mois, en location — sur devis</span><div class="bar"><i style="--w:100%"></i></div></div>
       <div class="price-col"><span class="who">Lodgify</span><div class="amt">≈&nbsp;165&nbsp;€</div><span class="per">par mois, en location</span><div class="bar"><i style="--w:21%"></i></div></div>
-      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">39&nbsp;€</div><span class="per">par hôte / mois — logements illimités, tarif public</span><div class="bar"><i style="--w:5%"></i></div></div>
+      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">19&nbsp;€</div><span class="per">par logement / mois — soit 380&nbsp;€ pour 20 logements, tarif public direct</span><div class="bar"><i style="--w:47%"></i></div></div>
     </div>
-    <p class="price-note rv">Tarif public : 39&nbsp;€ par hôte et 19&nbsp;€ par cleaner, par mois. En tant que partenaire, vous achetez sous le tarif public et revendez au prix que vous choisissez.</p>
+    <p class="price-note rv">Tarif public direct : 19&nbsp;€ par logement synchronisé et par mois · 19&nbsp;€/mois par cleaner. En tant que partenaire, vous achetez sous le tarif public et revendez au prix que vous choisissez.<br>Déjà utilisateur de l'app&nbsp;? <a class="lnk" href="/activer.html">Activez votre abonnement&nbsp;→</a></p>
     <div class="tbl-wrap rv">
       <table>
         <caption class="visually-hidden">Comparaison des fonctionnalités</caption>
@@ -965,7 +1009,11 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
       </details>
       <details>
         <summary>Quel est le tarif partenaire ?</summary>
-        <div class="a">Il dépend du volume de licences et de votre profil, et reste inférieur au tarif public (39&nbsp;€/hôte · 19&nbsp;€/cleaner par mois). Vous revendez ensuite au prix que vous choisissez — la marge est entièrement la vôtre.</div>
+        <div class="a">Il dépend du volume de licences et de votre profil, et reste inférieur au tarif public direct (19&nbsp;€ par logement et par mois · 19&nbsp;€/cleaner). Vous revendez ensuite au prix que vous choisissez — la marge est entièrement la vôtre.</div>
+      </details>
+      <details>
+        <summary>Je suis déjà sur un autre channel manager. Changer, c'est risqué ?</summary>
+        <div class="a">Non, parce qu'il n'y a rien à déménager : vos annonces, vos avis et vos réservations restent sur Airbnb et Booking. Vous connectez d'abord les calendriers en iCal (cinq minutes par logement, réservations existantes importées), pendant que votre outil actuel continue de tourner. Vous ne le résiliez qu'une fois la bascule faite et vérifiée — et vous êtes accompagnés par le développeur pendant toute la transition.</div>
       </details>
       <details>
         <summary>Quelles plateformes sont synchronisées ?</summary>
