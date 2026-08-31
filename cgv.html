@@ -43,7 +43,7 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <header>
 <div class="brand">MyHostKit</div>
 <h1>Conditions Générales de Vente et d'Utilisation</h1>
-<div class="updated">Version 3.2 — Avril 2026</div>
+<div class="updated">Version 4.0 — Août 2026</div>
 </header>
 <div class="toc">
 <h3>Sommaire</h3>
@@ -119,9 +119,10 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <h2 id="services">6. Services et produits</h2>
 <p>MyHostKit propose les offres suivantes :</p>
 <ol style="margin-left:24px">
-<li>Des <strong>abonnements de conciergerie IA pour hôtes Airbnb</strong> (Gratuit, Starter 49€/mois, Pro 89€/mois, Conciergerie Pro sur devis)</li>
-<li>Des <strong>abonnements pour ménagères</strong> (Gratuit, Pro 19€/mois, Business 39€/mois)</li>
-<li>Une <strong>marketplace de mise en relation</strong> hôtes/ménagères avec commission selon plan</li>
+<li>Un <strong>abonnement Hôte / Conciergerie</strong> facturé au logement synchronisé : <strong>19 € par logement et par mois</strong> (tarif public direct, sans engagement)</li>
+<li>Un <strong>abonnement Agent d'entretien</strong> : <strong>19 € par mois</strong> (sans engagement)</li>
+<li>Des <strong>licences partenaires en marque blanche</strong>, distribuées par des organismes de formation ou réseaux partenaires (conditions et tarifs sur devis, régies par le contrat de partenariat)</li>
+<li>Une <strong>marketplace de mise en relation</strong> entre hôtes et prestataires de ménage (sans commission de l'Éditeur, cf. article 9)</li>
 <li>Un <strong>système de signalements voyageurs</strong> (cf. article 14)</li>
 <li>Un <strong>service de prospection d'hôtes</strong> pour les Ménagères (cf. article 15)</li>
 <li>Une <strong>boutique de fournitures</strong> avec livraison (cf. article 18)</li>
@@ -130,13 +131,13 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <ul>
 <li>Gestion centralisée de logements Airbnb et autres plateformes</li>
 <li>Recherche et réservation de prestataires de ménage</li>
-<li>Suivi du stock de fournitures (selon plan Starter+)</li>
-<li>Synchronisation iCal Airbnb/Booking (selon plan Starter+)</li>
+<li>Suivi du stock de fournitures</li>
+<li>Synchronisation des calendriers Airbnb, Booking et Vrbo (Abritel) — iCal et channel manager</li>
 <li>Réception de rapports photo après chaque ménage</li>
 <li>Réception et gestion de signalements voyageurs</li>
-<li>Paiement sécurisé en escrow via Stripe</li>
-<li>Concierge IA répondant aux voyageurs (selon plan Pro)</li>
-<li>Analyse IA qualité des photos de rapport (selon plan Pro)</li>
+<li>Coordination des prestations de ménage (les règlements s’effectuent hors Application, cf. article 9)</li>
+<li>Concierge IA répondant aux voyageurs</li>
+<li>Analyse IA de la qualité des photos de rapport</li>
 <li>Accès à la boutique de fournitures avec livraison</li>
 </ul>
 <h3>6.2 Pour les Ménagères</h3>
@@ -146,8 +147,8 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <li>Envoi de rapports photo et notes</li>
 <li>Encaissement automatisé via Stripe Connect</li>
 <li>Génération automatique de factures conformes</li>
-<li>Visibilité boostée (selon plan Pro)</li>
-<li>Badge vérifié, priorité maximale, gestion d'équipe (selon plan Business)</li>
+<li>Visibilité dans la marketplace</li>
+<li>Badge vérifié (après vérification KBIS), gestion d'équipe</li>
 <li>Demande de prospection d'hôtes par l'équipe MyHostKit</li>
 <li>Accès à la boutique de fournitures avec livraison</li>
 </ul>
@@ -159,74 +160,44 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 </ul>
 <h2 id="abonnements">7. Plans et tarification</h2>
 <p>Les prix sont indiqués <strong>TTC en euros</strong>. L'Éditeur étant en franchise en base de TVA, les prix correspondent aux prix nets (art. 293 B du CGI).</p>
-<h3>7.1 Plans Hôte</h3>
+<h3>7.1 Abonnement Hôte / Conciergerie (souscription directe)</h3>
 <table>
-<thead><tr><th>Plan</th><th>Prix</th><th>Logements</th><th>Commission</th></tr></thead>
+<thead><tr><th>Offre</th><th>Prix</th><th>Logements</th><th>Contenu</th></tr></thead>
 <tbody>
-<tr><td>Gratuit</td><td>0 €</td><td>1</td><td>15 %</td></tr>
-<tr><td>🚀 Starter</td><td>49 €/mois</td><td>3</td><td>10 %</td></tr>
-<tr><td>⭐ Pro</td><td>89 €/mois</td><td>illimités + IA concierge</td><td>5 %</td></tr>
-<tr><td>Conciergerie Pro</td><td>sur devis</td><td>illimités + accompagnement personnalisé</td><td>négociée</td></tr>
+<tr><td>Hôte / Conciergerie</td><td><strong>19 € / logement / mois</strong></td><td>selon la quantité souscrite, ajustable à tout moment via le portail de gestion</td><td>toutes les fonctionnalités : calendrier unifié, synchronisation iCal et channel manager, ménage automatisé, concierge IA, rapports photo, revenus &amp; relevé URSSAF</td></tr>
 </tbody>
 </table>
-<h3>7.2 Plans Ménagère</h3>
+<h3>7.2 Abonnement Agent d'entretien et licences partenaires</h3>
 <table>
-<thead><tr><th>Plan</th><th>Prix</th><th>Logements clients</th><th>Avantages</th></tr></thead>
+<thead><tr><th>Offre</th><th>Prix</th><th>Contenu</th></tr></thead>
 <tbody>
-<tr><td>Gratuit</td><td>0 €</td><td>3</td><td>visibilité standard</td></tr>
-<tr><td>⭐ Pro</td><td>19 €/mois</td><td>illimités</td><td>visibilité boostée, –2 % de commission</td></tr>
-<tr><td>💼 Business</td><td>39 €/mois</td><td>illimités</td><td>badge vérifié, priorité maximale, gestion d'équipe, –5 % de commission</td></tr>
+<tr><td>Agent d'entretien</td><td><strong>19 € / mois</strong></td><td>missions, planning, rapports photo analysés par l'IA, profil vérifié</td></tr>
+<tr><td>Licence partenaire (marque blanche)</td><td>sur devis</td><td>accès distribué par un organisme ou réseau partenaire ; conditions régies par le contrat de partenariat</td></tr>
 </tbody>
 </table>
+<p>L'abonnement direct se souscrit exclusivement sur le site <strong>www.myhostkit.com</strong> (paiement sécurisé Stripe). Il est <strong>sans engagement</strong> : la résiliation prend effet à la fin de la période mensuelle en cours, via le portail de gestion accessible depuis www.myhostkit.com/gerer.html.</p>
 <h3>7.3 Modification des tarifs</h3>
 <p>Les tarifs peuvent être modifiés avec notification au moins <strong>30 jours avant</strong> tout changement. En cas de désaccord, l'Utilisateur peut résilier son abonnement sans frais avant la prise d'effet.</p>
-<h2 id="essai">8. Période d'essai gratuite</h2>
-<p>Tout nouvel Utilisateur bénéficie d'une <strong>période d'essai gratuite de 30 jours</strong> donnant accès à l'ensemble des fonctionnalités Pro (côté hôte) ou Business (côté ménagère).</p>
-<ul>
-<li><strong>Aucun moyen de paiement n'est requis</strong> à l'inscription</li>
-<li><strong>Aucun prélèvement automatique</strong> n'est effectué sans consentement explicite</li>
-<li>L'Utilisateur est notifié par email <strong>J-7</strong>, <strong>J-1</strong> et le <strong>jour même</strong> de l'expiration</li>
-<li>À l'expiration, le compte est automatiquement converti en plan <strong>Gratuit</strong> (pas en plan payant)</li>
-<li>Pour activer un plan payant, l'Utilisateur doit explicitement souscrire</li>
-</ul>
-<h2 id="paiements">9. Paiements, commissions et facturation</h2>
-<h3>9.1 Mécanisme escrow Stripe Connect</h3>
-<p>Les paiements entre Hôte et Ménagère sont gérés via <strong>Stripe Connect</strong>. Le mécanisme est le suivant :</p>
-<ol style="margin-left:24px">
-<li>L'Hôte paie le montant total via Stripe</li>
-<li>Le paiement est <strong>autorisé mais non capturé</strong> (escrow)</li>
-<li>La Ménagère effectue la prestation et envoie le rapport photo</li>
-<li>L'Hôte valide la prestation, ou le système valide automatiquement après <strong>48 heures</strong> sans contestation</li>
-<li>Le paiement est libéré : la Ménagère reçoit son montant net (après commission), l'Éditeur perçoit sa commission</li>
-</ol>
-<p><strong>Aucune donnée bancaire n'est stockée</strong> sur les serveurs de l'Éditeur. Stripe est un prestataire de services de paiement agréé, conforme PCI-DSS niveau 1.</p>
-<p>Les Ménagères, en s'inscrivant à Stripe Connect via l'Application, acceptent expressément les <a href="https://stripe.com/legal/connect-account" target="_blank" rel="noopener">Conditions du compte connecté Stripe</a> et les <a href="https://stripe.com/legal/ssa" target="_blank" rel="noopener">Conditions de service Stripe</a>. Ces conditions s'imposent directement entre la Ménagère et Stripe ; l'Éditeur n'est pas partie à cet accord.</p>
-<h3>9.2 Commissions</h3>
-<p>Une commission est prélevée sur chaque prestation de ménage, calculée sur le montant HT, selon le plan d'abonnement <strong>de l'Hôte</strong> au moment de la prestation :</p>
-<ul>
-<li>Plan Gratuit : <strong>15 %</strong></li>
-<li>Plan Starter : <strong>10 %</strong></li>
-<li>Plan Pro : <strong>5 %</strong></li>
-</ul>
-<p>Une <strong>réduction additionnelle</strong> peut s'appliquer selon le plan de la Ménagère :</p>
-<ul>
-<li>Plan Cleaner Pro : commission réduite de <strong>–2 %</strong></li>
-<li>Plan Cleaner Business : commission réduite de <strong>–5 %</strong></li>
-</ul>
-<p>La commission est affichée sur la facture transmise à l'Hôte et à la Ménagère.</p>
-<h3>9.3 Facturation</h3>
-<p>Une facture est émise automatiquement après chaque transaction. L'Éditeur étant en franchise en base de TVA, ses factures portent la mention « <strong>TVA non applicable, art. 293 B du CGI</strong> ».</p>
+<h2 id="essai">8. Période d'essai</h2>
+<p>L'inscription est gratuite mais l'accès aux fonctionnalités nécessite un abonnement actif ou une licence partenaire. <strong>Aucune période d'essai n'est accordée automatiquement.</strong> Un accès d'essai temporaire peut être offert ponctuellement, à la discrétion de l'Éditeur ; l'Utilisateur en est alors informé dans l'Application, aucun moyen de paiement n'est requis et aucun prélèvement n'est effectué sans souscription explicite.</p>
+<h2 id="paiements">9. Paiements et facturation</h2>
+<h3>9.1 Abonnements</h3>
+<p>Les abonnements sont payés par carte bancaire via <strong>Stripe</strong>, exclusivement sur le site www.myhostkit.com. Le paiement est mensuel, par prélèvement automatique à date anniversaire. <strong>Aucune donnée bancaire n'est stockée</strong> sur les serveurs de l'Éditeur ; Stripe est un prestataire de services de paiement agréé, conforme PCI-DSS niveau 1. Les factures sont disponibles à tout moment via le portail de gestion (www.myhostkit.com/gerer.html).</p>
+<h3>9.2 Règlements entre utilisateurs</h3>
+<p>Les règlements des prestations de ménage entre Hôtes et Ménagères s'effectuent <strong>en dehors de l'Application</strong>, selon les modalités convenues librement entre les parties. L'Éditeur n'intervient pas dans ces transactions, ne collecte aucune donnée de paiement à ce titre et <strong>ne perçoit aucune commission</strong> sur les prestations.</p>
+<h3>9.3 Facturation de l'Éditeur</h3>
+<p>L'Éditeur étant en franchise en base de TVA, ses factures portent la mention « <strong>TVA non applicable, art. 293 B du CGI</strong> ».</p>
 <h3>9.4 Impayés</h3>
-<p>En cas d'impayé sur un abonnement, le plan est <strong>gelé</strong> (les données de l'Utilisateur restent conservées) et l'Utilisateur dispose de <strong>15 jours</strong> pour régulariser. À défaut, le compte est rétrogradé en plan Gratuit.</p>
+<p>En cas d'échec de prélèvement, l'Utilisateur est notifié et dispose de <strong>15 jours</strong> pour régulariser via le portail de gestion. À défaut, l'accès aux fonctionnalités est suspendu ; les données de l'Utilisateur restent conservées conformément à l'article dédié aux données personnelles.</p>
 <h2 id="parrainage">10. Parrainage</h2>
-<p>L'Application propose un programme de parrainage : tout Utilisateur dispose d'un code de parrainage unique. Lorsqu'un nouveau Utilisateur s'inscrit avec ce code, le parrain et le filleul reçoivent chacun <strong>7 jours d'essai gratuit supplémentaires</strong> sur leur plan.</p>
+<p>L'Application propose un programme de parrainage : tout Utilisateur dispose d'un code de parrainage unique. Lorsqu'un nouveau Utilisateur s'inscrit avec ce code, le parrain et le filleul peuvent recevoir un avantage promotionnel, communiqué dans l'Application au moment de l'opération.</p>
 <h2 id="obligations">11. Obligations des utilisateurs</h2>
 <h3>11.1 Obligations communes</h3>
 <ul>
 <li>Fournir des informations exactes et à jour</li>
 <li>Respecter les lois en vigueur, notamment fiscales et sociales</li>
 <li>Ne pas usurper l'identité d'un tiers</li>
-<li>Ne pas tenter de contourner le système de paiement de l'Application</li>
+<li>Ne pas tenter de contourner les mécanismes de sécurité ou d'activation de l'Application</li>
 <li>Ne pas divulguer ses identifiants à un tiers</li>
 <li>Communiquer de manière respectueuse via la messagerie intégrée</li>
 <li>Ne pas abuser du système de signalements voyageurs (cf. article 14)</li>
@@ -256,8 +227,8 @@ footer a{color:rgba(250,250,248,0.5);border:none}
 <p>Aucun lien de subordination n'existe entre l'Éditeur et les Ménagères. Les Ménagères assument seules leurs obligations fiscales, sociales et assurantielles. Les avis et notations sont publiés sous la responsabilité de leurs auteurs.</p>
 <h2 id="litiges-marketplace">13. Litiges entre utilisateurs</h2>
 <p>En cas de désaccord entre un Hôte et une Ménagère sur la qualité d'une prestation, l'Hôte dispose d'un délai de <strong>48 heures</strong> après réception du rapport pour déclencher un litige via l'Application.</p>
-<p>L'Éditeur arbitrera le litige sous <strong>48 heures ouvrées</strong> en se basant sur les rapports photo, les échanges et les éléments fournis par chaque partie. Pendant la procédure, le paiement reste bloqué en escrow.</p>
-<p>Les décisions d'arbitrage de l'Éditeur peuvent aboutir à : (a) libération du paiement, (b) remboursement total ou partiel, (c) compensation. Ces décisions n'excluent pas un recours judiciaire ultérieur.</p>
+<p>L'Éditeur arbitrera le litige sous <strong>48 heures ouvrées</strong> en se basant sur les rapports photo, les échanges et les éléments fournis par chaque partie. L'arbitrage porte sur la qualité de la prestation et les suites données dans l'Application (notation, signalement, suspension éventuelle) ; les règlements entre les parties s'effectuant hors Application, l'Éditeur n'y intervient pas.</p>
+<p>Les décisions d'arbitrage de l'Éditeur peuvent aboutir à : (a) un avertissement, (b) une mesure de visibilité ou de suspension du compte fautif, (c) une recommandation de geste commercial entre les parties. Ces décisions n'excluent pas un recours judiciaire ultérieur.</p>
 <h2 id="signalements">14. Signalements voyageurs</h2>
 <h3>14.1 Principe</h3>
 <p>L'Application permet aux Voyageurs de signaler à l'Hôte tout problème rencontré dans le logement (équipement défectueux, propreté insuffisante, accès, etc.) via une fonctionnalité dédiée.</p>

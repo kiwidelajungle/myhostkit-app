@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gérer mon abonnement MyHostKit</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B111E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%23C7A468' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=DM+Sans:wght@300..500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B111E;--card:#0F1626;--t1:#F2EDE1;--t2:rgba(242,237,225,.72);--t3:rgba(242,237,225,.58);--gold:#C7A468;--line:rgba(242,237,225,.1)}
+body{min-height:100svh;background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-weight:300;padding:40px 22px 60px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:440px}
+.logo{font-family:'Fraunces',Georgia,serif;font-size:19px;text-align:center;display:block;color:var(--t1);text-decoration:none;margin-bottom:38px}
+.logo em{font-style:italic;color:var(--gold)}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(26px,7vw,32px);letter-spacing:-.015em;text-align:center;line-height:1.15;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--gold)}
+.lede{text-align:center;color:var(--t2);font-size:15px;line-height:1.65;margin-bottom:34px}
+label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.2em;color:var(--t3);margin-bottom:8px}
+input[type=email]{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--t1);font-family:inherit;font-size:16px;font-weight:300;padding:10px 2px 12px;border-radius:0}
+input[type=email]:focus{outline:none;border-color:var(--gold)}
+input::placeholder{color:var(--t3)}
+.btn{width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:inherit;font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:.14em;padding:16px;cursor:pointer;margin-top:24px;transition:background .3s,color .3s}
+.btn:hover{background:var(--gold);color:#0B111E}
+.btn:disabled{opacity:.5;cursor:default}
+.msg{display:none;padding:14px 16px;font-size:13.5px;line-height:1.65;margin-top:18px;border:1px solid}
+.msg.ok{display:block;border-color:rgba(140,180,140,.4);color:#B8D2B2;background:rgba(140,180,140,.06)}
+.msg.ko{display:block;border-color:rgba(210,120,110,.4);color:#E0AFA6;background:rgba(210,120,110,.06)}
+.hint{border:1px solid var(--line);padding:16px 18px;margin-top:30px;font-size:13px;color:var(--t2);line-height:1.8}
+.hint b{color:var(--t1);font-weight:500}
+.foot{margin-top:26px;text-align:center;font-size:13px;color:var(--t3);line-height:1.8}
+.foot a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">MyHost<em>Kit</em></a>
+  <h1>Gérer mon <em>abonnement.</em></h1>
+  <p class="lede">Modifier votre nombre de logements, mettre à jour votre carte ou résilier — le lien de gestion vous est envoyé par email, pour protéger votre compte.</p>
+
+  <form id="pForm" novalidate>
+    <label for="email">L'email de votre abonnement</label>
+    <input id="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+    <button class="btn" id="pBtn" type="submit">Recevoir mon lien de gestion</button>
+    <div class="msg" id="pMsg" role="status"></div>
+  </form>
+
+  <div class="hint">
+    <b>Ce que vous pouvez faire depuis le lien</b><br>
+    · Augmenter ou réduire le nombre de logements<br>
+    · Changer de carte bancaire, télécharger vos factures<br>
+    · Résilier — effectif à la fin de la période en cours
+  </div>
+
+  <p class="foot">
+    Pas encore abonné ? <a href="/activer.html">Activer mon abonnement</a><br>
+    Une question ? <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a>
+  </p>
+</div>
+
+<script>
+(function(){
+  var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
+  var form = document.getElementById('pForm');
+  var btn = document.getElementById('pBtn');
+  var msg = document.getElementById('pMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.className = 'msg';
+    var email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      msg.className = 'msg ko'; msg.textContent = 'Indiquez un email valide.'; return;
+    }
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'portal', email: email })
+    }).then(function(r){
+      btn.disabled = false; btn.textContent = 'Recevoir mon lien de gestion';
+      msg.className = 'msg ok';
+      msg.textContent = 'Si un abonnement existe pour ' + email + ', un lien de gestion vient de partir vers cette adresse. Pensez à vérifier vos spams.';
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Recevoir mon lien de gestion';
+      msg.className = 'msg ko';
+      msg.textContent = 'Connexion impossible. Réessayez ou écrivez à contact@myhostkit.com.';
+    });
+  });
+})();
+</script>
+</body>
+</html>
