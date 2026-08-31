@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Rejoindre MyHostKit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B111E'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-style='italic' fill='%23C7A468' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..560;1,9..144,300..560&family=DM+Sans:wght@300..600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B111E;--card:#0F1626;--t1:#F2EDE1;--t2:rgba(242,237,225,.74);--t3:rgba(242,237,225,.55);--gold:#C7A468;--gold15:rgba(199,164,104,.16);--gold40:rgba(199,164,104,.4);--line:rgba(242,237,225,.1)}
+body{min-height:100svh;background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-weight:300;padding:40px 20px 70px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:480px}
+.logo{font-family:'Fraunces',Georgia,serif;font-size:19px;text-align:center;display:block;color:var(--t1);text-decoration:none;margin-bottom:34px}
+.logo em{font-style:italic;color:var(--gold)}
+.invite{display:block;width:max-content;max-width:100%;margin:0 auto 16px;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);border:1px solid var(--gold40);border-radius:999px;padding:6px 16px;text-align:center}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:350;font-size:clamp(26px,7vw,33px);letter-spacing:-.015em;text-align:center;line-height:1.16;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--gold)}
+.lede{text-align:center;color:var(--t2);font-size:15px;line-height:1.7;margin-bottom:30px}
+ul.feats{list-style:none;display:grid;gap:11px;margin-bottom:30px}
+ul.feats li{padding-left:24px;position:relative;font-size:14.5px;color:var(--t2);line-height:1.55}
+ul.feats li::before{content:'✦';position:absolute;left:0;color:var(--gold);font-size:12px}
+ul.feats b{color:var(--t1);font-weight:500}
+.btn{display:block;text-align:center;background:var(--gold);color:#0B111E;text-decoration:none;font-size:12.5px;font-weight:500;text-transform:uppercase;letter-spacing:.13em;padding:16px;border-radius:2px;margin-bottom:12px}
+.btn2{display:block;text-align:center;color:var(--gold);text-decoration:none;font-size:13.5px;padding:10px}
+.emailbox{border:1px solid var(--line);background:var(--card);padding:20px;margin-top:28px;border-radius:2px}
+.emailbox p{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:12px}
+.row{display:flex;gap:10px}
+input[type=email]{flex:1;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--t1);font-family:inherit;font-size:15px;font-weight:300;padding:9px 2px;border-radius:0;min-width:0}
+input[type=email]:focus{outline:none;border-color:var(--gold)}
+input::placeholder{color:var(--t3)}
+.send{background:transparent;border:1px solid var(--gold40);color:var(--gold);font-family:inherit;font-size:11px;text-transform:uppercase;letter-spacing:.12em;padding:0 16px;cursor:pointer;border-radius:2px}
+.okmsg{display:none;color:#8FBC9F;font-size:13px;margin-top:10px}
+footer{margin-top:36px;text-align:center;font-size:12px;color:var(--t3);line-height:1.8}
+footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="/">MyHost<em>Kit</em></a>
+  <span class="invite" id="inviteBadge" style="display:none"></span>
+  <h1 id="title">Bienvenue sur <em>MyHostKit.</em></h1>
+  <p class="lede" id="lede">L'application des conciergeries et des pros du ménage en location courte durée.</p>
+  <ul class="feats" id="feats"></ul>
+  <a class="btn" href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" rel="noopener" id="dl">Télécharger l'application</a>
+  <a class="btn2" href="/" id="more">Découvrir MyHostKit →</a>
+
+  <div class="emailbox">
+    <p id="emailLbl">Laissez votre email : on relie votre compte à votre invitation dès votre inscription.</p>
+    <div class="row">
+      <input id="email" type="email" placeholder="vous@exemple.fr" autocomplete="email">
+      <button class="send" id="send" type="button">OK</button>
+    </div>
+    <div class="okmsg" id="okmsg">C'est noté ! Téléchargez l'app et inscrivez-vous avec ce même email.</div>
+  </div>
+
+  <footer>Gratuit pour les agents d'entretien · 0 % de commission<br><a href="/cgv">Conditions</a> · <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></footer>
+</div>
+
+<script>
+(function(){
+  var EP = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/public-report';
+  var q = new URLSearchParams(window.location.search);
+  var ref = (q.get('ref') || '').toUpperCase();
+  var deParam = q.get('de') || '';
+  var pParam = q.get('p') || ''; // 'hote' | 'cleaner' : QUI est invité
+
+  function esc(s){ var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  var FEATS = {
+    // l'invité est un HÔTE / une conciergerie (invité par sa femme de ménage)
+    hote: [
+      '<li><b>Le planning de ménage se remplit tout seul</b> à chaque départ de voyageur — plus un message à envoyer.</li>',
+      '<li><b>Rapport photo vérifié par IA</b> après chaque passage : vous savez que c\'est propre, sans vous déplacer.</li>',
+      '<li><b>Channel manager intégré</b> : Airbnb, Booking et vos calendriers synchronisés.</li>',
+      '<li><b>1ᵉʳ mois offert</b> à la création du compte, sans carte bancaire — puis 19 € par logement, sans engagement et 0 % de commission.</li>'
+    ].join(''),
+    // l'invité est un AGENT D'ENTRETIEN (invité par un hôte)
+    cleaner: [
+      '<li><b>100 % gratuit pour vous</b>, et 0 % de commission : vos clients restent vos clients.</li>',
+      '<li><b>Vos missions arrivent toutes seules</b> : le planning se remplit à chaque départ de voyageur.</li>',
+      '<li><b>Rapport photo vérifié par IA</b> en fin de mission — votre preuve en cas de litige.</li>',
+      '<li><b>Trouvez de nouveaux hôtes</b> près de chez vous grâce à la marketplace intégrée.</li>'
+    ].join('')
+  };
+
+  function render(inviterName, invitedProfile){
+    var feats = document.getElementById('feats');
+    var title = document.getElementById('title');
+    var lede = document.getElementById('lede');
+    var badge = document.getElementById('inviteBadge');
+    if (inviterName) {
+      badge.style.display = 'block';
+      badge.textContent = 'Invitation de ' + inviterName;
+    }
+    if (invitedProfile === 'cleaner') {
+      title.innerHTML = inviterName ? esc(inviterName) + ' vous invite à <em>rejoindre son équipe.</em>' : 'L\'app gratuite des <em>pros du ménage.</em>';
+      lede.textContent = 'Recevez vos missions, votre planning et vos rapports photo au même endroit. Gratuit, sans commission.';
+      feats.innerHTML = FEATS.cleaner;
+    } else {
+      title.innerHTML = inviterName ? esc(inviterName) + ' vous invite à <em>connecter vos logements.</em>' : 'Votre conciergerie, en <em>pilote automatique.</em>';
+      lede.textContent = inviterName
+        ? 'Recevez un rapport photo vérifié par IA après chaque ménage de ' + inviterName + ', et un planning qui se gère tout seul.'
+        : 'Planning de ménage automatique, rapports photo vérifiés par IA, channel manager intégré.';
+      feats.innerHTML = FEATS.hote;
+    }
+  }
+
+  // Rendu immédiat avec les paramètres, puis affinage via l'API
+  var guessProfile = pParam === 'cleaner' ? 'cleaner' : (pParam === 'hote' ? 'hote' : '');
+  render(deParam || null, guessProfile || 'hote');
+
+  if (ref) {
+    fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'inviter', ref: ref }) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d || !d.ok) return;
+      // Si le parrain est cleaner, l'invité est un hôte — et inversement
+      var invited = guessProfile || (d.role === 'cleaner' ? 'hote' : 'cleaner');
+      render(d.first_name || deParam || null, invited);
+    }).catch(function(){});
+    // trace le clic d'invitation
+    try { fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'lead', ref: ref }) }); } catch(e){}
+  }
+
+  document.getElementById('send').addEventListener('click', function(){
+    var email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { document.getElementById('email').focus(); return; }
+    fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'lead', ref: ref, email: email }) })
+    .then(function(){ document.getElementById('okmsg').style.display = 'block'; })
+    .catch(function(){ document.getElementById('okmsg').style.display = 'block'; });
+  });
+})();
+</script>
+</body>
+</html>
