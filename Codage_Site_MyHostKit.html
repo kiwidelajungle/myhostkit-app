@@ -396,6 +396,12 @@ html.js.fx .beige .sub{opacity:min(1,max(0,calc(var(--bp,0)*7 - 6.3)))}
 .price-col.us .amt{color:var(--gold)}
 .price-col.us .bar i{background:var(--gold)}
 .price-note{font-size:12.5px;color:var(--t3);margin-top:16px;text-wrap:pretty}
+.offer-banner{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;border:1px solid var(--gold40);background:linear-gradient(120deg,rgba(199,164,104,.12),rgba(199,164,104,.04));padding:18px 22px;margin:26px 0;font-size:15px;color:var(--t2)}
+.offer-banner b{color:var(--gold);font-weight:500;font-size:17px}
+.offer-banner a{margin-left:auto;color:var(--gold);white-space:nowrap}
+.offer-mini{display:inline-block;margin:8px 0 4px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#0B111E;background:var(--gold);border-radius:999px;padding:4px 11px;font-weight:600}
+.offer-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gold40);border-radius:999px;padding:9px 18px;font-size:13px;color:var(--gold);text-decoration:none;transition:background .25s}
+.offer-pill:hover{background:rgba(199,164,104,.1)}
 @media(min-width:768px){
   .price-hero{flex-direction:row}
   .price-col{flex:1;border-bottom:none;border-right:1px solid var(--gold15)}
@@ -522,7 +528,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
     <li><a href="#marque">Votre marque</a></li>
     <li><a href="#prix">Tarifs</a></li>
     <li><a href="#faq">Questions</a></li>
-    <li><a href="/activer.html" style="color:var(--gold)">Activer l'app</a></li>
+    <li><a href="/activer.html" style="color:var(--gold)">Activer l'app · 1ᵉʳ mois offert</a></li>
   </ul>
   <div class="nav-right">
     <a href="#contact" class="btn nav-cta">Ma maquette</a>
@@ -537,7 +543,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
   <a href="#marque">Votre marque</a>
   <a href="#prix">Tarifs</a>
   <a href="#faq">Questions</a>
-  <a href="/activer.html" style="color:var(--gold)">Activer l'app — payer mon abonnement</a>
+  <a href="/activer.html" style="color:var(--gold)">Activer l'app — 1ᵉʳ mois offert</a>
   <a href="#contact" class="btn btn-full">Recevoir ma maquette gratuite</a>
 </div>
 
@@ -556,6 +562,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-full">Recevoir ma maquette gratuite</a>
         <a class="lnk" href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" target="_blank" rel="noopener">Voir l'app partenaire sur l'App Store&nbsp;→</a>
+        <a class="offer-pill" href="/activer.html">🎁&nbsp;Conciergeries : <b>1ᵉʳ mois offert</b>, sans carte bancaire&nbsp;→</a>
         <p class="hero-proof-hint">C'est une application comme celle-ci que vous proposerez sous votre marque.</p>
       </div>
     </div>
@@ -896,8 +903,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
     <div class="price-hero rv">
       <div class="price-col"><span class="who">Hostaway</span><div class="amt">≈&nbsp;800&nbsp;€</div><span class="per">par mois, en location — sur devis</span><div class="bar"><i style="--w:100%"></i></div></div>
       <div class="price-col"><span class="who">Lodgify</span><div class="amt">≈&nbsp;165&nbsp;€</div><span class="per">par mois, en location</span><div class="bar"><i style="--w:21%"></i></div></div>
-      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">19&nbsp;€</div><span class="per">par logement / mois — soit 380&nbsp;€ pour 20 logements, tarif public direct</span><div class="bar"><i style="--w:47%"></i></div></div>
+      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">19&nbsp;€</div><span class="offer-mini">1ᵉʳ mois offert</span><span class="per">par logement / mois — soit 380&nbsp;€ pour 20 logements, tarif public direct</span><div class="bar"><i style="--w:47%"></i></div></div>
     </div>
+    <div class="offer-banner rv">🎁 <b>1ᵉʳ mois offert</b> à toute conciergerie — testez tout dans l'app, sans carte bancaire et sans engagement. <a href="/activer.html">Commencer&nbsp;→</a></div>
     <p class="price-note rv">Tarif public direct : 19&nbsp;€ par logement synchronisé et par mois, <b>1ᵉʳ mois offert</b> · gratuit pour les agents d'entretien, 0&nbsp;% commission. En tant que partenaire, vous achetez sous le tarif public et revendez au prix que vous choisissez.<br>Déjà utilisateur de l'app&nbsp;? <a class="lnk" href="/activer.html">Activez votre abonnement&nbsp;→</a></p>
     <div class="tbl-wrap rv">
       <table>
