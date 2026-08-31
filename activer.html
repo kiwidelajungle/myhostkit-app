@@ -21,6 +21,9 @@ h1 em{font-style:italic;color:var(--gold)}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
 .plan{border:1px solid var(--line);background:var(--card);padding:18px 16px;cursor:pointer;text-align:left;color:var(--t1);font-family:inherit;transition:border-color .25s}
 .plan[aria-pressed="true"]{border-color:var(--gold)}
+.plan{cursor:default}
+.plan-free .p{color:var(--gold)}
+.free-note{display:block;font-size:11.5px;color:var(--t3);line-height:1.5;margin-top:8px}
 .plan b{display:block;font-weight:400;font-size:14px;margin-bottom:6px}
 .plan .p{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:320}
 .plan .p small{font-size:12px;color:var(--t3);font-family:'DM Sans',sans-serif}
@@ -59,14 +62,15 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
 
   <form id="payForm" novalidate>
     <div class="plans" role="group" aria-label="Votre formule">
-      <button type="button" class="plan" data-plan="host" aria-pressed="true">
+      <div class="plan" aria-pressed="true">
         <b>Hôte / Conciergerie</b>
         <span class="p">19 € <small>/ logement / mois</small></span>
-      </button>
-      <button type="button" class="plan" data-plan="cleaner" aria-pressed="false">
+      </div>
+      <div class="plan plan-free" aria-pressed="false">
         <b>Agent d'entretien</b>
-        <span class="p">19 € <small>/ mois</small></span>
-      </button>
+        <span class="p">Gratuit <small>· 0 % commission</small></span>
+        <span class="free-note">Rien à payer : téléchargez l'app et créez votre compte, c'est tout.</span>
+      </div>
     </div>
 
     <div class="field" id="qtyField">
@@ -117,9 +121,8 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
 (function(){
   var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
   var PRIX_LOGEMENT = 19;
-  var plan = 'host';
+  var plan = 'host'; // seul plan payant — l'accès agent d'entretien est gratuit
   var qtyIn = document.getElementById('qty');
-  var qtyField = document.getElementById('qtyField');
   function qtyVal(){
     var n = Math.round(Number(qtyIn.value) || 1);
     if (n < 1) n = 1; if (n > 200) n = 200;
@@ -133,16 +136,6 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
   document.getElementById('qtyPlus').addEventListener('click', function(){ qtyIn.value = qtyVal() + 1; updTotal(); });
   qtyIn.addEventListener('input', updTotal);
   updTotal();
-
-  var btns = document.querySelectorAll('.plan');
-  btns.forEach(function(b){
-    b.addEventListener('click', function(){
-      btns.forEach(function(x){ x.setAttribute('aria-pressed','false'); });
-      b.setAttribute('aria-pressed','true');
-      plan = b.dataset.plan;
-      qtyField.style.display = plan === 'host' ? '' : 'none';
-    });
-  });
 
   var form = document.getElementById('payForm');
   var payBtn = document.getElementById('payBtn');
