@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace propriétaire</title>
+<style>
+  :root{--navy:#0B1B33;--gold:#C7A468;--paper:#F7F4EC;--card:#fff;--ink:#16202E;--soft:#5A6473;--line:#E6E1D5}
+  *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:0 18px 60px}
+  header{background:var(--navy);color:#F2EDE1;padding:26px 0 22px;margin-bottom:22px}
+  header .wrap{padding-bottom:0}
+  .brand{font-family:Georgia,serif;font-size:20px;font-weight:600}
+  .brand em{color:var(--gold);font-style:italic;font-weight:400}
+  .tag{color:var(--gold);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;margin-top:3px}
+  h1{font-family:Georgia,serif;font-size:26px;letter-spacing:-.3px;margin:6px 0 4px}
+  .sub{color:var(--soft);font-size:14px;margin-bottom:18px}
+  h2{font-family:Georgia,serif;font-size:19px;margin:28px 0 12px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:center}
+  .kpi b{display:block;font-size:22px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+  .kpi span{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--soft);font-weight:600}
+  .props{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .prop{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .prop img{width:100%;height:120px;object-fit:cover;display:block}
+  .prop .ph{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:34px;background:var(--paper)}
+  .prop .pi{padding:10px 14px}
+  .prop b{font-size:14px}.prop span{display:block;font-size:12px;color:var(--soft)}
+  table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .tw{overflow-x:auto;border-radius:14px}
+  th{background:#EFE9DC;text-align:left;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--soft);padding:9px 13px}
+  td{padding:10px 13px;border-top:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td b.net{color:var(--gold)}
+  .stay{display:flex;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:8px;align-items:center}
+  .stay .g b{font-size:13.5px}.stay .g span{display:block;font-size:12px;color:var(--soft)}
+  .stay .d{font-size:12.5px;color:var(--navy);font-weight:600;white-space:nowrap}
+  .empty{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;color:var(--soft);font-size:13px;text-align:center}
+  footer{margin-top:34px;color:var(--soft);font-size:12px;text-align:center}
+  footer a{color:var(--gold)}
+  #loading{padding:90px 0;text-align:center;color:var(--soft)}
+  .spin{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;margin:0 auto 14px;animation:r 1s linear infinite}
+  @keyframes r{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand" id="brand">MyHost<em>Kit</em></div>
+  <div class="tag">Espace propriétaire</div>
+</div></header>
+
+<div class="wrap">
+  <div id="loading"><div class="spin"></div>Chargement de votre espace…</div>
+  <div id="content" style="display:none"></div>
+</div>
+
+<script>
+(function(){
+  var EP = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/owner-portal';
+  var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  var token = new URLSearchParams(location.search).get('t') || '';
+
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;   /* textContent : jamais d'injection */
+    return e;
+  }
+  function eur(n){
+    return (Math.round((n||0)*100)/100).toLocaleString('fr-FR',{maximumFractionDigits:2}) + ' €';
+  }
+  function frDate(iso){
+    if (!iso) return '';
+    var d = new Date(iso + 'T12:00:00Z');
+    return d.getUTCDate() + ' ' + MOIS[d.getUTCMonth()].slice(0,4) + '. ' + d.getUTCFullYear();
+  }
+  function fail(msg){
+    var L = document.getElementById('loading');
+    L.innerHTML = '';
+    L.appendChild(el('h1', null, 'Lien indisponible'));
+    L.appendChild(el('p', 'sub', msg || "Ce portail n'existe pas ou a été désactivé. Rapprochez-vous de votre conciergerie pour recevoir un nouveau lien."));
+  }
+
+  if (!token) { fail(); return; }
+
+  fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'get', t: token }) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d || !d.ok) { fail(); return; }
+
+      /* Marque + couleurs du tenant */
+      if (d.brand) {
+        document.documentElement.style.setProperty('--navy', d.brand.navy || '#0B1B33');
+        document.documentElement.style.setProperty('--gold', d.brand.accent || '#C7A468');
+        if (!d.brand.is_myhostkit) {
+          var b = document.getElementById('brand');
+          b.textContent = d.brand.name || '';
+        }
+        document.title = 'Espace propriétaire — ' + (d.brand.name || 'MyHostKit');
+      }
+
+      var C = document.getElementById('content');
+
+      C.appendChild(el('h1', null, 'Bonjour ' + d.owner_name + ' 👋'));
+      C.appendChild(el('div', 'sub', 'Le point sur vos biens — mis à jour en continu par votre conciergerie.'));
+
+      /* KPIs */
+      var k = d.kpis || {};
+      var kw = el('div', 'kpis');
+      [[String(k.properties||0), 'logement' + ((k.properties||0)>1?'s':'')],
+       [eur(k.rev12), 'revenus 12 mois'],
+       [String(k.nights12||0), 'nuits occupées'],
+       [String(k.count12||0), 'séjours']].forEach(function(x){
+        var c = el('div','kpi'); c.appendChild(el('b',null,x[0])); c.appendChild(el('span',null,x[1])); kw.appendChild(c);
+      });
+      C.appendChild(kw);
+
+      /* Logements */
+      C.appendChild(el('h2', null, 'Vos logements'));
+      var pw = el('div','props');
+      (d.properties||[]).forEach(function(p){
+        var c = el('div','prop');
+        if (p.photo && /^https:\/\//.test(p.photo)) {
+          var img = document.createElement('img'); img.src = p.photo; img.alt = ''; c.appendChild(img);
+        } else {
+          c.appendChild(el('div','ph','🏠'));
+        }
+        var pi = el('div','pi'); pi.appendChild(el('b',null,p.name)); pi.appendChild(el('span',null,p.city||'')); c.appendChild(pi);
+        pw.appendChild(c);
+      });
+      C.appendChild(pw);
+
+      /* Prochains séjours */
+      C.appendChild(el('h2', null, 'Prochains séjours'));
+      if (!d.upcoming || d.upcoming.length === 0) {
+        C.appendChild(el('div','empty','Aucune arrivée programmée pour le moment.'));
+      } else {
+        d.upcoming.forEach(function(u){
+          var s = el('div','stay');
+          var g = el('div','g'); g.appendChild(el('b',null,u.guest));
+          g.appendChild(el('span',null,u.property + (u.platform ? ' · ' + u.platform : '')));
+          s.appendChild(g);
+          s.appendChild(el('div','d', frDate(u.checkin) + ' → ' + frDate(u.checkout)));
+          C.appendChild(s);
+        });
+      }
+
+      /* Revenus par mois */
+      C.appendChild(el('h2', null, 'Revenus par mois'));
+      if (!d.months || d.months.length === 0) {
+        C.appendChild(el('div','empty','Les revenus apparaîtront ici dès les premiers séjours.'));
+      } else {
+        var tw = el('div','tw'); var t = el('table');
+        var hr = el('tr');
+        ['Mois','Séjours','Nuits','Revenus bruts'].forEach(function(h,i){
+          var th = el('th',null,h); if (i===3) th.style.textAlign='right'; hr.appendChild(th);
+        });
+        t.appendChild(hr);
+        d.months.forEach(function(m){
+          var r = el('tr');
+          r.appendChild(el('td',null,m.label));
+          r.appendChild(el('td','num',String(m.count)));
+          r.appendChild(el('td','num',String(m.nights)));
+          var td = el('td','num'); var bb = el('b',null,eur(m.rev)); td.appendChild(bb); r.appendChild(td);
+          t.appendChild(r);
+        });
+        tw.appendChild(t); C.appendChild(tw);
+      }
+
+      /* Bilans mensuels */
+      C.appendChild(el('h2', null, 'Vos bilans mensuels'));
+      if (!d.reports || d.reports.length === 0) {
+        C.appendChild(el('div','empty','Vos bilans mensuels apparaîtront ici dès leur premier envoi.'));
+      } else {
+        var tw2 = el('div','tw'); var t2 = el('table');
+        var hr2 = el('tr');
+        ['Période','Séjours','Occupation','Revenus','Commission','Net à vous reverser'].forEach(function(h,i){
+          var th = el('th',null,h); if (i>=3) th.style.textAlign='right'; hr2.appendChild(th);
+        });
+        t2.appendChild(hr2);
+        d.reports.forEach(function(r){
+          var row = el('tr');
+          row.appendChild(el('td',null,r.label));
+          row.appendChild(el('td','num', r.count != null ? String(r.count) : '—'));
+          row.appendChild(el('td','num', r.occupation != null ? r.occupation + ' %' : '—'));
+          row.appendChild(el('td','num', eur(r.revenue)));
+          row.appendChild(el('td','num', eur(r.commission)));
+          var td = el('td','num'); var nb = el('b','net',eur(r.net)); td.appendChild(nb); row.appendChild(td);
+          t2.appendChild(row);
+        });
+        tw2.appendChild(t2); C.appendChild(tw2);
+      }
+
+      /* Pied de page */
+      var f = el('footer');
+      f.appendChild(document.createTextNode('Portail sécurisé fourni par ' + ((d.brand && d.brand.name) || 'MyHostKit')));
+      if (d.contact) {
+        f.appendChild(document.createTextNode(' · '));
+        var a = document.createElement('a'); a.href = 'mailto:' + d.contact; a.textContent = d.contact; f.appendChild(a);
+      }
+      C.appendChild(f);
+
+      document.getElementById('loading').style.display = 'none';
+      C.style.display = 'block';
+    })
+    .catch(function(){ fail('Impossible de charger votre espace pour le moment. Réessayez dans quelques minutes.'); });
+})();
+</script>
+</body>
+</html>
