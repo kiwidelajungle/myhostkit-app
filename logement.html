@@ -186,20 +186,42 @@
         var o = document.createElement('option'); o.value = i; o.textContent = i; gc.appendChild(o);
       }
 
+      /* Devis serveur : tarifs saisonniers + séjour minimum (repli : prix de base) */
+      var quoteTimer = null;
+      function showEstimate(n, total){
+        est.innerHTML = '';
+        est.appendChild(document.createTextNode(n + ' nuit' + (n > 1 ? 's' : '') + (total != null ? ' · environ ' : '')));
+        if (total != null) {
+          est.appendChild(el('b', null, Math.round(total).toLocaleString('fr-FR') + ' €'));
+          est.appendChild(document.createTextNode(' (à confirmer par votre hôte)'));
+        }
+      }
       function refresh(){
         warn.style.display = 'none'; est.textContent = '';
+        warn.textContent = 'Ces dates ne sont pas disponibles — choisissez d\'autres dates.';
         if (!ci.value || !co.value) return;
         if (co.value <= ci.value) { co.value = ''; return; }
         if (overlap(ci.value, co.value)) { warn.style.display = 'block'; return; }
         var n = nightsOf(ci.value, co.value);
-        if (price != null && n > 0) {
-          est.innerHTML = '';
-          est.appendChild(document.createTextNode(n + ' nuit' + (n > 1 ? 's' : '') + ' · environ '));
-          est.appendChild(el('b', null, Math.round(price * n).toLocaleString('fr-FR') + ' €'));
-          est.appendChild(document.createTextNode(' (à confirmer par votre hôte)'));
-        } else if (n > 0) {
-          est.textContent = n + ' nuit' + (n > 1 ? 's' : '');
-        }
+        if (n <= 0) return;
+        showEstimate(n, price != null ? price * n : null);
+        if (quoteTimer) clearTimeout(quoteTimer);
+        var qci = ci.value, qco = co.value;
+        quoteTimer = setTimeout(function(){
+          fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'quote', t: token, checkin: qci, checkout: qco }) })
+            .then(function(r){ return r.json(); })
+            .then(function(qd){
+              if (ci.value !== qci || co.value !== qco) return; /* dates changées entre-temps */
+              if (!qd || !qd.ok) return;
+              if (qd.min_stay_ok === false) {
+                warn.textContent = 'Séjour minimum de ' + qd.min_stay + ' nuits sur ces dates.';
+                warn.style.display = 'block'; est.textContent = '';
+                return;
+              }
+              if (qd.total != null) showEstimate(qd.nights || n, qd.total);
+            })
+            .catch(function(){});
+        }, 250);
       }
       ci.onchange = function(){ if (ci.value) co.min = ci.value; refresh(); };
       co.onchange = refresh;
@@ -225,6 +247,7 @@
           if (x.j && x.j.ok) { f.style.display = 'none'; success.style.display = 'block'; window.scrollTo(0, 0); return; }
           go.disabled = false; go.textContent = 'Envoyer ma demande';
           if (x.j && x.j.error === 'dates_unavailable') { warn.style.display = 'block'; }
+          else if (x.j && x.j.error === 'min_stay') { warn.textContent = 'Séjour minimum de ' + (x.j.min_stay || 2) + ' nuits sur ces dates.'; warn.style.display = 'block'; }
           else if (x.j && x.j.error === 'too_many_requests') { alert('Trop de demandes pour ce logement aujourd\'hui — réessayez demain.'); }
           else { alert('Envoi impossible pour le moment. Réessayez dans quelques minutes.'); }
         })
