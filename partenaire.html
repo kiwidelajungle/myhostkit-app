@@ -74,6 +74,9 @@
   .msg.ko{display:block;background:rgba(176,82,74,.11);color:var(--rouge)}
   .pied{color:var(--brume);font-size:12.5px;text-align:center;margin-top:26px}
   @media(max-width:620px){ th:nth-child(4),td:nth-child(4){display:none} }
+  .lien-oubli{margin-top:14px;text-align:center;font-size:13px}
+  .lien-oubli a{color:inherit;opacity:.65}
+  .lien-oubli a:hover{opacity:1}
 </style>
 </head>
 <body>
@@ -89,6 +92,34 @@
     <label for="secret">Mot de passe</label>
     <input id="secret" type="password" autocomplete="current-password" placeholder="••••••••••">
     <button class="btn" style="width:100%;margin-top:14px" id="btn-login">Entrer</button>
+    <p class="lien-oubli"><a href="#" id="lien-oubli">Mot de passe oublié ?</a></p>
+  </div>
+</div>
+
+<!-- ════════ Mot de passe oublié ════════ -->
+<div id="oubli" hidden>
+  <h1 style="text-align:center">Mot de passe oublié</h1>
+  <p class="sub" style="text-align:center">Nous vous enverrons un lien pour en choisir un nouveau.</p>
+  <div class="carte">
+    <div id="oubli-msg" class="msg"></div>
+    <label for="oubli-mail">Adresse e-mail</label>
+    <input id="oubli-mail" type="email" autocapitalize="none" spellcheck="false" placeholder="vous@exemple.fr">
+    <button class="btn" style="width:100%;margin-top:14px" id="btn-oubli">Envoyer le lien</button>
+    <p class="lien-oubli"><a href="#" id="lien-retour">Revenir à la connexion</a></p>
+  </div>
+</div>
+
+<!-- ════════ Nouveau mot de passe ════════ -->
+<div id="reinit" hidden>
+  <h1 style="text-align:center">Nouveau mot de passe</h1>
+  <p class="sub" style="text-align:center">Au moins dix caractères.</p>
+  <div class="carte">
+    <div id="reinit-msg" class="msg"></div>
+    <label for="mdp1">Nouveau mot de passe</label>
+    <input id="mdp1" type="password" autocomplete="new-password" placeholder="••••••••••">
+    <label for="mdp2">Répétez-le</label>
+    <input id="mdp2" type="password" autocomplete="new-password" placeholder="••••••••••">
+    <button class="btn" style="width:100%;margin-top:14px" id="btn-reinit">Enregistrer</button>
   </div>
 </div>
 
@@ -237,6 +268,91 @@
       else gateDire('Erreur : ' + (m || 'inconnue') + '. Réessayez dans un instant.');
     });
   }
+  // ── Mot de passe oublié ───────────────────────────────────
+  // Ces deux écrans parlent au serveur SANS identifiants : on n'envoie donc
+  // ni adresse ni secret dans les en-têtes, seulement le corps de la demande.
+  function appelPublic(corps) {
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(corps)
+    }).catch(function () { throw new Error('reseau'); })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok) throw new Error(j.error || ('erreur ' + r.status));
+          return j;
+        });
+      });
+  }
+
+  function montrer(id) {
+    ['gate', 'oubli', 'reinit', 'app'].forEach(function (x) { $(x).hidden = (x !== id); });
+  }
+
+  function dire(id, texte, ok) {
+    var e = $(id);
+    e.textContent = texte;
+    e.className = texte ? ('msg ' + (ok ? 'ok' : 'ko')) : 'msg';
+  }
+
+  function demanderOubli() {
+    var adr = $('oubli-mail').value.trim();
+    if (!adr) { dire('oubli-msg', 'Saisissez votre adresse e-mail.'); $('oubli-mail').focus(); return; }
+    var b = $('btn-oubli');
+    b.disabled = true; b.textContent = 'Envoi…'; dire('oubli-msg', '');
+    appelPublic({ action: 'mot_de_passe_oublie', email: adr }).then(function () {
+      b.textContent = 'Envoyer le lien';
+      // Réponse volontairement identique que l'adresse soit connue ou non.
+      dire('oubli-msg', 'Si cette adresse est celle d\u2019un partenaire, un lien vient de lui être envoyé. Il est valable une heure.', true);
+    }, function (e) {
+      b.disabled = false; b.textContent = 'Envoyer le lien';
+      var m = String(e && e.message || '');
+      if (m === 'trop_de_demandes') dire('oubli-msg', 'Trop de demandes. Réessayez dans une heure.');
+      else if (m === 'reseau') dire('oubli-msg', 'Connexion au serveur impossible.');
+      else dire('oubli-msg', 'Erreur : ' + (m || 'inconnue') + '.');
+    });
+  }
+
+  function appliquerReinit() {
+    var a = $('mdp1').value, b2 = $('mdp2').value;
+    if (a.length < 10) { dire('reinit-msg', 'Dix caractères au minimum.'); $('mdp1').focus(); return; }
+    if (a !== b2) { dire('reinit-msg', 'Les deux mots de passe diffèrent.'); $('mdp2').focus(); return; }
+    var b = $('btn-reinit');
+    b.disabled = true; b.textContent = 'Enregistrement…'; dire('reinit-msg', '');
+    appelPublic({ action: 'reinitialiser', jeton: jetonReinit, nouveau: a }).then(function () {
+      dire('reinit-msg', 'Mot de passe enregistré. Vous pouvez vous connecter.', true);
+      setTimeout(function () {
+        history.replaceState(null, '', location.pathname);
+        montrer('gate');
+      }, 1800);
+    }, function (e) {
+      b.disabled = false; b.textContent = 'Enregistrer';
+      var m = String(e && e.message || '');
+      if (m === 'expire') dire('reinit-msg', 'Ce lien a plus d\u2019une heure. Demandez-en un nouveau.');
+      else if (m === 'deja_utilise') dire('reinit-msg', 'Ce lien a déjà servi. Demandez-en un nouveau.');
+      else if (m === 'inconnu') dire('reinit-msg', 'Ce lien n\u2019est pas valable.');
+      else if (m === 'trop_court') dire('reinit-msg', 'Dix caractères au minimum.');
+      else dire('reinit-msg', 'Erreur : ' + (m || 'inconnue') + '.');
+    });
+  }
+
+  var jetonReinit = '';
+  (function () {
+    var t = new URLSearchParams(location.search).get('reinit');
+    if (t) { jetonReinit = t; montrer('reinit'); }
+  })();
+
+  $('lien-oubli').addEventListener('click', function (e) {
+    e.preventDefault();
+    $('oubli-mail').value = $('email').value.trim();
+    montrer('oubli');
+  });
+  $('lien-retour').addEventListener('click', function (e) { e.preventDefault(); montrer('gate'); });
+  $('btn-oubli').addEventListener('click', demanderOubli);
+  $('btn-reinit').addEventListener('click', appliquerReinit);
+  $('mdp2').addEventListener('keydown', function (e) { if (e.key === 'Enter') appliquerReinit(); });
+  $('oubli-mail').addEventListener('keydown', function (e) { if (e.key === 'Enter') demanderOubli(); });
+
   $('btn-login').addEventListener('click', entrer);
   $('secret').addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); entrer(); }
