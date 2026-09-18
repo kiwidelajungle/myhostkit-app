@@ -30,12 +30,59 @@ a{color:#C7A468}
   <p style="margin-top:22px;font-size:13px">Un souci ? <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></p>
 </div>
 <script>
-if (new URLSearchParams(location.search).get('statut') === 'annule') {
-  document.getElementById('mk').textContent = '·';
-  document.getElementById('ttl').innerHTML = 'Paiement <em>annulé.</em>';
-  document.getElementById('msg').textContent = "Aucun montant n'a été débité.";
-  document.getElementById('stp').innerHTML = "<b>Revenez dans l'application</b> pour réessayer quand vous le souhaitez.";
-}
+// Cette page sert trois paiements très différents, et c'est un VOYAGEUR qui la
+// lit dans deux cas sur trois. Lui annoncer « votre abonnement est actif »
+// n'aurait aucun sens : il vient de payer un séjour ou de déposer une caution,
+// il n'a pas d'application à ouvrir.
+(function () {
+  var q = new URLSearchParams(location.search);
+  var mk = document.getElementById('mk');
+  var ttl = document.getElementById('ttl');
+  var msg = document.getElementById('msg');
+  var stp = document.getElementById('stp');
+
+  function pose(icone, titre, texte, encadre, onglet) {
+    mk.textContent = icone;
+    ttl.innerHTML = titre;
+    msg.textContent = texte;
+    if (encadre) { stp.innerHTML = encadre; } else { stp.remove(); }
+    document.title = onglet;
+  }
+
+  var caution = q.get('caution');
+  var sejour = q.get('sejour');
+
+  if (caution === 'ok') {
+    pose('✓', 'Caution <em>enregistrée.</em>',
+      "Le montant est bloqué sur votre carte : il n'a pas été débité.",
+      "Il sera <b>libéré après votre départ</b>, sauf dégât constaté. Vous pouvez fermer cette page, votre hôte est prévenu.",
+      'Caution enregistrée');
+
+  } else if (caution === 'annule') {
+    pose('·', 'Caution <em>non enregistrée.</em>',
+      "Aucun montant n'a été bloqué sur votre carte.",
+      "Reprenez le lien que votre hôte vous a transmis quand vous le souhaitez.",
+      'Caution non enregistrée');
+
+  } else if (sejour === 'ok') {
+    pose('✓', 'Séjour <em>réglé.</em>',
+      "Votre paiement est confirmé.",
+      "Votre hôte en reçoit la confirmation. Vous pouvez fermer cette page.",
+      'Séjour réglé');
+
+  } else if (sejour === 'annule') {
+    pose('·', 'Paiement <em>annulé.</em>',
+      "Aucun montant n'a été débité.",
+      "Reprenez le lien que votre hôte vous a transmis quand vous le souhaitez.",
+      'Paiement annulé');
+
+  } else if (q.get('statut') === 'annule') {
+    pose('·', 'Paiement <em>annulé.</em>',
+      "Aucun montant n'a été débité.",
+      "<b>Revenez dans l'application</b> pour réessayer quand vous le souhaitez.",
+      'Paiement annulé');
+  }
+})();
 </script>
 </body>
 </html>
