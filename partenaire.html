@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Espace partenaire</title>
+<style>
+  :root {
+    --onyx:#1C1B1A; --laiton:#B89B7A; --laiton-fonce:#8A6F52;
+    --nacre:#F4F1EC; --papier:#FFFFFF; --ardoise:#5E5A55; --brume:#8B847C;
+    --trait:rgba(28,27,26,.12); --trait-fin:rgba(28,27,26,.07);
+    --vert:#6E8B6A; --rouge:#B0524A; --ambre:#B98A3E;
+    --ombre:0 10px 30px -18px rgba(28,27,26,.45);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--nacre);color:var(--onyx);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    padding:0 18px;
+  }
+  .page{max-width:1000px;margin:0 auto;padding-block:34px 70px}
+  h1{font-size:25px;margin:0 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--ardoise);font-size:14px;margin:0 0 26px}
+
+  /* ── Connexion ── */
+  #gate{max-width:380px;margin:14vh auto 0}
+  .carte{background:var(--papier);border:1px solid var(--trait);border-radius:16px;padding:22px;box-shadow:var(--ombre)}
+  label{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brume);margin:0 0 6px}
+  input,select,textarea{
+    width:100%;padding:11px 13px;font:inherit;color:var(--onyx);background:var(--nacre);
+    border:1px solid var(--trait);border-radius:10px;outline:none;
+  }
+  input:focus,select:focus{border-color:var(--laiton);background:var(--papier)}
+  button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 16px;font-weight:600}
+  .btn{background:var(--onyx);color:#fff}
+  .btn:hover{background:#000}
+  .btn-or{background:var(--laiton);color:#fff}
+  .btn-or:hover{background:var(--laiton-fonce)}
+  .btn-fin{background:transparent;color:var(--ardoise);border:1px solid var(--trait);padding:7px 11px;font-size:13px;font-weight:500}
+  .btn-fin:hover{border-color:var(--laiton);color:var(--onyx)}
+  button[disabled]{opacity:.45;cursor:default}
+
+  /* ── Chiffres ── */
+  .chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+  .tuile{background:var(--papier);border:1px solid var(--trait);border-radius:14px;padding:14px 16px}
+  .tuile .k{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brume)}
+  .tuile .v{font-size:24px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+  .tuile.alerte{border-color:var(--rouge)}
+  .tuile.alerte .v{color:var(--rouge)}
+
+  section{background:var(--papier);border:1px solid var(--trait);border-radius:16px;padding:20px;margin-bottom:20px}
+  section h2{font-size:16px;margin:0 0 3px}
+  section .aide{color:var(--ardoise);font-size:13.5px;margin:0 0 16px}
+
+  .ligne{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  .champ{flex:1 1 150px;min-width:130px}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brume);font-weight:600;padding:0 10px 8px 0}
+  td{padding:10px 10px 10px 0;border-top:1px solid var(--trait-fin);vertical-align:middle}
+  .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:.5px}
+  .pastille{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .p-unused{background:rgba(185,138,62,.14);color:var(--ambre)}
+  .p-active{background:rgba(110,139,106,.16);color:var(--vert)}
+  .p-suspended{background:rgba(176,82,74,.13);color:var(--rouge)}
+  .p-revoked{background:rgba(28,27,26,.08);color:var(--brume)}
+  .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .scroll{overflow-x:auto}
+  .vide{color:var(--brume);font-size:14px;padding:18px 0;text-align:center}
+
+  .msg{padding:11px 14px;border-radius:10px;font-size:14px;margin-bottom:14px;display:none}
+  .msg.ok{display:block;background:rgba(110,139,106,.12);color:#4E6B4A}
+  .msg.ko{display:block;background:rgba(176,82,74,.11);color:var(--rouge)}
+  .pied{color:var(--brume);font-size:12.5px;text-align:center;margin-top:26px}
+  @media(max-width:620px){ th:nth-child(4),td:nth-child(4){display:none} }
+</style>
+</head>
+<body>
+
+<!-- ════════ Connexion ════════ -->
+<div id="gate">
+  <h1 style="text-align:center">Espace partenaire</h1>
+  <p class="sub" style="text-align:center">Réservé aux partenaires MyHostKit</p>
+  <div class="carte">
+    <div id="gate-msg" class="msg"></div>
+    <label for="secret">Mot de passe</label>
+    <input id="secret" type="password" autocomplete="current-password" placeholder="••••••••••">
+    <button class="btn" style="width:100%;margin-top:14px" id="btn-login">Entrer</button>
+  </div>
+</div>
+
+<!-- ════════ Console ════════ -->
+<div class="page" id="app" hidden>
+  <h1 id="titre">Licences</h1>
+  <p class="sub" id="soustitre">Chaque élève reçoit un code, qu'il saisit à la création de son compte.</p>
+
+  <div id="msg" class="msg"></div>
+
+  <div class="chiffres" id="chiffres"></div>
+
+  <!-- Abonnement : mise en place -->
+  <section id="sec-setup" hidden>
+    <h2>Mettre en place votre abonnement</h2>
+    <p class="aide">Vous enregistrez votre carte une seule fois. <b>Le premier mois est offert</b> — rien n'est débité avant 30 jours. Ensuite, chaque licence active est facturée mensuellement, et vous ne payez que celles dont vous vous servez.</p>
+    <div class="ligne">
+      <div class="champ" style="flex:0 0 100px">
+        <label for="sqty">Licences</label>
+        <input id="sqty" type="number" min="1" max="50" value="1">
+      </div>
+      <div class="champ" style="flex:0 0 190px">
+        <label for="stype">Type d'accès</label>
+        <select id="stype">
+          <option value="host">Hôte / conciergerie — 25 €</option>
+          <option value="cleaner">Agent d'entretien — 10 €</option>
+        </select>
+      </div>
+      <button class="btn-or" id="btn-setup">Enregistrer ma carte</button>
+    </div>
+    <p class="aide" id="sprix" style="margin:12px 0 0"></p>
+  </section>
+
+  <!-- Abonnement : ajouter des licences -->
+  <section id="sec-add" hidden>
+    <h2>Ajouter des licences</h2>
+    <p class="aide">Un nouvel élève arrive ? Ajoutez sa licence : <b>son premier mois est offert</b>, la facturation suit ensuite votre abonnement. Le code est créé immédiatement.</p>
+    <div class="ligne">
+      <div class="champ" style="flex:0 0 100px">
+        <label for="aqty">Nombre</label>
+        <input id="aqty" type="number" min="1" max="50" value="1">
+      </div>
+      <div class="champ" style="flex:0 0 190px">
+        <label for="atype">Type d'accès</label>
+        <select id="atype">
+          <option value="host">Hôte / conciergerie — 25 €</option>
+          <option value="cleaner">Agent d'entretien — 10 €</option>
+        </select>
+      </div>
+      <div class="champ">
+        <label for="aconc">Nom (facultatif)</label>
+        <input id="aconc" placeholder="Camille Durand">
+      </div>
+      <button class="btn-or" id="btn-add">Ajouter</button>
+    </div>
+    <p class="aide" id="aprix" style="margin:12px 0 0"></p>
+  </section>
+
+  <!-- Codes -->
+  <section>
+    <h2>Vos codes</h2>
+    <p class="aide" id="resume-codes"></p>
+    <div class="scroll"><table id="table">
+      <thead><tr>
+        <th>Code</th><th>Type</th><th>État</th><th>Attribué à</th><th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="vide" id="vide" hidden>Aucun code pour l'instant. Générez-en un ci-dessus.</div>
+  </section>
+
+  <p class="pied">Une question ? Répondez au message qui vous a transmis cette adresse.</p>
+</div>
+
+<script>
+(function () {
+  var API  = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/backoffice';
+  var PRIX = { host: 25, cleaner: 10 };
+  var LIB  = { host: 'Hôte', cleaner: 'Agent' };
+  var ETAT = { unused: 'À distribuer', active: 'Actif', suspended: 'Suspendu', revoked: 'Retirée', expired: 'Expirée' };
+  var STATUT = {
+    trialing: 'Premier mois offert', active: 'Actif', past_due: 'Paiement en retard',
+    unpaid: 'Impayé', canceled: 'Résilié', incomplete: 'À finaliser'
+  };
+  var secret = '';
+  var donnees = { tenants: [], keys: [] };
+  var abo = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function appel(action, extra) {
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-bo-secret': secret, 'x-bo-role': 'partner' },
+      body: JSON.stringify(Object.assign({ action: action }, extra || {}))
+    }).catch(function () {
+      throw new Error('reseau');
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok) throw new Error(j.error || ('erreur ' + r.status));
+        return j;
+      });
+    });
+  }
+
+  function dire(texte, ok) {
+    var el = $('msg');
+    el.textContent = texte;
+    el.className = 'msg ' + (ok ? 'ok' : 'ko');
+    if (ok) setTimeout(function () { el.className = 'msg'; }, 7000);
+  }
+
+  function jour(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  // ── Connexion ──────────────────────────────────────────────
+  function gateDire(texte) {
+    var g = $('gate-msg');
+    g.textContent = texte;
+    g.className = texte ? 'msg ko' : 'msg';
+  }
+
+  function entrer() {
+    var val = $('secret').value.trim();
+    if (!val) { gateDire('Saisissez le mot de passe.'); $('secret').focus(); return; }
+    secret = val;
+    var b = $('btn-login');
+    b.disabled = true; b.textContent = 'Vérification…'; gateDire('');
+    appel('login').then(function () {
+      b.textContent = 'Entrer';
+      $('gate').hidden = true; $('app').hidden = false;
+      try { sessionStorage.setItem('kl_bo', secret); } catch (e) {}
+      demarrer();
+    }, function (e) {
+      secret = ''; b.disabled = false; b.textContent = 'Entrer';
+      var m = String(e && e.message || '');
+      if (m === 'unauthorized') gateDire('Mot de passe incorrect.');
+      else if (m === 'reseau') gateDire('Connexion au serveur impossible. Vérifiez votre accès à Internet.');
+      else gateDire('Erreur : ' + (m || 'inconnue') + '. Réessayez dans un instant.');
+    });
+  }
+  $('btn-login').addEventListener('click', entrer);
+  $('secret').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); entrer(); }
+  });
+
+  // ── Chargement ─────────────────────────────────────────────
+  function charger() {
+    return Promise.all([appel('load_all'), appel('sub_state')]).then(function (r) {
+      donnees = r[0];
+      abo = r[1] && r[1].abonnement ? r[1].abonnement : null;
+      // Le serveur ne renvoie que le partenaire connecté : son nom sert de
+      // titre, pour que la page soit la même pour tous sans nommer personne.
+      var moi = (donnees.tenants || [])[0];
+      if (moi && moi.name) {
+        document.getElementById('titre').textContent = 'Licences ' + moi.name;
+        document.getElementById('soustitre').textContent =
+          moi.name + " — chaque élève reçoit un code, qu'il saisit à la création de son compte.";
+        document.title = 'Licences ' + moi.name;
+      }
+      rendre();
+    }, function (e) { dire('Chargement impossible : ' + e.message, false); });
+  }
+
+  function rendre() {
+    var keys = donnees.keys || [];
+    var vivantes = keys.filter(function (k) { return k.status !== 'revoked' && k.status !== 'expired'; });
+    var mensuel = vivantes.reduce(function (s, k) { return s + (PRIX[k.license_type] || 25); }, 0);
+
+    var enEssai = abo && abo.statut === 'trialing';
+    $('chiffres').innerHTML = [
+      tuile('Abonnement', abo ? (STATUT[abo.statut] || abo.statut) : 'Pas encore', !abo || ['past_due','unpaid','canceled'].indexOf(abo && abo.statut) >= 0),
+      tuile('Licences', String(vivantes.length), false),
+      tuile(enEssai ? 'Après l’essai' : 'Par mois', mensuel + ' €', false),
+      tuile(enEssai ? 'Fin du mois offert' : 'Prochaine échéance',
+            abo ? jour(enEssai ? abo.essai_jusquau : abo.prochaine_echeance) : '—', false)
+    ].join('');
+
+    $('sec-setup').hidden = !!abo;
+    $('sec-add').hidden = !abo;
+
+    if (abo && abo.statut === 'past_due') dire('Votre dernier paiement a échoué. Mettez votre carte à jour, sinon les licences seront suspendues.', false);
+    if (abo && (abo.statut === 'unpaid' || abo.statut === 'canceled')) dire('Abonnement interrompu : les licences ne fonctionnent plus.', false);
+
+    $('resume-codes').textContent = keys.length ? keys.length + ' code' + (keys.length > 1 ? 's' : '') + ' au total.' : '';
+    $('vide').hidden = keys.length > 0;
+    $('table').style.display = keys.length ? '' : 'none';
+
+    var tb = $('tbody');
+    tb.innerHTML = '';
+    keys.forEach(function (k) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cellule(k.key_code, 'code'));
+      tr.appendChild(cellule(LIB[k.license_type] || 'Hôte'));
+
+      var tde = document.createElement('td');
+      var sp = document.createElement('span');
+      sp.className = 'pastille p-' + k.status;
+      sp.textContent = ETAT[k.status] || k.status;
+      tde.appendChild(sp);
+      tr.appendChild(tde);
+
+      var tda = cellule(k.host_email || k.conciergerie_name || '—');
+      if (!k.host_email && !k.conciergerie_name) tda.style.color = 'var(--brume)';
+      tr.appendChild(tda);
+
+      var tdx = document.createElement('td');
+      var box = document.createElement('div');
+      box.className = 'actions';
+      box.appendChild(bouton('Copier', function () {
+        navigator.clipboard.writeText(k.key_code).then(function () { dire('Code copié.', true); });
+      }));
+      if (k.status === 'unused' || k.status === 'active') {
+        box.appendChild(bouton('Envoyer', function () {
+          var to = prompt('Envoyer le code ' + k.key_code + ' à quelle adresse ?', k.host_email || '');
+          if (!to) return;
+          appel('send_key_email', { id: k.id, email: to })
+            .then(function () { dire('Code envoyé à ' + to + '.', true); charger(); },
+                  function (e) { dire('Envoi impossible : ' + e.message, false); });
+        }));
+        box.appendChild(bouton('Retirer', function () {
+          if (!confirm('Retirer la licence ' + k.key_code + ' ?\n\nL\'accès cesse immédiatement et vous ne la payez plus.')) return;
+          appel('sub_remove', { id: k.id }).then(function () {
+            dire('Licence retirée. Elle ne sera plus facturée.', true); charger();
+          }, function (e) { dire('Retrait impossible : ' + e.message, false); });
+        }));
+      }
+      tdx.appendChild(box);
+      tr.appendChild(tdx);
+      tb.appendChild(tr);
+    });
+  }
+
+  function cellule(txt, cls) {
+    var td = document.createElement('td');
+    if (cls) td.className = cls;
+    td.textContent = txt;
+    return td;
+  }
+  function tuile(k, v, alerte) {
+    return '<div class="tuile' + (alerte ? ' alerte' : '') + '"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>';
+  }
+  function bouton(txt, fn) {
+    var b = document.createElement('button');
+    b.className = 'btn-fin'; b.textContent = txt;
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  // ── Mise en place de l'abonnement ──────────────────────────
+  function majSetup() {
+    var q = Math.max(1, Math.min(50, parseInt($('sqty').value, 10) || 1));
+    var p = PRIX[$('stype').value] || 25;
+    $('sprix').textContent = 'Aujourd’hui : 0 € — puis ' + (q * p) + ' € par mois à partir du 31ᵉ jour.';
+  }
+  ['sqty', 'stype'].forEach(function (id) {
+    $(id).addEventListener('input', majSetup);
+    $(id).addEventListener('change', majSetup);
+  });
+  $('btn-setup').addEventListener('click', function () {
+    var b = $('btn-setup');
+    b.disabled = true; b.textContent = 'Redirection…';
+    appel('sub_setup', {
+      qty: Math.max(1, Math.min(50, parseInt($('sqty').value, 10) || 1)),
+      license_type: $('stype').value,
+      return_url: location.origin + location.pathname
+    }).then(function (r) {
+      if (r.url) { location.href = r.url; return; }
+      b.disabled = false; b.textContent = 'Enregistrer ma carte';
+      dire('Paiement indisponible pour le moment.', false);
+    }, function (e) {
+      b.disabled = false; b.textContent = 'Enregistrer ma carte';
+      dire('Impossible d’ouvrir le paiement : ' + e.message, false);
+    });
+  });
+
+  // ── Ajout de licences ──────────────────────────────────────
+  function majAjout() {
+    var q = Math.max(1, Math.min(50, parseInt($('aqty').value, 10) || 1));
+    var p = PRIX[$('atype').value] || 25;
+    $('aprix').textContent = 'Premier mois offert, puis ' + (q * p) + ' € par mois ajoutés à votre abonnement.';
+  }
+  ['aqty', 'atype'].forEach(function (id) {
+    $(id).addEventListener('input', majAjout);
+    $(id).addEventListener('change', majAjout);
+  });
+  $('btn-add').addEventListener('click', function () {
+    var q = Math.max(1, Math.min(50, parseInt($('aqty').value, 10) || 1));
+    var b = $('btn-add');
+    b.disabled = true; b.textContent = 'Ajout…';
+    appel('sub_add', { qty: q, license_type: $('atype').value, conc: $('aconc').value.trim() || null })
+      .then(function () {
+        b.disabled = false; b.textContent = 'Ajouter';
+        $('aconc').value = '';
+        dire(q + ' licence' + (q > 1 ? 's ajoutées' : ' ajoutée') + ' — premier mois offert.', true);
+        charger();
+      }, function (e) {
+        b.disabled = false; b.textContent = 'Ajouter';
+        dire('Ajout impossible : ' + e.message, false);
+      });
+  });
+
+  // ── Retour de la page de paiement ──────────────────────────
+  function retourPaiement() {
+    var p = new URLSearchParams(location.search).get('abonnement');
+    if (!p) return;
+    history.replaceState({}, '', location.pathname);
+    if (p === 'annule') { dire('Abonnement non mis en place — rien n’a été débité.', false); return; }
+    dire('Carte enregistrée. Vos licences arrivent…', true);
+    setTimeout(charger, 2500);
+    setTimeout(function () { charger(); dire('Vos licences sont prêtes. Premier mois offert.', true); }, 7000);
+  }
+
+  function demarrer() {
+    charger().then(function () { majSetup(); majAjout(); retourPaiement(); });
+  }
+
+  // ── Reprise de session ─────────────────────────────────────
+  try {
+    var memo = sessionStorage.getItem('kl_bo');
+    if (memo) {
+      secret = memo;
+      appel('login').then(function () {
+        $('gate').hidden = true; $('app').hidden = false; demarrer();
+      }, function () { secret = ''; try { sessionStorage.removeItem('kl_bo'); } catch (e) {} });
+    }
+  } catch (e) {}
+})();
+
+</script>
+</body>
+</html>
