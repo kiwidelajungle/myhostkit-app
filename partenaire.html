@@ -84,6 +84,8 @@
   <p class="sub" style="text-align:center">Réservé aux partenaires MyHostKit</p>
   <div class="carte">
     <div id="gate-msg" class="msg"></div>
+    <label for="email">Adresse e-mail</label>
+    <input id="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="vous@exemple.fr" onkeydown="if(event.key==='Enter')document.getElementById('secret').focus()">
     <label for="secret">Mot de passe</label>
     <input id="secret" type="password" autocomplete="current-password" placeholder="••••••••••">
     <button class="btn" style="width:100%;margin-top:14px" id="btn-login">Entrer</button>
@@ -172,6 +174,7 @@
     unpaid: 'Impayé', canceled: 'Résilié', incomplete: 'À finaliser'
   };
   var secret = '';
+  var email = '';
   var donnees = { tenants: [], keys: [] };
   var abo = null;
 
@@ -180,7 +183,7 @@
   function appel(action, extra) {
     return fetch(API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-bo-secret': secret, 'x-bo-role': 'partner' },
+      headers: { 'Content-Type': 'application/json', 'x-bo-secret': secret, 'x-bo-email': email, 'x-bo-role': 'partner' },
       body: JSON.stringify(Object.assign({ action: action }, extra || {}))
     }).catch(function () {
       throw new Error('reseau');
@@ -213,20 +216,23 @@
   }
 
   function entrer() {
+    var adr = $('email').value.trim();
     var val = $('secret').value.trim();
+    if (!adr) { gateDire('Saisissez votre adresse e-mail.'); $('email').focus(); return; }
     if (!val) { gateDire('Saisissez le mot de passe.'); $('secret').focus(); return; }
-    secret = val;
+    email = adr; secret = val;
     var b = $('btn-login');
     b.disabled = true; b.textContent = 'Vérification…'; gateDire('');
     appel('login').then(function () {
       b.textContent = 'Entrer';
       $('gate').hidden = true; $('app').hidden = false;
-      try { sessionStorage.setItem('kl_bo', secret); } catch (e) {}
+      try { sessionStorage.setItem('kl_bo', secret); sessionStorage.setItem('kl_bo_m', email); } catch (e) {}
       demarrer();
     }, function (e) {
       secret = ''; b.disabled = false; b.textContent = 'Entrer';
       var m = String(e && e.message || '');
-      if (m === 'unauthorized') gateDire('Mot de passe incorrect.');
+      if (m === 'unauthorized') gateDire('Adresse ou mot de passe incorrect.');
+      else if (m === 'trop_d_essais') gateDire('Trop de tentatives. Patientez un quart d\'heure avant de réessayer.');
       else if (m === 'reseau') gateDire('Connexion au serveur impossible. Vérifiez votre accès à Internet.');
       else gateDire('Erreur : ' + (m || 'inconnue') + '. Réessayez dans un instant.');
     });
@@ -410,11 +416,12 @@
   // ── Reprise de session ─────────────────────────────────────
   try {
     var memo = sessionStorage.getItem('kl_bo');
-    if (memo) {
-      secret = memo;
+    var memoM = sessionStorage.getItem('kl_bo_m');
+    if (memo && memoM) {
+      secret = memo; email = memoM;
       appel('login').then(function () {
         $('gate').hidden = true; $('app').hidden = false; demarrer();
-      }, function () { secret = ''; try { sessionStorage.removeItem('kl_bo'); } catch (e) {} });
+      }, function () { secret = ''; email = ''; try { sessionStorage.removeItem('kl_bo'); sessionStorage.removeItem('kl_bo_m'); } catch (e) {} });
     }
   } catch (e) {}
 })();
