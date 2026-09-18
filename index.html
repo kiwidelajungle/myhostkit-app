@@ -84,6 +84,8 @@ html.js .rv.in{opacity:1;transform:none}
 .nav-links a{font-size:13.5px;color:var(--t3);text-decoration:none;letter-spacing:.02em;transition:color .3s}
 .nav-links a:hover{color:var(--t1)}
 .nav-right{display:flex;align-items:center;gap:14px}
+.nav-login{display:none;font-size:13.5px;letter-spacing:.01em;text-decoration:none;color:inherit;opacity:.72}
+.nav-login:hover{opacity:1}
 .nav .btn{padding:11px 22px;font-size:11.5px}
 .nav .btn.nav-cta{display:none}
 .burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:1px solid var(--line);cursor:pointer;padding:0 11px}
@@ -99,6 +101,7 @@ html.js .rv.in{opacity:1;transform:none}
 @media(min-width:900px){
   .nav-links{display:flex}
   .nav .btn.nav-cta{display:inline-block}
+  .nav-login{display:inline-block}
   .burger,.mnav{display:none}
 }
 
@@ -532,6 +535,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
     <li><a href="/activer.html" style="color:var(--gold)">Activer l'app · 1ᵉʳ mois offert</a></li>
   </ul>
   <div class="nav-right">
+    <a href="/partenaire" class="nav-login">Connexion</a>
     <a href="#contact" class="btn nav-cta">Ma maquette</a>
     <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
       <span></span><span></span><span></span>
