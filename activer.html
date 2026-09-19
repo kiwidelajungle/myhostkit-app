@@ -68,7 +68,7 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
     <div class="plans" role="group" aria-label="Votre formule">
       <div class="plan" aria-pressed="true">
         <b>Hôte / Conciergerie</b>
-        <span class="p">19 € <small>/ logement / mois</small></span>
+        <span class="p">19,90 € <small>le 1<sup>er</sup> logement, puis 9,90 € chacun</small></span>
       </div>
       <div class="plan plan-free" aria-pressed="false">
         <b>Agent d'entretien</b>
@@ -83,7 +83,7 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
         <button type="button" class="qty-btn" id="qtyMinus" aria-label="Moins">−</button>
         <input id="qty" type="number" inputmode="numeric" min="1" max="200" value="1">
         <button type="button" class="qty-btn" id="qtyPlus" aria-label="Plus">+</button>
-        <div class="qty-total"><span id="qtyTotal">19 €</span><small> / mois</small></div>
+        <div class="qty-total"><span id="qtyTotal">19,90 €</span><small> / mois</small></div>
       </div>
     </div>
 
@@ -125,7 +125,10 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
 <script>
 (function(){
   var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
-  var PRIX_LOGEMENT = 19;
+  // Tarif progressif : le premier logement à 19,90 €, les suivants à 9,90 €.
+  // Doit rester identique aux paliers du tarif Stripe (price_1UHJbq…).
+  var PRIX_PREMIER = 19.90;
+  var PRIX_SUIVANT = 9.90;
   var plan = 'host'; // seul plan payant — l'accès agent d'entretien est gratuit
   var qtyIn = document.getElementById('qty');
   function qtyVal(){
@@ -135,7 +138,10 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
   }
   function updTotal(){
     qtyIn.value = qtyVal();
-    document.getElementById('qtyTotal').textContent = (qtyVal() * PRIX_LOGEMENT) + ' €';
+    var n = qtyVal();
+    var total = PRIX_PREMIER + Math.max(0, n - 1) * PRIX_SUIVANT;
+    document.getElementById('qtyTotal').textContent =
+      total.toFixed(2).replace('.', ',') + ' €';
   }
   document.getElementById('qtyMinus').addEventListener('click', function(){ qtyIn.value = qtyVal() - 1; updTotal(); });
   document.getElementById('qtyPlus').addEventListener('click', function(){ qtyIn.value = qtyVal() + 1; updTotal(); });
