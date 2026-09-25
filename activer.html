@@ -68,7 +68,7 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
     <div class="plans" role="group" aria-label="Votre formule">
       <div class="plan" aria-pressed="true">
         <b>Hôte / Conciergerie</b>
-        <span class="p">19,90 € <small>le 1<sup>er</sup> logement, puis 9,90 € chacun</small></span>
+        <span class="p">19,90 € <small>le 1<sup>er</sup> logement, puis 9,90 €. Dégressif dès 11 logements&nbsp;: 6,90 €, puis 4,90 € à partir de 31.</small></span>
       </div>
       <div class="plan plan-free" aria-pressed="false">
         <b>Agent d'entretien</b>
@@ -125,10 +125,28 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
 <script>
 (function(){
   var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
-  // Tarif progressif : le premier logement à 19,90 €, les suivants à 9,90 €.
-  // Doit rester identique aux paliers du tarif Stripe (price_1UHJbq…).
-  var PRIX_PREMIER = 19.90;
-  var PRIX_SUIVANT = 9.90;
+  // Grille dégressive, identique aux paliers du tarif Stripe
+  // price_1UJcuq0vEylF30s7GNF0Uu5t. Si l'une des deux change, l'autre doit
+  // suivre : le 25/09/2026 le site annonçait 208 € là où Stripe facturait
+  // 178 €, parce que seule la grille Stripe avait été corrigée.
+  var PALIERS = [
+    { jusqua: 1,        prix: 19.90 },
+    { jusqua: 10,       prix: 9.90 },
+    { jusqua: 30,       prix: 6.90 },
+    { jusqua: Infinity, prix: 4.90 }
+  ];
+  function totalPour(n){
+    var reste = n, deja = 0, total = 0;
+    for (var i = 0; i < PALIERS.length; i++){
+      if (reste <= 0) break;
+      var place = PALIERS[i].jusqua === Infinity ? reste : Math.max(0, PALIERS[i].jusqua - deja);
+      var pris = Math.min(reste, place);
+      if (pris <= 0) continue;
+      total += pris * PALIERS[i].prix;
+      reste -= pris; deja += pris;
+    }
+    return total;
+  }
   var plan = 'host'; // seul plan payant — l'accès agent d'entretien est gratuit
   var qtyIn = document.getElementById('qty');
   function qtyVal(){
@@ -139,7 +157,7 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
   function updTotal(){
     qtyIn.value = qtyVal();
     var n = qtyVal();
-    var total = PRIX_PREMIER + Math.max(0, n - 1) * PRIX_SUIVANT;
+    var total = totalPour(n);
     document.getElementById('qtyTotal').textContent =
       total.toFixed(2).replace('.', ',') + ' €';
   }
