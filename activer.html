@@ -68,7 +68,7 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
     <div class="plans" role="group" aria-label="Votre formule">
       <div class="plan" aria-pressed="true">
         <b>Hôte / Conciergerie</b>
-        <span class="p">19,90 € <small>le 1<sup>er</sup> logement, puis 9,90 €. Dégressif dès 11 logements&nbsp;: 6,90 €, puis 4,90 € à partir de 31.</small></span>
+        <span class="p">19,90 € <small>le 1<sup>er</sup> logement, puis 9,90 € par logement en plus. Dégressif dès 11 logements&nbsp;: 6,90 €, puis 4,90 € à partir de 31. Déjà abonné&nbsp;? Ajoutez vos logements dans l'app, le tarif suit.</small></span>
       </div>
       <div class="plan plan-free" aria-pressed="false">
         <b>Agent d'entretien</b>
@@ -188,6 +188,13 @@ input[type=number]:focus{outline:none;border-color:var(--gold)}
       payBtn.disabled = false;
       payBtn.textContent = 'Procéder au paiement sécurisé';
       if (res.s === 429) { showErr('Trop de tentatives — réessayez dans une heure.'); return; }
+      if (res.s === 409) {
+        // Déjà abonné : cette page repartirait à 19,90 € comme pour un
+        // premier logement, alors qu'un logement de plus se paie au prorata.
+        msg.innerHTML = 'Un abonnement est déjà actif avec cet e-mail. Pour couvrir un logement de plus, <b>ajoutez-le dans l\'application</b> : le tarif s\'ajuste au prorata (9,90 € par logement du 2<sup>e</sup> au 10<sup>e</sup>, dégressif ensuite). Ou passez par <a href="/gerer.html">Gérer mon abonnement</a>.';
+        msg.classList.add('show');
+        return;
+      }
       if (res.d && res.d.detail) { showErr('Paiement indisponible : ' + res.d.detail); return; }
       showErr('Le paiement est momentanément indisponible. Réessayez ou écrivez à contact@myhostkit.com.');
     }).catch(function(){
