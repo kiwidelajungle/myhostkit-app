@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.myhostkit.com/</loc></url>
-  <url><loc>https://www.myhostkit.com/tarifs</loc></url>
-  <url><loc>https://www.myhostkit.com/marque-blanche</loc></url>
-  <url><loc>https://www.myhostkit.com/cgv.html</loc></url>
-  <url><loc>https://www.myhostkit.com/privacy.html</loc></url>
-  <url><loc>https://www.myhostkit.com/mentions-legales.html</loc></url>
+  <url><loc>https://www.myhostkit.com/</loc><lastmod>2026-09-27</lastmod><priority>1.0</priority></url>
+  <url><loc>https://www.myhostkit.com/tarifs</loc><lastmod>2026-09-27</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.myhostkit.com/logiciel-conciergerie</loc><lastmod>2026-09-27</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.myhostkit.com/channel-manager</loc><lastmod>2026-09-27</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.myhostkit.com/logiciel-location-saisonniere-agence</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.myhostkit.com/alternative-smoobu</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.myhostkit.com/alternative-hostaway</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.myhostkit.com/guides</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.myhostkit.com/marque-blanche</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.myhostkit.com/telecharger</loc><lastmod>2026-09-27</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.myhostkit.com/activer.html</loc><lastmod>2026-09-27</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.myhostkit.com/ambassadeur</loc><lastmod>2026-09-27</lastmod><priority>0.3</priority></url>
+  <url><loc>https://www.myhostkit.com/cgv.html</loc><lastmod>2026-09-26</lastmod><priority>0.2</priority></url>
+  <url><loc>https://www.myhostkit.com/privacy.html</loc><lastmod>2026-09-01</lastmod><priority>0.2</priority></url>
+  <url><loc>https://www.myhostkit.com/mentions-legales.html</loc><lastmod>2026-09-01</lastmod><priority>0.2</priority></url>
 </urlset>

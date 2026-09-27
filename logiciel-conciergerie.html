@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MyHostKit — Logiciel de conciergerie et de location saisonnière</title>
-<meta name="description" content="Réservations Airbnb, Booking et Abritel sur un seul calendrier, ménages créés à chaque départ, messages aux voyageurs, bilans propriétaires. Le logiciel des conciergeries, agences et écoles de conciergerie. 1ᵉʳ mois offert.">
-<link rel="canonical" href="https://www.myhostkit.com/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MyHostKit — Logiciel de conciergerie et de location saisonnière">
-<meta property="og:description" content="Un seul calendrier pour toutes les plateformes, des ménages créés seuls, des bilans propriétaires automatiques. 19,90 € le premier logement, dégressif, 1ᵉʳ mois offert.">
-<meta property="og:url" content="https://www.myhostkit.com/">
+<title>Logiciel de conciergerie Airbnb et location saisonnière | MyHostKit</title>
+<meta name="description" content="Logiciel de conciergerie pour location saisonnière : channel manager Airbnb, Booking et Abritel, ménages créés à chaque départ, bilans propriétaires automatiques. 19,90 € par mois, premier mois offert.">
+<link rel="canonical" href="https://www.myhostkit.com/logiciel-conciergerie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logiciel de conciergerie Airbnb et location saisonnière | MyHostKit">
+<meta property="og:description" content="Logiciel de conciergerie pour location saisonnière : channel manager Airbnb, Booking et Abritel, ménages créés à chaque départ, bilans propriétaires automatiques. 19,90 € par mois, premier mois offert.">
+<meta property="og:url" content="https://www.myhostkit.com/logiciel-conciergerie">
 <meta property="og:image" content="https://www.myhostkit.com/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -530,448 +530,103 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
 .exemple span{font-size:13px;color:var(--t3)}
 @media(min-width:768px){.exemples{grid-template-columns:repeat(4,1fr)}.exemple{border-bottom:none;border-right:1px solid var(--gold15)}.exemple:last-child{border-right:none}}
 .tbl-wrap.grille-wrap{margin-top:0}
+
+/* ═══ pages guides ═══ */
+.art{padding:120px 0 80px}
+.art .wrap{max-width:860px}
+.art h1{font-size:clamp(32px,5vw,52px);max-width:22ch;margin:18px 0 22px}
+.art .lede{color:var(--t2);font-size:17px;line-height:1.7;max-width:60ch}
+.art h2{font-size:clamp(24px,3.4vw,32px);margin:56px 0 18px;max-width:26ch}
+.art h3{font-family:var(--sans);font-weight:500;font-size:17px;margin:30px 0 10px;color:var(--t1)}
+.art p{color:var(--t2);font-size:16px;line-height:1.75;margin:0 0 16px;max-width:66ch}
+.art ul,.art ol{color:var(--t2);font-size:16px;line-height:1.75;margin:0 0 18px 22px;max-width:64ch}
+.art li{margin-bottom:8px}
+.art a{color:var(--gold)}
+.art .grille{margin:18px 0 28px}
+.art .cta{border:1px solid var(--gold40);background:linear-gradient(120deg,rgba(199,164,104,.12),rgba(199,164,104,.03));padding:28px;margin:48px 0;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.art .cta p{margin:0;max-width:44ch}
+.art .meta{font-size:12px;color:var(--t3);letter-spacing:.04em}
+.art .faq{margin-top:20px}
+.art .faq summary{font-size:16px}
+.art .faq .a{font-size:15px}
+.art .related{margin-top:60px;border-top:1px solid var(--line);padding-top:26px}
+.art .related a{display:block;color:var(--t2);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.art .related a:hover{color:var(--gold)}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "MyHostKit", "applicationCategory": "BusinessApplication", "operatingSystem": "macOS, Windows, iOS, Web", "inLanguage": "fr-FR", "url": "https://www.myhostkit.com/", "description": "Logiciel de gestion pour conciergeries et agences de location saisonnière : channel manager Airbnb, Booking et Vrbo (Abritel), ménages automatisés, bilans et portail propriétaires, messages aux voyageurs.", "offers": {"@type": "Offer", "price": "19.90", "priceCurrency": "EUR", "description": "Par logement et par mois, dégressif : 19,90 € le premier logement, 9,90 € du 2e au 10e, 6,90 € du 11e au 30e, 4,90 € au-delà. Premier mois offert.", "url": "https://www.myhostkit.com/tarifs"}, "publisher": {"@type": "Organization", "name": "MyHostKit", "url": "https://www.myhostkit.com/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelles plateformes sont synchronisées ?", "acceptedAnswer": {"@type": "Answer", "text": "Airbnb, Booking et Vrbo (Abritel). Deux modes : la synchronisation iCal, opérationnelle en cinq minutes, et le channel manager par API pour les disponibilités, les tarifs et les restrictions en quelques secondes. La connexion se fait depuis l'app, sans passer par un autre outil."}}, {"@type": "Question", "name": "Je suis déjà sur un autre outil. Changer, c'est risqué ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, parce qu'il n'y a rien à déménager : vos annonces, vos avis et vos réservations restent sur Airbnb et Booking. Vous connectez d'abord les calendriers en iCal pendant que votre outil actuel continue de tourner, et vous ne le résiliez qu'une fois la bascule faite et vérifiée. Le développeur vous accompagne pendant la transition."}}, {"@type": "Question", "name": "Mes femmes de ménage doivent installer quelque chose ?", "acceptedAnswer": {"@type": "Answer", "text": "L'application, gratuite pour elles, sur leur téléphone. Elles y voient leurs missions, font leur rapport photo et reçoivent la validation. Vous pouvez aussi passer par la marketplace d'agents d'entretien vérifiés intégrée à l'app."}}, {"@type": "Question", "name": "Et mes propriétaires ?", "acceptedAnswer": {"@type": "Answer", "text": "Rien à installer : un lien vers leur portail, avec le calendrier de leur bien et leurs bilans. Le bilan de fin de mois se calcule à partir des réservations, avec votre commission et le ménage déduit, et s'envoie en un clic."}}, {"@type": "Question", "name": "Sur quels appareils ?", "acceptedAnswer": {"@type": "Answer", "text": "Le logiciel sur Mac et Windows, l'application sur iPhone, et le web sur app.myhostkit.com depuis n'importe quel navigateur. Le même compte partout. L'application Android n'existe pas encore : sur Android, ouvrez le site depuis le navigateur."}}, {"@type": "Question", "name": "Y a-t-il un engagement ?", "acceptedAnswer": {"@type": "Answer", "text": "Aucun. Le prix se calcule au logement et par mois, le premier mois n'est pas facturé, et vous arrêtez quand vous voulez depuis votre espace. Vos données restent exportables."}}, {"@type": "Question", "name": "Comment sont payées les réservations directes et la caution ?", "acceptedAnswer": {"@type": "Answer", "text": "Par un lien de paiement sécurisé, sur votre propre compte de paiement. La caution est une empreinte bancaire : le montant est autorisé sur la carte du voyageur, jamais débité tant que vous ne le décidez pas, et libéré après le séjour. La caution ne porte aucune commission."}}, {"@type": "Question", "name": "Et si vous arrêtez l'activité demain ?", "acceptedAnswer": {"@type": "Answer", "text": "Question légitime face à un fondateur solo. Vos annonces et vos réservations sont sur les plateformes, pas chez nous, et vos données s'exportent à tout moment. Les conditions de réversibilité sont écrites dans les conditions générales."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Logiciel de conciergerie Airbnb : réservations, ménages et propriétaires au même endroit", "description": "Logiciel de conciergerie pour location saisonnière : channel manager Airbnb, Booking et Abritel, ménages créés à chaque départ, bilans propriétaires automatiques. 19,90 € par mois, premier mois offert.", "inLanguage": "fr-FR", "datePublished": "2026-09-27", "dateModified": "2026-09-27", "author": {"@type": "Person", "name": "Rayane Mazouni"}, "publisher": {"@type": "Organization", "name": "MyHostKit", "url": "https://www.myhostkit.com/"}, "mainEntityOfPage": "https://www.myhostkit.com/logiciel-conciergerie"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce qu'un logiciel de conciergerie ?", "acceptedAnswer": {"@type": "Answer", "text": "Un logiciel de conciergerie réunit ce qu'une conciergerie de location saisonnière fait chaque jour : les réservations de toutes les plateformes sur un calendrier, l'organisation des ménages, les messages aux voyageurs et les comptes rendus aux propriétaires. Il remplace le tableur, les calendriers séparés et les échanges WhatsApp avec l'équipe."}}, {"@type": "Question", "name": "Combien coûte un logiciel de conciergerie ?", "acceptedAnswer": {"@type": "Answer", "text": "Les prix se calculent en général au logement et par mois. MyHostKit facture 19,90 € le premier logement, puis 9,90 € du 2ᵉ au 10ᵉ, 6,90 € du 11ᵉ au 30ᵉ et 4,90 € au-delà, soit 178 € par mois pour vingt logements. Le premier mois n'est pas facturé."}}, {"@type": "Question", "name": "Faut-il un channel manager en plus ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Dans MyHostKit, le channel manager est inclus : Airbnb, Booking et Vrbo (Abritel) sont connectés par API, et la synchronisation iCal reste disponible pour démarrer en cinq minutes."}}, {"@type": "Question", "name": "Mes agents d'entretien doivent-ils payer ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. L'application est gratuite pour les agents d'entretien. Ils y reçoivent leurs missions, font leur rapport photo et sont notifiés de la validation."}}, {"@type": "Question", "name": "Puis-je garder mes annonces Airbnb et Booking ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Rien n'est recréé : vos annonces, vos avis et vos réservations restent sur les plateformes. Le logiciel se connecte à vos calendriers, il ne les remplace pas."}}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
-<div id="sprog" aria-hidden="true"></div>
-<div id="glow" aria-hidden="true"></div>
-
-<nav class="nav" id="topnav" aria-label="Navigation principale">
-  <a href="#top" class="logo">MyHost<em>Kit</em></a>
+<nav class="nav shrunk" id="topnav" aria-label="Navigation principale">
+  <a href="/" class="logo">MyHost<em>Kit</em></a>
   <ul class="nav-links">
-    <li><a href="#app">L'application</a></li>
-    <li><a href="#channel-manager">Channel manager</a></li>
+    <li><a href="/#app">L'application</a></li>
+    <li><a href="/channel-manager">Channel manager</a></li>
     <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="/guides">Guides</a></li>
     <li><a href="/telecharger">Logiciel PC</a></li>
     <li><a href="/marque-blanche">Marque blanche</a></li>
-    <li><a href="/guides">Guides</a></li>
-    <li><a href="#faq">Questions</a></li>
-    <li><a href="/activer.html" style="color:var(--gold)">Activer · 1ᵉʳ mois offert</a></li>
   </ul>
   <div class="nav-right">
     <a href="/partenaire" class="nav-login">Partenaires</a>
-    <a href="#contact" class="btn nav-cta">Une démo</a>
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="/activer.html" class="btn nav-cta">Activer</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="mnav" id="mnav">
-  <a href="#app">L'application</a>
-  <a href="#channel-manager">Channel manager</a>
+  <a href="/#app">L'application</a>
+  <a href="/channel-manager">Channel manager</a>
   <a href="/tarifs">Tarifs</a>
+  <a href="/guides">Guides</a>
   <a href="/telecharger">Logiciel PC</a>
   <a href="/marque-blanche">Marque blanche</a>
-  <a href="/partenaire">Espace partenaire</a>
-  <a href="/guides">Guides</a>
-  <a href="#faq">Questions</a>
-  <a href="/activer.html" style="color:var(--gold)">Activer — 1ᵉʳ mois offert</a>
-  <a href="#contact" class="btn btn-full">Demander une démo</a>
+  <a href="/activer.html" class="btn btn-full">Activer — 1ᵉʳ mois offert</a>
 </div>
-
 <main id="main">
-<!-- ═══ HERO ═══ -->
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">Conciergeries · Agences · Écoles</p>
-      <h1>
-        <span class="ln"><span style="--i:0">Le logiciel de conciergerie.</span></span>
-        <span class="ln"><span style="--i:1">Un seul outil.</span></span>
-        <span class="ln"><span style="--i:2"><em>Zéro tableur.</em></span></span>
-      </h1>
-      <p class="hero-sub">Réservations Airbnb, Booking et Abritel sur un seul calendrier, ménages créés à chaque départ, messages aux voyageurs, bilans pour vos propriétaires. MyHostKit fait la coordination à votre place, sur ordinateur, sur iPhone et sur le web.</p>
-      <div class="hero-ctas">
-        <a href="/activer.html" class="btn btn-full">Activer · 1ᵉʳ mois offert</a>
-        <a class="lnk" href="/tarifs">Obtenir mon tarif&nbsp;→</a>
-        <p class="hero-proof-hint">Sans engagement. Rien n'est prélevé pendant trente jours.</p>
-      </div>
-    </div>
-    <div class="hero-stage" aria-hidden="true">
-      <div class="tilt-wrap float">
-        <div class="tilt dev" id="heroTilt">
-          <div class="scr">
-            <div class="d-status"><div class="d-notch"></div></div>
-            <div class="d-head">
-              <div class="d-brand">Ma conciergerie</div>
-              <div class="d-sub">Bonjour Anaïs — samedi 12 septembre</div>
-            </div>
-            <div class="d-kpis">
-              <div class="d-kpi"><div class="d-k">Revenus du mois</div><div class="d-v">4 260 € <small>▲</small></div></div>
-              <div class="d-kpi"><div class="d-k">Occupation</div><div class="d-v">87 %</div></div>
-            </div>
-            <div class="d-row"><div><b>Villa des Oliviers</b><span>Départ demain · ménage planifié</span></div><div class="d-dot"></div></div>
-            <div class="d-row"><div><b>Studio Vieux-Port</b><span>Arrivée ce soir · code envoyé</span></div><div class="d-dot"></div></div>
-            <div class="d-row"><div><b>Loft Saint-Michel</b><span>Réservation Airbnb synchronisée</span></div><div class="d-dot"></div></div>
-            <div class="d-btn">Nouvelle réservation</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-cue" aria-hidden="true"><i></i>Défiler</div>
-</header>
+<article class="art"><div class="wrap">
+<p class="eyebrow">Logiciel de conciergerie</p>
+<h1>Le logiciel de conciergerie qui fait la coordination à votre place</h1>
+<p class="lede">Une conciergerie de location saisonnière jongle entre les calendriers des plateformes, un tableur pour les propriétaires et un groupe de messages pour les ménages. MyHostKit met tout au même endroit et enchaîne les tâches tout seul : une réservation tombe, les dates se ferment ailleurs, le ménage se crée au départ, le bilan du propriétaire se calcule en fin de mois.</p>
 
-<!-- ═══ MARQUEE ═══ -->
-<div class="marquee" aria-hidden="true">
-  <div class="mq-track">
-    <span class="solid">Channel manager</span><i>◆</i><span>Ménage automatisé</span><i>◆</i><span>Portail propriétaire</span><i>◆</i><span>Concierge IA</span><i>◆</i><span>Réservations directes</span><i>◆</i>
-  </div>
-  <div class="mq-track" aria-hidden="true">
-    <span class="solid">Channel manager</span><i>◆</i><span>Ménage automatisé</span><i>◆</i><span>Portail propriétaire</span><i>◆</i><span>Concierge IA</span><i>◆</i><span>Réservations directes</span><i>◆</i>
-  </div>
-</div>
+<h2>Ce qu'un logiciel de conciergerie doit faire</h2>
+<p>Le métier de conciergerie n'est pas celui d'un propriétaire qui loue son studio. Vous gérez des biens qui ne sont pas à vous, avec une équipe sur le terrain, et vous devez rendre des comptes. Un logiciel de conciergerie doit donc couvrir quatre choses, et pas seulement la synchronisation des calendriers.</p>
+<ul>
+<li><b>Les réservations de toutes les plateformes</b> sur un seul calendrier, avec fermeture automatique des dates pour éviter la double réservation.</li>
+<li><b>Le ménage entre deux séjours</b> : une mission créée à chaque départ, envoyée à la bonne personne, avec une preuve que le logement est prêt.</li>
+<li><b>Les propriétaires</b> : un bilan mensuel juste, calculé à partir des réservations réelles, et un accès pour qu'ils suivent leur bien sans vous appeler.</li>
+<li><b>Les voyageurs</b> : les messages qui partent au bon moment, les informations d'arrivée, et un moyen de vous joindre quand ils ont une vraie question.</li>
+</ul>
 
-<!-- ═══ PREUVES ═══ -->
-<section class="proofs" aria-label="Ce que fait le logiciel">
-  <div class="proofs-grid">
-    <div class="proof rv" style="--i:0"><b>Channel manager</b><span>Airbnb, Booking et Vrbo (Abritel) connectés par API, plus l'iCal pour démarrer.</span></div>
-    <div class="proof rv" style="--i:1"><b>Ménage automatisé</b><span>Une mission par départ, rapport photo vérifié par l'IA, validation à distance.</span></div>
-    <div class="proof rv" style="--i:2"><b>Propriétaires</b><span>Bilans calculés seuls, portail pour chaque propriétaire.</span></div>
-    <div class="proof rv" style="--i:3"><b>En direct</b><span>Vous parlez au développeur, jamais à un commercial.</span></div>
-  </div>
-</section>
+<h2>Comment MyHostKit couvre chacune de ces tâches</h2>
+<h3>Un calendrier, toutes les plateformes</h3>
+<p>Airbnb, Booking et Vrbo (Abritel) sont connectés par API : disponibilités, tarifs et restrictions partent depuis le logiciel vers les plateformes en quelques secondes. Pour démarrer sans configuration, la synchronisation iCal reste disponible sur chaque logement. Vos réservations directes, venues de votre site ou de votre page de réservation MyHostKit, s'ajoutent au même calendrier. Le détail est sur la page <a href="/channel-manager">channel manager</a>.</p>
+<h3>Le ménage créé au départ, validé sans vous déplacer</h3>
+<p>À chaque départ de voyageur, une mission de ménage est créée pour le bon logement, à la bonne heure, et proposée à votre équipe ou à un agent d'entretien vérifié de la marketplace intégrée. L'agent fait son rapport photo depuis son téléphone. L'intelligence artificielle passe les photos en revue, attribue une note et signale ce qui reste à revoir. Vous validez depuis votre bureau. L'application est gratuite pour les agents d'entretien.</p>
+<h3>Le bilan propriétaire qui se calcule seul</h3>
+<p>En fin de mois, pour chaque propriétaire : le montant des séjours, votre commission au taux que vous avez fixé, le ménage déduit, le solde à reverser. Vous relisez, vous envoyez en un clic. Chaque propriétaire a son portail, avec le calendrier de son bien et l'historique de ses bilans. Il ne vous appelle plus pour savoir si la villa est louée.</p>
+<h3>Les voyageurs, sans écrire quarante fois le même message</h3>
+<p>Confirmation, instructions d'arrivée, message de bienvenue, demande d'avis : des modèles à votre ton, dans la langue du voyageur, envoyés automatiquement. Un concierge IA répond aux questions courantes, la nuit comprise. Quand la question dépasse l'assistant, le voyageur vous écrit directement depuis son application et vous répondez depuis la rubrique Messages.</p>
+<h3>Réservations directes, paiement et caution</h3>
+<p>Chaque logement a sa page de réservation. Le paiement passe par un lien sécurisé sur votre propre compte, et la caution est une empreinte bancaire : autorisée sur la carte du voyageur, jamais débitée tant que vous ne le décidez pas, libérée après le séjour.</p>
+<h3>Comptes et revenus</h3>
+<p>Volume, commission et nuits par logement et par plateforme, un relevé prêt pour l'URSSAF, un export en un clic pour votre comptable.</p>
 
-<!-- ═══ TROIS PUBLICS ═══ -->
-<section class="portes" id="pourqui">
-  <div class="wrap">
-    <div class="portes-grid three">
-      <a href="#app" class="porte rv" style="--i:0">
-        <span class="chap">Conciergeries</span>
-        <h2>De trois villas à cent logements</h2>
-        <p>Vous gérez des biens pour des propriétaires, avec une équipe de ménage et des arrivées chaque samedi. Tout ce que vous faites à la main aujourd'hui, le logiciel le fait à votre place.</p>
-        <span class="porte-tag">Tarif au logement, dégressif</span>
-        <span class="porte-go" aria-hidden="true">→</span>
-      </a>
-      <a href="#app" class="porte rv" style="--i:1">
-        <span class="chap">Agences immobilières</span>
-        <h2>Le service location saisonnière</h2>
-        <p>Vos mandats de gestion saisonnière dans un outil séparé de la transaction : calendrier multi-plateformes, ménages, comptes rendus aux propriétaires, export pour le comptable.</p>
-        <span class="porte-tag">Même tarif public, sans engagement</span>
-        <span class="porte-go" aria-hidden="true">→</span>
-      </a>
-      <a href="/marque-blanche" class="porte rv" style="--i:2">
-        <span class="chap">Écoles et formateurs</span>
-        <h2>L'app à votre marque pour vos élèves</h2>
-        <p>Vous formez des conciergeries ? Proposez-leur le logiciel sous votre nom, avec vos couleurs, et une licence par élève équipé. Une académie l'a déjà fait, l'app est sur l'App Store.</p>
-        <span class="porte-tag">Marque blanche</span>
-        <span class="porte-go" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </div>
-</section>
+<h2>Sur ordinateur, sur iPhone, sur le web</h2>
+<p>Le logiciel s'installe sur Mac et Windows pour le pilotage au bureau : calendriers, bilans, comptabilité. L'application iPhone sert au terrain, pour vous comme pour vos agents d'entretien. Et la version web, sur app.myhostkit.com, s'ouvre depuis n'importe quel navigateur, y compris sur Android. Le même compte partout, rien à réimporter.</p>
 
-<!-- ═══ 01 · L'APPLICATION ═══ -->
-<section class="sec" id="app">
-  <div class="wrap split">
-    <div class="s-l sec-head rv">
-      <p class="eyebrow"><span class="chap">01</span>&nbsp;L'application</p>
-      <h2>Tout ce qu'une conciergerie fait chaque jour, <em>au même endroit.</em></h2>
-      <p class="lede">Hôte, équipe de ménage, voyageur, propriétaire : chacun a son interface, et tout se coordonne sans vous. Sur ordinateur pour le pilotage, sur iPhone pour le terrain, sur le web depuis n'importe où.</p>
-    </div>
-    <div class="s-r">
-      <ul class="cm-pts">
-        <li class="cm-pt rv" style="--i:0"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Un calendrier pour toutes les plateformes</b><p>Airbnb, Booking, Vrbo (Abritel) et vos réservations directes, une couleur par canal. Une réservation tombe, les dates se ferment ailleurs.</p></div></li>
-        <li class="cm-pt rv" style="--i:1"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Ménages créés à chaque départ</b><p>La mission part vers votre équipe ou vers un agent d'entretien vérifié de la marketplace. Rapport photo depuis le téléphone, note de qualité par l'IA, validation sans vous déplacer.</p></div></li>
-        <li class="cm-pt rv" style="--i:2"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Bilans propriétaires automatiques</b><p>Commission, ménage déduit, montant à reverser : le bilan du mois se calcule seul et s'envoie en un clic. Chaque propriétaire a son portail avec son calendrier et ses bilans.</p></div></li>
-        <li class="cm-pt rv" style="--i:3"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Messages aux voyageurs</b><p>Confirmation, instructions d'arrivée, bienvenue, demande d'avis : des modèles à votre ton, envoyés seuls. Un concierge IA répond la nuit, et le voyageur peut vous écrire directement depuis son application.</p></div></li>
-        <li class="cm-pt rv" style="--i:4"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Réservations directes, paiement et caution</b><p>Une page de réservation par logement, un lien de paiement sécurisé, et une empreinte bancaire pour la caution : rien n'est débité tant que vous ne le décidez pas.</p></div></li>
-        <li class="cm-pt rv" style="--i:5"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Comptes et revenus</b><p>Volume, commission et nuits par logement et par plateforme, relevé prêt pour l'URSSAF, export en un clic pour votre comptable.</p></div></li>
-      </ul>
-    </div>
-  </div>
-</section>
+<h2>Combien ça coûte</h2>
+<p>Le prix se calcule au logement, par mois, et baisse à mesure que le parc grandit.</p>
+<table class="grille"><thead><tr><th>Logements</th><th>Par logement et par mois</th></tr></thead><tbody>
+<tr><td>Le premier</td><td class="n">19,90 €</td></tr><tr><td>Du 2ᵉ au 10ᵉ</td><td class="n">9,90 €</td></tr><tr><td>Du 11ᵉ au 30ᵉ</td><td class="n">6,90 €</td></tr><tr><td>Au-delà du 30ᵉ</td><td class="n">4,90 €</td></tr></tbody></table>
+<p>Soit 99 € par mois pour neuf logements, 178 € pour vingt, 345 € pour cinquante. Le premier mois n'est pas facturé, il n'y a pas d'engagement, et l'application est gratuite pour les agents d'entretien.</p>
+<div class="cta"><p><b style="color:var(--t1);font-weight:500">Premier mois offert, sans engagement.</b><br>Dites-nous combien de logements vous gérez : le tarif exact arrive par e-mail.</p><a class="btn btn-full" href="/tarifs">Obtenir mon tarif</a></div>
+<h2>Changer de logiciel sans rien couper</h2>
+<p>Vos annonces, vos avis et vos réservations restent sur Airbnb et Booking. Vous ajoutez vos logements, vous connectez les calendriers en iCal pendant que votre outil actuel continue de tourner, puis vous basculez sur le channel manager quand tout est vérifié. Vous résiliez l'ancien outil après, jamais avant.</p>
 
-<!-- ═══ 02 · L'AUTOMATISATION ═══ -->
-<section class="sec" id="automatisation">
-  <div class="wrap split">
-    <div class="s-l sec-head rv">
-      <p class="eyebrow"><span class="chap">02</span>&nbsp;L'automatisation</p>
-      <h2>Pendant que vous <em>dormez.</em></h2>
-      <p class="lede">Une journée type avec le logiciel. Chaque événement ci-dessous se produit sans que personne ne touche à rien.</p>
-    </div>
-    <div class="s-r">
-      <div class="auto-tl">
-        <div class="evt rv" style="--i:0">
-          <span class="evt-time">02:34</span>
-          <p class="evt-t">Un voyageur écrit en pleine nuit<span class="evt-tag">Concierge IA</span></p>
-          <p class="evt-d">Personne n'est réveillé, et pourtant il obtient le code de la porte. Si la question dépasse l'IA, son message vous attend dans la rubrique Messages au réveil.</p>
-        </div>
-        <div class="evt rv" style="--i:1">
-          <span class="evt-time">07:02</span>
-          <p class="evt-t">Une réservation Booking tombe<span class="evt-tag">Channel manager</span></p>
-          <p class="evt-d">Les dates se ferment sur Airbnb et Vrbo en quelques secondes. Zéro risque de double réservation.</p>
-        </div>
-        <div class="evt rv" style="--i:2">
-          <span class="evt-time">09:12</span>
-          <p class="evt-t">Le départ déclenche le ménage<span class="evt-tag">Automatique</span></p>
-          <p class="evt-d">La mission est créée pour la bonne villa, à la bonne heure, et proposée à votre équipe. Sans un appel, sans un message.</p>
-        </div>
-        <div class="evt rv" style="--i:3">
-          <span class="evt-time">11:30</span>
-          <p class="evt-t">Le rapport photo arrive<span class="evt-tag">Analysé par l'IA</span></p>
-          <p class="evt-d">L'agent d'entretien envoie ses photos. L'IA les passe en revue, note le logement et signale ce qui reste à revoir. Vous validez depuis votre bureau.</p>
-        </div>
-        <div class="evt rv" style="--i:4">
-          <span class="evt-time">11:31</span>
-          <p class="evt-t">Le prochain séjour se prépare seul<span class="evt-tag">Automatique</span></p>
-          <p class="evt-d">Instructions d'arrivée, Wi-Fi et code d'accès partent vers le prochain voyageur.</p>
-        </div>
-        <div class="evt rv" style="--i:5">
-          <span class="evt-time">Fin du mois</span>
-          <p class="evt-t">Les bilans propriétaires sont prêts<span class="evt-tag">Automatique</span></p>
-          <p class="evt-d">Pour chaque propriétaire, le montant des séjours, votre commission, le ménage déduit, le solde à reverser. Vous relisez, vous envoyez.</p>
-        </div>
-      </div>
-      <p class="auto-punch rv">Votre matinée : zéro appel, zéro message, zéro tableur.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 03 · CHANNEL MANAGER ═══ -->
-<section class="sec" id="channel-manager">
-  <div class="wrap split">
-    <div class="s-l sec-head rv">
-      <p class="eyebrow"><span class="chap">03</span>&nbsp;Channel manager</p>
-      <h2>Les calendriers se synchronisent <em>seuls.</em></h2>
-      <p class="lede">Pas un simple import iCal : un channel manager connecté par API aux plateformes de réservation, avec une connexion officielle depuis l'app.</p>
-      <div class="cm-flow rv" aria-hidden="true">
-        <div class="cm-node cm-node-app"><b>Votre logiciel</b><span>Réservation créée, déplacée ou annulée</span></div>
-        <div class="cm-line"></div>
-        <p class="cm-lbl">Push immédiat</p>
-        <div class="cm-line"></div>
-        <div class="cm-node"><b>Channel manager</b><span>Disponibilités · Tarifs · Restrictions</span></div>
-        <div class="cm-line cm-line--late"></div>
-        <p class="cm-lbl">Diffusion</p>
-        <div class="cm-line cm-line--late"></div>
-        <div class="cm-otas">
-          <span class="cm-ota">Airbnb</span><span class="cm-ota">Booking.com</span><span class="cm-ota">Vrbo (Abritel)</span>
-        </div>
-      </div>
-    </div>
-    <div class="s-r">
-      <ul class="cm-pts">
-        <li class="cm-pt rv" style="--i:0"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Disponibilités poussées en quelques secondes</b><p>Une réservation tombe ou s'annule&nbsp;? Seules les dates concernées sont mises à jour, sur toutes les plateformes connectées.</p></div></li>
-        <li class="cm-pt rv" style="--i:1"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Tarifs et restrictions pilotés depuis l'app</b><p>Prix par nuit, tarifs saisonniers, séjour minimum, fermetures à la vente : tout part vers les plateformes en un seul appel.</p></div></li>
-        <li class="cm-pt rv" style="--i:2"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Avis et messagerie des plateformes</b><p>Les avis Airbnb et Booking remontent dans l'app et vous y répondez. Les messages des plateformes arrivent au même endroit.</p></div></li>
-        <li class="cm-pt rv" style="--i:3"><span class="cm-tick" aria-hidden="true">✓</span><div><b>iCal en complément</b><p>Pour démarrer en cinq minutes sans configuration, la synchronisation iCal classique reste disponible sur chaque logement.</p></div></li>
-      </ul>
-      <p class="cm-note rv">Testé de bout en bout : création, déplacement, annulation. À chaque événement, seules les dates concernées sont poussées vers les plateformes. Pas de resynchronisation massive, pas de calendrier qui dérive. <a href="/channel-manager" style="color:var(--gold)">Tout sur le channel manager&nbsp;→</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MIGRATION ═══ -->
-<section class="sec" id="migration">
-  <div class="wrap">
-    <div class="split">
-      <div class="s-l sec-head rv">
-        <p class="eyebrow">La migration</p>
-        <h2>Déjà équipés ailleurs ? Vos annonces ne bougent pas.</h2>
-        <p class="lede">Le vrai frein au changement, c'est la peur de tout recréer. Ici, il n'y a rien à recréer : vos annonces, vos avis et vos réservations restent sur Airbnb et Booking. On ne fait que reconnecter les calendriers.</p>
-      </div>
-      <div class="s-r">
-        <p class="mig-punch rv">Migrer ne veut pas dire déménager. <em>Rien</em> n'est supprimé, rien n'est recréé, rien n'est coupé.</p>
-        <ol class="steps">
-          <li class="rv" style="--i:0"><div><b>Ajoutez vos logements</b><p>Quelques minutes par logement : nom, adresse, codes d'accès, Wi-Fi, photos. C'est la seule saisie du processus.</p></div></li>
-          <li class="rv" style="--i:1"><div><b>Connectez les calendriers, sans rien couper</b><p>Vous collez le lien iCal Airbnb ou Booking de chaque logement : synchronisation en cinq minutes, réservations existantes importées. Votre installation actuelle continue de tourner en parallèle.</p></div></li>
-          <li class="rv" style="--i:2"><div><b>Basculez quand vous êtes prêts</b><p>Le channel manager prend le relais : disponibilités, tarifs et restrictions pilotés depuis l'app, poussés en quelques secondes. Vous résiliez votre ancien outil seulement une fois que tout tourne, jamais avant.</p></div></li>
-        </ol>
-      </div>
-    </div>
-    <div class="mig-facts rv">
-      <div class="mig-fact"><b>5 min</b><span>par logement pour la connexion iCal</span></div>
-      <div class="mig-fact"><b>0</b><span>annonce à recréer, avis conservés</span></div>
-      <div class="mig-fact"><b>100 %</b><span>des réservations à venir importées</span></div>
-      <div class="mig-fact"><b>0</b><span>coupure pendant la bascule</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MANIFESTE ═══ -->
-<section class="beige">
-  <div class="wrap">
-    <p class="mark">Le logiciel coordonne. <em>Vous</em> décidez.</p>
-    <p class="sub">Chaque information est saisie une fois, au bon endroit, et tout le reste en découle.</p>
-  </div>
-</section>
-
-<!-- ═══ 04 · TARIFS ═══ -->
-<section class="sec" id="prix" style="border-top:none">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow"><span class="chap">04</span>&nbsp;Tarifs</p>
-      <h2>Au logement, dégressif, sans engagement.</h2>
-      <p class="lede">Le premier logement à 19,90&nbsp;€ par mois, puis moins cher à chaque palier. Le premier mois n'est pas facturé : vous activez, vous testez trente jours, rien n'est prélevé.</p>
-    </div>
-    <div class="price-hero rv">
-      <div class="price-col"><span class="who">Hostaway</span><div class="amt">≈&nbsp;800&nbsp;€</div><span class="per">par mois pour vingt logements, sur devis (fourchette constatée en 2025)</span><div class="bar"><i style="--w:100%"></i></div></div>
-      <div class="price-col us"><span class="who">MyHostKit</span><div class="amt">178&nbsp;€</div><span class="offer-mini">1ᵉʳ mois offert</span><span class="per">par mois pour vingt logements, tout compris</span><div class="bar"><i style="--w:22%"></i></div></div>
-    </div>
-    <div class="offer-banner rv">🎁 <b>1ᵉʳ mois offert</b> à toute conciergerie ou agence, sans engagement. <a href="/tarifs">Obtenir mon tarif exact par e-mail&nbsp;→</a> ou <a href="/activer.html">activer tout de suite&nbsp;→</a></div>
-    <div class="tbl-wrap grille-wrap rv">
-      <table class="grille">
-        <caption class="visually-hidden">Grille tarifaire par logement et par mois</caption>
-        <thead><tr><th scope="col">Logements</th><th scope="col">Par logement et par mois</th></tr></thead>
-        <tbody>
-          <tr><td>Le premier</td><td class="n">19,90&nbsp;€</td></tr>
-          <tr><td>Du 2ᵉ au 10ᵉ</td><td class="n">9,90&nbsp;€</td></tr>
-          <tr><td>Du 11ᵉ au 30ᵉ</td><td class="n">6,90&nbsp;€</td></tr>
-          <tr><td>Au-delà du 30ᵉ</td><td class="n">4,90&nbsp;€</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="exemples rv">
-      <div class="exemple"><b>19,90&nbsp;€</b><span>1 logement</span></div>
-      <div class="exemple"><b>99&nbsp;€</b><span>9 logements</span></div>
-      <div class="exemple"><b>178&nbsp;€</b><span>20 logements</span></div>
-      <div class="exemple"><b>345&nbsp;€</b><span>50 logements</span></div>
-    </div>
-    <p class="price-note rv">Application gratuite pour les agents d'entretien, portail propriétaire inclus, pas de frais d'installation. Les réservations directes payées par le lien de l'app portent une commission décrite dans les <a href="/cgv.html">conditions générales</a> ; la caution n'en porte aucune. Déjà utilisateur ? <a href="/activer.html">Activez votre abonnement&nbsp;→</a></p>
-  </div>
-</section>
-
-<!-- ═══ 05 · ÉCOLES ═══ -->
-<section class="sec" id="ecoles">
-  <div class="wrap split">
-    <div class="s-l sec-head rv">
-      <p class="eyebrow"><span class="chap">05</span>&nbsp;Écoles et formateurs</p>
-      <h2>Vous formez des conciergeries ? Donnez-leur <em>votre</em> logiciel.</h2>
-      <p class="lede">Le même logiciel, sous votre nom et vos couleurs, de l'inscription à la facture. Vos élèves créent leur compte par un lien à votre marque, et vous facturez une licence par élève équipé.</p>
-    </div>
-    <div class="s-r">
-      <ul class="cm-pts">
-        <li class="cm-pt rv" style="--i:0"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Déjà en ligne pour une académie</b><p>Une école de conciergerie a lancé son application en marque blanche. Elle est publiée sur l'App Store, avec un contrat de douze mois.</p></div></li>
-        <li class="cm-pt rv" style="--i:1"><span class="cm-tick" aria-hidden="true">✓</span><div><b>MyHostKit invisible pour vos élèves</b><p>Votre logo, vos couleurs, vos liens d'invitation. Le nom MyHostKit n'apparaît nulle part dans l'app.</p></div></li>
-        <li class="cm-pt rv" style="--i:2"><span class="cm-tick" aria-hidden="true">✓</span><div><b>Rien à développer, rien à héberger</b><p>Mises à jour, synchronisation, App Store : tout est géré. Vous vous concentrez sur votre formation et votre communauté.</p></div></li>
-      </ul>
-      <p class="cm-note rv" style="margin-top:28px"><a class="btn" href="/marque-blanche">Voir l'offre marque blanche&nbsp;→</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FONDATEUR ═══ -->
-<section class="sec founder">
-  <div class="wrap founder-grid">
-    <div class="monogram rv" aria-hidden="true">RM</div>
-    <div class="rv" style="--i:1">
-      <blockquote>« J'ai conçu et développé MyHostKit de bout en bout : l'app, le logiciel, le channel manager. Quand vous écrivez ici, c'est moi qui lis et c'est moi qui réponds. Pas de commercial, pas de chatbot. »</blockquote>
-      <p class="sig">Rayane Mazouni<small>Fondateur, MyHostKit — Paris</small></p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">Questions</p>
-      <h2>Les questions directes.</h2>
-    </div>
-    <div class="faq rv">
-      <details>
-        <summary>Quelles plateformes sont synchronisées ?</summary>
-        <div class="a">Airbnb, Booking et Vrbo (Abritel). Deux modes : la synchronisation iCal, opérationnelle en cinq minutes, et le channel manager par API pour les disponibilités, les tarifs et les restrictions en quelques secondes. La connexion se fait depuis l'app, sans passer par un autre outil.</div>
-      </details>
-      <details>
-        <summary>Je suis déjà sur un autre outil. Changer, c'est risqué ?</summary>
-        <div class="a">Non, parce qu'il n'y a rien à déménager : vos annonces, vos avis et vos réservations restent sur Airbnb et Booking. Vous connectez d'abord les calendriers en iCal pendant que votre outil actuel continue de tourner, et vous ne le résiliez qu'une fois la bascule faite et vérifiée. Le développeur vous accompagne pendant la transition.</div>
-      </details>
-      <details>
-        <summary>Mes femmes de ménage doivent installer quelque chose ?</summary>
-        <div class="a">L'application, gratuite pour elles, sur leur téléphone. Elles y voient leurs missions, font leur rapport photo et reçoivent la validation. Vous pouvez aussi passer par la marketplace d'agents d'entretien vérifiés intégrée à l'app.</div>
-      </details>
-      <details>
-        <summary>Et mes propriétaires ?</summary>
-        <div class="a">Rien à installer : un lien vers leur portail, avec le calendrier de leur bien et leurs bilans. Le bilan de fin de mois se calcule à partir des réservations, avec votre commission et le ménage déduit, et s'envoie en un clic.</div>
-      </details>
-      <details>
-        <summary>Sur quels appareils ?</summary>
-        <div class="a">Le logiciel sur Mac et Windows, l'application sur iPhone, et le web sur app.myhostkit.com depuis n'importe quel navigateur. Le même compte partout. L'application Android n'existe pas encore : sur Android, ouvrez le site depuis le navigateur.</div>
-      </details>
-      <details>
-        <summary>Y a-t-il un engagement ?</summary>
-        <div class="a">Aucun. Le prix se calcule au logement et par mois, le premier mois n'est pas facturé, et vous arrêtez quand vous voulez depuis votre espace. Vos données restent exportables.</div>
-      </details>
-      <details>
-        <summary>Comment sont payées les réservations directes et la caution ?</summary>
-        <div class="a">Par un lien de paiement sécurisé, sur votre propre compte de paiement. La caution est une empreinte bancaire : le montant est autorisé sur la carte du voyageur, jamais débité tant que vous ne le décidez pas, et libéré après le séjour. La caution ne porte aucune commission.</div>
-      </details>
-      <details>
-        <summary>Et si vous arrêtez l'activité demain ?</summary>
-        <div class="a">Question légitime face à un fondateur solo. Vos annonces et vos réservations sont sur les plateformes, pas chez nous, et vos données s'exportent à tout moment. Les conditions de réversibilité sont écrites dans les conditions générales.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CONTACT ═══ -->
-<section class="sec" id="contact">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="eyebrow">Contact</p>
-      <h2>Une démo en visio, avec vos logements.</h2>
-      <p class="lede">Vingt minutes, sans engagement. Dites-nous qui vous êtes et combien de logements vous gérez : la démo se prépare avec vos biens, pas avec un compte d'exemple.</p>
-    </div>
-    <div class="contact-grid">
-      <form class="form rv" id="leadForm" novalidate>
-        <div class="f-row f-row-2">
-          <div class="f-field">
-            <label class="f-lbl" for="lf-name">Votre nom</label>
-            <input class="f-in" id="lf-name" name="name" type="text" placeholder="Prénom Nom" required autocomplete="name">
-          </div>
-          <div class="f-field">
-            <label class="f-lbl" for="lf-email">Email</label>
-            <input class="f-in" id="lf-email" name="email" type="email" placeholder="vous@exemple.fr" required autocomplete="email">
-          </div>
-        </div>
-        <div class="f-row f-row-2">
-          <div class="f-field">
-            <label class="f-lbl" for="lf-profile">Vous êtes</label>
-            <select class="f-in empty" id="lf-profile" name="profile">
-              <option value="">— Choisir —</option>
-              <option>Une conciergerie</option>
-              <option>Une agence immobilière</option>
-              <option>Une école ou un organisme de formation</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="f-field">
-            <label class="f-lbl" for="lf-phone">Téléphone <span class="lbl-optional">(optionnel)</span></label>
-            <input class="f-in" id="lf-phone" name="phone" type="tel" placeholder="06 12 34 56 78" autocomplete="tel">
-          </div>
-        </div>
-        <div class="f-field">
-          <label class="f-lbl" for="lf-message">Votre situation en quelques mots</label>
-          <textarea class="f-in" id="lf-message" name="message" placeholder="Ex. : nous gérons douze villas dans le Var, sur Airbnb et Abritel, avec deux femmes de ménage."></textarea>
-        </div>
-        <div class="f-hp" aria-hidden="true">
-          <label for="lf-website">Site web</label>
-          <input id="lf-website" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <div class="f-msg" id="fMsg" role="status"></div>
-        <button class="btn btn-full" id="fBtn" type="submit">Demander une démo</button>
-        <p class="f-note">Réponse personnelle sous 24&nbsp;h ouvrées. Pas de séquence d'emails automatique, pas de relance insistante.<br>Ou directement : <a href="mailto:contact@myhostkit.com?subject=D%C3%A9mo%20MyHostKit">contact@myhostkit.com</a></p>
-      </form>
-      <div class="rv" style="--i:1">
-        <ul class="after">
-          <li><span class="n" aria-hidden="true">01</span>Vous décrivez votre activité en deux minutes.</li>
-          <li><span class="n" aria-hidden="true">02</span>Réponse personnelle, puis une visio de vingt minutes avec vos logements dans le logiciel.</li>
-          <li><span class="n" aria-hidden="true">03</span>Vous activez quand vous voulez : premier mois offert, sans engagement.</li>
-        </ul>
-        <div class="aside-sig">
-          <div class="monogram" aria-hidden="true">RM</div>
-          <p>C'est moi qui lis chaque message et qui réponds personnellement.<br>— Rayane</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<h2>Questions fréquentes</h2>
+<div class="faq"><details><summary>Qu'est-ce qu'un logiciel de conciergerie ?</summary><div class="a">Un logiciel de conciergerie réunit ce qu'une conciergerie de location saisonnière fait chaque jour : les réservations de toutes les plateformes sur un calendrier, l'organisation des ménages, les messages aux voyageurs et les comptes rendus aux propriétaires. Il remplace le tableur, les calendriers séparés et les échanges WhatsApp avec l'équipe.</div></details><details><summary>Combien coûte un logiciel de conciergerie ?</summary><div class="a">Les prix se calculent en général au logement et par mois. MyHostKit facture 19,90 € le premier logement, puis 9,90 € du 2ᵉ au 10ᵉ, 6,90 € du 11ᵉ au 30ᵉ et 4,90 € au-delà, soit 178 € par mois pour vingt logements. Le premier mois n'est pas facturé.</div></details><details><summary>Faut-il un channel manager en plus ?</summary><div class="a">Non. Dans MyHostKit, le channel manager est inclus : Airbnb, Booking et Vrbo (Abritel) sont connectés par API, et la synchronisation iCal reste disponible pour démarrer en cinq minutes.</div></details><details><summary>Mes agents d'entretien doivent-ils payer ?</summary><div class="a">Non. L'application est gratuite pour les agents d'entretien. Ils y reçoivent leurs missions, font leur rapport photo et sont notifiés de la validation.</div></details><details><summary>Puis-je garder mes annonces Airbnb et Booking ?</summary><div class="a">Oui. Rien n'est recréé : vos annonces, vos avis et vos réservations restent sur les plateformes. Le logiciel se connecte à vos calendriers, il ne les remplace pas.</div></details></div><div class="related"><p class="meta">À LIRE AUSSI</p><a href="/channel-manager">Channel manager pour conciergerie : Airbnb, Booking et Abritel synchronisés →</a><a href="/logiciel-location-saisonniere-agence">Logiciel de location saisonnière pour agence immobilière →</a><a href="/alternative-smoobu">Alternative à Smoobu : ce qui change pour une conciergerie →</a><a href="/tarifs">Obtenir mon tarif selon mon nombre de logements →</a></div>
+</div></article>
 </main>
-
 <footer>
   <div class="wrap foot">
     <div class="foot-info">
@@ -979,144 +634,26 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
       © 2026 MyHostKit — SIRET 100&nbsp;324&nbsp;060&nbsp;00019<br>60 rue François 1er, 75008 Paris · Conçu et développé en France
     </div>
     <div class="foot-links">
-      <a href="https://www.myhostkit.com/cgv.html" target="_blank" rel="noopener">CGV</a>
-      <a href="https://www.myhostkit.com/privacy.html" target="_blank" rel="noopener">Confidentialité</a>
-      <a href="https://www.myhostkit.com/mentions-legales.html" target="_blank" rel="noopener">Mentions légales</a>
-      <a href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" target="_blank" rel="noopener">App Store</a>
       <a href="/logiciel-conciergerie">Logiciel de conciergerie</a>
       <a href="/channel-manager">Channel manager</a>
       <a href="/logiciel-location-saisonniere-agence">Agences immobilières</a>
       <a href="/guides">Guides</a>
+      <a href="/tarifs">Tarifs</a>
       <a href="/telecharger">Logiciel Mac et Windows</a>
-      <a href="/activer.html">Activer mon abonnement</a>
-      <a href="/gerer.html">Gérer mon abonnement</a>
       <a href="/marque-blanche">Marque blanche</a>
-      <a href="/partenaire">Espace partenaire</a>
+      <a href="https://www.myhostkit.com/cgv.html" target="_blank" rel="noopener">CGV</a>
+      <a href="https://www.myhostkit.com/privacy.html" target="_blank" rel="noopener">Confidentialité</a>
+      <a href="https://www.myhostkit.com/mentions-legales.html" target="_blank" rel="noopener">Mentions légales</a>
     </div>
   </div>
 </footer>
-
 <script>
 document.documentElement.classList.add('js');
 (function(){
-  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine = matchMedia('(pointer:fine)').matches;
-
-  /* ── Barre de progression ── */
-  var sprog = document.getElementById('sprog');
-  function onScroll(){
-    var h = document.documentElement;
-    var max = h.scrollHeight - innerHeight;
-    sprog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0).toFixed(4) + ')';
-    document.getElementById('topnav').classList.toggle('shrunk', scrollY > 24);
-  }
-  addEventListener('scroll', onScroll, {passive:true}); onScroll();
-
-  /* ── Apparitions ── */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, {rootMargin:'0px 0px -10% 0px', threshold:.12});
-  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
-
-  /* ── Menu mobile ── */
-  var burger = document.getElementById('burger');
-  var mnav = document.getElementById('mnav');
-  function closeMenu(){
-    burger.setAttribute('aria-expanded','false');
-    mnav.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  burger.addEventListener('click', function(){
-    var open = burger.getAttribute('aria-expanded') === 'true';
-    burger.setAttribute('aria-expanded', String(!open));
-    mnav.classList.toggle('open', !open);
-    document.body.style.overflow = open ? '' : 'hidden';
-  });
-  mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
-
-  /* ── Curseur lumineux ── */
-  var glow = document.getElementById('glow');
-  if (glow && fine && !reduced) {
-    var gx = 0, gy = 0, tx = 0, ty = 0, gRunning = false, gSeen = false;
-    function gLoop(){
-      var dx = tx - gx, dy = ty - gy;
-      if (Math.abs(dx) + Math.abs(dy) < .3) { gRunning = false; return; }
-      gx += dx * .18; gy += dy * .18;
-      glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
-      requestAnimationFrame(gLoop);
-    }
-    addEventListener('mousemove', function(e){
-      tx = e.clientX; ty = e.clientY;
-      if (!gSeen) { gSeen = true; gx = tx; gy = ty; glow.style.opacity = '1'; }
-      var on = e.target.closest && e.target.closest('a,button,input,summary');
-      glow.style.setProperty('--gs', on ? '1.8' : '1');
-      if (!gRunning) { gRunning = true; requestAnimationFrame(gLoop); }
-    }, {passive:true});
-  }
-
-  /* ── Formulaire ── */
-  var LEAD_ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/website-lead';
-  var form = document.getElementById('leadForm');
-  var btn = document.getElementById('fBtn');
-  var msg = document.getElementById('fMsg');
-  var sel = document.getElementById('lf-profile');
-  sel.addEventListener('change', function(){ sel.classList.toggle('empty', !sel.value); });
-  function showMsg(kind, text){
-    msg.className = 'f-msg ' + kind;
-    msg.textContent = '';
-    setTimeout(function(){ msg.textContent = text; }, 60);
-  }
-  function fieldError(field, text){
-    showMsg('ko', text);
-    field.setAttribute('aria-invalid','true');
-    field.setAttribute('aria-describedby','fMsg');
-    field.focus();
-    field.addEventListener('input', function h(){
-      field.removeAttribute('aria-invalid');
-      field.removeAttribute('aria-describedby');
-      field.removeEventListener('input', h);
-    });
-  }
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var nameF = document.getElementById('lf-name'), emailF = document.getElementById('lf-email');
-    var name = nameF.value.trim(), email = emailF.value.trim();
-    if (name.length < 2) { fieldError(nameF, 'Indiquez votre nom.'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { fieldError(emailF, 'Indiquez un email valide.'); return; }
-    btn.disabled = true;
-    btn.textContent = 'Envoi en cours…';
-    msg.className = 'f-msg';
-    fetch(LEAD_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        phone: document.getElementById('lf-phone').value.trim(),
-        profile: sel.value,
-        message: document.getElementById('lf-message').value.trim(),
-        website: document.getElementById('lf-website').value
-      })
-    }).then(function(r){
-      if (r.ok) {
-        form.reset();
-        sel.classList.add('empty');
-        showMsg('ok', 'Message bien reçu. Vous aurez une réponse personnelle sous 24 h ouvrées, à l’adresse indiquée.');
-        btn.textContent = 'Envoyé ✓';
-      } else if (r.status === 429) {
-        showMsg('ko', 'Trop de demandes envoyées. Réessayez dans une heure ou écrivez à contact@myhostkit.com.');
-        btn.disabled = false;
-        btn.textContent = 'Demander une démo';
-      } else { throw new Error('http ' + r.status); }
-    }).catch(function(){
-      showMsg('ko', 'L’envoi a échoué. Écrivez-nous directement : contact@myhostkit.com');
-      btn.disabled = false;
-      btn.textContent = 'Demander une démo';
-    });
-  });
+  var burger=document.getElementById('burger'),mnav=document.getElementById('mnav');
+  burger.addEventListener('click',function(){var o=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!o));mnav.classList.toggle('open',!o);document.body.style.overflow=o?'':'hidden';});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
 })();
 </script>
 </body>
