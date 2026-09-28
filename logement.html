@@ -181,7 +181,9 @@
       C.appendChild(foot);
 
       /* Comportement */
-      var today = new Date().toISOString().slice(0, 10);
+      /* Date locale (pas UTC) : après 22 h en France, la veille restait sélectionnable. */
+      var dnow = new Date();
+      var today = dnow.getFullYear() + '-' + String(dnow.getMonth() + 1).padStart(2, '0') + '-' + String(dnow.getDate()).padStart(2, '0');
       var ci = f.querySelector('#ci'), co = f.querySelector('#co'),
           warn = f.querySelector('#warn'), est = f.querySelector('#estimate'),
           gc = f.querySelector('#gc'), go = f.querySelector('#go');
@@ -254,6 +256,9 @@
           if (x.j && x.j.error === 'dates_unavailable') { warn.style.display = 'block'; }
           else if (x.j && x.j.error === 'min_stay') { warn.textContent = 'Séjour minimum de ' + (x.j.min_stay || 2) + ' nuits sur ces dates.'; warn.style.display = 'block'; }
           else if (x.j && x.j.error === 'too_many_requests') { alert('Trop de demandes pour ce logement aujourd\'hui — réessayez demain.'); }
+          else if (x.j && (x.j.error === 'past_dates' || x.j.error === 'invalid_dates')) { warn.textContent = 'Vérifiez vos dates : l\'arrivée doit être aujourd\'hui ou plus tard, le séjour entre 1 et 60 nuits.'; warn.style.display = 'block'; }
+          else if (x.j && (x.j.error === 'invalid_email' || x.j.error === 'invalid_name')) { alert('Vérifiez votre nom et votre adresse e-mail.'); }
+          else if (x.s === 404) { fail(); }
           else { alert('Envoi impossible pour le moment. Réessayez dans quelques minutes.'); }
         })
         .catch(function(){

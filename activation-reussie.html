@@ -30,16 +30,17 @@ a{color:#C7A468}
 <body>
 <div class="box">
   <div class="mark" id="mk">✓</div>
-  <h1 id="ttl">Paiement <em>confirmé.</em></h1>
-  <p id="msg">Votre abonnement MyHostKit est actif.</p>
-  <div class="step" id="stp"><b>Ouvrez l'application</b> et touchez « Actualiser — j'ai payé » : votre espace s'ouvre immédiatement. Pas encore de compte ? Inscrivez-vous dans l'app avec le même email.</div>
+  <h1 id="ttl">Abonnement <em>activé.</em></h1>
+  <p id="msg">Votre premier mois est offert : rien n'est prélevé avant 30 jours, et vous pouvez arrêter avant, sans engagement.</p>
+  <div class="step" id="stp"><b>Ouvrez l'application</b> et touchez « Actualiser » : votre espace s'ouvre immédiatement. Pas encore de compte ? Inscrivez-vous dans l'app avec le même email.</div>
   <p style="margin-top:22px;font-size:13px">Un souci ? <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></p>
 </div>
 <script>
 // Cette page sert trois paiements très différents, et c'est un VOYAGEUR qui la
 // lit dans deux cas sur trois. Lui annoncer « votre abonnement est actif »
 // n'aurait aucun sens : il vient de payer un séjour ou de déposer une caution,
-// il n'a pas d'application à ouvrir.
+// il n'a pas d'application à ouvrir. Le retour du portail de gestion, lui,
+// va sur gerer.html?retour=portail (rien n'a été payé).
 (function () {
   var q = new URLSearchParams(location.search);
   var mk = document.getElementById('mk');

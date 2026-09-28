@@ -2,5 +2,13 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/r/:token", "destination": "/r.html" }
+  ],
+  "redirects": [
+    { "source": "/guest", "destination": "https://app.myhostkit.com/", "permanent": false },
+    { "source": "/guest.html", "destination": "https://app.myhostkit.com/", "permanent": false },
+    { "source": "/assistant", "destination": "https://app.myhostkit.com/", "permanent": false },
+    { "source": "/assistant.html", "destination": "https://app.myhostkit.com/", "permanent": false },
+    { "source": "/qr", "destination": "/telecharger", "permanent": false },
+    { "source": "/qr.html", "destination": "/telecharger", "permanent": false }
   ]
 }

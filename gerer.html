@@ -43,8 +43,9 @@ input::placeholder{color:var(--t3)}
 <body>
 <div class="wrap">
   <a class="logo" href="/">MyHost<em>Kit</em></a>
-  <h1>Gérer mon <em>abonnement.</em></h1>
-  <p class="lede">Saisissez l'email de votre abonnement — nous vous envoyons un lien de gestion sécurisé par email.</p>
+  <h1 id="ttl">Gérer mon <em>abonnement.</em></h1>
+  <p class="lede" id="lede">Saisissez l'email de votre abonnement — nous vous envoyons un lien de gestion sécurisé par email.</p>
+  <div class="ok" id="retour">Vos modifications sont enregistrées chez Stripe. Si vous avez changé votre nombre de logements, l'application le reflète à sa prochaine ouverture ; si vous avez résilié, votre accès reste ouvert jusqu'à la fin de la période en cours.</div>
 
   <form id="pForm" novalidate>
     <label for="email">L'email de votre abonnement</label>
@@ -70,6 +71,15 @@ input::placeholder{color:var(--t3)}
 <script>
 (function(){
   var ENDPOINT = 'https://illovwqvszjuasftwkxh.supabase.co/functions/v1/site-checkout';
+  // Retour du portail Stripe (billing / site-checkout : return_url) : on le
+  // dit, au lieu de « Paiement confirmé » ou « Activez votre abonnement »
+  // après une simple modification ou une résiliation.
+  if (new URLSearchParams(location.search).get('retour') === 'portail') {
+    document.getElementById('ttl').innerHTML = 'Abonnement <em>mis à jour.</em>';
+    document.getElementById('lede').textContent = 'Merci. Vous pouvez fermer cette page, ou demander un nouveau lien de gestion ci-dessous.';
+    document.getElementById('retour').classList.add('show');
+    document.title = 'Abonnement mis à jour — MyHostKit';
+  }
   var form = document.getElementById('pForm');
   var btn = document.getElementById('pBtn');
   form.addEventListener('submit', function(e){

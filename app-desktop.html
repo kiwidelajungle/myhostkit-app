@@ -180,10 +180,11 @@ await sb.from("profiles").upsert(pd,{onConflict:"id"});
 S.session=r.data.session;S.role=authRole;await loadProfile();S.view=authRole==="cleaner"?"planning":"dashboard";await loadData();render();
 }else{showAuthErr("Verifiez votre email pour confirmer.");$("aerr").style.background="rgba(52,199,89,.1)";$("aerr").style.color="#34C759";$("abtn").disabled=false;}}
 
-async function doGuestAccess(){var code=$("agc").value.trim();if(!code){showAuthErr("Entrez le code");return;}$("abtn").disabled=true;
-var r=await sb.from("properties").select("*").eq("guest_token",code).single();
-if(!r.data){showAuthErr("Code invalide");$("abtn").disabled=false;return;}
-S.session={user:{id:"guest-"+r.data.id,email:"guest@myhostkit.com"},guestProperty:r.data};S.guestProperty=r.data;S.role="guest";S.view="home";render();}
+async function doGuestAccess(){var code=$("agc").value.trim().toUpperCase();if(!code){showAuthErr("Entrez le code");return;}$("abtn").disabled=true;
+/* Le code est résolu par l'edge guest-access (audit 27/09) : la table properties n'est pas lisible avec la clé anon. */
+var prop=null;try{var rr=await fetch(EDGE+"/guest-access",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+SB_KEY},body:JSON.stringify({action:"resolve",token:code})});var dd=await rr.json();if(rr.status===429){showAuthErr("Trop de tentatives, patientez dix minutes");return;}if(dd&&dd.ok&&dd.property)prop=dd.property;}catch(e){}
+if(!prop){showAuthErr("Code invalide");$("abtn").disabled=false;return;}
+S.session={user:{id:"guest-"+prop.id,email:"guest@myhostkit.com"},guestProperty:prop};S.guestProperty=prop;S.role="guest";S.view="home";render();}
 
 async function doLogout(){await sb.auth.signOut();S.session=null;S.profile=null;S.role=null;S.guestProperty=null;render();}
 async function doResetPassword(){var e=$("ae").value.trim();if(!e){alert("Entrez votre email");return;}var r=await sb.auth.resetPasswordForEmail(e);if(r.error)alert(r.error.message);else alert("Lien envoye a "+e);}
@@ -492,7 +493,10 @@ async function removeTeamMember(id){if(!confirm("Retirer ?"))return;await sb.fro
 async function sendConcierge(){var input=$("concierge-input");if(!input)return;var msg=input.value.trim();if(!msg)return;input.value="";
 if(!S.guestMsgs)S.guestMsgs=[];S.guestMsgs.push({role:"user",text:msg});go("concierge");
 var p=S.guestProperty||{};var sp="Tu es le concierge IA MyHostKit du logement \""+esc(p.name||"Logement")+"\". Tu reponds en francais. Adresse : "+(p.address||"")+" "+(p.city||"")+" WiFi : "+(p.wifi_name||"?")+" / "+(p.wifi_password||"?")+" Code : "+(p.access_code||"?")+" Check-in : "+(p.checkin||"15:00")+" Check-out : "+(p.checkout||"11:00")+" Regles : "+(p.rules||"Aucune")+" Ne dis jamais que tu es une IA.";
-try{var r=await fetch(EDGE+"/ai-concierge",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+SB_KEY},body:JSON.stringify({message:msg,systemPrompt:sp})});var d=await r.json();S.guestMsgs.push({role:"assistant",text:d.response||d.reply||"Desole, erreur."});}catch(e){S.guestMsgs.push({role:"assistant",text:"Service indisponible."});}
+/* ai-concierge exige un utilisateur connecté (JWT) ou un code voyageur valide ; l'historique donne la mémoire de conversation. */
+var jwt=S.session&&S.session.access_token?S.session.access_token:SB_KEY;
+var hist=S.guestMsgs.slice(0,-1).slice(-8).map(function(m){return{role:m.role==="user"?"user":"assistant",content:m.text};});
+try{var r=await fetch(EDGE+"/ai-concierge",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+jwt},body:JSON.stringify({message:msg,systemPrompt:sp,history:hist,guest_token:p.guest_token||undefined})});var d=await r.json();S.guestMsgs.push({role:"assistant",text:d.response||d.reply||d.error||"Desole, erreur."});}catch(e){S.guestMsgs.push({role:"assistant",text:"Service indisponible."});}
 go("concierge");var msgs=$("concierge-msgs");if(msgs)msgs.scrollTop=msgs.scrollHeight;}
 
 function sendIncident(){var text=$("incident-text").value.trim();if(!text){alert("Decrivez le probleme");return;}var p=S.guestProperty||{};
@@ -510,7 +514,10 @@ async function adminForceValidate(id){if(!confirm("Forcer ?"))return;await sb.fr
 async function adminResolve(id,decision){if(decision==="refund"){await sb.from("cleaning_bookings").update({status:"refunded",dispute_resolved_at:new Date().toISOString()}).eq("id",id);alert("Rembourse");}else{await sb.from("cleaning_bookings").update({status:"validated",payment_released_at:new Date().toISOString(),dispute_resolved_at:new Date().toISOString()}).eq("id",id);alert("Libere");}await loadAdminData();go("admin-bookings");}
 async function adminResetPassword(){var email=$("as-email").value.trim();if(!email)return;var r=await sb.auth.resetPasswordForEmail(email);if(r.error)alert(r.error.message);else alert("Lien envoye a "+email);}
 async function adminSetPlan(plan){var email=$("as-email2").value.trim();if(!email)return;var upd={subscription_plan:plan,subscription_status:"active"};if(plan==="trial"){upd.trial_started_at=new Date().toISOString();upd.trial_ends_at=new Date(Date.now()+30*86400000).toISOString();}await sb.from("profiles").update(upd).eq("email",email);alert(email+" -> "+plan);}
-async function adminSendEmail(){var to=$("as-to").value.trim(),subj=$("as-subj").value.trim(),body=$("as-body").value.trim();if(!to||!subj)return;var r=await fetch(EDGE+"/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:to,subject:subj,body:body||"Support MyHostKit"})});var d=await r.json();if(d.success){alert("Envoye");$("as-subj").value="";$("as-body").value="";}else alert("Erreur");}
+async function adminSendEmail(){var to=$("as-to").value.trim(),subj=$("as-subj").value.trim(),body=$("as-body").value.trim();if(!to||!subj)return;
+/* send-email exige le JWT de l'utilisateur : sans en-tête Authorization la fonction répondait 401 (audit 27/09, G9). */
+var sr=await sb.auth.getSession();var jwt=sr.data&&sr.data.session?sr.data.session.access_token:null;if(!jwt){alert("Session expiree. Reconnectez-vous.");return;}
+var r=await fetch(EDGE+"/send-email",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+jwt,"apikey":SB_KEY},body:JSON.stringify({to:to,subject:subj,body:body||"Support MyHostKit"})});var d=await r.json().catch(function(){return{};});if(d.success){alert("Envoye");$("as-subj").value="";$("as-body").value="";}else alert("Erreur : "+(d.error||r.status));}
 
 
 async function deleteItem(id,name){if(!confirm("Supprimer "+name+" du stock ?"))return;await sb.from("host_inventory").delete().eq("id",id).eq("user_id",S.session.user.id);await loadData();go("stock");}
