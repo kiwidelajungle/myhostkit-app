@@ -10,10 +10,13 @@
   Neutre par défaut (MyHostKit) ; la marque d'un partenaire est posée par
   `?t=<slug>` (LoginScreen ajoute le paramètre à emailRedirectTo), résolu via
   la RPC publique resolve_tenant_by_slug (nom, couleurs). Audit 27/09, F15 :
-  la page était brandée Keyla pour tous les inscrits.
+  la page était brandée Keyla pour tous les inscrits. Parité Keyla / MyHostKit n°37 :
+  les couleurs par défaut et la coche restaient celles de Keyla ; :root porte
+  maintenant la charte MyHostKit (marine, champagne, ivoire) et la coche suit
+  var(--accent).
 -->
 <style>
-  :root { --bg:#F4F1EC; --card:#FFFFFF; --line:#E5DDD0; --ink:#1C1B1A; --soft:#5E5A55; --muted:#8B847C; --accent:#B89B7A; --head:#1C1B1A; --headtext:#F4F1EC; }
+  :root { --bg:#F6F2EA; --card:#FFFFFF; --line:#E6E1D5; --ink:#16202E; --soft:#4E5A6B; --muted:#8A94A3; --accent:#C7A468; --head:#0B1B33; --headtext:#F6F2EA; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -28,7 +31,7 @@
     border-radius:20px;
     max-width:440px; width:100%;
     overflow:hidden;
-    box-shadow:0 10px 40px rgba(28,27,26,0.08);
+    box-shadow:0 10px 40px rgba(11,27,51,0.08);
   }
   .header {
     background:var(--head);
@@ -52,7 +55,7 @@
     display:flex; align-items:center; justify-content:center;
     margin:0 auto 28px;
   }
-  .check svg { width:38px; height:38px; }
+  .check svg { width:38px; height:38px; color:var(--accent); }
   h1 {
     font-size:23px; font-weight:600; color:var(--ink);
     margin-bottom:14px; letter-spacing:-0.3px;
@@ -94,7 +97,7 @@
     <div class="body">
       <div class="check">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 13l4 4L19 7" stroke="#B89B7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <h1>Votre email est vérifié</h1>
@@ -126,9 +129,31 @@
     var ok = function(c){ return typeof c === 'string' && /^#[0-9a-f]{3,8}$/i.test(c.trim()); };
     var root = document.documentElement.style;
     if (ok(t.primary_color)) root.setProperty('--head', t.primary_color.trim());
-    if (ok(t.accent_color)) root.setProperty('--accent', t.accent_color.trim());
+    // Accent : secondary_color d'abord, comme l'app (buildAppTheme) ;
+    // accent_color en repli.
+    var accent = ok(t.secondary_color) ? t.secondary_color : (ok(t.accent_color) ? t.accent_color : null);
+    if (accent) root.setProperty('--accent', accent.trim());
     if (ok(t.bg_color)) root.setProperty('--bg', t.bg_color.trim());
     if (ok(t.text_color)) root.setProperty('--ink', t.text_color.trim());
+    // Gris de texte, filets et texte d'en-tête : tirés de l'encre et du fond
+    // du partenaire, sinon ils resteraient ceux de MyHostKit.
+    var rgb = function(c){
+      var h = String(c || '').trim().replace('#', '');
+      if (h.length === 3) h = h.replace(/(.)/g, '$1$1');
+      return /^[0-9a-f]{6}$/i.test(h) ? [0, 2, 4].map(function(i){ return parseInt(h.substr(i, 2), 16); }) : null;
+    };
+    var mix = function(a, b, part){
+      var x = rgb(a), y = rgb(b);
+      if (!x || !y) return null;
+      return '#' + x.map(function(v, i){ var n = Math.round(v + (y[i] - v) * part).toString(16); return n.length === 1 ? '0' + n : n; }).join('');
+    };
+    var encre = ok(t.text_color) ? t.text_color : null, fond = ok(t.bg_color) ? t.bg_color : null;
+    if (encre && fond) {
+      root.setProperty('--headtext', fond.trim());
+      if (mix(encre, fond, 0.3)) root.setProperty('--soft', mix(encre, fond, 0.3));
+      if (mix(encre, fond, 0.5)) root.setProperty('--muted', mix(encre, fond, 0.5));
+      if (mix(encre, fond, 0.9)) root.setProperty('--line', mix(encre, fond, 0.9));
+    }
   }).catch(function(){});
 })();
 </script>

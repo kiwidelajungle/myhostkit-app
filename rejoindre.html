@@ -39,6 +39,7 @@ input[type=email]:focus{outline:none;border-color:var(--gold)}
 input::placeholder{color:var(--t3)}
 .send{background:transparent;border:1px solid var(--gold40);color:var(--gold);font-family:inherit;font-size:11px;text-transform:uppercase;letter-spacing:.12em;padding:0 16px;cursor:pointer;border-radius:2px}
 .okmsg{display:none;color:#8FBC9F;font-size:13px;margin-top:10px}
+.errmsg{display:none;color:#E8A598;font-size:13px;margin-top:10px}
 footer{margin-top:36px;text-align:center;font-size:12px;color:var(--t3);line-height:1.8}
 footer a{color:var(--gold);text-decoration:none}
 </style>
@@ -53,13 +54,14 @@ footer a{color:var(--gold);text-decoration:none}
   <a class="btn" href="https://apps.apple.com/fr/app/concierge-ia/id6767543687" rel="noopener" id="dl">Télécharger l'application</a>
   <a class="btn2" href="/" id="more">Découvrir MyHostKit →</a>
 
-  <div class="emailbox">
+  <div class="emailbox" id="emailbox">
     <p id="emailLbl">Laissez votre email : on relie votre compte à votre invitation dès votre inscription.</p>
     <div class="row">
       <input id="email" type="email" placeholder="vous@exemple.fr" autocomplete="email">
       <button class="send" id="send" type="button">OK</button>
     </div>
     <div class="okmsg" id="okmsg">C'est noté ! Téléchargez l'app et inscrivez-vous avec ce même email.</div>
+    <div class="errmsg" id="errmsg">Votre email n'a pas pu être enregistré. Réessayez dans un instant, ou écrivez-nous à contact@myhostkit.com.</div>
   </div>
 
   <footer>Gratuit pour les agents d'entretien · 0 % de commission<br><a href="/cgv">Conditions</a> · <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a></footer>
@@ -131,12 +133,23 @@ footer a{color:var(--gold);text-decoration:none}
     try { fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'lead', ref: ref }) }); } catch(e){}
   }
 
+  // Sans code de parrainage, il n'y a rien à relier : pas de champ e-mail.
+  if (!ref) document.getElementById('emailbox').style.display = 'none';
+
+  // « C'est noté » seulement si le serveur a vraiment enregistré l'e-mail
+  // (sent=true). Il s'affichait aussi en cas d'échec : aucun e-mail n'était
+  // enregistré (M6 de la vérification du 30/09).
+  function resultat(ok){
+    document.getElementById('okmsg').style.display = ok ? 'block' : 'none';
+    document.getElementById('errmsg').style.display = ok ? 'none' : 'block';
+  }
   document.getElementById('send').addEventListener('click', function(){
     var email = document.getElementById('email').value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { document.getElementById('email').focus(); return; }
     fetch(EP, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action:'lead', ref: ref, email: email }) })
-    .then(function(){ document.getElementById('okmsg').style.display = 'block'; })
-    .catch(function(){ document.getElementById('okmsg').style.display = 'block'; });
+    .then(function(r){ return r.json(); })
+    .then(function(d){ resultat(!!(d && d.sent === true)); })
+    .catch(function(){ resultat(false); });
   });
 })();
 </script>
