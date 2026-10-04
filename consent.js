@@ -11,9 +11,9 @@
  */
 (function () {
   var CFG = {
-    metaPixel: '',          // ex. '123456789012345'  (Gestionnaire d'événements Meta)
+    metaPixel: '2604923466641921',        // ex. '123456789012345'  (Gestionnaire d'événements Meta)
     tiktokPixel: '',        // ex. 'CABCDEF1234567890' (TikTok Ads Manager > Événements)
-    linkedinPartner: '',    // ex. '1234567'          (LinkedIn Campaign Manager > Insight Tag)
+    linkedinPartner: '9813610',    // ex. '1234567'          (LinkedIn Campaign Manager > Insight Tag)
     linkedinConversion: ''  // ex. '12345678'         (conversion « essai démarré »)
   };
   var KEY = 'mhk_consent_v1';
