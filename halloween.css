@@ -1,0 +1,94 @@
+/* ═══════════════════════════════════════════════════════════════
+   MyHostKit — habillage Halloween (octobre 2026)
+   Feuille de surcouche : elle ne touche à aucune page, elle
+   redéfinit les variables de couleur et ajoute les décorations.
+   Pour revenir au thème normal : retirer les deux lignes
+   <link href="/halloween.css"> et <script src="/halloween.js">
+   dans chaque page (voir README).
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* nuit d'Halloween : violet très sombre à la place du bleu nuit */
+  --bg:#0C0814;--bg2:#120B1E;--bg3:#1B1029;
+  /* l'or devient citrouille */
+  --gold:#FF8A2A;--gold40:rgba(255,138,42,.45);--gold15:rgba(255,138,42,.17);--gold08:rgba(255,138,42,.08);
+  --line:rgba(242,237,225,.1);
+  /* sections claires : crème chaude, encre violette */
+  --beige:#F4E7D3;--navy:#2A1240;
+  --cream:#FBF4EA;--ink:#2A1240;--ink-soft:rgba(42,18,64,.6);
+  /* couleurs propres au thème */
+  --hw-purple:#8B5CF6;--hw-purple40:rgba(139,92,246,.4);--hw-green:#9BE15D;
+}
+
+/* fonds et lueurs */
+body{background:var(--bg)}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 85% -10%, rgba(255,138,42,.14), transparent 60%),
+    radial-gradient(700px 500px at 0% 10%, rgba(139,92,246,.16), transparent 60%);
+}
+.nav.shrunk{background:rgba(12,8,20,.86)}
+
+/* la maquette du téléphone dans le hero suit la citrouille */
+.scr{--acc:#B8541A;--accv:#FF8A2A}
+
+/* logo : la petite citrouille */
+.logo{position:relative;white-space:nowrap}
+.logo::after{content:"🎃";font-size:.78em;margin-left:.35em;vertical-align:-.05em;display:inline-block;animation:hw-bob 3.2s ease-in-out infinite}
+footer .logo::after{animation:none}
+
+/* pastille d'annonce insérée par halloween.js au-dessus du titre */
+.hw-pill{
+  display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;
+  padding:9px 16px 9px 12px;border-radius:999px;
+  border:1px solid var(--gold40);background:var(--gold08);
+  color:var(--t1);font-family:var(--sans,'DM Sans',sans-serif);font-size:13px;letter-spacing:.02em;
+  box-shadow:0 0 0 1px rgba(139,92,246,.18),0 10px 30px -14px rgba(255,138,42,.6);
+}
+.hw-pill b{font-weight:500;color:var(--gold)}
+.hw-pill .hw-ico{font-size:17px;line-height:1;animation:hw-bob 3.2s ease-in-out infinite}
+@media (max-width:640px){.hw-pill{font-size:12px;padding:8px 14px 8px 10px;margin-bottom:18px}}
+
+/* toiles d'araignée dans les coins */
+.hw-web{position:fixed;top:0;width:clamp(120px,16vw,220px);height:auto;z-index:2;pointer-events:none;opacity:.5;color:var(--t1)}
+.hw-web.left{left:0}
+.hw-web.right{right:0;transform:scaleX(-1)}
+@media (max-width:760px){.hw-web{width:90px;opacity:.38}}
+
+/* chauves-souris qui traversent l'écran */
+.hw-sky{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hw-bat{position:absolute;top:var(--y,12%);left:-8%;width:var(--s,34px);height:auto;color:#000;opacity:.9;
+  filter:drop-shadow(0 0 6px rgba(139,92,246,.35));
+  animation:hw-fly var(--d,26s) linear var(--delay,0s) infinite}
+.hw-bat svg{width:100%;height:auto;display:block;animation:hw-flap .32s ease-in-out infinite alternate;transform-origin:50% 40%}
+@keyframes hw-fly{
+  0%{transform:translate(0,0) rotate(-6deg)}
+  25%{transform:translate(30vw,-6vh) rotate(4deg)}
+  50%{transform:translate(60vw,3vh) rotate(-5deg)}
+  75%{transform:translate(90vw,-5vh) rotate(5deg)}
+  100%{transform:translate(120vw,0) rotate(-6deg)}
+}
+@keyframes hw-flap{from{transform:scaleY(1)}to{transform:scaleY(.55)}}
+@keyframes hw-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* fantôme discret dans le hero (ordinateur seulement) */
+.hw-ghost{position:absolute;right:clamp(8px,4vw,60px);bottom:clamp(40px,8vh,90px);width:54px;z-index:3;pointer-events:none;opacity:.85;
+  animation:hw-float 5.5s ease-in-out infinite}
+.hero{position:relative}
+@keyframes hw-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+@media (max-width:980px){.hw-ghost{display:none}}
+
+/* boutons : lueur citrouille au survol */
+.btn:hover,.btn-full{box-shadow:0 0 0 1px var(--gold40),0 12px 36px -14px rgba(255,138,42,.7)}
+
+/* mouvement réduit : tout se fige, les couleurs restent */
+@media (prefers-reduced-motion:reduce){
+  .hw-bat,.hw-bat svg,.hw-ghost,.logo::after,.hw-pill .hw-ico{animation:none}
+  .hw-sky{display:none}
+}
+
+/* couleurs codées en dur dans les pages, reprises ici */
+.btn-full:hover{background:#FFA052;border-color:#FFA052;color:#0C0814}
+.btn:hover,.btn-full,.skip,.cb .bub.i,.offer-mini,::selection{color:#0C0814}
+.mnav{background:rgba(12,8,20,.98)}
