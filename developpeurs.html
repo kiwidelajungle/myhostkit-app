@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API et webhooks pour conciergeries | MyHostKit</title>
+<meta name="description" content="Documentation de l'API MyHostKit : reliez votre CRM à vos logements, réservations, ménages, dépenses, tarifs et relevés propriétaires. Clés d'API, pagination, webhooks signés.">
+<link rel="canonical" href="https://www.myhostkit.com/developpeurs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API et webhooks pour conciergeries | MyHostKit">
+<meta property="og:description" content="Documentation de l'API MyHostKit : reliez votre CRM à vos logements, réservations, ménages, dépenses, tarifs et relevés propriétaires.">
+<meta property="og:url" content="https://www.myhostkit.com/developpeurs">
+<meta property="og:image" content="https://www.myhostkit.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"MyHostKit","url":"https://www.myhostkit.com/","logo":"https://www.myhostkit.com/logo-512.png","email":"contact@myhostkit.com","sameAs":["https://www.linkedin.com/company/myhostkit-saas/"],"address":{"@type":"PostalAddress","streetAddress":"60 rue François 1er","postalCode":"75008","addressLocality":"Paris","addressCountry":"FR"}}
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "API MyHostKit v1 : documentation pour les développeurs", "description": "Reliez votre CRM à votre compte MyHostKit : logements, réservations, ménages, dépenses, tarifs, relevés propriétaires et webhooks signés.", "inLanguage": "fr-FR", "datePublished": "2026-10-02", "dateModified": "2026-10-02", "author": {"@type": "Person", "name": "Rayane Mazouni"}, "publisher": {"@type": "Organization", "name": "MyHostKit", "url": "https://www.myhostkit.com/"}, "mainEntityOfPage": "https://www.myhostkit.com/developpeurs"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..500&family=IBM+Plex+Mono:wght@400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..500&family=IBM+Plex+Mono:wght@400&display=swap"></noscript>
+<style>
+/* ═══════════ MINUIT & CHAMPAGNE ═══════════ */
+:root{
+  --bg:#0B111E;--bg2:#0F1626;--bg3:#141C30;
+  --t1:#F2EDE1;--t2:rgba(242,237,225,.72);--t3:rgba(242,237,225,.58);
+  --gold:#C7A468;--gold40:rgba(199,164,104,.4);--gold15:rgba(199,164,104,.17);--gold08:rgba(199,164,104,.07);
+  --line:rgba(242,237,225,.1);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --serif:'Fraunces',Georgia,serif;--sans:'DM Sans','Helvetica Neue',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --track-tight:.14em;--track-wide:.22em;
+  /* page développeurs : marge latérale de 16 px sur téléphone */
+  --gutter:clamp(16px,4vw,48px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);line-height:1.65;font-size:16.5px;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#0B111E}
+body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.028;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:var(--gutter)}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--gold);color:#0B111E;padding:12px 20px;font-size:14px;text-decoration:none}
+.skip:focus{left:0}
+
+h1,h2,h3{font-family:var(--serif);font-weight:340;font-variation-settings:'opsz' 100;letter-spacing:-.015em;line-height:1.08;text-wrap:balance}
+h1 em,h2 em{font-style:italic;font-weight:320;color:var(--gold)}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--gold);font-weight:400;display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold40);flex-shrink:0}
+
+.btn{display:inline-block;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--sans);font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:var(--track-tight);padding:17px 36px;text-decoration:none;cursor:pointer;transition:background .35s ease,color .35s ease;text-align:center}
+.btn:hover{background:var(--gold);color:#0B111E}
+.btn-full{background:var(--gold);color:#0B111E}
+.btn-full:hover{background:#D4B37B;border-color:#D4B37B;color:#0B111E}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ═══════════ NAV ═══════════ */
+.nav{position:fixed;top:0;inset-inline:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px var(--gutter);transition:padding .35s ease,background .35s ease,border-color .35s ease;border-bottom:1px solid transparent}
+.nav.shrunk{padding-block:12px;background:rgba(11,17,30,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.logo{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--t1);text-decoration:none;letter-spacing:-.01em}
+.logo em{font-style:italic;color:var(--gold)}
+.nav-links{display:none;gap:34px;list-style:none}
+.nav-links a{font-size:13.5px;color:var(--t3);text-decoration:none;letter-spacing:.02em;transition:color .3s}
+.nav-links a:hover{color:var(--t1)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-login{display:none;font-size:13.5px;letter-spacing:.01em;text-decoration:none;color:inherit;opacity:.72}
+.nav-login:hover{opacity:1}
+.nav .btn{padding:11px 22px;font-size:11.5px}
+.nav .btn.nav-cta{display:none}
+.burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:1px solid var(--line);cursor:pointer;padding:0 11px}
+.burger span{display:block;height:1px;background:var(--t1);transition:transform .3s var(--ease),opacity .3s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:99;background:rgba(11,17,30,.98);display:none;flex-direction:column;justify-content:center;padding:90px clamp(22px,8vw,60px) 40px}
+.mnav.open{display:flex}
+.mnav a{font-family:var(--serif);font-size:clamp(26px,7vw,34px);font-weight:340;color:var(--t1);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
+.mnav a:hover{color:var(--gold)}
+.mnav .btn{margin-top:34px;font-size:13px}
+@media(min-width:900px){
+  .nav-links{display:flex}
+  .nav .btn.nav-cta{display:inline-block}
+  .nav-login{display:inline-block}
+  .burger,.mnav{display:none}
+}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{border-top:1px solid var(--line);padding:40px 0 46px}
+.foot{display:flex;flex-direction:column;gap:22px}
+.foot-info{font-size:12px;color:var(--t3);line-height:1.8}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap}
+.foot-links a{font-size:12.5px;color:var(--t3);text-decoration:none;transition:color .3s}
+.foot-links a:hover{color:var(--gold)}
+@media(min-width:768px){.foot{flex-direction:row;justify-content:space-between;align-items:center}}
+
+/* ═══ pages guides ═══ */
+.art{padding:120px 0 80px}
+.art .wrap{max-width:860px}
+.art h1{font-size:clamp(32px,5vw,52px);max-width:22ch;margin:18px 0 22px}
+.art .lede{color:var(--t2);font-size:17px;line-height:1.7;max-width:60ch}
+.art h2{font-size:clamp(24px,3.4vw,32px);margin:56px 0 18px;max-width:26ch}
+.art h3{font-family:var(--sans);font-weight:500;font-size:17px;margin:30px 0 10px;color:var(--t1)}
+.art p{color:var(--t2);font-size:16px;line-height:1.75;margin:0 0 16px;max-width:66ch}
+.art ul,.art ol{color:var(--t2);font-size:16px;line-height:1.75;margin:0 0 18px 22px;max-width:64ch}
+.art li{margin-bottom:8px}
+.art a{color:var(--gold)}
+.art .cta{border:1px solid var(--gold40);background:linear-gradient(120deg,rgba(199,164,104,.12),rgba(199,164,104,.03));padding:28px;margin:48px 0;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.art .cta p{margin:0;max-width:44ch}
+.art .meta{font-size:12px;color:var(--t3);letter-spacing:.04em}
+
+/* ═══ page développeurs ═══ */
+.doc .wrap{max-width:1160px}
+.doc-intro{max-width:820px}
+.doc-intro h1{max-width:20ch}
+.doc b,.doc strong{color:var(--t1);font-weight:500}
+/* Adresses de base */
+.base{margin:30px 0 0;border:1px solid var(--gold15);background:var(--gold08)}
+.base div{padding:14px 18px;border-bottom:1px solid var(--gold15);display:flex;flex-direction:column;gap:4px}
+.base div:last-child{border-bottom:none}
+.base span{font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--t3)}
+.doc .base code{background:none;border:0;padding:0;font-size:14px;color:var(--t1)}
+/* Grille sommaire + contenu ; minmax(0,1fr) empêche un bloc de code d'élargir la page */
+.doc-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:40px;margin-top:44px}
+.doc-body{min-width:0;max-width:820px}
+.toc{border:1px solid var(--line);padding:18px 20px;align-self:start}
+.toc p{font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--gold);margin:0 0 10px}
+.toc ol{list-style:none;margin:0;font-size:14px;line-height:1.5}
+.toc li{margin:0}
+.toc a{display:block;padding:5px 0;color:var(--t2);text-decoration:none;transition:color .25s}
+.toc a:hover,.toc a[aria-current="true"]{color:var(--gold)}
+.toc .sub{display:none}
+@media(min-width:1100px){
+  .doc-grid{grid-template-columns:220px minmax(0,1fr);gap:64px}
+  .toc{position:sticky;top:92px;max-height:calc(100vh - 120px);overflow-y:auto;border:none;padding:0}
+  .toc .sub{display:block}
+  .toc .sub a{padding:3px 0 3px 14px;font-family:var(--mono);font-size:12px;color:var(--t3)}
+}
+.doc-body>section{border-top:1px solid var(--line);padding-top:8px}
+.doc-body>section:first-child{border-top:none;padding-top:0}
+.doc-body>section:first-child>h2{margin-top:0}
+.art .doc-body h2{max-width:none}
+.art .doc-body h3{font-size:18px;margin:44px 0 12px;overflow-wrap:anywhere}
+.doc h4{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:var(--track-wide);color:var(--t3);font-weight:400;margin:22px 0 8px}
+/* Code en ligne */
+.doc code{font-family:var(--mono);font-size:.86em;background:var(--gold08);border:1px solid var(--gold15);padding:1px 5px;border-radius:4px;color:var(--t1);overflow-wrap:anywhere}
+/* Blocs de code : ils défilent dans leur cadre, jamais la page */
+.code{margin:14px 0 24px;border:1px solid var(--line);background:#070B14;border-radius:6px;max-width:100%}
+.code-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px 7px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.04em}
+.copy{display:none;background:none;border:1px solid var(--line);color:var(--t2);font-family:var(--sans);font-size:11.5px;padding:5px 10px;border-radius:4px;cursor:pointer;transition:color .25s,border-color .25s}
+html.js .copy{display:inline-block}
+.copy:hover{color:var(--gold);border-color:var(--gold40)}
+.code pre{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:16px;font-family:var(--mono);font-size:13px;line-height:1.6;color:#E6E0D2;tab-size:2}
+.code pre code{background:none;border:0;padding:0;border-radius:0;font-size:inherit;color:inherit;white-space:pre;overflow-wrap:normal}
+/* Tableaux : les longs identifiants se coupent, le tableau défile dans son cadre au besoin */
+.tw{overflow-x:auto;margin:14px 0 24px;border:1px solid var(--line)}
+.doc table{width:100%;border-collapse:collapse;font-size:14.5px}
+.doc th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:400;color:var(--t3);text-transform:uppercase;letter-spacing:var(--track-tight);border-bottom:1px solid var(--line);white-space:nowrap}
+.doc td{padding:11px 14px;color:var(--t2);border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.doc tr:last-child td{border-bottom:none}
+.doc td:first-child{color:var(--t1)}
+/* noms de champs en première colonne : jamais coupés au milieu */
+.doc td:first-child code{white-space:nowrap;overflow-wrap:normal}
+@media(max-width:420px){.doc th,.doc td{padding:10px 8px}.doc table{font-size:14px}}
+/* Verbes HTTP */
+.ep{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 8px}
+.art .ep{margin:0 0 8px}
+.ep code{font-size:14px}
+.verb{display:inline-block;min-width:58px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:3px 8px;border-radius:4px;border:1px solid}
+.verb.get{color:#9CCFAE;border-color:rgba(156,207,174,.38)}
+.verb.post{color:var(--gold);border-color:var(--gold40)}
+.verb.patch{color:#A9C1E6;border-color:rgba(169,193,230,.38)}
+.verb.delete{color:#E6A9A9;border-color:rgba(230,169,169,.38)}
+.doc td .verb{min-width:0}
+/* Encadré */
+.note{border-left:2px solid var(--gold);background:var(--gold08);padding:14px 18px;margin:16px 0 24px}
+.art .note p{margin:0;font-size:15px}
+/* Démarrage en 3 étapes */
+.art ol.steps{list-style:none;margin:8px 0 0;max-width:none;counter-reset:etape}
+.steps>li{position:relative;padding-left:48px;margin-bottom:30px;counter-increment:etape}
+.steps>li::before{content:counter(etape);position:absolute;left:0;top:-6px;font-family:var(--serif);font-size:34px;font-weight:320;color:var(--gold);line-height:1}
+.steps>li>b{display:block;font-size:17px;margin-bottom:6px}
+.steps .code{margin-bottom:12px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<nav class="nav shrunk" id="topnav" aria-label="Navigation principale">
+  <a href="/" class="logo">MyHost<em>Kit</em></a>
+  <ul class="nav-links">
+    <li><a href="/#app">L'application</a></li>
+    <li><a href="/channel-manager">Channel manager</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="/guides">Guides</a></li>
+    <li><a href="/telecharger">Logiciel PC</a></li>
+    <li><a href="/marque-blanche">Marque blanche</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="/partenaire" class="nav-login">Partenaires</a>
+    <a href="/activer.html" class="btn nav-cta">Activer</a>
+    <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mnav" id="mnav">
+  <a href="/#app">L'application</a>
+  <a href="/channel-manager">Channel manager</a>
+  <a href="/tarifs">Tarifs</a>
+  <a href="/guides">Guides</a>
+  <a href="/telecharger">Logiciel PC</a>
+  <a href="/marque-blanche">Marque blanche</a>
+  <a href="/activer.html" class="btn btn-full">Activer · 1ᵉʳ mois offert</a>
+</div>
+<main id="main">
+<article class="art doc"><div class="wrap">
+
+<header class="doc-intro">
+<p class="eyebrow">Développeurs · API v1</p>
+<h1>L'API MyHostKit, pour relier votre CRM</h1>
+<p class="meta">Version 1 · Mise à jour le 2 octobre 2026</p>
+<p class="lede" style="margin-top:18px">L'API relie votre CRM, votre outil de facturation ou vos tableaux de bord à votre compte MyHostKit. Vos logements, réservations, ménages, dépenses, tarifs et relevés propriétaires arrivent chez vous en JSON, et MyHostKit prévient votre serveur, en général dans la minute, quand une réservation, un ménage ou une dépense change.</p>
+<div class="base">
+  <div><span>Adresse de base</span><code>https://www.myhostkit.com/api/v1</code></div>
+  <div><span>Format</span><code>JSON, UTF-8, en entrée comme en sortie</code></div>
+</div>
+</header>
+
+<div class="doc-grid">
+<nav class="toc" aria-label="Sommaire de la documentation">
+<p>Sommaire</p>
+<ol>
+  <li><a href="#presentation">À quoi sert l'API</a></li>
+  <li><a href="#demarrage">Démarrage en 3 étapes</a></li>
+  <li><a href="#authentification">Authentification</a></li>
+  <li><a href="#format">Format des réponses</a></li>
+  <li><a href="#pagination">Pagination</a></li>
+  <li><a href="#synchronisation">Synchronisation incrémentale</a></li>
+  <li><a href="#erreurs">Erreurs et limites</a></li>
+  <li><a href="#routes">Toutes les routes</a></li>
+  <li><a href="#lecture">Routes en lecture</a></li>
+  <li class="sub"><a href="#r-me">/me</a></li>
+  <li class="sub"><a href="#r-properties">/properties</a></li>
+  <li class="sub"><a href="#r-availability">/availability</a></li>
+  <li class="sub"><a href="#r-bookings">/bookings</a></li>
+  <li class="sub"><a href="#r-movements">/movements</a></li>
+  <li class="sub"><a href="#r-rates">/rates</a></li>
+  <li class="sub"><a href="#r-owners">/owners</a></li>
+  <li class="sub"><a href="#r-owner-statements">/owner-statements</a></li>
+  <li class="sub"><a href="#r-owner-reports">/owner-reports</a></li>
+  <li class="sub"><a href="#r-expenses">/expenses</a></li>
+  <li class="sub"><a href="#r-cleanings">/cleanings</a></li>
+  <li class="sub"><a href="#r-incidents">/incidents</a></li>
+  <li><a href="#ecriture">Routes en écriture</a></li>
+  <li><a href="#webhooks">Webhooks</a></li>
+  <li class="sub"><a href="#wh-evenements">Événements</a></li>
+  <li class="sub"><a href="#wh-essais">Nouveaux essais</a></li>
+  <li class="sub"><a href="#wh-signature">Signature</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ol>
+</nav>
+
+<div class="doc-body">
+
+<!-- ═══ PRÉSENTATION ═══ -->
+<section id="presentation" aria-labelledby="h-presentation">
+<h2 id="h-presentation">À quoi sert l'API</h2>
+<p>Elle s'adresse aux conciergeries et aux agences clientes de MyHostKit qui ont leur propre outil (CRM, back-office, facturation, tableaux de bord) et un développeur, salarié ou prestataire, pour le brancher.</p>
+<ul>
+<li><b>Lire</b> : logements, disponibilités et prix jour par jour, réservations, arrivées et départs du jour, règles tarifaires, propriétaires, relevés propriétaires, dépenses, missions de ménage, incidents.</li>
+<li><b>Écrire</b> : dépenses, règles tarifaires (envoyées aussitôt à Airbnb, Booking.com et aux autres plateformes quand le logement est relié au channel manager), incidents, consignes de ménage.</li>
+<li><b>Être prévenu</b> : des webhooks signés pour les réservations, les ménages, les incidents, les dépenses et les tarifs.</li>
+</ul>
+<p>L'API est disponible pour les comptes MyHostKit directs dont l'accès est actif (abonnement, essai ou licence). Les comptes ouverts sous une marque partenaire n'y ont pas accès. Seul le titulaire du compte crée des clés : ni un agent de ménage, ni un membre d'équipe.</p>
+<p>Elle ne renvoie jamais les codes d'accès, les mots de passe Wi-Fi, les liens voyageurs, les adresses iCal ni les identifiants internes du channel manager.</p>
+</section>
+
+<!-- ═══ DÉMARRAGE ═══ -->
+<section id="demarrage" aria-labelledby="h-demarrage">
+<h2 id="h-demarrage">Démarrage en 3 étapes</h2>
+<ol class="steps">
+<li><b>Créez une clé dans l'app</b>
+<p>Dans l'app MyHostKit, ouvrez <b>Réglages</b>, puis <b>API et webhooks</b>, et créez une clé. Donnez-lui un nom (par exemple « CRM ») et ses droits : <code>read</code> pour lire et, si besoin, <code>write</code> pour écrire.</p>
+<p>Copiez la clé tout de suite. Elle commence par <code>mhk_live_</code> et <b>n'est affichée qu'une fois</b> : MyHostKit n'en garde qu'une empreinte. Une clé perdue ne se retrouve pas, elle se révoque et se remplace.</p>
+</li>
+<li><b>Faites un premier appel</b>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl https://www.myhostkit.com/api/v1/me \
+  -H "Authorization: Bearer mhk_live_VOTRE_CLE"</code></pre></div>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "id": "0b6f3c2e-5d1a-4e8f-9a7b-1c2d3e4f5a6b",
+    "company_name": "Conciergerie Lagon Bleu",
+    "email": "contact@lagonbleu.example",
+    "currency": "EUR",
+    "scopes": ["read", "write"],
+    "api_key": { "id": "9d8c7b6a-5f4e-4d3c-8b2a-1f0e9d8c7b6a", "name": "CRM", "prefix": "mhk_live_k3J" },
+    "created_at": "2026-03-14T09:12:44.000Z",
+    "updated_at": null
+  }
+}</code></pre></div>
+</li>
+<li><b>Synchronisez avec <code>updated_since</code></b>
+<p>Lisez une première fois toutes les pages de chaque liste. Ensuite, ne demandez que ce qui a changé depuis votre dernier passage :</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl "https://www.myhostkit.com/api/v1/bookings?updated_since=2026-10-02T08:00:00Z&amp;limit=200" \
+  -H "Authorization: Bearer $MHK_KEY"</code></pre></div>
+<p>Le détail est plus bas, dans <a href="#synchronisation">Synchronisation incrémentale</a>, avec un exemple complet en JavaScript.</p>
+</li>
+</ol>
+</section>
+
+<!-- ═══ AUTHENTIFICATION ═══ -->
+<section id="authentification" aria-labelledby="h-authentification">
+<h2 id="h-authentification">Authentification</h2>
+<p>Chaque requête porte la clé dans l'en-tête <code>Authorization</code> :</p>
+<div class="code"><div class="code-h"><span>en-tête</span><button type="button" class="copy">Copier</button></div><pre><code>Authorization: Bearer mhk_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></pre></div>
+<ul>
+<li><b>Droits.</b> <code>read</code> ouvre les routes <code>GET</code>. <code>write</code> ouvre les routes <code>POST</code>, <code>PATCH</code> et <code>DELETE</code>. Une clé peut avoir l'un, l'autre ou les deux. Sans le bon droit, la réponse est <code>403 insufficient_scope</code>.</li>
+<li><b>Périmètre.</b> Une clé donne accès aux données du seul compte qui l'a créée : ses logements, réservations, ménages, dépenses, tarifs, propriétaires et incidents. Elle ne voit jamais un autre compte.</li>
+<li><b>Révocation.</b> Une clé révoquée dans l'app répond aussitôt <code>401 revoked_api_key</code>.</li>
+<li><b>Conservation.</b> Traitez la clé comme un mot de passe : gardez-la côté serveur (variable d'environnement, coffre de secrets), jamais dans une page web ni dans une application mobile. L'API n'envoie pas d'en-têtes CORS sur ses routes à clé : un navigateur ne peut pas l'appeler directement.</li>
+<li><b>Accès au compte.</b> Si l'accès du compte à MyHostKit n'est plus actif, la réponse est <code>403 acces_inactif</code>. Pour un compte ouvert sous une marque partenaire : <code>403 api_non_incluse</code>. Pour la clé d'un agent de ménage ou d'un membre d'équipe : <code>403 owner_only</code>. Les webhooks sont alors suspendus eux aussi (voir <a href="#webhooks">Webhooks</a>).</li>
+</ul>
+<p>Les réservations contiennent le nom et l'e-mail des voyageurs : dans votre CRM, traitez-les avec les mêmes précautions que dans MyHostKit.</p>
+</section>
+
+<!-- ═══ FORMAT ═══ -->
+<section id="format" aria-labelledby="h-format">
+<h2 id="h-format">Format des réponses</h2>
+<div class="code"><div class="code-h"><span>forme générale</span><button type="button" class="copy">Copier</button></div><pre><code>// Liste
+{ "data": [ { ... }, { ... } ], "next_cursor": "eyJ2Ijoi..." }
+
+// Objet seul
+{ "data": { ... } }
+
+// Erreur
+{ "error": { "code": "not_found", "message": "Ressource introuvable dans ce compte." } }</code></pre></div>
+<ul>
+<li>Chaque objet enregistré porte <code>id</code> (UUID), <code>created_at</code> et <code>updated_at</code>.</li>
+<li>Les horodatages sont en ISO 8601, en UTC : <code>2026-10-02T08:15:00.123Z</code>. Les jours sont au format <code>AAAA-MM-JJ</code> : <code>2026-10-02</code>.</li>
+<li>Les montants sont des nombres décimaux (deux décimales au plus), toujours accompagnés de <code>currency</code>, la devise du compte (<code>EUR</code> par défaut). Seule la caution d'une réservation a sa propre devise, <code>EUR</code>, parce qu'elle est encaissée en euros.</li>
+<li>Un champ sans valeur vaut <code>null</code>. Un champ n'est jamais omis.</li>
+<li>Les objets calculés à la demande (disponibilités, mouvements du jour, relevé propriétaire) n'ont ni <code>id</code> ni dates de création, puisqu'ils ne sont pas enregistrés.</li>
+<li><code>updated_at</code> vaut <code>null</code> pour <code>/me</code> : la date de modification du compte n'est pas suivie.</li>
+<li>Les réservations, ménages, incidents, dépenses, règles tarifaires et propriétaires créés avant l'ouverture de l'API (2 octobre 2026) portent cette date comme <code>updated_at</code>.</li>
+</ul>
+</section>
+
+<!-- ═══ PAGINATION ═══ -->
+<section id="pagination" aria-labelledby="h-pagination">
+<h2 id="h-pagination">Pagination</h2>
+<p>Les listes sont paginées par curseur. Elles sont triées par <code>updated_at</code> croissant, puis par <code>id</code>. Seuls les relevés générés (<code>/owner-reports</code>) sont triés par <code>created_at</code>, puis par <code>id</code>.</p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>limit</code></td><td>Nombre d'éléments par page, de 1 à 200 (50 par défaut)</td></tr>
+<tr><td><code>cursor</code></td><td>Valeur <code>next_cursor</code> de la page précédente, recopiée telle quelle</td></tr>
+<tr><td><code>updated_since</code></td><td>Ne renvoie que ce qui a été créé ou modifié depuis cette date ISO 8601 (incluse)</td></tr>
+</tbody></table></div>
+<p>Tant que <code>next_cursor</code> n'est pas <code>null</code>, il reste une page à lire :</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl "https://www.myhostkit.com/api/v1/bookings?limit=100" -H "Authorization: Bearer $MHK_KEY"
+# ... "next_cursor": "eyJ2IjoiMjAyNi0xMC0wMlQwODoxNTowMC4xMjM0NTYrMDA6MDAiLCJpZCI6Ii4uLiJ9"
+
+curl "https://www.myhostkit.com/api/v1/bookings?limit=100&amp;cursor=eyJ2IjoiMjAyNi0xMC0wMlQwODoxNTowMC4xMjM0NTYrMDA6MDAiLCJpZCI6Ii4uLiJ9" \
+  -H "Authorization: Bearer $MHK_KEY"</code></pre></div>
+<p>Le curseur est opaque : ne le construisez pas vous-même. Un curseur modifié répond <code>400 invalid_cursor</code>. Gardez les mêmes filtres d'une page à l'autre.</p>
+</section>
+
+<!-- ═══ SYNCHRONISATION ═══ -->
+<section id="synchronisation" aria-labelledby="h-synchronisation">
+<h2 id="h-synchronisation">Synchronisation incrémentale</h2>
+<p>Pour tenir un CRM à jour sans tout relire :</p>
+<ol>
+<li>Première synchronisation : lisez toutes les pages de chaque liste.</li>
+<li>Retenez la plus grande valeur <code>updated_at</code> reçue, ou l'heure de début de la synchronisation moins une minute de marge.</li>
+<li>Ensuite, appelez chaque liste avec <code>updated_since=&lt;cette valeur&gt;</code> et lisez toutes les pages.</li>
+</ol>
+<p><code>updated_since</code> est inclusif : un objet peut revenir deux fois. Enregistrez les objets par leur <code>id</code> (mise à jour s'il existe, création sinon).</p>
+<div class="code"><div class="code-h"><span>javascript · module ES, Node.js 18+, Vercel, Supabase Edge</span><button type="button" class="copy">Copier</button></div><pre><code>const BASE = "https://www.myhostkit.com/api/v1";
+const KEY = process.env.MHK_KEY; // Deno / Supabase Edge : Deno.env.get("MHK_KEY")
+
+// Lit toutes les pages d'une liste, en respectant la limite de 120 requêtes par minute.
+async function toutLire(chemin, params = {}) {
+  const objets = [];
+  let cursor = null;
+  for (;;) {
+    const qs = new URLSearchParams({ ...params, limit: "200" });
+    if (cursor) qs.set("cursor", cursor);
+    const rep = await fetch(`${BASE}${chemin}?${qs}`, { headers: { Authorization: `Bearer ${KEY}` } });
+    if (rep.status === 429) { // limite atteinte : attendre, puis redemander la même page
+      const attente = Number(rep.headers.get("Retry-After") || 60);
+      await new Promise((r) =&gt; setTimeout(r, attente * 1000));
+      continue;
+    }
+    const corps = await rep.json();
+    if (!rep.ok) throw new Error(`${rep.status} ${corps.error.code} : ${corps.error.message}`);
+    objets.push(...corps.data);
+    if (!corps.next_cursor) return objets;
+    cursor = corps.next_cursor;
+  }
+}
+
+// Date du passage précédent, gardée dans votre base (null la première fois).
+let derniereSynchro = null;
+const debut = new Date(Date.now() - 60_000).toISOString(); // une minute de marge
+const reservations = await toutLire("/bookings", derniereSynchro ? { updated_since: derniereSynchro } : {});
+for (const r of reservations) {
+  // enregistrer r dans votre CRM par r.id (mise à jour ou création)
+}
+derniereSynchro = debut; // à sauvegarder pour le prochain passage</code></pre></div>
+<p><code>updated_at</code> ne change que lorsqu'un champ renvoyé par l'API change : une écriture technique de notre côté (proposition d'une mission aux agents, consultation du portail par un propriétaire, facture jointe à une dépense...) ne fait pas revenir l'objet. Exception : pour les <b>logements</b>, <code>updated_at</code> suit aussi les changements techniques, dont la synchronisation des calendriers (toutes les 15 minutes pour un logement relié en iCal). Un logement peut donc revenir dans <code>/properties?updated_since=</code> sans changement visible : comparez les champs avant de le traiter comme une modification.</p>
+<p>Une liste ne montre pas ce qui a été <b>supprimé</b>. Pour le savoir, abonnez-vous aux <a href="#webhooks">webhooks</a> : <code>expense.deleted</code>, <code>rate.deleted</code>, et <code>deleted: true</code> dans l'enveloppe des autres événements. Si des événements ont été manqués (point de terminaison désactivé, livraison en échec définitif, accès du compte inactif), seule une <b>synchronisation complète</b> rattrape les suppressions : relisez toutes les pages de chaque liste, sans <code>updated_since</code>, puis effacez de votre côté ce qui n'y figure plus (voir <a href="#wh-essais">Réponse attendue et nouveaux essais</a>).</p>
+<p>Sur <code>/owner-reports</code>, <code>updated_since</code> porte sur la date de génération (<code>created_at</code>) : un relevé ne change plus après sa génération, sauf sa date d'envoi.</p>
+</section>
+
+<!-- ═══ ERREURS ET LIMITES ═══ -->
+<section id="erreurs" aria-labelledby="h-erreurs">
+<h2 id="h-erreurs">Erreurs et limites</h2>
+<div class="code"><div class="code-h"><span>réponse 400</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "error": {
+    "code": "validation_error",
+    "message": "date_to doit être égale ou postérieure à date_from.",
+    "field": "date_to"
+  }
+}</code></pre></div>
+<ul>
+<li><code>code</code> est stable : votre code peut s'y fier.</li>
+<li><code>message</code> est en français, lisible par une personne. Il peut changer.</li>
+<li><code>field</code>, quand il est présent, nomme le paramètre ou le champ en cause.</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>Statut</th><th>code</th><th>Quand</th></tr></thead>
+<tbody>
+<tr><td>400</td><td><code>validation_error</code></td><td>Paramètre ou champ invalide (voir <code>field</code>)</td></tr>
+<tr><td>400</td><td><code>invalid_json</code></td><td>Corps JSON illisible, ou qui n'est pas un objet</td></tr>
+<tr><td>400</td><td><code>invalid_cursor</code></td><td>Curseur modifié ou illisible</td></tr>
+<tr><td>400</td><td><code>field_not_editable</code></td><td>Champ inconnu ou non modifiable dans le corps</td></tr>
+<tr><td>401</td><td><code>missing_api_key</code></td><td>En-tête <code>Authorization</code> absent</td></tr>
+<tr><td>401</td><td><code>invalid_api_key</code></td><td>Clé inconnue ou mal formée</td></tr>
+<tr><td>401</td><td><code>revoked_api_key</code></td><td>Clé révoquée</td></tr>
+<tr><td>403</td><td><code>insufficient_scope</code></td><td>La clé n'a pas le droit <code>read</code> ou <code>write</code> demandé</td></tr>
+<tr><td>403</td><td><code>acces_inactif</code></td><td>L'accès du compte à MyHostKit n'est pas actif</td></tr>
+<tr><td>403</td><td><code>api_non_incluse</code></td><td>Compte ouvert sous une marque partenaire : pas d'API</td></tr>
+<tr><td>403</td><td><code>owner_only</code></td><td>Clé d'un agent de ménage ou d'un membre d'équipe</td></tr>
+<tr><td>404</td><td><code>not_found</code></td><td>Objet absent de votre compte, ou identifiant mal formé</td></tr>
+<tr><td>404</td><td><code>route_not_found</code></td><td>Route inconnue</td></tr>
+<tr><td>405</td><td><code>method_not_allowed</code></td><td>Méthode non acceptée sur cette route (voir l'en-tête <code>Allow</code>)</td></tr>
+<tr><td>413</td><td><code>payload_too_large</code></td><td>Corps de plus de 100 ko</td></tr>
+<tr><td>422</td><td><code>unknown_property</code></td><td>Le <code>property_id</code> envoyé n'est pas un logement de votre compte</td></tr>
+<tr><td>422</td><td><code>unknown_booking</code></td><td>Le <code>booking_id</code> envoyé n'est pas une réservation de votre compte</td></tr>
+<tr><td>422</td><td><code>booking_property_mismatch</code></td><td>La réservation concerne un autre logement</td></tr>
+<tr><td>422</td><td><code>invalid_reference</code></td><td>Référence refusée par la base</td></tr>
+<tr><td>429</td><td><code>rate_limited</code></td><td>Plus de 120 requêtes par minute, ou plus de 10 tests de webhook par minute depuis l'app (voir <code>Retry-After</code>)</td></tr>
+<tr><td>500</td><td><code>internal_error</code></td><td>Erreur de notre côté : réessayez un peu plus tard</td></tr>
+</tbody></table></div>
+
+<h3>Limites</h3>
+<div class="tw"><table>
+<thead><tr><th>Limite</th><th>Valeur</th></tr></thead>
+<tbody>
+<tr><td>Requêtes</td><td>120 par minute et par clé (fenêtre glissante de 60 secondes)</td></tr>
+<tr><td>Au-delà</td><td><code>429 rate_limited</code>, avec l'en-tête <code>Retry-After</code> (en secondes)</td></tr>
+<tr><td>En-têtes renvoyés</td><td><code>X-RateLimit-Limit: 120</code> et <code>X-RateLimit-Remaining</code> (requêtes restantes)</td></tr>
+<tr><td>Taille d'une page</td><td><code>limit</code> de 1 à 200, 50 par défaut</td></tr>
+<tr><td>Disponibilités</td><td>90 jours par appel au plus</td></tr>
+<tr><td>Corps d'une requête</td><td>100 ko au plus</td></tr>
+<tr><td>Clés actives par compte</td><td>10</td></tr>
+<tr><td>Points de terminaison webhook par compte</td><td>10</td></tr>
+<tr><td>Tests de webhook (bouton « Tester » de l'app)</td><td>10 par minute et par compte</td></tr>
+</tbody></table></div>
+<div class="code"><div class="code-h"><span>réponse 429</span><button type="button" class="copy">Copier</button></div><pre><code>HTTP/1.1 429 Too Many Requests
+Retry-After: 12
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 0
+
+{ "error": { "code": "rate_limited", "message": "Trop de requêtes : 120 par minute et par clé au plus." } }</code></pre></div>
+<p>Sur un <code>429</code>, attendez la durée indiquée par <code>Retry-After</code> avant de réessayer.</p>
+</section>
+
+<!-- ═══ TOUTES LES ROUTES ═══ -->
+<section id="routes" aria-labelledby="h-routes">
+<h2 id="h-routes">Toutes les routes</h2>
+<p>Les chemins partent de l'adresse de base <code>https://www.myhostkit.com/api/v1</code>.</p>
+<div class="tw"><table>
+<thead><tr><th>Méthode</th><th>Route</th><th>Droit</th></tr></thead>
+<tbody>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-me"><code>/me</code></a></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-properties"><code>/properties</code></a>, <code>/properties/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-availability"><code>/properties/{id}/availability</code></a></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-bookings"><code>/bookings</code></a>, <code>/bookings/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-movements"><code>/movements</code></a></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-rates"><code>/rates</code></a>, <code>/rates/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-owners"><code>/owners</code></a>, <code>/owners/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-owner-statements"><code>/owner-statements</code></a></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-owner-reports"><code>/owner-reports</code></a>, <code>/owner-reports/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-expenses"><code>/expenses</code></a>, <code>/expenses/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-cleanings"><code>/cleanings</code></a>, <code>/cleanings/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb get">GET</span></td><td><a href="#r-incidents"><code>/incidents</code></a>, <code>/incidents/{id}</code></td><td>read</td></tr>
+<tr><td><span class="verb post">POST</span></td><td><a href="#w-expenses"><code>/expenses</code></a></td><td>write</td></tr>
+<tr><td><span class="verb patch">PATCH</span> <span class="verb delete">DELETE</span></td><td><a href="#w-expenses"><code>/expenses/{id}</code></a></td><td>write</td></tr>
+<tr><td><span class="verb post">POST</span></td><td><a href="#w-rates"><code>/rates</code></a></td><td>write</td></tr>
+<tr><td><span class="verb patch">PATCH</span> <span class="verb delete">DELETE</span></td><td><a href="#w-rates"><code>/rates/{id}</code></a></td><td>write</td></tr>
+<tr><td><span class="verb post">POST</span></td><td><a href="#w-incidents"><code>/incidents</code></a></td><td>write</td></tr>
+<tr><td><span class="verb patch">PATCH</span></td><td><a href="#w-incidents"><code>/incidents/{id}</code></a></td><td>write</td></tr>
+<tr><td><span class="verb patch">PATCH</span></td><td><a href="#w-cleanings"><code>/cleanings/{id}</code></a></td><td>write</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ═══ ROUTES EN LECTURE ═══ -->
+<section id="lecture" aria-labelledby="h-lecture">
+<h2 id="h-lecture">Routes en lecture</h2>
+<p>Toutes ces routes demandent le droit <code>read</code>. Les listes acceptent <code>limit</code>, <code>cursor</code> et <code>updated_since</code> (voir <a href="#pagination">Pagination</a>).</p>
+
+<h3 id="r-me">Le compte</h3>
+<p class="ep"><span class="verb get">GET</span><code>/me</code></p>
+<p>Le compte de la clé : <code>id</code>, <code>company_name</code> (nom de la société), <code>email</code>, <code>currency</code> (devise du compte), <code>scopes</code> (droits de la clé), <code>api_key</code> (<code>id</code>, <code>name</code>, <code>prefix</code>), <code>created_at</code>, <code>updated_at</code>. Exemple de réponse au <a href="#demarrage">démarrage</a>.</p>
+
+<h3 id="r-properties">Logements</h3>
+<p class="ep"><span class="verb get">GET</span><code>/properties</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/properties/{id}</code></p>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>name</code>, <code>address</code>, <code>city</code>, <code>type</code></td><td>Texte. <code>type</code> est saisi librement dans l'app (« Villa », « Appartement »...)</td></tr>
+<tr><td><code>capacity</code></td><td>Nombre de voyageurs</td></tr>
+<tr><td><code>bedrooms</code></td><td>Nombre de chambres</td></tr>
+<tr><td><code>price_per_night</code>, <code>currency</code></td><td>Prix de base par nuit</td></tr>
+<tr><td><code>check_in_time</code>, <code>check_out_time</code></td><td>Heures d'arrivée et de départ (« 15:00 »)</td></tr>
+<tr><td><code>commission_rate</code></td><td>Taux de commission de la conciergerie, en %. Vide dans l'app : 20. Un logement à 100 % est un logement que la conciergerie loue pour son propre compte</td></tr>
+<tr><td><code>status</code></td><td><code>active</code>...</td></tr>
+<tr><td><code>platforms</code></td><td>Plateformes reliées : calendriers iCal ajoutés (<code>airbnb</code>, <code>booking</code>, <code>vrbo</code>, <code>abritel</code>, <code>other</code>...) et annonce Airbnb importée</td></tr>
+<tr><td><code>channel_manager</code></td><td>Booléen : le logement est relié au channel manager (synchronisation Airbnb, Booking.com)</td></tr>
+</tbody></table></div>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+      "name": "Villa Azur",
+      "address": "12 chemin des Filaos",
+      "city": "Grand Baie",
+      "type": "Villa",
+      "capacity": 8,
+      "bedrooms": 4,
+      "price_per_night": 350,
+      "currency": "EUR",
+      "check_in_time": "15:00",
+      "check_out_time": "11:00",
+      "commission_rate": 20,
+      "status": "active",
+      "platforms": ["airbnb", "booking"],
+      "channel_manager": true,
+      "created_at": "2026-04-02T10:00:00.000Z",
+      "updated_at": "2026-09-28T16:41:07.512Z"
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-availability">Disponibilités et prix jour par jour</h3>
+<p class="ep"><span class="verb get">GET</span><code>/properties/{id}/availability</code></p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>from</code></td><td>Premier jour (<code>AAAA-MM-JJ</code>). Par défaut : aujourd'hui, heure de Paris</td></tr>
+<tr><td><code>to</code></td><td>Dernier jour, inclus. Par défaut : <code>from</code> + 29 jours. 90 jours au plus</td></tr>
+</tbody></table></div>
+<p>Chaque jour : <code>date</code>, <code>available</code> (la nuit est libre), <code>booking_id</code> (réservation ou période bloquée qui occupe la nuit, sinon <code>null</code>), <code>price</code> (prix de la nuit), <code>min_stay</code> (séjour minimum en nuits), <code>currency</code>. Pas de pagination : <code>next_cursor</code> vaut <code>null</code>.</p>
+<p>Le calcul est le même que dans l'app et que pour les tarifs envoyés aux plateformes :</p>
+<ul>
+<li>une nuit est occupée par une réservation confirmée ou une période bloquée dont l'arrivée est au plus tard ce jour-là et le départ après ce jour-là ;</li>
+<li>prix : la règle tarifaire la plus récemment créée qui couvre la nuit ; son prix week-end s'applique les vendredis et samedis s'il est renseigné ; hors règle, le prix de base du logement (<code>null</code> s'il n'y en a pas) ;</li>
+<li>séjour minimum : celui de la règle, sinon 1. Seul un séjour minimum fixé par une règle est envoyé aux plateformes ; un minimum posé directement sur les plateformes, hors règle, n'apparaît pas ici (voir <a href="#w-rates">Règles tarifaires</a>).</li>
+</ul>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl "https://www.myhostkit.com/api/v1/properties/5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b/availability?from=2026-11-06&amp;to=2026-11-07" \
+  -H "Authorization: Bearer $MHK_KEY"</code></pre></div>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    { "date": "2026-11-06", "available": false, "booking_id": "a1b2c3d4-1111-4222-8333-444455556666", "price": 200, "min_stay": 1, "currency": "EUR" },
+    { "date": "2026-11-07", "available": true, "booking_id": null, "price": 180, "min_stay": 3, "currency": "EUR" }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-bookings">Réservations</h3>
+<p class="ep"><span class="verb get">GET</span><code>/bookings</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/bookings/{id}</code></p>
+<p>Les réservations, ainsi que les périodes bloquées (<code>status: "blocked"</code>, qui ne sont pas des voyageurs).</p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>Un logement</td></tr>
+<tr><td><code>from</code>, <code>to</code></td><td>Séjours qui touchent cette période : départ le <code>from</code> ou après, arrivée le <code>to</code> ou avant</td></tr>
+<tr><td><code>status</code></td><td>Un statut, ou une liste séparée par des virgules : <code>confirmed,blocked</code></td></tr>
+<tr><td><code>updated_since</code>, <code>limit</code>, <code>cursor</code></td><td>Voir <a href="#pagination">Pagination</a></td></tr>
+</tbody></table></div>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>Logement</td></tr>
+<tr><td><code>status</code></td><td><code>confirmed</code>, <code>cancelled</code>, <code>blocked</code>...</td></tr>
+<tr><td><code>platform</code></td><td><code>airbnb</code>, <code>booking</code>, <code>vrbo</code>, <code>abritel</code>, <code>direct</code>...</td></tr>
+<tr><td><code>source</code></td><td>Origine de la saisie : <code>channel_manager</code> (channel manager), <code>ical</code>, <code>manual</code>, <code>direct</code> (réservation directe payée en ligne)...</td></tr>
+<tr><td><code>check_in</code>, <code>check_out</code>, <code>nights</code></td><td>Dates du séjour et nombre de nuits</td></tr>
+<tr><td><code>amount</code>, <code>currency</code></td><td>Montant du séjour</td></tr>
+<tr><td><code>guests_count</code></td><td>Nombre de voyageurs</td></tr>
+<tr><td><code>payment_status</code>, <code>paid_at</code></td><td>Paiement en ligne d'une réservation directe : <code>paid</code>..., sinon <code>null</code></td></tr>
+<tr><td><code>deposit</code></td><td>Caution : <code>{ status, amount, captured_amount, currency }</code>, ou <code>null</code> sans caution</td></tr>
+<tr><td><code>guest</code></td><td><code>{ name, email, guests_count }</code></td></tr>
+</tbody></table></div>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl "https://www.myhostkit.com/api/v1/bookings?from=2026-10-01&amp;to=2026-10-31&amp;status=confirmed" \
+  -H "Authorization: Bearer $MHK_KEY"</code></pre></div>
+<div class="code"><div class="code-h"><span>réponse 200 · GET /bookings/{id}</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "id": "a1b2c3d4-1111-4222-8333-444455556666",
+    "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+    "status": "confirmed",
+    "platform": "airbnb",
+    "source": "channel_manager",
+    "check_in": "2026-10-10",
+    "check_out": "2026-10-14",
+    "nights": 4,
+    "amount": 812.4,
+    "currency": "EUR",
+    "guests_count": 3,
+    "payment_status": null,
+    "paid_at": null,
+    "deposit": null,
+    "guest": { "name": "Marie Dupont", "email": "marie.dupont@example.com", "guests_count": 3 },
+    "created_at": "2026-09-20T08:59:00.123Z",
+    "updated_at": "2026-09-21T08:00:00.000Z"
+  }
+}</code></pre></div>
+
+<h3 id="r-movements">Arrivées et départs du jour</h3>
+<p class="ep"><span class="verb get">GET</span><code>/movements</code></p>
+<p>Arrivées et départs d'un jour, regroupés par logement. Ni les annulations ni les périodes bloquées n'y figurent.</p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>date</code></td><td>Le jour (<code>AAAA-MM-JJ</code>). Par défaut : aujourd'hui, heure de Paris</td></tr>
+</tbody></table></div>
+<p>Chaque élément : <code>date</code>, <code>property</code> (<code>id</code>, <code>name</code>, <code>check_in_time</code>, <code>check_out_time</code>), <code>check_ins</code> et <code>check_outs</code> (réservations complètes, même forme que <code>/bookings</code>). Pas de pagination : <code>next_cursor</code> vaut toujours <code>null</code>.</p>
+<div class="code"><div class="code-h"><span>réponse 200 · GET /movements?date=2026-10-14</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "date": "2026-10-14",
+      "property": { "id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b", "name": "Villa Azur", "check_in_time": "15:00", "check_out_time": "11:00" },
+      "check_ins": [],
+      "check_outs": [
+        {
+          "id": "a1b2c3d4-1111-4222-8333-444455556666",
+          "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+          "status": "confirmed",
+          "platform": "airbnb",
+          "source": "channel_manager",
+          "check_in": "2026-10-10",
+          "check_out": "2026-10-14",
+          "nights": 4,
+          "amount": 812.4,
+          "currency": "EUR",
+          "guests_count": 3,
+          "payment_status": null,
+          "paid_at": null,
+          "deposit": null,
+          "guest": { "name": "Marie Dupont", "email": "marie.dupont@example.com", "guests_count": 3 },
+          "created_at": "2026-09-20T08:59:00.123Z",
+          "updated_at": "2026-09-21T08:00:00.000Z"
+        }
+      ]
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-rates">Règles tarifaires</h3>
+<p class="ep"><span class="verb get">GET</span><code>/rates</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/rates/{id}</code></p>
+<p>Les règles tarifaires saisonnières (écran « Tarifs saisonniers » de l'app). Paramètres : <code>property_id</code>, <code>updated_since</code>, <code>limit</code>, <code>cursor</code>.</p>
+<p>Champs : <code>property_id</code>, <code>name</code>, <code>date_from</code>, <code>date_to</code> (inclus), <code>price</code>, <code>weekend_price</code> (vendredi et samedi, ou <code>null</code>), <code>min_stay</code> (ou <code>null</code>), <code>currency</code>.</p>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "id": "c0ffee00-1234-4abc-9def-001122334455",
+      "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+      "name": "Haute saison",
+      "date_from": "2026-12-15",
+      "date_to": "2027-01-05",
+      "price": 420,
+      "weekend_price": 480,
+      "min_stay": 5,
+      "currency": "EUR",
+      "created_at": "2026-09-01T10:00:00.000Z",
+      "updated_at": "2026-09-01T10:00:00.000Z"
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-owners">Propriétaires</h3>
+<p class="ep"><span class="verb get">GET</span><code>/owners</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/owners/{id}</code></p>
+<p>Les propriétaires, un par portail propriétaire créé dans l'app. Paramètres : <code>updated_since</code>, <code>limit</code>, <code>cursor</code>.</p>
+<p>Champs : <code>name</code>, <code>email</code>, <code>property_ids</code> (logements du propriétaire), <code>portal_active</code> (le portail en ligne est ouvert). Le lien secret du portail n'est jamais renvoyé.</p>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "id": "7e57ab1e-0000-4000-8000-00000000a001",
+      "name": "M. et Mme Martin",
+      "email": "martin@example.com",
+      "property_ids": ["5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b"],
+      "portal_active": true,
+      "created_at": "2026-05-10T09:00:00.000Z",
+      "updated_at": "2026-05-10T09:00:00.000Z"
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-owner-statements">Relevé propriétaire calculé</h3>
+<p class="ep"><span class="verb get">GET</span><code>/owner-statements</code></p>
+<p>Le relevé d'un propriétaire pour un mois, calculé au moment de l'appel.</p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>owner_id</code></td><td>Obligatoire : <code>id</code> d'un propriétaire (<code>/owners</code>)</td></tr>
+<tr><td><code>year</code></td><td>Obligatoire : 2000 à 2100</td></tr>
+<tr><td><code>month</code></td><td>Obligatoire : 1 à 12</td></tr>
+</tbody></table></div>
+<p><b>C'est le même calcul que le bilan propriétaire de l'app</b> (écran Bilans propriétaires) :</p>
+<ul>
+<li>réservations <b>confirmées</b> des logements du propriétaire dont l'<b>arrivée</b> a lieu dans le mois (ni annulation, ni période bloquée). Un séjour à cheval sur deux mois compte en entier le mois de l'arrivée ;</li>
+<li><b>revenus</b> : montant de ces séjours ;</li>
+<li><b>commission</b> : montant de chaque séjour multiplié par le taux de commission de son logement (<code>commission_rate</code>, 20 % s'il est vide), arrondie au centime par séjour ;</li>
+<li><b>dépenses</b> : tous les ménages du mois sur ces logements, sauf les ménages annulés ou refusés, au montant payé, sinon au tarif de l'agent. Comme dans l'app, les autres dépenses (<code>/expenses</code>) ne sont pas déduites du relevé ;</li>
+<li><b>net à reverser</b> : revenus, moins dépenses, moins commission ;</li>
+<li><b>occupation</b> : nuits occupées dans le mois (y compris les séjours arrivés le mois précédent), divisées par le nombre de jours du mois multiplié par le nombre de logements, en %.</li>
+</ul>
+<p>Seule différence avec l'app : l'app permet de modifier le taux d'un logement au moment de générer un bilan ; l'API applique toujours le taux enregistré sur le logement.</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl "https://www.myhostkit.com/api/v1/owner-statements?owner_id=7e57ab1e-0000-4000-8000-00000000a001&amp;year=2026&amp;month=9" \
+  -H "Authorization: Bearer $MHK_KEY"</code></pre></div>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "owner_id": "7e57ab1e-0000-4000-8000-00000000a001",
+    "owner_name": "M. et Mme Martin",
+    "year": 2026,
+    "month": 9,
+    "currency": "EUR",
+    "period_start": "2026-09-01",
+    "period_end": "2026-09-30",
+    "properties": [
+      {
+        "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+        "name": "Villa Azur",
+        "commission_rate": 20,
+        "reservations_count": 2,
+        "nights": 7,
+        "revenue": 599.99,
+        "commission": 120,
+        "expenses": 40,
+        "cleanings_count": 1,
+        "net": 439.99
+      }
+    ],
+    "totals": {
+      "reservations_count": 2,
+      "nights": 7,
+      "revenue": 599.99,
+      "commission": 120,
+      "expenses": 40,
+      "cleanings_count": 1,
+      "net": 439.99,
+      "occupation_rate": 17
+    }
+  }
+}</code></pre></div>
+
+<h3 id="r-owner-reports">Bilans propriétaires déjà générés</h3>
+<p class="ep"><span class="verb get">GET</span><code>/owner-reports</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/owner-reports/{id}</code></p>
+<p>Les bilans propriétaires générés dans l'app, tels qu'ils ont été figés à leur génération. Le document lui-même n'est pas renvoyé.</p>
+<p>Paramètres : <code>owner_id</code>, <code>year</code>, <code>month</code>, <code>updated_since</code> (porte sur la date de génération), <code>limit</code>, <code>cursor</code>.</p>
+<p>Champs : <code>owner_id</code> (propriétaire rattaché, ou <code>null</code> pour un ancien bilan), <code>owner_name</code>, <code>owner_email</code>, <code>year</code>, <code>month</code>, <code>revenue</code>, <code>commission</code>, <code>expenses</code> (ménages déduits), <code>net</code>, <code>reservations_count</code>, <code>occupation_rate</code>, <code>currency</code>, <code>sent_at</code> (envoi par e-mail au propriétaire), <code>created_at</code>, <code>updated_at</code> (date d'envoi, sinon de génération).</p>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "id": "0e0e0e0e-3333-4444-8555-666677778888",
+      "owner_id": "7e57ab1e-0000-4000-8000-00000000a001",
+      "owner_name": "M. et Mme Martin",
+      "owner_email": "martin@example.com",
+      "year": 2026,
+      "month": 9,
+      "revenue": 599.99,
+      "commission": 120,
+      "expenses": 40,
+      "net": 439.99,
+      "reservations_count": 2,
+      "occupation_rate": 17,
+      "currency": "EUR",
+      "sent_at": "2026-10-01T07:30:00.000Z",
+      "created_at": "2026-10-01T07:29:12.000Z",
+      "updated_at": "2026-10-01T07:30:00.000Z"
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-expenses">Dépenses</h3>
+<p class="ep"><span class="verb get">GET</span><code>/expenses</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/expenses/{id}</code></p>
+<p>Les dépenses du compte. Certaines sont créées automatiquement par MyHostKit (<code>auto_generated: true</code>) : commission des plateformes, taxe de séjour estimée, ménage payé.</p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>Un logement</td></tr>
+<tr><td><code>from</code>, <code>to</code></td><td>Dépenses datées dans cette période (incluse)</td></tr>
+<tr><td><code>category</code></td><td>Une des 9 catégories ci-dessous. Une autre valeur répond <code>400 validation_error</code> avec <code>field: "category"</code></td></tr>
+<tr><td><code>updated_since</code>, <code>limit</code>, <code>cursor</code></td><td>Voir <a href="#pagination">Pagination</a></td></tr>
+</tbody></table></div>
+<p>Catégories, liste fermée (la même en lecture et en écriture) :</p>
+<div class="tw"><table>
+<thead><tr><th><code>category</code></th><th>Dépense</th></tr></thead>
+<tbody>
+<tr><td><code>cleaning</code></td><td>Ménage</td></tr>
+<tr><td><code>platform_fee</code></td><td>Commission d'une plateforme</td></tr>
+<tr><td><code>myhostkit_fee</code></td><td>Frais MyHostKit</td></tr>
+<tr><td><code>tourist_tax</code></td><td>Taxe de séjour</td></tr>
+<tr><td><code>maintenance</code></td><td>Entretien, réparation</td></tr>
+<tr><td><code>supplies</code></td><td>Fournitures, consommables</td></tr>
+<tr><td><code>utilities</code></td><td>Eau, électricité, internet</td></tr>
+<tr><td><code>insurance</code></td><td>Assurance</td></tr>
+<tr><td><code>other</code></td><td>Autre</td></tr>
+</tbody></table></div>
+<p>Champs : <code>property_id</code>, <code>booking_id</code>, <code>cleaning_id</code>, <code>category</code>, <code>amount</code>, <code>currency</code>, <code>description</code>, <code>date</code>, <code>auto_generated</code>.</p>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": [
+    {
+      "id": "e4e4e4e4-1111-4aaa-8bbb-cccccccccccc",
+      "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+      "booking_id": null,
+      "cleaning_id": null,
+      "category": "maintenance",
+      "amount": 85,
+      "currency": "EUR",
+      "description": "Remplacement du mitigeur",
+      "date": "2026-09-18",
+      "auto_generated": false,
+      "created_at": "2026-09-18T12:00:00.000Z",
+      "updated_at": "2026-09-18T12:00:00.000Z"
+    }
+  ],
+  "next_cursor": null
+}</code></pre></div>
+
+<h3 id="r-cleanings">Missions de ménage</h3>
+<p class="ep"><span class="verb get">GET</span><code>/cleanings</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/cleanings/{id}</code></p>
+<div class="tw"><table>
+<thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>Un logement</td></tr>
+<tr><td><code>from</code>, <code>to</code></td><td>Missions datées dans cette période (incluse)</td></tr>
+<tr><td><code>status</code></td><td>Un statut ou une liste : <code>pending</code>, <code>confirmed</code>, <code>report_sent</code>, <code>validated</code>, <code>cancelled</code>...</td></tr>
+<tr><td><code>updated_since</code>, <code>limit</code>, <code>cursor</code></td><td>Voir <a href="#pagination">Pagination</a></td></tr>
+</tbody></table></div>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>Logement</td></tr>
+<tr><td><code>date</code>, <code>time</code></td><td>Jour et heure de la mission</td></tr>
+<tr><td><code>status</code></td><td>Statut de la mission</td></tr>
+<tr><td><code>cleaner</code></td><td><code>{ name }</code> : le nom de l'agent seulement, ou <code>null</code> si personne n'est encore affecté</td></tr>
+<tr><td><code>amount</code>, <code>currency</code></td><td>Montant de la mission : montant payé, sinon tarif de l'agent</td></tr>
+<tr><td><code>notes</code></td><td>Consignes de l'hôte à l'agent</td></tr>
+<tr><td><code>report_sent</code>, <code>report_sent_at</code>, <code>report_notes</code></td><td>Rapport de fin de ménage</td></tr>
+<tr><td><code>photos</code></td><td>Adresses des photos du rapport</td></tr>
+<tr><td><code>ai_score</code></td><td>Note de contrôle des photos par l'IA, sur 10</td></tr>
+</tbody></table></div>
+<div class="code"><div class="code-h"><span>réponse 200 · GET /cleanings/{id}</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "id": "c1c1c1c1-2222-4333-8444-555566667777",
+    "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+    "date": "2026-10-14",
+    "time": "11:00",
+    "status": "validated",
+    "cleaner": { "name": "Awa Diallo" },
+    "amount": 45,
+    "currency": "EUR",
+    "notes": "Linge de lit dans le placard du couloir",
+    "report_sent": true,
+    "report_sent_at": "2026-10-14T13:02:11.000Z",
+    "report_notes": "RAS",
+    "photos": ["https://www.myhostkit.com/fichiers/cleaning-reports/c1c1c1c1-2222-4333-8444-555566667777/salon.jpg"],
+    "ai_score": 8.8,
+    "created_at": "2026-10-10T08:00:00.000Z",
+    "updated_at": "2026-10-14T15:30:00.000Z"
+  }
+}</code></pre></div>
+
+<h3 id="r-incidents">Incidents</h3>
+<p class="ep"><span class="verb get">GET</span><code>/incidents</code></p>
+<p class="ep"><span class="verb get">GET</span><code>/incidents/{id}</code></p>
+<p>Les incidents signalés. Paramètres : <code>property_id</code>, <code>status</code> (<code>new</code>, <code>seen</code>, <code>resolved</code>), <code>updated_since</code>, <code>limit</code>, <code>cursor</code>.</p>
+<p>Champs : <code>property_id</code>, <code>guest_name</code>, <code>description</code>, <code>status</code>, <code>resolved</code>, <code>resolved_at</code>.</p>
+<div class="code"><div class="code-h"><span>réponse 200 · GET /incidents/{id}</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "id": "0d0d0d0d-5555-4666-8777-888899990000",
+    "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+    "guest_name": "Marie Dupont",
+    "description": "La climatisation de la chambre 2 ne démarre plus.",
+    "status": "resolved",
+    "resolved": true,
+    "resolved_at": "2026-10-12T10:05:00.000Z",
+    "created_at": "2026-10-11T19:42:00.000Z",
+    "updated_at": "2026-10-12T10:05:00.000Z"
+  }
+}</code></pre></div>
+</section>
+
+<!-- ═══ ROUTES EN ÉCRITURE ═══ -->
+<section id="ecriture" aria-labelledby="h-ecriture">
+<h2 id="h-ecriture">Routes en écriture</h2>
+<p>Toutes ces routes demandent le droit <code>write</code>. Le corps est un objet JSON, envoyé avec <code>Content-Type: application/json</code>. Un champ inconnu répond <code>400 field_not_editable</code>. La réponse renvoie l'objet complet, dans la même forme qu'en lecture ; une création répond <code>201</code>.</p>
+
+<h3 id="w-expenses">Dépenses</h3>
+<p class="ep"><span class="verb post">POST</span><code>/expenses</code></p>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Requis</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>oui</td><td>Un logement de votre compte</td></tr>
+<tr><td><code>category</code></td><td>oui</td><td>Une des 9 catégories : <code>cleaning</code>, <code>platform_fee</code>, <code>myhostkit_fee</code>, <code>tourist_tax</code>, <code>maintenance</code>, <code>supplies</code>, <code>utilities</code>, <code>insurance</code>, <code>other</code> (<a href="#r-expenses">détail</a>). Une autre valeur répond <code>400 validation_error</code> avec <code>field: "category"</code> et la liste permise</td></tr>
+<tr><td><code>amount</code></td><td>oui</td><td>Nombre supérieur à 0, arrondi au centime</td></tr>
+<tr><td><code>date</code></td><td>non</td><td><code>AAAA-MM-JJ</code>. Par défaut : aujourd'hui, heure de Paris</td></tr>
+<tr><td><code>description</code></td><td>non</td><td>500 caractères au plus</td></tr>
+<tr><td><code>booking_id</code></td><td>non</td><td>Une réservation de votre compte, sur le même logement</td></tr>
+</tbody></table></div>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl -X POST https://www.myhostkit.com/api/v1/expenses \
+  -H "Authorization: Bearer $MHK_KEY" -H "Content-Type: application/json" \
+  -d '{"property_id":"5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b","category":"maintenance","amount":85,"date":"2026-09-18","description":"Remplacement du mitigeur"}'</code></pre></div>
+<p class="ep"><span class="verb patch">PATCH</span><code>/expenses/{id}</code></p>
+<p>Les mêmes champs, tous facultatifs. <code>booking_id: null</code> détache la réservation.</p>
+<p class="ep"><span class="verb delete">DELETE</span><code>/expenses/{id}</code></p>
+<div class="code"><div class="code-h"><span>réponse 200</span><button type="button" class="copy">Copier</button></div><pre><code>{ "data": { "id": "e4e4e4e4-1111-4aaa-8bbb-cccccccccccc", "deleted": true } }</code></pre></div>
+
+<h3 id="w-rates">Règles tarifaires</h3>
+<p class="ep"><span class="verb post">POST</span><code>/rates</code></p>
+<p>Les contrôles sont les mêmes que dans l'écran Tarifs saisonniers de l'app.</p>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Requis</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>oui</td><td>Un logement de votre compte</td></tr>
+<tr><td><code>name</code></td><td>oui</td><td>100 caractères au plus</td></tr>
+<tr><td><code>date_from</code>, <code>date_to</code></td><td>oui</td><td><code>AAAA-MM-JJ</code>. <code>date_to</code> égale ou postérieure à <code>date_from</code>, 3 ans au plus</td></tr>
+<tr><td><code>price</code></td><td>oui</td><td>Supérieur à 0</td></tr>
+<tr><td><code>weekend_price</code></td><td>non</td><td>Prix des vendredis et samedis : supérieur à 0, ou <code>null</code></td></tr>
+<tr><td><code>min_stay</code></td><td>non</td><td>1 à 60 nuits, ou <code>null</code></td></tr>
+</tbody></table></div>
+<p class="ep"><span class="verb patch">PATCH</span><code>/rates/{id}</code></p>
+<p>Les mêmes champs sauf <code>property_id</code> (une règle ne change pas de logement), tous facultatifs.</p>
+<p class="ep"><span class="verb delete">DELETE</span><code>/rates/{id}</code></p>
+<p>Répond <code>{ "data": { "id": "...", "deleted": true }, "pushed": ..., "push_reason": ... }</code>. Après une suppression, les nuits reviennent au prix d'une autre règle ou au prix de base.</p>
+<h4>Envoi aux plateformes</h4>
+<p>Si le logement est relié au channel manager et que son calendrier a été initialisé, les nuits concernées (ancienne et nouvelle période d'une règle modifiée, à partir d'aujourd'hui et sur 500 jours) partent aussitôt vers Airbnb, Booking.com et les autres plateformes reliées, avec le prix résolu nuit par nuit comme dans <a href="#r-availability">les disponibilités</a>.</p>
+<ul>
+<li><b>Séjour minimum.</b> Il n'est envoyé que pour les nuits où une règle en fixe un (<code>min_stay</code> de la règle la plus récente qui couvre la nuit). Sur les autres nuits, rien n'est envoyé : le séjour minimum déjà posé sur les plateformes, par exemple depuis l'écran Tarifs et dispo de l'app, est conservé. Une exception : sur les nuits où une règle fixait un séjour minimum avant l'écriture et où aucune n'en fixe plus (règle supprimée ou modifiée, ou règle plus récente sans séjour minimum qui la remplace), l'envoi remet 1 nuit, comme dans les disponibilités, pour ne pas laisser l'ancien minimum en place.</li>
+<li><b>Modification sans effet sur les prix.</b> Un <code>PATCH</code> qui ne porte ni <code>price</code>, ni <code>weekend_price</code>, ni <code>min_stay</code>, ni <code>date_from</code>, ni <code>date_to</code> (le nom seul) n'envoie rien : <code>pushed: false</code>, <code>push_reason: "rien_a_pousser"</code>. Renvoyer le même prix relance l'envoi, ce qui sert après un <code>canal_occupe</code> ou un <code>canal_erreur</code>.</li>
+</ul>
+<p>La réponse l'indique à côté de <code>data</code> :</p>
+<div class="tw"><table>
+<thead><tr><th>pushed</th><th>push_reason</th><th>Signification</th></tr></thead>
+<tbody>
+<tr><td><code>true</code></td><td><code>null</code></td><td>Envoyé aux plateformes</td></tr>
+<tr><td><code>false</code></td><td><code>logement_non_relie</code></td><td>Logement non relié au channel manager : rien à envoyer</td></tr>
+<tr><td><code>false</code></td><td><code>calendrier_non_initialise</code></td><td>Calendrier pas encore initialisé : la règle partira à l'initialisation</td></tr>
+<tr><td><code>false</code></td><td><code>rien_a_pousser</code></td><td>Période entièrement passée, nuits sans prix connu, ou modification du nom seul</td></tr>
+<tr><td><code>false</code></td><td><code>canal_occupe</code></td><td>Le channel manager limite les envois : refaites la modification plus tard</td></tr>
+<tr><td><code>false</code></td><td><code>canal_erreur</code></td><td>L'envoi a échoué : la règle est enregistrée, refaites la modification plus tard</td></tr>
+</tbody></table></div>
+<p>Dans tous les cas, la règle est enregistrée.</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl -X POST https://www.myhostkit.com/api/v1/rates \
+  -H "Authorization: Bearer $MHK_KEY" -H "Content-Type: application/json" \
+  -d '{"property_id":"5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b","name":"Haute saison","date_from":"2026-12-15","date_to":"2027-01-05","price":420,"weekend_price":480,"min_stay":5}'</code></pre></div>
+<div class="code"><div class="code-h"><span>réponse 201</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "data": {
+    "id": "c0ffee00-1234-4abc-9def-001122334455",
+    "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+    "name": "Haute saison",
+    "date_from": "2026-12-15",
+    "date_to": "2027-01-05",
+    "price": 420,
+    "weekend_price": 480,
+    "min_stay": 5,
+    "currency": "EUR",
+    "created_at": "2026-10-02T09:00:00.000Z",
+    "updated_at": "2026-10-02T09:00:00.000Z"
+  },
+  "pushed": true,
+  "push_reason": null
+}</code></pre></div>
+
+<h3 id="w-incidents">Incidents</h3>
+<p class="ep"><span class="verb post">POST</span><code>/incidents</code></p>
+<div class="tw"><table>
+<thead><tr><th>Champ</th><th>Requis</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>property_id</code></td><td>oui</td><td>Un logement de votre compte</td></tr>
+<tr><td><code>description</code></td><td>oui</td><td>5 000 caractères au plus</td></tr>
+<tr><td><code>guest_name</code></td><td>non</td><td>200 caractères au plus</td></tr>
+<tr><td><code>status</code></td><td>non</td><td><code>new</code> (par défaut), <code>seen</code> ou <code>resolved</code></td></tr>
+</tbody></table></div>
+<p class="ep"><span class="verb patch">PATCH</span><code>/incidents/{id}</code></p>
+<p>Champs : <code>status</code> (<code>new</code>, <code>seen</code>, <code>resolved</code>), ou <code>resolved: true</code> pour résoudre (<code>resolved: false</code> le rouvre en <code>new</code>), <code>description</code>, <code>guest_name</code>. <code>resolved_at</code> est posé automatiquement.</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl -X PATCH https://www.myhostkit.com/api/v1/incidents/0d0d0d0d-5555-4666-8777-888899990000 \
+  -H "Authorization: Bearer $MHK_KEY" -H "Content-Type: application/json" \
+  -d '{"resolved": true}'</code></pre></div>
+
+<h3 id="w-cleanings">Missions de ménage</h3>
+<p class="ep"><span class="verb patch">PATCH</span><code>/cleanings/{id}</code></p>
+<p>Seul <code>notes</code> est modifiable : les consignes à l'agent, 2 000 caractères au plus, ou <code>null</code>.</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>curl -X PATCH https://www.myhostkit.com/api/v1/cleanings/c1c1c1c1-2222-4333-8444-555566667777 \
+  -H "Authorization: Bearer $MHK_KEY" -H "Content-Type: application/json" \
+  -d '{"notes": "Linge de lit dans le placard du couloir"}'</code></pre></div>
+</section>
+
+<!-- ═══ WEBHOOKS ═══ -->
+<section id="webhooks" aria-labelledby="h-webhooks">
+<h2 id="h-webhooks">Webhooks</h2>
+<p>Les webhooks préviennent votre serveur quand un objet change, en général dans la minute qui suit, sans qu'il ait à interroger l'API.</p>
+<p>Ils ne fonctionnent que tant que le compte a droit à l'API : accès à MyHostKit actif, compte MyHostKit direct. Pendant que l'accès est inactif (ou après un passage sous une marque partenaire), aucun événement n'est enregistré, et les livraisons encore en attente passent en échec avec le motif <code>acces_inactif</code> ou <code>api_non_incluse</code>. Ces événements ne sont pas rejoués quand l'accès revient : refaites alors une <a href="#synchronisation">synchronisation complète</a>. Même sans accès, le titulaire du compte peut toujours, dans l'app, voir ses clés et ses points de terminaison, révoquer une clé, désactiver ou supprimer un point de terminaison.</p>
+
+<h3 id="wh-mise-en-place">Mise en place</h3>
+<p>Dans l'app, au même endroit que les clés (<b>Réglages</b>, puis <b>API et webhooks</b>), ajoutez un point de terminaison : une adresse <code>https://</code> de votre serveur et les événements voulus. Le <b>secret de signature</b> (<code>whsec_...</code>) s'affiche <b>une seule fois</b> : gardez-le côté serveur. Le bouton « Tester » envoie un événement <code>ping</code> et montre la réponse de votre serveur.</p>
+<p>Adresses acceptées : <code>https://</code> uniquement, ports 443 ou 8443, nom de domaine public. Sont refusés : <code>localhost</code>, les noms sans domaine ou en <code>.local</code> et <code>.internal</code>, les adresses IP privées, locales ou réservées, et les noms de domaine qui pointent vers elles. Le contrôle est refait à chaque envoi. Les redirections ne sont pas suivies.</p>
+
+<h3 id="wh-evenements">Événements</h3>
+<div class="tw"><table>
+<thead><tr><th>Événement</th><th>Quand</th></tr></thead>
+<tbody>
+<tr><td><code>booking.created</code></td><td>Nouvelle réservation ou période bloquée</td></tr>
+<tr><td><code>booking.updated</code></td><td>Réservation modifiée</td></tr>
+<tr><td><code>booking.cancelled</code></td><td>Réservation passée au statut annulé, ou supprimée (<code>deleted: true</code>)</td></tr>
+<tr><td><code>cleaning.created</code></td><td>Nouvelle mission de ménage</td></tr>
+<tr><td><code>cleaning.updated</code></td><td>Mission modifiée (affectation, statut, rapport...), ou supprimée (<code>deleted: true</code>)</td></tr>
+<tr><td><code>incident.created</code></td><td>Nouvel incident</td></tr>
+<tr><td><code>incident.updated</code></td><td>Incident modifié ou résolu, ou supprimé (<code>deleted: true</code>)</td></tr>
+<tr><td><code>expense.created</code>, <code>expense.updated</code>, <code>expense.deleted</code></td><td>Dépense créée, modifiée, supprimée</td></tr>
+<tr><td><code>rate.created</code>, <code>rate.updated</code>, <code>rate.deleted</code></td><td>Règle tarifaire créée, modifiée, supprimée</td></tr>
+<tr><td><code>ping</code></td><td>Test depuis l'app</td></tr>
+</tbody></table></div>
+<p>Les événements sont émis quelle que soit l'origine du changement : l'app, l'API, une plateforme reliée, un agent de ménage. Une écriture qui ne change rien de visible n'en émet pas.</p>
+
+<h3 id="wh-requete">Requête envoyée</h3>
+<p>Un <code>POST</code> vers votre adresse, avec ce corps JSON :</p>
+<div class="code"><div class="code-h"><span>json</span><button type="button" class="copy">Copier</button></div><pre><code>{
+  "id": "4c1f0a2b-9d8e-4f7a-b6c5-d4e3f2a1b0c9",
+  "type": "booking.created",
+  "created_at": "2026-10-02T08:15:00.000Z",
+  "deleted": false,
+  "data": {
+    "id": "a1b2c3d4-1111-4222-8333-444455556666",
+    "property_id": "5f0e8c1a-2b3d-4e5f-8a9b-0c1d2e3f4a5b",
+    "status": "confirmed",
+    "platform": "airbnb",
+    "source": "channel_manager",
+    "check_in": "2026-10-10",
+    "check_out": "2026-10-14",
+    "nights": 4,
+    "amount": 812.4,
+    "currency": "EUR",
+    "guests_count": 3,
+    "payment_status": null,
+    "paid_at": null,
+    "deposit": null,
+    "guest": { "name": "Marie Dupont", "email": "marie.dupont@example.com", "guests_count": 3 },
+    "created_at": "2026-10-02T08:15:00.000Z",
+    "updated_at": "2026-10-02T08:15:00.000Z"
+  }
+}</code></pre></div>
+<ul>
+<li><code>id</code> : identifiant de l'événement, le même à chaque nouvel essai.</li>
+<li><code>data</code> : l'objet, <b>exactement dans la forme renvoyée par l'API</b> (<code>/bookings</code>, <code>/cleanings</code>, <code>/incidents</code>, <code>/expenses</code>, <code>/rates</code>), tel qu'il était au moment du changement. Pour un <code>ping</code>, <code>data</code> contient un court message de test.</li>
+<li><code>deleted: true</code> : l'objet a été supprimé ; <code>data</code> est son dernier état.</li>
+</ul>
+<div class="tw"><table>
+<thead><tr><th>En-tête</th><th>Contenu</th></tr></thead>
+<tbody>
+<tr><td><code>Content-Type</code></td><td><code>application/json; charset=utf-8</code></td></tr>
+<tr><td><code>User-Agent</code></td><td><code>MyHostKit-Webhooks/1.0</code></td></tr>
+<tr><td><code>X-MyHostKit-Event</code></td><td>Type d'événement (<code>booking.created</code>...)</td></tr>
+<tr><td><code>X-MyHostKit-Delivery</code></td><td>Identifiant de cette livraison</td></tr>
+<tr><td><code>X-MyHostKit-Signature</code></td><td><code>t=&lt;horodatage unix&gt;,v1=&lt;signature&gt;</code></td></tr>
+</tbody></table></div>
+
+<h3 id="wh-essais">Réponse attendue et nouveaux essais</h3>
+<ul>
+<li>Répondez un statut <b>2xx</b> dans les <b>10 secondes</b>. Faites le traitement long après avoir répondu, dans une file d'attente.</li>
+<li>Tout autre résultat (statut 3xx, 4xx ou 5xx, délai dépassé, erreur réseau) est un échec. Nouvel essai après <b>1 min, 5 min, 30 min, 2 h, puis 12 h</b>. Après ce sixième essai, la livraison est en <b>échec définitif</b>.</li>
+<li>Après <b>20 échecs définitifs consécutifs</b>, le point de terminaison est <b>désactivé</b> et le motif est visible dans l'app. Un succès remet le compteur à zéro. Réactivez-le dans l'app une fois votre serveur réparé.</li>
+<li><b>Un point de terminaison désactivé ne reçoit plus rien, et rien n'est gardé pour lui.</b> Tant qu'il est désactivé (après 20 échecs, ou à la main dans l'app), aucun événement n'est enregistré pour lui, et ses livraisons encore en attente passent en échec. La réactivation ne rejoue rien, et une livraison en échec définitif n'est pas renvoyée non plus. Après une réactivation ou un échec définitif, refaites une <b>synchronisation complète</b> : relisez toutes les pages de chaque liste, sans <code>updated_since</code>, puis effacez de votre côté ce qui n'y figure plus. C'est la seule façon de retrouver les suppressions manquées (<code>expense.deleted</code>, <code>rate.deleted</code>, <code>deleted: true</code>).</li>
+<li>Les envois partent par lots, chaque minute : 100 livraisons au plus par passage, en tour de rôle entre les comptes. Un gros volume (par exemple l'import de centaines de réservations) peut retarder les livraisons de plusieurs minutes.</li>
+<li>Le même événement peut arriver plus d'une fois, et l'ordre d'arrivée n'est pas garanti. Dédoublonnez par <code>id</code> d'événement, et comparez <code>data.updated_at</code> avec ce que vous avez déjà.</li>
+<li>Les événements et l'historique des livraisons sont gardés 30 jours. Les 50 dernières livraisons de chaque point de terminaison (statut, code HTTP reçu, erreur) sont consultables dans l'app. L'erreur est un code : <code>http_NNN</code> (statut reçu, par exemple <code>http_500</code>), <code>delai_depasse</code> (pas de réponse en 10 s), <code>echec_connexion</code> (toute erreur réseau ou TLS), <code>adresse_refusee</code> (l'adresse ne passe plus le contrôle ci-dessus), ou <code>acces_inactif</code> / <code>api_non_incluse</code> / <code>owner_only</code> (le compte n'a plus droit à l'API : la livraison n'est pas partie), ou « point de terminaison désactivé » (la livraison n'est pas partie).</li>
+</ul>
+
+<h3 id="wh-signature">Vérifier la signature</h3>
+<p><code>v1</code> est le HMAC-SHA256, en hexadécimal, du texte <code>&lt;t&gt;.&lt;corps brut&gt;</code> calculé avec votre secret. Calculez-le sur le <b>corps brut</b>, avant tout décodage JSON, et refusez une requête de plus de 5 minutes.</p>
+<h4>Node.js (Express)</h4>
+<div class="code"><div class="code-h"><span>javascript · Node.js</span><button type="button" class="copy">Copier</button></div><pre><code>import crypto from "node:crypto";
+import express from "express";
+
+// rawBody : corps brut (chaîne) ; header : en-tête X-MyHostKit-Signature ; secret : whsec_...
+export function verifierWebhook(rawBody, header, secret, nowSec = Math.floor(Date.now() / 1000)) {
+  const parts = Object.fromEntries(header.split(",").map((p) =&gt; p.split("=", 2)));
+  const t = Number(parts.t);
+  if (!Number.isFinite(t) || Math.abs(nowSec - t) &gt; 300) return false; // plus de 5 minutes : refusé
+  const attendu = crypto.createHmac("sha256", secret).update(`${t}.${rawBody}`).digest("hex");
+  const a = Buffer.from(attendu, "hex");
+  const b = Buffer.from(String(parts.v1 || ""), "hex");
+  return a.length === b.length &amp;&amp; crypto.timingSafeEqual(a, b);
+}
+
+const app = express();
+
+// Lire le corps brut, avant tout décodage JSON.
+app.post("/webhooks/myhostkit", express.raw({ type: "application/json" }), (req, res) =&gt; {
+  const rawBody = req.body.toString("utf8");
+  if (!verifierWebhook(rawBody, req.get("X-MyHostKit-Signature") || "", process.env.MHK_WEBHOOK_SECRET)) {
+    return res.status(401).end();
+  }
+  const evt = JSON.parse(rawBody);
+  res.status(200).end(); // répondre tout de suite...
+  // ...puis traiter evt dans votre file d'attente, en dédoublonnant par evt.id
+});
+
+app.listen(3000);</code></pre></div>
+<p>Sur Vercel ou avec Next.js (App Router), lisez le corps brut avec <code>await request.text()</code>, puis appelez la même fonction <code>verifierWebhook</code>.</p>
+<h4>Supabase Edge Functions, Deno, Cloudflare Workers</h4>
+<div class="code"><div class="code-h"><span>javascript · Web Crypto</span><button type="button" class="copy">Copier</button></div><pre><code>async function verifierWebhook(rawBody, header, secret) {
+  const parts = Object.fromEntries(header.split(",").map((p) =&gt; p.split("=", 2)));
+  const t = Number(parts.t);
+  if (!Number.isFinite(t) || Math.abs(Date.now() / 1000 - t) &gt; 300) return false;
+  const cle = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", cle, new TextEncoder().encode(`${t}.${rawBody}`));
+  const attendu = [...new Uint8Array(sig)].map((o) =&gt; o.toString(16).padStart(2, "0")).join("");
+  const recu = String(parts.v1 || "");
+  if (recu.length !== attendu.length) return false;
+  let diff = 0; // comparaison en temps constant
+  for (let i = 0; i &lt; attendu.length; i++) diff |= attendu.charCodeAt(i) ^ recu.charCodeAt(i);
+  return diff === 0;
+}
+
+Deno.serve(async (req) =&gt; {
+  const secret = Deno.env.get("MHK_WEBHOOK_SECRET");
+  if (!secret) return new Response("secret manquant", { status: 500 });
+  const rawBody = await req.text();
+  const ok = await verifierWebhook(rawBody, req.headers.get("X-MyHostKit-Signature") ?? "", secret);
+  if (!ok) return new Response("signature invalide", { status: 401 });
+  const evt = JSON.parse(rawBody);
+  // enregistrer evt.id (dédoublonnage), puis traiter evt.type et evt.data
+  return new Response("ok");
+});</code></pre></div>
+<p>Une Edge Function Supabase qui reçoit nos webhooks se déploie avec <code>--no-verify-jwt</code> : nos requêtes ne portent pas de jeton Supabase, la signature en tient lieu. Le secret se range avec <code>supabase secrets set MHK_WEBHOOK_SECRET=whsec_...</code>.</p>
+<div class="code"><div class="code-h"><span>bash</span><button type="button" class="copy">Copier</button></div><pre><code>supabase secrets set MHK_WEBHOOK_SECRET=whsec_VOTRE_SECRET
+supabase functions deploy myhostkit-webhook --no-verify-jwt</code></pre></div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" aria-labelledby="h-contact">
+<h2 id="h-contact">Contact</h2>
+<p>Une question, un champ qui vous manque, besoin d'aide pour brancher votre CRM ? Écrivez à <a href="mailto:contact@myhostkit.com">contact@myhostkit.com</a>. C'est le développeur de MyHostKit qui répond. Joignez à votre message le <code>code</code> d'erreur et l'heure de l'appel, jamais votre clé.</p>
+<div class="cta"><p><b>Pas encore client ?</b><br>L'API est disponible avec un compte MyHostKit actif. Premier mois offert, sans engagement.</p><a class="btn btn-full" href="/activer.html">Activer mon compte</a></div>
+</section>
+
+</div><!-- /doc-body -->
+</div><!-- /doc-grid -->
+</div></article>
+</main>
+<footer>
+  <div class="wrap foot">
+    <div class="foot-info">
+      <span class="logo" style="font-size:15px">MyHost<em>Kit</em></span><br>
+      © 2026 MyHostKit · SIRET 100&nbsp;324&nbsp;060&nbsp;00019<br>60 rue François 1er, 75008 Paris · Conçu et développé en France
+    </div>
+    <div class="foot-links">
+      <a href="/logiciel-conciergerie">Logiciel de conciergerie</a>
+      <a href="/channel-manager">Channel manager</a>
+      <a href="/logiciel-location-saisonniere-agence">Agences immobilières</a>
+      <a href="/guides">Guides</a>
+      <a href="/tarifs">Tarifs</a>
+      <a href="/telecharger">Logiciel Mac et Windows</a>
+      <a href="/marque-blanche">Marque blanche</a>
+      <a href="/developpeurs" aria-current="page">Développeurs</a>
+      <a href="https://www.myhostkit.com/cgv.html" target="_blank" rel="noopener">CGV</a>
+      <a href="https://www.myhostkit.com/privacy.html" target="_blank" rel="noopener">Confidentialité</a>
+      <a href="https://www.myhostkit.com/mentions-legales.html" target="_blank" rel="noopener">Mentions légales</a>
+    </div>
+  </div>
+</footer>
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var burger=document.getElementById('burger'),mnav=document.getElementById('mnav');
+  burger.addEventListener('click',function(){var o=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!o));mnav.classList.toggle('open',!o);document.body.style.overflow=o?'':'hidden';});
+
+  // Bouton « Copier » de chaque bloc de code
+  document.querySelectorAll('.code').forEach(function(bloc){
+    var b=bloc.querySelector('.copy'),pre=bloc.querySelector('pre');
+    if(!b||!pre)return;
+    b.addEventListener('click',function(){
+      var fini=function(ok){
+        // Presse-papiers refusé : on sélectionne le code pour une copie manuelle
+        if(!ok){try{var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}catch(e){}}
+        b.textContent=ok?'Copié':'Sélectionné';setTimeout(function(){b.textContent='Copier';},1600);
+      };
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(pre.textContent).then(function(){fini(true);},function(){fini(false);});}
+      else fini(false);
+    });
+  });
+
+  // Sommaire : met en évidence la section lue
+  if(!('IntersectionObserver' in window))return;
+  var liens={};
+  document.querySelectorAll('.toc a').forEach(function(a){liens[a.getAttribute('href').slice(1)]=a;});
+  var courant=null;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var a=liens[e.target.id];if(!a)return;
+      if(courant)courant.removeAttribute('aria-current');
+      a.setAttribute('aria-current','true');courant=a;
+    });
+  },{rootMargin:'-80px 0px -70% 0px'});
+  Object.keys(liens).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+})();
+</script>
+</body>
+</html>

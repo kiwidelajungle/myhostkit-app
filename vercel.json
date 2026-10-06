@@ -1,7 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/r/:token", "destination": "/r.html" }
+    { "source": "/r/:token", "destination": "/r.html" },
+    { "source": "/api/v1/:path*", "destination": "https://illovwqvszjuasftwkxh.supabase.co/functions/v1/api/v1/:path*" }
   ],
   "redirects": [
     { "source": "/guest", "destination": "https://app.myhostkit.com/", "permanent": false },
