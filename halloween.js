@@ -136,7 +136,7 @@
     var box = el(
       '<div class="hw-box" role="status">' +
       '<div class="hw-box-head"><span aria-hidden="true">🎃</span> Offre Halloween : <b>' + OFFER.label + '</b></div>' +
-      '<p>Après votre 1ᵉʳ mois offert, vos deux premiers mois facturés sont à moitié prix. ' +
+      '<p>Vos deux premiers mois d\'abonnement sont à moitié prix. ' +
       'Sur la page de paiement, cliquez sur <b>« Ajouter un code promotionnel »</b> et saisissez :</p>' +
       '<div class="hw-box-row"><button type="button" class="hw-code big" title="Copier le code">' + OFFER.code + '</button>' +
       '<span class="hw-left">Se termine dans <b class="hw-cd"></b></span></div>' +
