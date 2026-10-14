@@ -65,6 +65,7 @@ h1 em,h2 em{font-style:italic;font-weight:320;color:var(--gold)}
 .btn-full{background:var(--gold);color:#0B111E}
 .btn-full:hover{background:#D4B37B;border-color:#D4B37B;color:#0B111E}
 .lnk{color:var(--t2);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px;text-decoration-color:var(--gold40);transition:color .3s;font-size:14.5px}
+.tq-mail{background:none;border:0;padding:0;cursor:pointer;font-family:inherit;text-align:left}
 .lnk:hover{color:var(--gold)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
@@ -607,7 +608,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
   <div class="wrap tq-grid">
     <div>
       <div class="tq-prog" aria-hidden="true"><i id="prog"></i></div>
-      <p class="tq-step" id="stepLbl">Étape 1 sur 3</p>
+      <p class="tq-step" id="stepLbl">Votre nombre de logements</p>
 
       <!-- ÉTAPE 1 -->
       <div class="tq-panel on" id="p1">
@@ -630,8 +631,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
 
       <!-- ÉTAPE 2 -->
       <div class="tq-panel" id="p2">
-        <h2 class="h1">Où envoyer votre tarif&nbsp;?</h2>
-        <p class="lede">Le montant exact pour <b id="nRecap">vos logements</b> s'affiche ici et arrive dans votre boîte mail, avec le détail de la grille.</p>
+        <h2 class="h1">Où envoyer le détail&nbsp;?</h2>
+        <p class="lede">Le détail du tarif pour <b id="nRecap">vos logements</b> arrive dans votre boîte mail, avec la grille complète. C'est facultatif : votre tarif est déjà affiché.</p>
         <form class="tq-form" id="f2" novalidate>
           <div class="f-field">
             <label class="f-lbl" for="q-email">Votre adresse e-mail</label>
@@ -652,7 +653,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
           <button class="btn btn-full" type="submit">Suivant</button>
           <p class="tq-consent">En indiquant votre e-mail, vous acceptez de recevoir votre tarif et, au plus, un ou deux messages de suivi de la part de MyHostKit. Pas de séquence automatique, désinscription en un clic.</p>
         </form>
-        <button class="tq-back" type="button" data-back="1">← Changer le nombre de logements</button>
+        <button class="tq-back" type="button" data-back="4">← Revenir à mon tarif</button>
       </div>
 
       <!-- ÉTAPE 3 -->
@@ -687,7 +688,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
             <input class="f-in" id="q-company" name="company" type="text" placeholder="Nom de la conciergerie ou de l'agence" autocomplete="organization">
           </div>
           <div class="f-msg" id="fMsg3" role="status"></div>
-          <button class="btn btn-full" type="submit" id="btn3">Recevoir mon tarif</button>
+          <button class="btn btn-full" type="submit" id="btn3">Recevoir le détail</button>
         </form>
         <button class="tq-back" type="button" data-back="2">← Retour</button>
       </div>
@@ -705,11 +706,12 @@ footer{border-top:1px solid var(--line);padding:40px 0 46px}
             <tr><td>Du 11ᵉ au 30ᵉ</td><td>6,90 €</td></tr>
             <tr><td>Au-delà du 30ᵉ</td><td>4,90 €</td></tr>
           </table>
-          <p>Prix TTC : TVA non applicable (art. 293 B du CGI), le prix affiché est celui que vous payez. Le premier mois n'est pas facturé (carte bancaire requise à l'activation, rien n'est prélevé avant 30 jours). Sans engagement. Application gratuite pour vos agents d'entretien, portail propriétaire inclus, logiciel Mac et Windows.</p>
+          <p>Prix TTC : TVA non applicable (art. 293 B du CGI), le prix affiché est celui que vous payez. Essayez d'abord 14 jours sans carte bancaire ; si vous continuez, le premier mois d'abonnement n'est pas facturé. Sans engagement. Application gratuite pour vos agents d'entretien, portail propriétaire inclus, logiciel Mac et Windows.</p>
           <p id="rMail" style="margin-top:12px;color:var(--t1)"></p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;align-items:center">
-            <a class="btn btn-full" href="/activer.html">Activer, premier mois offert</a>
-            <a class="lnk" href="/#contact">Voir le logiciel avec mes logements&nbsp;→</a>
+            <a class="btn btn-full" href="https://app.myhostkit.com/">Essayer 14 jours sans carte</a>
+            <button class="lnk tq-mail" type="button" id="toMail">Recevoir ce détail par e-mail&nbsp;→</button>
+            <button class="lnk tq-mail" type="button" data-back="1" id="chgN">Changer le nombre de logements</button>
           </div>
         </div>
       </div>
@@ -759,21 +761,39 @@ document.documentElement.classList.add('js');
   var prog = document.getElementById('prog'), stepLbl = document.getElementById('stepLbl');
   function go(step){
     Object.keys(panels).forEach(function(k){ document.getElementById(panels[k]).classList.toggle('on', +k === step); });
-    prog.style.width = (step === 4 ? 100 : step * 33) + '%';
-    stepLbl.textContent = step === 4 ? 'Votre tarif' : 'Étape ' + step + ' sur 3';
+    prog.style.width = ({1:25, 2:60, 3:80, 4:100})[step] + '%';
+    stepLbl.textContent = ({1:'Votre nombre de logements', 2:'Recevoir le détail · 1 sur 2', 3:'Recevoir le détail · 2 sur 2', 4:'Votre tarif'})[step];
     window.scrollTo({top:0, behavior:'smooth'});
   }
   function choisir(v){
     n = Math.max(1, Math.min(1000, Math.round(v) || 0));
     if (!n) return;
     document.getElementById('nRecap').textContent = n + ' logement' + (n > 1 ? 's' : '');
+    afficher(n, prix(n));
+    document.getElementById('rMail').textContent = '';
+    go(4);
+  }
+  // Même grille que website-devis : 19,90 / 9,90 (2-10) / 6,90 (11-30) / 4,90 (31+).
+  function prix(n){
+    var c = 1990 + Math.min(Math.max(n - 1, 0), 9) * 990
+          + Math.min(Math.max(n - 10, 0), 20) * 690
+          + Math.max(n - 30, 0) * 490;
+    return c / 100;
+  }
+  function eur(v){ return v.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function afficher(nb, mensuel){
+    document.getElementById('rLead').textContent = 'Pour ' + nb + ' logement' + (nb > 1 ? 's' : '') + ', MyHostKit revient à';
+    document.getElementById('rAmt').textContent = eur(mensuel);
+    document.getElementById('rPer').textContent = 'soit ' + eur(Math.round(mensuel / nb * 100) / 100) + ' par logement et par mois, tout compris.';
+  }
+  document.getElementById('toMail').addEventListener('click', function(){
     go(2);
     setTimeout(function(){ document.getElementById('q-email').focus(); }, 350);
-  }
+  });
   document.querySelectorAll('.choix button').forEach(function(b){ b.addEventListener('click', function(){ choisir(+b.dataset.n); }); });
   document.getElementById('nExactBtn').addEventListener('click', function(){ choisir(+document.getElementById('nExact').value); });
   document.getElementById('nExact').addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); choisir(+e.target.value); } });
-  document.querySelectorAll('.tq-back').forEach(function(b){ b.addEventListener('click', function(){ go(+b.dataset.back); }); });
+  document.querySelectorAll('.tq-back, #chgN').forEach(function(b){ b.addEventListener('click', function(){ go(+b.dataset.back); }); });
   document.querySelectorAll('select.f-in').forEach(function(sel){ sel.addEventListener('change', function(){ sel.classList.toggle('empty', !sel.value); }); });
 
   function showMsg(el, kind, text){ el.className = 'f-msg ' + kind; el.textContent = text; }
@@ -806,14 +826,12 @@ document.documentElement.classList.add('js');
     }).then(function(r){ return r.json().then(function(d){ return {ok: r.ok, status: r.status, d: d}; }); })
     .then(function(x){
       if (!x.ok || !x.d || !x.d.ok) { throw new Error(x.status === 429 ? 'trop' : 'ko'); }
-      var eur = function(v){ return v.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; };
-      document.getElementById('rLead').textContent = 'Pour ' + x.d.logements + ' logement' + (x.d.logements > 1 ? 's' : '') + ', MyHostKit revient à';
-      document.getElementById('rAmt').textContent = eur(x.d.mensuel);
-      document.getElementById('rPer').textContent = 'soit ' + eur(x.d.par_logement) + ' par logement et par mois, tout compris.';
+      btn3.disabled = false; btn3.textContent = 'Recevoir le détail';
+      afficher(x.d.logements, x.d.mensuel);
       document.getElementById('rMail').textContent = 'Le détail vient de partir à ' + document.getElementById('q-email').value.trim() + '.';
       go(4);
     }).catch(function(err){
-      btn3.disabled = false; btn3.textContent = 'Recevoir mon tarif';
+      btn3.disabled = false; btn3.textContent = 'Recevoir le détail';
       showMsg(msg, 'ko', err.message === 'trop' ? 'Trop de demandes depuis votre connexion. Réessayez dans une heure ou écrivez à contact@myhostkit.com.' : 'L\'envoi a échoué. Réessayez, ou écrivez à contact@myhostkit.com.');
     });
   });
