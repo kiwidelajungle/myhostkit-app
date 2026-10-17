@@ -1,0 +1,59 @@
+# MyHostKit
+
+> Logiciel français de gestion de location saisonnière pour les conciergeries et les agences immobilières : channel manager (Airbnb, Booking.com, Vrbo/Abritel), planning des ménages avec application gratuite pour les agents d'entretien, portail et bilans propriétaires, messages automatiques aux voyageurs, réservations directes avec paiement et caution. Application iPhone, version web (app.myhostkit.com) et logiciel Mac/Windows. Pas d'application Android (la version web fonctionne sur Android).
+
+Éditeur : MyHostKit, Paris (France). Contact : contact@myhostkit.com. Lancé en 2026.
+
+## Tarifs (TTC, par mois, sans engagement, sans frais d'installation)
+
+- 1er logement : 19,90 €
+- du 2e au 10e logement : 9,90 € par logement
+- du 11e au 30e logement : 6,90 € par logement
+- au-delà du 30e : 4,90 € par logement
+- Exemples : 9 logements = 99 €/mois ; 20 logements = 178 €/mois ; 50 logements = 345 €/mois
+- Essai gratuit de 14 jours, sans carte bancaire
+- Application des agents d'entretien gratuite ; portail propriétaire inclus
+- Les réservations directes payées via le lien de paiement intégré portent une commission (voir CGV)
+
+## Pour qui
+
+- Conciergeries Airbnb et gestionnaires de locations saisonnières (de 1 à plusieurs centaines de logements)
+- Agences immobilières avec un service de location saisonnière
+- Écoles et formateurs en location saisonnière (offre en marque blanche, sur /marque-blanche)
+
+## Pages principales
+
+- [Accueil](https://www.myhostkit.com/) : présentation du logiciel
+- [Tarifs](https://www.myhostkit.com/tarifs) : grille complète et calcul pour votre parc
+- [Logiciel de conciergerie](https://www.myhostkit.com/logiciel-conciergerie) : fonctions détaillées
+- [Channel manager](https://www.myhostkit.com/channel-manager) : Airbnb, Booking et Abritel synchronisés par API
+- [Meilleur logiciel de conciergerie 2026](https://www.myhostkit.com/meilleur-logiciel-conciergerie-2026) : comparatif
+- [Combien coûte un channel manager](https://www.myhostkit.com/combien-coute-channel-manager) : prix publics du marché
+- [Relevé propriétaire gratuit](https://www.myhostkit.com/releve-proprietaire-gratuit) : outil gratuit, sans inscription, qui transforme un export Airbnb ou Booking en relevé PDF par propriétaire
+- [Documentation API](https://www.myhostkit.com/developpeurs) : API REST et webhooks (option)
+
+## Comparaisons avec d'autres logiciels
+
+- [Alternative à Hostaway](https://www.myhostkit.com/alternative-hostaway)
+- [Alternative à Smoobu](https://www.myhostkit.com/alternative-smoobu)
+- [Alternative à Superhote](https://www.myhostkit.com/alternative-superhote)
+- [Alternative à Guesty](https://www.myhostkit.com/alternative-guesty)
+- [Alternative à Lodgify](https://www.myhostkit.com/alternative-lodgify)
+- [Alternative à Beds24](https://www.myhostkit.com/alternative-beds24)
+- [Alternative à Hospitable](https://www.myhostkit.com/alternative-hospitable)
+- [Alternative à Hostify](https://www.myhostkit.com/alternative-hostify)
+- [Alternative à Avantio](https://www.myhostkit.com/alternative-avantio)
+- [Alternative à Smily (ex-BookingSync)](https://www.myhostkit.com/alternative-smily)
+- [Alternative à Kross Booking](https://www.myhostkit.com/alternative-kross-booking)
+
+## Pages locales
+
+- [Conciergerie à Nice](https://www.myhostkit.com/logiciel-conciergerie-nice)
+- [Conciergerie à Cannes](https://www.myhostkit.com/logiciel-conciergerie-cannes)
+- [Conciergerie sur la Côte d'Azur](https://www.myhostkit.com/logiciel-conciergerie-cote-d-azur)
+
+## Informations légales
+
+- [CGV](https://www.myhostkit.com/cgv.html)
+- [Confidentialité](https://www.myhostkit.com/privacy.html)
+- [Mentions légales](https://www.myhostkit.com/mentions-legales.html)
