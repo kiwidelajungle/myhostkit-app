@@ -1,0 +1,91 @@
+/* ═══════════════════════════════════════════════════════════════
+   MyHostKit — habillage de Noël (novembre-décembre 2026)
+   Feuille de surcouche : elle ne touche à aucun texte ni aucun prix,
+   elle garde le bleu nuit et l'or de la marque et ajoute le décor
+   (neige, guirlande lumineuse, sapin près du logo, pastille).
+   Pour revenir au thème normal : retirer les deux lignes
+   <link href="/noel.css"> et <script src="/noel.js"> dans chaque
+   page (voir README).
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  --xm-red:#E0484E;--xm-red40:rgba(224,72,78,.4);
+  --xm-green:#3FA46A;--xm-green40:rgba(63,164,106,.4);
+  --xm-snow:#F4F7FB;
+}
+
+/* lueurs d'hiver derrière le contenu */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 88% -12%, rgba(224,72,78,.10), transparent 60%),
+    radial-gradient(760px 520px at -4% 8%, rgba(63,164,106,.10), transparent 60%);
+}
+
+/* sapin à côté du logo */
+.logo{position:relative;white-space:nowrap}
+.logo::after{content:"🎄";font-size:.74em;margin-left:.35em;vertical-align:-.04em;display:inline-block;animation:xm-sway 4s ease-in-out infinite;transform-origin:50% 100%}
+footer .logo::after{animation:none}
+
+/* guirlande lumineuse sous la barre de navigation */
+.xm-garland{position:fixed;left:0;right:0;top:0;height:34px;z-index:60;pointer-events:none;overflow:hidden}
+.xm-garland svg{display:block;width:100%;height:34px}
+.xm-garland .wire{fill:none;stroke:rgba(242,237,225,.28);stroke-width:1.2}
+.xm-garland .bulb{animation:xm-twinkle var(--t,2.4s) ease-in-out var(--d,0s) infinite}
+.nav.shrunk ~ .xm-garland,.xm-garland.hide{opacity:0;transition:opacity .4s ease}
+@media (max-width:760px){.xm-garland{height:26px}.xm-garland svg{height:26px}}
+
+/* neige (canvas inséré par noel.js) */
+.xm-snow{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+/* pastille insérée au-dessus du titre */
+.xm-pill{
+  display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;
+  padding:9px 16px 9px 12px;border-radius:999px;
+  border:1px solid var(--gold40,rgba(212,175,92,.45));background:var(--gold08,rgba(212,175,92,.08));
+  color:var(--t1,#F2EDE1);font-family:var(--sans,'DM Sans',sans-serif);font-size:13px;letter-spacing:.02em;
+  box-shadow:0 0 0 1px var(--xm-red40),0 10px 30px -14px rgba(224,72,78,.55);
+}
+.xm-pill b{font-weight:500;color:var(--gold,#D4AF5C)}
+.xm-pill .xm-ico{font-size:17px;line-height:1;animation:xm-sway 4s ease-in-out infinite;transform-origin:50% 100%}
+@media (max-width:640px){.xm-pill{font-size:12px;padding:8px 14px 8px 10px;margin-bottom:18px}}
+
+/* ─── offre de Noël : code promo et compte à rebours ─── */
+.xm-pill.xm-offer{flex-wrap:nowrap;align-items:flex-start;max-width:100%;padding-right:14px}
+.xm-pill.xm-offer .xm-ico{margin-top:1px}
+.xm-pill .xm-txt{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.xm-sep{color:var(--t3,rgba(242,237,225,.45))}
+.xm-left b{color:var(--gold,#C7A468);font-weight:500;font-variant-numeric:tabular-nums}
+.xm-code{
+  font-family:var(--mono,'IBM Plex Mono',monospace);font-size:12.5px;letter-spacing:.12em;
+  color:#0B1220;background:var(--gold,#C7A468);border:0;border-radius:6px;padding:4px 9px;cursor:pointer;
+  transition:background .25s ease,transform .25s ease
+}
+.xm-code:hover{background:#D9B97F;transform:translateY(-1px)}
+.xm-code.ok{background:var(--xm-green)}
+.xm-code.big{font-size:17px;padding:10px 18px;border-radius:8px}
+@media (max-width:640px){.xm-pill.xm-offer{font-size:12px}.xm-pill .xm-txt{gap:4px 6px}}
+.xm-box{
+  margin:14px 0 18px;padding:18px 20px;border-radius:14px;
+  border:1px solid var(--gold40,rgba(199,164,104,.4));background:linear-gradient(135deg,rgba(224,72,78,.12),rgba(63,164,106,.12));
+  color:var(--t1,#F2EDE1);font-family:var(--sans,'DM Sans',sans-serif);font-size:14px;line-height:1.55;
+  box-shadow:0 18px 50px -24px rgba(224,72,78,.5)
+}
+.xm-box-head{font-size:15px;margin-bottom:6px}
+.xm-box-head b{color:var(--gold,#C7A468);font-weight:500}
+.xm-box p{margin:0 0 12px;color:var(--t2,rgba(242,237,225,.75))}
+.xm-box p b{color:var(--t1,#F2EDE1);font-weight:500}
+.xm-box-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-bottom:8px}
+.xm-box small{display:block;color:var(--t3,rgba(242,237,225,.45));font-size:12px}
+
+/* boutons : petit éclat de fête au survol */
+.btn:hover,.btn-full{box-shadow:0 0 0 1px var(--gold40,rgba(212,175,92,.45)),0 12px 36px -14px rgba(224,72,78,.55)}
+
+@keyframes xm-twinkle{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes xm-sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+
+/* mouvement réduit : pas de neige ni d'animation, le décor reste */
+@media (prefers-reduced-motion:reduce){
+  .xm-snow{display:none}
+  .xm-garland .bulb,.logo::after,.xm-pill .xm-ico{animation:none}
+}
